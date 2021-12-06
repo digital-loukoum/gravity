@@ -2,7 +2,7 @@ export class Cat {
 	name = "A cat"
 
 	meow() {
-		return [new Date(), "Meow!"]
+		return "Meow!"
 	}
 	attack(target: string) {
 		return "Shhhhhh!"

@@ -1,4 +1,5 @@
 import { bunker, debunker } from "@digitak/bunker"
+import { isBrowser } from "./utilities/isBrowser"
 import { proxy } from "./utilities/proxy"
 
 type Awaited<Type> = Type extends Promise<infer Subtype>
@@ -19,6 +20,11 @@ export const useApi = <Services extends Record<string, unknown>>(
 	return proxy(service => {
 		return proxy(operation => {
 			return async (...properties: unknown[]) => {
+				console.log("isBrowser?", isBrowser())
+
+				// on a non-browser environment, we return a promise that never resolves
+				if (!isBrowser()) return new Promise(() => {})
+
 				console.log("Fetching", { apiPath, service, operation, properties })
 				const headers = new Headers()
 				headers.append("Content-Type", "x-bunker")

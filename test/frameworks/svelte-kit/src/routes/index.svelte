@@ -2,10 +2,11 @@
 	import { onMount } from 'svelte';
 	import { api } from '../api';
 
-	onMount(() => {
-		console.log('api', api);
-		api.cat.meow().then((value) => console.log(value));
-	});
+	const loadMeow = api.cat.meow();
 </script>
 
-Hello world :)
+{#await loadMeow}
+	Loading...
+{:then meow}
+	{meow}
+{/await}
