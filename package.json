@@ -1,0 +1,15 @@
+{
+  "name": "gravity",
+  "version": "1.0.0",
+  "description": "Next-generation backend framework with isomorphic capacities",
+  "main": "./library/index.js",
+  "repository": "https://github.com/digital-loukoum/gravity.git",
+  "author": "Gin Quin",
+  "license": "GNU v3",
+  "type": "module",
+  "dependencies": {
+    "@digitak/bunker": "^3.0.10",
+    "@types/node": "^16.11.11"
+  },
+  "devDependencies": {}
+}
