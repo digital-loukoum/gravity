@@ -1,9 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { api } from '../api';
 
-	const loadMeow = api.cat.meow();
+	let enemy = '';
+	$: loadMeow = api.cat.meow(enemy);
 </script>
+
+<p>Enemy: <input bind:value={enemy} /></p>
 
 {#await loadMeow}
 	Loading...

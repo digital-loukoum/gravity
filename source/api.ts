@@ -21,11 +21,8 @@ export const useApi = <Services extends Record<string, unknown>>(
 		return proxy(operation => {
 			return async (...properties: unknown[]) => {
 				console.log("isBrowser?", isBrowser())
+				if (!isBrowser()) return undefined
 
-				// on a non-browser environment, we return a promise that never resolves
-				if (!isBrowser()) return new Promise(() => {})
-
-				console.log("Fetching", { apiPath, service, operation, properties })
 				const headers = new Headers()
 				headers.append("Content-Type", "x-bunker")
 				const response = await fetch(apiPath, {
