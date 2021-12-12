@@ -9,5 +9,5 @@
 		"declaration": true,
 		"esModuleInterop": true
 	},
-	"include": ["source/**/*.ts", "test/**/*.ts"]
+	"include": ["source/**/*.ts"]
 }

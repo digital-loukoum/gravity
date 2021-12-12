@@ -2,8 +2,10 @@
 	"private": true,
 	"workspaces": [
 		"core",
-		"test-svelte",
 		"test-react",
+		"test-svelte",
+		"test-nuxt",
+		"test-h3",
 		"test-mikro-orm",
 		"test-prisma"
 	]

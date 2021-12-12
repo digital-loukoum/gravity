@@ -1,5 +1,7 @@
 import { Service } from "./Service"
 
+export { Service }
+
 // To check if this store is really useful
 export let servicesStore: Record<string, Service> = {}
 

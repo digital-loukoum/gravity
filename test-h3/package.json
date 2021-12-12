@@ -1,0 +1,13 @@
+{
+	"name": "test-h3",
+	"version": "0.0.0",
+	"scripts": {
+		"serve": "esrun serve"
+	},
+	"dependencies": {
+		"@digitak/gravity": "1.0.0",
+		"h3": "^0.3.8",
+		"@digitak/esrun": "^3"
+	},
+	"devDependencies": {}
+}

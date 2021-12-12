@@ -1,6 +1,6 @@
-import { useServices } from "@digitak/gravity/services"
-import { Cat } from "./Cat"
+import { useServices } from "@digitak/gravity"
 import { Dog } from "./Dog"
+import { Cat } from "./Cat"
 
 export const services = useServices({
 	cat: new Cat(),

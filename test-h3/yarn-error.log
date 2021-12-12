@@ -1,0 +1,46 @@
+Arguments: 
+  /usr/local/bin/node /Users/Lepzulnag/node/bin/yarn add h3
+
+PATH: 
+  /opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/opt/local/bin:/opt/local/sbin:/Users/Lepzulnag/.cargo/bin:/usr/local/opt/llvm/bin:/Users/Lepzulnag/bin:/Users/Lepzulnag/binaries:/Users/Lepzulnag/.nimble/bin:/Users/Lepzulnag/node/bin:/Users/Lepzulnag/Code/Djinns:/Users/Lepzulnag/Code/daemons:/Users/Lepzulnag/Code/fa/bin:/Users/Lepzulnag/.npm-global/bin:/Users/Lepzulnag/.dotnet/tools:/usr/local/opt/llvm/bin:/Users/Lepzulnag/bin:/usr/local/bin:/Users/Lepzulnag/binaries:/Users/Lepzulnag/.nimble/bin:/Users/Lepzulnag/node/bin:/Users/Lepzulnag/Code/Djinns:/Users/Lepzulnag/Code/daemons:/Users/Lepzulnag/Code/fa/bin:/Users/Lepzulnag/.cargo/bin:/Users/Lepzulnag/.npm-global/bin:/opt/local/bin:/opt/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Users/Lepzulnag/.dotnet/tools:/Library/Apple/usr/bin
+
+Yarn version: 
+  1.22.10
+
+Node version: 
+  17.1.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@digitak%2fgravity: Not found
+      at Request.params.callback [as _callback] (/Users/Lepzulnag/node/lib/node_modules/yarn/lib/cli.js:66988:18)
+      at Request.self.callback (/Users/Lepzulnag/node/lib/node_modules/yarn/lib/cli.js:140662:22)
+      at Request.emit (node:events:390:28)
+      at Request.<anonymous> (/Users/Lepzulnag/node/lib/node_modules/yarn/lib/cli.js:141634:10)
+      at Request.emit (node:events:390:28)
+      at IncomingMessage.<anonymous> (/Users/Lepzulnag/node/lib/node_modules/yarn/lib/cli.js:141556:12)
+      at Object.onceWrapper (node:events:509:28)
+      at IncomingMessage.emit (node:events:402:35)
+      at endReadableNT (node:internal/streams/readable:1340:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
+
+npm manifest: 
+  {
+  	"name": "test-h3",
+  	"version": "0.0.0",
+  	"scripts": {
+  	},
+  	"dependencies": {
+  		"@digitak/gravity": "1.0.0"
+  	},
+  	"devDependencies": {
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
