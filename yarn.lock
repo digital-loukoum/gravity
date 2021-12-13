@@ -259,12 +259,10 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
-"@digitak/bunker@^3.0.10":
-  version "3.0.10"
-  resolved "https://registry.yarnpkg.com/@digitak/bunker/-/bunker-3.0.10.tgz#892375b3348e2a4c945cd056ba95d63f8375e8c9"
-  integrity sha512-vTzN45lNyb8e3U9H3H3KdWlBlHdmPl7numcul7OhDmQQnDY9bf/eVmDCZoyybWm/51RPypiENUJvAogpfyy0vw==
-  dependencies:
-    "@digitak/tsc-esm" "^1.0.3"
+"@digitak/bunker@^3.1.0":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@digitak/bunker/-/bunker-3.1.1.tgz#ec992b27abdbf61c49cb923291e94f39a3e92f5b"
+  integrity sha512-SHVrEvajMwKccKrO9v5qCaHd9z7rmQZvnSFtjYLKrOUZ8ZAIt9+iY+8q8LevX+GFnZYL0hB3YvzQIKowMftZ4g==
 
 "@digitak/esrun@^3":
   version "3.0.2"
@@ -278,18 +276,15 @@
     chokidar "^3.5.1"
     esbuild "^0.12.4"
 
-"@digitak/grubber@^2.0.2", "@digitak/grubber@^2.0.4":
+"@digitak/grubber@^2.0.4":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@digitak/grubber/-/grubber-2.0.4.tgz#51b3f03003b681b10c5ea9a58a492bab4e768f5e"
   integrity sha512-4mq2EqQ5WsM34fy5y/Z+LUr5I0xO6bNhwReTCnrDzhsuRtXKiGM+V2ZY1XdAjv4X9p+46kyUksp6W4xr9X1d6Q==
 
-"@digitak/tsc-esm@^1.0.3":
-  version "1.22.16"
-  resolved "https://registry.yarnpkg.com/@digitak/tsc-esm/-/tsc-esm-1.22.16.tgz#88a16fa54c6f5de63c1087adb097a49a88157134"
-  integrity sha512-iP7LexgAEvjd18jC0H3RkbqVLnLIJ8cllv6NgZZi3mOt+LWAZIDg0/UACPciTMXrZVofC5jDl74bZPU3XS3ElA==
-  dependencies:
-    "@digitak/grubber" "^2.0.2"
-    fast-glob "^3.2.5"
+"@digitak/grubber@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@digitak/grubber/-/grubber-2.0.5.tgz#585f29055e916384f8944f22e64c17fca58d74e3"
+  integrity sha512-Y5II2Ml/3MeySjvcACS/xxaC9AJrGPLPu0UPTks8u5JfhWjS3PHKp0C3gJ5h7B0fKXr51XeUDNRg6A1mItvcIw==
 
 "@digitak/tsc-esm@^2.0.3":
   version "2.0.3"
@@ -297,6 +292,15 @@
   integrity sha512-5mXPO/ECkn6dHh+CXLD6WuelVGyIOszp1i2DTVMzlaNPItsmnCoqGYtr4CZDLgMMbQWrxKDugU0rOhbUPBCVzA==
   dependencies:
     "@digitak/grubber" "^2.0.4"
+    fast-glob "^3.2.5"
+    relaxed-json "^1.0.3"
+
+"@digitak/tsc-esm@^2.0.4":
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/@digitak/tsc-esm/-/tsc-esm-2.0.4.tgz#ced857d8a4464ab918e1d667b06c34ff8625444a"
+  integrity sha512-mieRAx3ez1cjp2uoMH405spuufi2+oxmbRJFVaLVzI/0d7u64it0uC7TatIc4P6/tOFWmJ9/vJ5JTEGC7ylWrQ==
+  dependencies:
+    "@digitak/grubber" "^2.0.5"
     fast-glob "^3.2.5"
     relaxed-json "^1.0.3"
 
