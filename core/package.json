@@ -9,8 +9,8 @@
 	"main": "./library/index.js",
 	"exports": {
 		".": "./library/index.js",
-		"./*": "./library/*",
-		"./library/*": "./library/*"
+		"./library/*": "./library/*",
+		"./*": "./library/*"
 	},
 	"scripts": {
 		"build": "esrun scripts/build",
