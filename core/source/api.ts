@@ -32,6 +32,7 @@ export const useApi = <Services extends Record<string, unknown>>(
 					headers,
 					body: bunker({ service, operation, properties }),
 				})
+				console.log("response:", response)
 				return debunker(new Uint8Array(await response.arrayBuffer()))
 			}
 		})

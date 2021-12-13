@@ -8,4 +8,4 @@ console.log("Compiling typescript...")
 compile()
 
 console.log("Patching imports...")
-patch()
+patch([{ find: /^@digitak\/bunker\/.*/, replacement: null }])

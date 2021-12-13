@@ -15,6 +15,7 @@ export const useApi = (apiPath = "/api") => {
                     headers,
                     body: bunker({ service, operation, properties }),
                 });
+                console.log("response:", response);
                 return debunker(new Uint8Array(await response.arrayBuffer()));
             };
         });

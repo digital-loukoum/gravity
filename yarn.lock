@@ -259,10 +259,10 @@
     "@babel/helper-validator-identifier" "^7.15.7"
     to-fast-properties "^2.0.0"
 
-"@digitak/bunker@^3.1.0":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@digitak/bunker/-/bunker-3.1.1.tgz#ec992b27abdbf61c49cb923291e94f39a3e92f5b"
-  integrity sha512-SHVrEvajMwKccKrO9v5qCaHd9z7rmQZvnSFtjYLKrOUZ8ZAIt9+iY+8q8LevX+GFnZYL0hB3YvzQIKowMftZ4g==
+"@digitak/bunker@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@digitak/bunker/-/bunker-3.1.2.tgz#e58d146565fd156f49ad0e294682955c4c4746db"
+  integrity sha512-6k/lnm3TrZKR2yaDLE4YpJlxJp3lnwr2cPc20ODjMMGaVYuA7SmJMKvee1MQw5nJW2Ze7vswexCE6tOCHo6HPA==
 
 "@digitak/esrun@^3":
   version "3.0.2"

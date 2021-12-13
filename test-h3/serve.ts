@@ -10,4 +10,4 @@ app.use(gravity({ services }))
 
 createServer(app).listen(PORT)
 
-console.log("Serving port", PORT, "...")
+console.log("Listening to port", PORT)
