@@ -1,2 +1,2 @@
-export { useApi } from "./api"
-export { useServices, servicesStore, Service } from "./services"
+export { defineApi } from "./api"
+export { defineServices, servicesStore, Service } from "./services"

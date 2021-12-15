@@ -2,6 +2,9 @@ import { GravityMiddleware } from "../types/GravityMiddleware"
 import { normalizePath } from "../utilities/normalizePath"
 import resolveApiRequest from "../utilities/resolveApiRequest"
 
+/**
+ * Add this middleware in '/hooks.ts' file
+ */
 export const gravity: GravityMiddleware = ({ services, apiPath = "/api" }) => {
 	apiPath = normalizePath(apiPath)
 

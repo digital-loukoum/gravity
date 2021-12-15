@@ -1,4 +1,5 @@
 import { bunker, debunker } from "@digitak/bunker"
+import error from "./utilities/error"
 import { isBrowser } from "./utilities/isBrowser"
 import { proxy } from "./utilities/proxy"
 
@@ -16,7 +17,7 @@ type ServiceOperations<Service> = {
 
 type Api<Services> = { [Key in keyof Services]: ServiceOperations<Services[Key]> }
 
-export const useApi = <Services extends Record<string, unknown>>(
+export const defineApi = <Services extends Record<string, unknown>>(
 	apiPath = "/api"
 ): Api<Services> => {
 	return proxy(service => {
@@ -33,6 +34,7 @@ export const useApi = <Services extends Record<string, unknown>>(
 					body: bunker({ service, operation, properties }),
 				})
 				console.log("response:", response)
+				if (!response.ok) return response.statusText
 				return debunker(new Uint8Array(await response.arrayBuffer()))
 			}
 		})
