@@ -13,14 +13,17 @@
 	},
 	"scripts": {
 		"build": "esrun scripts/build",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"test": "esrun test"
 	},
 	"dependencies": {
 		"@digitak/bunker": "^3.2.1",
 		"@types/node": "^16.11.11"
 	},
 	"devDependencies": {
+		"@digitak/esrun": "^3.1.0",
 		"@digitak/tsc-esm": "^3.0.1",
+		"fartest": "^2.1.8",
 		"typescript": "^4.5.3"
 	}
 }
