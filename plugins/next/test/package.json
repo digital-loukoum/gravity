@@ -11,7 +11,7 @@
 		"esrun": "esrun"
 	},
 	"dependencies": {
-		"@digitak/gravity": "0.0.1",
+		"@digitak/gravity": "../../../core/package",
 		"@prisma/client": "3.6.0",
 		"next": "12.0.7",
 		"react": "17.0.2",
@@ -19,12 +19,12 @@
 		"swr": "^1.1.1"
 	},
 	"devDependencies": {
+		"@digitak/esrun": "^3.1.0",
 		"@types/node": "16.11.13",
 		"@types/react": "17.0.37",
 		"eslint": "8.4.1",
 		"eslint-config-next": "12.0.7",
 		"prisma": "3.6.0",
-		"@digitak/esrun": "^3.1.0",
 		"typescript": "4.5.4"
 	}
 }

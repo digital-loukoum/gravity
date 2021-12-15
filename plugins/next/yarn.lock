@@ -18,6 +18,12 @@
     chokidar "^3.5.1"
     esbuild "^0.12.4"
 
+"@digitak/gravity@../../core/package":
+  version "0.0.3"
+  dependencies:
+    "@digitak/bunker" "^3.2.1"
+    "@types/node" "^16.11.13"
+
 "@digitak/grubber@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@digitak/grubber/-/grubber-3.0.2.tgz#87e2e0ea14977af5f38a02c6ea2dbe5ee00759ed"

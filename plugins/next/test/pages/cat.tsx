@@ -7,10 +7,7 @@ export default function Cat() {
 	const [users, setUsers] = useState<User[]>([])
 	
 	api.cat.meow("Coco").then(setMeow)
-	// api.userService.findAllUsers().then(response => {
-	// 	console.log("users", response)
-	// 	setUsers(response)
-	// })
+	api.users.findMany().then(setUsers)
 
 	return <div>
 		Hey!

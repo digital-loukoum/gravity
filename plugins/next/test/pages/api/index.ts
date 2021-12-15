@@ -1,5 +1,5 @@
 import { services } from "../../services"
-import { gravity } from "@digitak/gravity/library/middleware/next"
+import { gravity } from "@digitak/gravity/middleware/next"
 
 export const config = {
 	api: {

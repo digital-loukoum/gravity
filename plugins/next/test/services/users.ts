@@ -1,8 +1,8 @@
 import { prisma } from "../prisma"
 
-export const userService = {
+export const users = {
 	...prisma.user,
-	findAllUsers: async () => {
+	findAll: async () => {
 		console.log("Finding all users...")
 		try {
 			const users = await prisma.user.findMany({ include: { posts: true } })

@@ -1,0 +1,9 @@
+{
+  "name": "svelte-kit",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@digitak/gravity": "../../core/package"
+  }
+}
