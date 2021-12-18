@@ -1,8 +1,8 @@
 import type { IncomingMessage, ServerResponse } from "http"
-import { GravityMiddleware } from "../types/GravityMiddleware"
-import extractRawBody from "../utilities/extractRawBody"
-import { normalizePath } from "../utilities/normalizePath"
-import resolveApiRequest from "../utilities/resolveApiRequest"
+import { GravityMiddleware } from "./types/GravityMiddleware"
+import extractRawBody from "./utilities/extractRawBody"
+import { normalizePath } from "./utilities/normalizePath"
+import resolveApiRequest from "./utilities/resolveApiRequest"
 
 export const gravity: GravityMiddleware = ({ services, apiPath = "/api" }) => {
 	apiPath = normalizePath(apiPath)

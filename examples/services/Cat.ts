@@ -3,11 +3,12 @@ const sleep = (value: number) => new Promise(resolve => setTimeout(resolve, valu
 export class Cat {
 	name = "A cat"
 
-	async meow(enemy?: string) {
+	async meow() {
 		await sleep(200)
-		return `[to ${enemy ?? "you"}] Meow!`
+		return `Meow!`
 	}
-	attack(target: string) {
-		return "Shhhhhh!"
+	async attack(target: string) {
+		await sleep(100)
+		return `[attack: ${target}] Meow!!!`
 	}
 }
