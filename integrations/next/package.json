@@ -9,14 +9,23 @@
 		".": "./index.js",
 		"./*": "./*.js"
 	},
+	"scripts": {
+		"build": "esrun scripts/build",
+		"typecheck": "tsc --noEmit",
+		"test": "esrun test",
+		"deploy": "yarn build && yarn test && yarn --cwd ./package publish"
+	},
 	"dependencies": {
-		"@digitak/gravity": "../../core/package"
+		"@digitak/gravity": "../../core/package",
+		"react": "^17.0.2",
+		"swr": "^1.1.2-beta.0"
 	},
 	"devDependencies": {
-		"@digitak/tsc-esm": "^3.0.2",
-		"fartest": "^2.1.8",
-		"typescript": "^4.5.3",
 		"@digitak/esrun": "^3.1.0",
-		"@types/node": "^16.11.13"
+		"@digitak/tsc-esm": "^3.0.2",
+		"@types/node": "^16.11.13",
+		"@types/react": "^17.0.37",
+		"fartest": "^2.1.8",
+		"typescript": "^4.5.3"
 	}
 }

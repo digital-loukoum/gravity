@@ -2,6 +2,7 @@
 	"name": "test-next",
 	"version": "1.0.0",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
@@ -12,6 +13,7 @@
 	},
 	"dependencies": {
 		"@digitak/gravity": "../../../core/package",
+		"@digitak/gravity-next": "../package",
 		"@prisma/client": "3.6.0",
 		"next": "12.0.7",
 		"react": "17.0.2",

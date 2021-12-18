@@ -1,4 +1,4 @@
-import { defineApi } from "@digitak/gravity"
+import { defineApi } from "@digitak/gravity-next"
 import type { services } from "./services"
 
-export const api = defineApi<typeof services>()
+export const { api, useApi } = defineApi<typeof services>()

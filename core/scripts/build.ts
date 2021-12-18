@@ -7,9 +7,9 @@ rmSync("package", { recursive: true, force: true })
 console.log("Compiling typescript...")
 compile()
 
-console.log("Patching imports...")
-patch()
-
 console.log("Copying configuration files...")
 copyFileSync("./README.md", "./package/README.md")
 copyFileSync("./package.json", "./package/package.json")
+
+console.log("Patching imports...")
+patch()
