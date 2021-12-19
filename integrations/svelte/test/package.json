@@ -28,7 +28,8 @@
 		"typescript": "^4.4.3"
 	},
 	"dependencies": {
-		"@digitak/gravity": "0.0.1"
+		"@digitak/gravity-svelte": "../package",
+		"sswr": "^1.3.1"
 	},
 	"type": "module",
 	"main": "index.js",

@@ -17,7 +17,6 @@ export const decodeRawBody = (
 	rawBody: Uint8Array
 ): GravityBody => {
 	const decode = headers["content-type"] == "x-bunker" ? bunkerDecoder : jsonDecoder
-	console.log('headers["content-type"]', headers["content-type"])
 
 	const body = decode(rawBody) as any
 

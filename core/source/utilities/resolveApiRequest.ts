@@ -8,13 +8,10 @@ export default async function resolveApiRequest(
 	headers: IncomingHttpHeaders,
 	rawBody: Uint8Array
 ): Promise<GravityResponse> {
-	console.log("Resolving api request...")
 	try {
-		console.log("Resolving api request!!!")
 		if (!rawBody) throw `Bad request: a body is expected`
 
 		const body = decodeRawBody(headers, rawBody)
-		console.log("Decoded body", body)
 
 		const service = services[body.service]
 		if (!service) throw `Bad request: the service '${body.service}' does not exist.`
