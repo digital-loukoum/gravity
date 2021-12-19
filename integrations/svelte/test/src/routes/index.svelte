@@ -17,8 +17,13 @@
 {/await}
 
 <p>
-	Received data: {$meow.data}
+	isLoading?: {$meow.isLoading}
 </p>
 <p>
-	Received error: {$meow.error}
+	Received data: {$meow.data}
 </p>
+{#if $meow.error}
+	<p>
+		Received error: {$meow.error}
+	</p>
+{/if}

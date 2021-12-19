@@ -10,7 +10,7 @@ export const swrResponse = <Data>(): SwrResponse<Data> =>
 	writable({
 		data: <Data | undefined>undefined,
 		error: <Error | undefined>undefined,
-		isLoading: false,
+		isLoading: true,
 	})
 
 export type SwrResponse<Data> = Writable<{

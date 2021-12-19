@@ -34,8 +34,13 @@ export function defineApi<Services extends Record<string, unknown>>(apiPath = "/
 
 			if (key) {
 				const cached = cache.get(key)
-				if (cached) response = cached
-				else {
+				if (cached) {
+					response = cached
+					response.update(response => {
+						response.isLoading = true
+						return response
+					})
+				} else {
 					response = swrResponse<unknown>()
 					cache.set(key, response)
 				}
