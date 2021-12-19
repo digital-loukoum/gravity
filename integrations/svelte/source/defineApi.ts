@@ -2,10 +2,7 @@ import { defineApi as defaultDefineApi } from "@digitak/gravity/api/defineApi"
 import { apiProxy } from "@digitak/gravity/api/apiProxy"
 import { getCacheKey } from "@digitak/gravity/api/getCacheKey"
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser"
-import { swr, useSWR } from "sswr"
-import { writable } from "svelte/store"
-import { ReadonlySwrResponse, swrResponse, SwrResponse } from "./SwrResponse"
-import { onMount } from "svelte/internal"
+import { swrResponse, SwrResponse } from "./SwrResponse"
 import { cache } from "./cache"
 
 type DefineApi<Service> = {
@@ -25,7 +22,7 @@ export function defineApi<Services extends Record<string, unknown>>(apiPath = "/
 
 	const useApi = () =>
 		apiProxy((service, operation, properties) => {
-			if (!isBrowser()) return swrResponse<unknown>()
+			if (!isBrowser()) return swrResponse<unknown>(async () => void 0)
 
 			// @ts-ignore
 			const fetcher: () => Promise<unknown> = () => api[service][operation](properties)
@@ -34,29 +31,14 @@ export function defineApi<Services extends Record<string, unknown>>(apiPath = "/
 
 			if (key) {
 				const cached = cache.get(key)
-				if (cached) {
-					response = cached
-					response.update(response => {
-						response.isLoading = true
-						return response
-					})
-				} else {
-					response = swrResponse<unknown>()
+				if (cached) response = cached
+				else {
+					response = swrResponse<unknown>(fetcher)
 					cache.set(key, response)
 				}
-			} else {
-				response = swrResponse<unknown>()
-			}
+			} else response = swrResponse<unknown>(fetcher)
 
-			fetcher() // TODO: error should be in 'then'
-				.then(data => {
-					console.log("Received", response)
-					response.update(response => {
-						response.data = data
-						response.isLoading = false
-						return response
-					})
-				})
+			response.refresh()
 			return response
 		}) as UseApi<Services>
 
