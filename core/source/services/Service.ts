@@ -1,13 +1,7 @@
 import { BaseService } from "./BaseService"
+import { defineService } from "./defineService"
 
-export function Service(): new () => BaseService
-export function Service<O extends object>(object: O): new () => BaseService & O
-export function Service<O extends object>(object?: O) {
-	if (!object) return BaseService
-	return class extends BaseService {
-		constructor() {
-			super()
-			Object.assign(this, object)
-		}
-	}
-}
+/**
+ * A default service without context
+ */
+export const Service = defineService(class Service extends BaseService<never> {})
