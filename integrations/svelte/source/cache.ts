@@ -1,3 +1,3 @@
-import { SwrResponse } from "./SwrResponse"
+import { SwrResponse } from "./SwrResponse";
 
-export const cache = new Map<string, SwrResponse<unknown>>()
+export const cache = new Map<string, SwrResponse<unknown>>();

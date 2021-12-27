@@ -1,13 +1,18 @@
-type Promisify<Type> = Type extends Promise<infer Subtype>
-	? Promise<Subtype>
-	: Promise<Type>
+import type {
+	BaseService,
+	BaseServiceConstructor,
+} from "../services/BaseService";
+import type { Instance } from "../types/Instance";
+import { Promisify } from "../types/Promisify";
 
-type DefineApi<Service> = {
+type DefineApi<Service extends BaseService> = {
 	[Key in keyof Service as Service[Key] extends (...args: any[]) => any
 		? Key
 		: never]: Service[Key] extends (...args: any[]) => any
 		? (...args: Parameters<Service[Key]>) => Promisify<ReturnType<Service[Key]>>
-		: never
-}
+		: never;
+};
 
-export type Api<Services> = { [Key in keyof Services]: DefineApi<Services[Key]> }
+export type Api<Services extends Record<string, BaseServiceConstructor>> = {
+	[Key in keyof Services]: DefineApi<Instance<Services[Key]>>;
+};

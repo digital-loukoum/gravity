@@ -1,8 +1,7 @@
-import { defineServices } from "@digitak/gravity"
-import { Dog } from "./Dog"
-import { Cat } from "./Cat"
+import { dog } from './dog';
+import { cat } from './cat';
 
-export const services = defineServices({
-	cat: new Cat(),
-	dog: new Dog(),
-})
+export const services = {
+	cat,
+	dog
+};
