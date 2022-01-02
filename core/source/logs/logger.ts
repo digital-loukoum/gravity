@@ -15,8 +15,10 @@ export const logger = {
 	},
 	warning(title: string, message: string, stack?: string) {
 		print`[yellow: ${now()} • [bold: ${title} •] ${message}]`;
+		if (stack) console.log(stack);
 	},
 	error(title: string, message: string, stack?: string) {
 		print`[red:[bold:[ ${now()} ] • ${title} •] ${message}]`;
+		if (stack) console.log(stack);
 	},
 };

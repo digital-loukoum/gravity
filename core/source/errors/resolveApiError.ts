@@ -6,7 +6,11 @@ import { logger } from "../logs/logger";
 
 export function resolveApiError(error: unknown): GravityResponse {
 	if (error instanceof ServerError) {
-		logger.warning(error.name, error.message, error.stack);
+		(error.critical ? logger.error : logger.warning)(
+			error.name,
+			error.message,
+			error.stack,
+		);
 		const { name, message, status } = error;
 		return {
 			status,
