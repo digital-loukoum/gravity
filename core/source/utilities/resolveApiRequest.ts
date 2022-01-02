@@ -1,5 +1,6 @@
 import { bunker } from "@digitak/bunker";
 import type { IncomingHttpHeaders } from "http";
+import { baseServiceProperties } from "../services/BaseService";
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import type { GravityAuthorizeFunction } from "../types/GravityAuthorizeFunction";
 import { GravityResponse } from "../types/GravityResponse";
@@ -33,7 +34,7 @@ export default async function resolveApiRequest<Context>({
 		const operationName = body.operation as keyof typeof service;
 		const operation = service?.[operationName] as unknown;
 
-		if (!operation) {
+		if (!operation || operationName in baseServiceProperties()) {
 			throw `Bad request: the operation '${body.operation}' does not exist in service '${body.service}'.`;
 		} else if (typeof operation != "function") {
 			throw `Bad request: the operation '${body.operation}' in service '${body.service}' is not a function.`;

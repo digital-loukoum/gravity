@@ -1,14 +1,13 @@
-import { BaseService } from "../services/BaseService";
-import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
+import { BaseService, baseServiceProperties } from "../services/BaseService";
 
-export function defineGuard<Context = undefined>(
-	guard: (context: Context) => any,
+export function defineGuard<Service extends BaseService<any>>(
+	guard: (service: Service) => any,
 ) {
 	return (
-		serviceInstance: BaseService | BaseServiceConstructor,
+		serviceInstance: Service | (new (...args: any[]) => Service),
 		operation?: string,
 		descriptor?: PropertyDescriptor,
-	) => {
+	): any => {
 		if (operation) {
 			// if we target an operation: we guard the given instance method value
 			if (!(serviceInstance instanceof BaseService)) {
@@ -17,10 +16,12 @@ export function defineGuard<Context = undefined>(
 			if (typeof (serviceInstance as any)[operation] != "function") {
 				return console.warn(`A guard can only be used on a service method`);
 			}
+
 			descriptor!.value = guardMethod(
 				(serviceInstance as any)[operation],
 				guard,
 			);
+
 			return descriptor;
 		} else {
 			// if we target a service: we guard the entire prototype
@@ -28,24 +29,31 @@ export function defineGuard<Context = undefined>(
 			if (!(service.prototype instanceof BaseService)) {
 				return console.warn(`Guards can only be used on services`);
 			}
-			for (const method in service.prototype) {
-				if (typeof method == "function") {
-					service.prototype[method] = guardMethod(
-						service.prototype[method],
-						guard,
-					);
-				}
+			const properties = Object.getOwnPropertyDescriptors(service.prototype);
+
+			for (const propertyKey in properties) {
+				// we dismiss base methods (constructor, useService, etc...)
+				if (propertyKey in baseServiceProperties()) continue;
+
+				const property = properties[propertyKey];
+
+				if (typeof property.value == "function")
+					property.value = guardMethod(property.value, guard);
+				else if (typeof property.get?.() == "function")
+					property.get = guardMethod(property.get, guard);
+
+				Object.defineProperty(service.prototype, propertyKey, property);
 			}
 		}
 	};
 }
 
-function guardMethod<Context>(
+function guardMethod<Service extends BaseService<any>>(
 	method: Function,
-	guard: (context: Context) => any,
+	guard: (service: Service) => any,
 ) {
-	return function (this: { context: Context }, ...args: any) {
-		const guardResult = guard(this.context);
+	return function (this: Service, ...args: any) {
+		const guardResult = guard(this);
 		if (
 			guardResult &&
 			typeof guardResult == "object" &&
