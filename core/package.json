@@ -18,12 +18,13 @@
 		"deploy": "yarn build && yarn test && yarn --cwd ./package publish"
 	},
 	"dependencies": {
-		"@digitak/bunker": "^3.2.1"
+		"@digitak/bunker": "^3.2.1",
+		"cute-print": "^1.0.4"
 	},
 	"devDependencies": {
-		"@types/node": "^16.11.13",
 		"@digitak/esrun": "^3.1.0",
 		"@digitak/tsc-esm": "^3.0.2",
+		"@types/node": "^16.11.13",
 		"fartest": "^2.1.8",
 		"typescript": "^4.5.3"
 	}

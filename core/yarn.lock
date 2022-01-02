@@ -133,6 +133,11 @@ commander@^2.6.0:
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
 
+cute-print@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/cute-print/-/cute-print-1.0.4.tgz#2d4ffe1fa874fdb681c9800437ef18d0d15e3842"
+  integrity sha512-ow+LrLYY2Voiq6phfz/RpFICmvAQHJHP/uvZQFcQc6VhtD8gyAKtK8MbO911nlwM5A5Ys5Mdz6HnxAodNbwtlg==
+
 esbuild@^0.12.4:
   version "0.12.29"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.12.29.tgz#be602db7c4dc78944a9dbde0d1ea19d36c1f882d"
