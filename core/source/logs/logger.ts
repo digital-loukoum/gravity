@@ -1,18 +1,22 @@
-import print from "cute-print";
+import { print } from "@digitak/print";
+
+const { format: formatDate } = new Intl.DateTimeFormat([], {
+	dateStyle: "short",
+	timeStyle: "short",
+});
+const now = () => formatDate(new Date());
 
 export const logger = {
 	info(title: string, message: string) {
-		print`[blue][${new Date().toLocaleTimeString()}] [bold: ${title}] • ${message}`;
-	},
-	warning(title: string, message: string) {
-		print`[yellow][${new Date().toLocaleTimeString()}] [bold: ${title}] • ${message}`;
+		print`[blue: ${now()} • [bold: ${title} •] ${message}]`;
 	},
 	success(title: string, message: string) {
-		print`[green][${new Date().toLocaleTimeString()}] [bold: ${title}] • ${message}`;
+		print`[green: ${now()} • [bold: ${title} •] ${message}]`;
+	},
+	warning(title: string, message: string, stack?: string) {
+		print`[yellow: ${now()} • [bold: ${title} •] ${message}]`;
 	},
 	error(title: string, message: string, stack?: string) {
-		print`[red][${new Date().toLocaleTimeString()}] [bold: ${title}] • ${message}\n[grey:${
-			stack || ""
-		}]`;
+		print`[red:[bold:[ ${now()} ] • ${title} •] ${message}]`;
 	},
 };

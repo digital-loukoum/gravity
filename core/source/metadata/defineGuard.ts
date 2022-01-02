@@ -1,3 +1,4 @@
+import { GravityError } from "../errors/GravityError";
 import { BaseService, baseServiceProperties } from "../services/BaseService";
 
 export function defineGuard<Service extends BaseService<any>>(
@@ -59,8 +60,9 @@ function guardMethod<Service extends BaseService<any>>(
 			typeof guardResult == "object" &&
 			typeof guardResult.then == "function"
 		) {
-			// TODO: catch error
-			throw `Guard decorators should not be asynchronous`;
+			throw new GravityError("gravity/guards-cannot-be-asynchronous", {
+				status: 500,
+			});
 		}
 		return method.call(this, ...args);
 	};

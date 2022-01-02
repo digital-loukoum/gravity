@@ -6,17 +6,23 @@ import { logger } from "../logs/logger";
 
 export function resolveApiError(error: unknown): GravityResponse {
 	if (error instanceof ServerError) {
-		logger.error(error.name, error.message, error.stack);
+		logger.warning(error.name, error.message, error.stack);
+		const { name, message, status } = error;
 		return {
-			status: error.status,
+			status,
 			headers: { "content-type": "x-bunker" },
-			body: bunker({ error }),
+			body: bunker({ error: { name, message, status } }),
 		};
 	} else if (error instanceof Error) {
 		// wild exception
-		return resolveApiError(
-			new ServerError(error.name, { message: error.message, status: 500 }),
-		);
+		logger.error(error.name, error.message, error.stack);
+		const { name, message } = error;
+		const status = 500;
+		return {
+			status,
+			headers: { "content-type": "x-bunker" },
+			body: bunker({ error: { name, message, status } }),
+		};
 	} else if (typeof error == "string") return resolveApiError(new Error(error));
 	else return resolveApiError(new GravityUnknownError(error));
 }

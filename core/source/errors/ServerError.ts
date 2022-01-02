@@ -9,6 +9,5 @@ export class ServerError<ErrorName extends string = string> extends Error {
 		super(message);
 		this.name = name;
 		this.status = status;
-		delete this.stack; // we dont send stack informations to client (for safety)
 	}
 }

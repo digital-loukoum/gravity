@@ -22,11 +22,17 @@
   version "0.0.3"
   dependencies:
     "@digitak/bunker" "^3.2.1"
+    "@digitak/print" "^1.1.3"
 
 "@digitak/grubber@^3.0.2":
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/@digitak/grubber/-/grubber-3.0.2.tgz#87e2e0ea14977af5f38a02c6ea2dbe5ee00759ed"
   integrity sha512-Vs1zYsmejKxGwshnmHm4YmykHZuYyX09qe7zWjPJHBOnxDfsyQX8jBOHYEfukY2aVY2T1ftxHU165PSMFFjRBA==
+
+"@digitak/print@^1.1.3":
+  version "1.1.3"
+  resolved "https://registry.yarnpkg.com/@digitak/print/-/print-1.1.3.tgz#a7e33c7931c2eb61d791b6bea73b46355653516c"
+  integrity sha512-qG5rBlUulqaWRlyhQLikRFoOFcDZ2bPqLLjnNBtHNS2OE3XiPfwAqnYKveYzbQy8O4/LfqLIVJC8TzFmoGaMXA==
 
 "@digitak/tsc-esm@^3.0.2":
   version "3.0.2"

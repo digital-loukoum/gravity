@@ -7,4 +7,5 @@ export type GravityErrorName =
 	| "gravity/operation-name-should-be-a-string"
 	| "gravity/operation-inexistant"
 	| "gravity/operation-should-be-a-function"
+	| "gravity/guards-cannot-be-asynchronous"
 	| "gravity/unknown-error";

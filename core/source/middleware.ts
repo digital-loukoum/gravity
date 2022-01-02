@@ -1,9 +1,9 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { resolveApiError } from "./errors/resolveApiError";
 import { GravityMiddleware } from "./types/GravityMiddleware";
-import extractRawBody from "./utilities/extractRawBody";
+import { extractRawBody } from "./utilities/extractRawBody";
 import { normalizePath } from "./utilities/normalizePath";
-import resolveApiRequest from "./utilities/resolveApiRequest";
+import { resolveApiRequest } from "./utilities/resolveApiRequest";
 
 export const gravity: GravityMiddleware = ({
 	services,
