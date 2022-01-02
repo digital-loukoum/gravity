@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { BaseServiceConstructor } from "../services/BaseService";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import { GravityAuthorizeFunction } from "./GravityAuthorizeFunction";
 import { MaybePromise } from "./MaybePromise";
 
@@ -15,8 +15,10 @@ export type GravityMiddleware<Response = ServerResponse> = <
 		services: Record<string, BaseServiceConstructor<Context>>;
 		apiPath?: string;
 		onResponseSend?: (response: Response) => MaybePromise<Response>;
-		authorize?: GravityAuthorizeFunction;
+		authorize?: GravityAuthorizeFunction<Context>;
 	} & (Context extends undefined
-		? { onRequestReceive?: OnRequestReceive<Context> }
-		: { onRequestReceive: OnRequestReceive<Context> }),
+		? { onRequestReceive?: (request: IncomingMessage) => MaybePromise<Context> }
+		: {
+				onRequestReceive: (request: IncomingMessage) => MaybePromise<Context>;
+		  }),
 ) => any;

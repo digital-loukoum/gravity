@@ -1,5 +1,5 @@
-import { Service } from '@digitak/gravity/services/Service';
-import { Public } from './decorators/Public';
+import { Public } from '../decorators/Public';
+import { Service } from '../Service';
 
 export class dog extends Service {
 	name = 'Some dog name';

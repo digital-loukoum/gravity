@@ -1,11 +1,11 @@
 import { bunker } from "@digitak/bunker";
 import type { IncomingHttpHeaders } from "http";
-import { BaseServiceConstructor } from "../services/BaseService";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import type { GravityAuthorizeFunction } from "../types/GravityAuthorizeFunction";
 import { GravityResponse } from "../types/GravityResponse";
 import { decodeRawBody } from "./decodeRawBody";
 
-export default async function resolveApiRequest({
+export default async function resolveApiRequest<Context>({
 	services,
 	headers,
 	rawBody,
@@ -15,8 +15,8 @@ export default async function resolveApiRequest({
 	services: Record<string, BaseServiceConstructor>;
 	headers: IncomingHttpHeaders;
 	rawBody: Uint8Array;
-	context: unknown;
-	authorize: GravityAuthorizeFunction | undefined;
+	context: Context;
+	authorize: GravityAuthorizeFunction<Context> | undefined;
 }): Promise<GravityResponse> {
 	try {
 		if (!rawBody) throw `Bad request: a body is expected`;

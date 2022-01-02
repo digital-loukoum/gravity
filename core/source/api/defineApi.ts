@@ -1,9 +1,6 @@
 import { bunker, debunker } from "@digitak/bunker";
-import type {
-	BaseService,
-	BaseServiceConstructor,
-} from "../services/BaseService";
-import { MaybePromise } from "../types/MaybePromise";
+import { BaseService } from "../services/BaseService";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import { isBrowser } from "../utilities/isBrowser";
 import { apiProxy } from "./apiProxy";
 import type { Instance } from "../types/Instance";
@@ -11,8 +8,8 @@ import { Promisify } from "../types/Promisify";
 
 export type DefineApiOptions = {
 	apiPath?: string;
-	onRequestSend?: (request: RequestInit) => MaybePromise<RequestInit>;
-	onResponseReceive?: (response: Response) => MaybePromise<Response>;
+	onRequestSend?: (request: RequestInit) => any;
+	onResponseReceive?: (response: Response) => any;
 };
 
 type ApiService<Service extends BaseService> = {

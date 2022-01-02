@@ -1,7 +1,5 @@
-import type {
-	BaseService,
-	BaseServiceConstructor,
-} from "../services/BaseService";
+import { BaseService } from "../services/BaseService";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import type { Instance } from "../types/Instance";
 import { Promisify } from "../types/Promisify";
 

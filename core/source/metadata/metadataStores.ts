@@ -1,4 +1,4 @@
-import { BaseServiceConstructor } from "../services";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 
 type Store = Record<string, unknown>;
 

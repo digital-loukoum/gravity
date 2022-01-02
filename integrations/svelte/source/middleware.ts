@@ -18,9 +18,7 @@ export const gravity: GravityMiddleware<GravityResponse> = ({
 	const handler = async ({ request, resolve }: any) => {
 		const { rawBody, path, headers } = request;
 		if (apiPath == normalizePath(path)) {
-			const { context } = (await onRequestReceive?.(request)) || {
-				context: undefined,
-			};
+			const context = await onRequestReceive?.(request)!;
 			const response = await resolveApiRequest({
 				services,
 				headers,

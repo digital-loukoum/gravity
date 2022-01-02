@@ -4,12 +4,12 @@
 export function getCacheKey(
 	service: string,
 	operation: string,
-	properties: unknown[]
+	properties: unknown[],
 ): string | null {
 	try {
-		return `${service}:${operation}:${JSON.stringify(properties)}`
+		return `${service}:${operation}:${JSON.stringify(properties)}`;
 	} catch (error) {
 		// error happened during JSON stringification (ex: recursive value)
-		return null
+		return null;
 	}
 }

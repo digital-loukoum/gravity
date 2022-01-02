@@ -11,8 +11,3 @@ export abstract class BaseService<Context = any> {
 		return () => (service ??= new serviceConstructor(this.context));
 	}
 }
-
-export type BaseServiceConstructor<Context = any> = new (
-	context: Context,
-	...args: any[]
-) => BaseService<Context>;

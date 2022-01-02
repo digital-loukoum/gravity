@@ -7,10 +7,8 @@ import { getCacheKey } from "@digitak/gravity/api/getCacheKey";
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser";
 import { swrResponse, SwrResponse } from "./SwrResponse";
 import { cache } from "./cache";
-import type {
-	BaseService,
-	BaseServiceConstructor,
-} from "@digitak/gravity/services/BaseService";
+import type { BaseService } from "@digitak/gravity/services/BaseService";
+import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
 import { Instance } from "@digitak/gravity/types/Instance";
 
 type UseApiService<Service extends BaseService> = {

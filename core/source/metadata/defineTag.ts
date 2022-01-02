@@ -1,4 +1,5 @@
-import { BaseService, BaseServiceConstructor } from "../services";
+import { BaseService } from "../services/BaseService";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import { defineMetadata } from "./defineMetadata";
 
 export function defineTag(

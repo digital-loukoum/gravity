@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { api, useApi } from '../api';
+	import { api, useApi } from '../gravity/api';
 
 	let enemy = '';
 	$: loadMeow = api.cat.meow(enemy);

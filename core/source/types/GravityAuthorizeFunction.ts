@@ -1,7 +1,7 @@
-import type { BaseServiceConstructor } from "../services";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 
-export type GravityAuthorizeFunction = (call: {
+export type GravityAuthorizeFunction<Context = unknown> = (call: {
 	service: BaseServiceConstructor;
 	operation: string;
-	context: unknown;
+	context: Context;
 }) => any;

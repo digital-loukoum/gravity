@@ -5,6 +5,9 @@ module.exports = {
 	plugins: ['svelte3', '@typescript-eslint'],
 	ignorePatterns: ['*.cjs'],
 	overrides: [{ files: ['*.svelte'], processor: 'svelte3/svelte3' }],
+	rules: {
+		'@typescript-eslint/explicit-module-boundary-types': 'off'
+	},
 	settings: {
 		'svelte3/typescript': () => require('typescript')
 	},

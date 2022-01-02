@@ -22,9 +22,7 @@ export const gravity: GravityMiddleware = ({
 
 		// we get the context from the request
 		// (request transformations can also be applied here)
-		const { context } = (await onRequestReceive?.(request)) || {
-			context: undefined,
-		};
+		const context = await onRequestReceive?.(request)!;
 
 		const rawBody = await extractRawBody(request);
 

@@ -1,22 +1,27 @@
-import { BaseService, BaseServiceConstructor } from "../services";
+import { BaseService } from "../services/BaseService";
+import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 
-export type Guard<Context = undefined> = (context: Context) => any;
-
-export function defineGuard<Context = undefined>(guard: Guard<Context>) {
+export function defineGuard<Context = undefined>(
+	guard: (context: Context) => any,
+) {
 	return (
 		serviceInstance: BaseService | BaseServiceConstructor,
 		operation?: string,
+		descriptor?: PropertyDescriptor,
 	) => {
 		if (operation) {
 			// if we target an operation: we guard the given instance method value
-			const service: any = serviceInstance.constructor;
 			if (!(serviceInstance instanceof BaseService)) {
 				return console.warn(`Guards can only be used on services`);
 			}
 			if (typeof (serviceInstance as any)[operation] != "function") {
 				return console.warn(`A guard can only be used on a service method`);
 			}
-			service[operation] = guardMethod(service[operation], guard);
+			descriptor!.value = guardMethod(
+				(serviceInstance as any)[operation],
+				guard,
+			);
+			return descriptor;
 		} else {
 			// if we target a service: we guard the entire prototype
 			const service: any = serviceInstance;
@@ -35,7 +40,10 @@ export function defineGuard<Context = undefined>(guard: Guard<Context>) {
 	};
 }
 
-function guardMethod<Context>(method: Function, guard: Guard<Context>) {
+function guardMethod<Context>(
+	method: Function,
+	guard: (context: Context) => any,
+) {
 	return function (this: { context: Context }, ...args: any) {
 		const guardResult = guard(this.context);
 		if (
