@@ -11,6 +11,7 @@ export const gravity: GravityMiddleware<GravityResponse> = ({
 	apiPath = "/api",
 	onRequestReceive,
 	onResponseSend,
+	authorize,
 }) => {
 	apiPath = normalizePath(apiPath);
 
@@ -20,12 +21,13 @@ export const gravity: GravityMiddleware<GravityResponse> = ({
 			const { context } = (await onRequestReceive?.(request)) || {
 				context: undefined,
 			};
-			const response = await resolveApiRequest(
+			const response = await resolveApiRequest({
 				services,
 				headers,
 				rawBody,
 				context,
-			);
+				authorize,
+			});
 			onResponseSend?.(response);
 			return response;
 		} else return await resolve(request);

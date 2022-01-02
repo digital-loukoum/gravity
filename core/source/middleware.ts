@@ -9,6 +9,7 @@ export const gravity: GravityMiddleware = ({
 	apiPath = "/api",
 	onRequestReceive,
 	onResponseSend,
+	authorize,
 }) => {
 	apiPath = normalizePath(apiPath);
 
@@ -27,12 +28,13 @@ export const gravity: GravityMiddleware = ({
 
 		const rawBody = await extractRawBody(request);
 
-		const { status, headers, body } = await resolveApiRequest(
+		const { status, headers, body } = await resolveApiRequest({
 			services,
-			request.headers,
+			headers: request.headers,
 			rawBody,
 			context,
-		);
+			authorize,
+		});
 		response.statusCode = status;
 		for (const header in headers) response.setHeader(header, headers[header]);
 

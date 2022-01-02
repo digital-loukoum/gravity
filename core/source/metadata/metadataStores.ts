@@ -1,2 +1,9 @@
-export const servicesStore = <Record<string, Record<string, unknown>>>{}
-export const operationsStore = <Record<string, Record<string, Record<string, unknown>>>>{}
+import { BaseServiceConstructor } from "../services";
+
+type Store = Record<string, unknown>;
+
+export const servicesStore = new Map<BaseServiceConstructor, Store>();
+export const operationsStore = new Map<
+	BaseServiceConstructor,
+	Map<string, Store>
+>();

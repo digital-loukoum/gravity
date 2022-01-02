@@ -1,15 +1,23 @@
 import { bunker } from "@digitak/bunker";
 import type { IncomingHttpHeaders } from "http";
 import { BaseServiceConstructor } from "../services/BaseService";
+import type { GravityAuthorizeFunction } from "../types/GravityAuthorizeFunction";
 import { GravityResponse } from "../types/GravityResponse";
 import { decodeRawBody } from "./decodeRawBody";
 
-export default async function resolveApiRequest(
-	services: Record<string, BaseServiceConstructor>,
-	headers: IncomingHttpHeaders,
-	rawBody: Uint8Array,
-	context: unknown,
-): Promise<GravityResponse> {
+export default async function resolveApiRequest({
+	services,
+	headers,
+	rawBody,
+	context,
+	authorize,
+}: {
+	services: Record<string, BaseServiceConstructor>;
+	headers: IncomingHttpHeaders;
+	rawBody: Uint8Array;
+	context: unknown;
+	authorize: GravityAuthorizeFunction | undefined;
+}): Promise<GravityResponse> {
 	try {
 		if (!rawBody) throw `Bad request: a body is expected`;
 
@@ -30,6 +38,12 @@ export default async function resolveApiRequest(
 		} else if (typeof operation != "function") {
 			throw `Bad request: the operation '${body.operation}' in service '${body.service}' is not a function.`;
 		}
+
+		await authorize?.({
+			context,
+			service: serviceConstructor,
+			operation: operationName,
+		});
 
 		const response = await operation.apply(service, body.properties);
 
