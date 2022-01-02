@@ -3,9 +3,7 @@
 
 	let enemy = '';
 	$: loadMeow = api.cat.meow(enemy);
-	// const { data, error } = useSWR('a', { fetcher: () => api.cat.meow() });
 	$: meow = useApi().cat.meow(enemy);
-	console.log('meow', meow);
 </script>
 
 <p>Enemy: <input bind:value={enemy} /></p>

@@ -5,7 +5,6 @@ import { isPublic } from './services/decorators/Public';
 export const handle = gravity({
 	services,
 	authorize: ({ service, operation, context }) => {
-		console.log('Authorize?', service, operation, context);
 		console.log('is Public?', isPublic(service, operation));
 	}
 });
