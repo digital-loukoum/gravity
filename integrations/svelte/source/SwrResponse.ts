@@ -9,12 +9,13 @@ export type ReadonlySwrResponse<Data> = Readable<{
 export const swrResponse = <Data>(
 	fetcher: () => Promise<Data>,
 ): SwrResponse<Data> => {
-	const store = writable({
+	const store: SwrResponse<Data> = writable({
 		data: <Data | undefined>undefined,
 		error: <Error | undefined>undefined,
 		isLoading: true,
-	});
-	const refresh = async () => {
+	}) as any;
+
+	store.refresh = async () => {
 		store.update((store) => {
 			store.isLoading = true;
 			return store;
@@ -26,7 +27,8 @@ export const swrResponse = <Data>(
 			return store;
 		});
 	};
-	return { ...store, refresh };
+
+	return store;
 };
 
 export type SwrResponse<Data> = Writable<{

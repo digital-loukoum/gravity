@@ -34,7 +34,7 @@ export function defineGuard<Service extends BaseService<any>>(
 
 			for (const propertyKey in properties) {
 				// we dismiss base methods (constructor, useService, etc...)
-				if (propertyKey in baseServiceProperties()) continue;
+				if (propertyKey in baseServiceProperties) continue;
 
 				const property = properties[propertyKey];
 

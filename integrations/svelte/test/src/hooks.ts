@@ -7,7 +7,7 @@ export const handle = gravity<Context>({
 	services,
 
 	onRequestReceive: (request) => {
-		return { user: 'admina' };
+		return { user: 'admin' };
 	},
 
 	authorize: ({ service, operation, context }) => {

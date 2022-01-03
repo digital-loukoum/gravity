@@ -41,7 +41,7 @@ export async function resolveApiRequest<Context>({
 
 	if (
 		!operation ||
-		operationName in baseServiceProperties() ||
+		operationName in baseServiceProperties ||
 		typeof operation != "function"
 	) {
 		throw new GravityError("gravity/operation-inexistant", {

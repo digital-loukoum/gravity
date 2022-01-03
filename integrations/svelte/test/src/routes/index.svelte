@@ -8,20 +8,27 @@
 
 <p>Enemy: <input bind:value={enemy} /></p>
 
+<div>api:</div>
 {#await loadMeow}
-	Loading...
+	<p>Loading...</p>
+	<p />
 {:then meow}
-	{meow}
+	<p>Loaded!...</p>
+	<p>
+		Received: {meow}
+	</p>
 {/await}
 
+<div>useApi:</div>
 <p>
-	isLoading?: {$meow.isLoading}
+	{#if $meow.isLoading}
+		Loading...
+	{:else if $meow.error}
+		Error: {$meow.error}
+	{:else}
+		Loaded!
+	{/if}
 </p>
 <p>
-	Received data: {$meow.data}
+	Received: {$meow.data}
 </p>
-{#if $meow.error}
-	<p>
-		Received error: {$meow.error}
-	</p>
-{/if}

@@ -1,19 +1,19 @@
-import { memoize } from "../utilities/memoize";
+import { servicesStore } from "../metadata/metadataStores";
+import { getServiceInstance } from "./getServiceInstance";
 
 export abstract class BaseService<Context = any> {
-	constructor(public context: Context) {}
+	constructor(public readonly context: Context) {}
 
 	/**
 	 * Use this function to call another service from a service.
 	 */
-	protected useService<Service>(
+	protected useService<Service extends BaseService<Context>>(
 		serviceConstructor: new (context: Context) => Service,
-	): () => Service {
-		let service: null | Service = null;
-		return () => (service ??= new serviceConstructor(this.context));
+	): Service {
+		return getServiceInstance(this.context, serviceConstructor);
 	}
 }
 
-export const baseServiceProperties = memoize(() =>
-	Object.getOwnPropertyDescriptors(BaseService.prototype),
+export const baseServiceProperties = Object.getOwnPropertyDescriptors(
+	BaseService.prototype,
 );
