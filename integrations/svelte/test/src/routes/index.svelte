@@ -1,15 +1,23 @@
 <script lang="ts">
+	import Time from '../components/Time.svelte';
+
 	import { api, useApi } from '../gravity/api';
 
 	let enemy = '';
-	$: loadMeow = api.cat.meow(enemy);
-	$: meow = useApi().cat.meow(enemy);
+	// $: loadMeow = api.cat.meow(enemy);
+	$: meow = useApi({}).cat.meow(enemy);
+	let showTime = false;
 </script>
+
+<!-- <button on:click={() => (showTime = !showTime)}>Show time</button>
+{#if showTime}
+	<Time />
+{/if} -->
 
 <p>Enemy: <input bind:value={enemy} /></p>
 
-<div>api:</div>
-{#await loadMeow}
+<!-- <div>api:</div> -->
+<!-- {#await loadMeow}
 	<p>Loading...</p>
 	<p />
 {:then meow}
@@ -17,7 +25,7 @@
 	<p>
 		Received: {meow}
 	</p>
-{/await}
+{/await} -->
 
 <div>useApi:</div>
 <p>
@@ -31,4 +39,10 @@
 </p>
 <p>
 	Received: {$meow.data}
+</p>
+
+<p>
+	{#if $meow.isRefreshing}
+		Refreshing...
+	{/if}
 </p>

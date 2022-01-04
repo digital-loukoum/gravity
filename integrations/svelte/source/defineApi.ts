@@ -5,11 +5,13 @@ import {
 import { apiProxy } from "@digitak/gravity/api/apiProxy";
 import { getCacheKey } from "@digitak/gravity/api/getCacheKey";
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser";
-import { swrResponse, SwrResponse } from "./SwrResponse";
-import { cache } from "./cache";
+import { swrResponse, SwrResponse } from "./_SwrResponse";
+import { swrCache } from "./swrCache";
 import type { BaseService } from "@digitak/gravity/services/BaseService";
 import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
 import { Instance } from "@digitak/gravity/types/Instance";
+import type { SwrOptions } from "./SwrOptions";
+import { responseNeedsRefresh } from "./responseNeedsRefresh";
 
 type UseApiService<Service extends BaseService> = {
 	[Key in keyof Service as Service[Key] extends (...args: any[]) => any
@@ -27,10 +29,14 @@ type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
 
 export function defineApi<
 	Services extends Record<string, BaseServiceConstructor>,
->(options: DefineApiOptions = {}) {
+>(options: DefineApiOptions & SwrOptions = {}) {
 	const api = defaultDefineApi<Services>(options);
 
-	const useApi = () =>
+	const useApi = ({
+		cache = options.cache ?? true,
+		network = options.network ?? true,
+		interval = options.interval,
+	}: SwrOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) return swrResponse<unknown>(async () => void 0);
 
@@ -40,17 +46,35 @@ export function defineApi<
 			};
 			const key = getCacheKey(service, operation, properties);
 			let response: SwrResponse<unknown>;
+			let cached: false | undefined | SwrResponse<unknown> = false;
 
 			if (key) {
-				const cached = cache.get(key);
+				cached = (cache === true || cache == "read") && swrCache.get(key);
 				if (cached) response = cached;
 				else {
 					response = swrResponse<unknown>(fetcher);
-					cache.set(key, response);
+					if (cache === true || cache == "write") swrCache.set(key, response);
 				}
 			} else response = swrResponse<unknown>(fetcher);
 
-			response.refresh();
+			if (
+				network == "poll" ||
+				((network === true || (!cached && network == "if-needed")) &&
+					responseNeedsRefresh(response, interval))
+			) {
+				response.refresh();
+				if (network == "poll" && response.poller) {
+					clearInterval(response.poller);
+					response.poller = undefined;
+				}
+			}
+
+			if (network == "poll" && !response.poller) {
+				response.poller = setInterval(() => {
+					response.refresh();
+				}, interval);
+			}
+
 			return response;
 		}) as UseApi<Services>;
 

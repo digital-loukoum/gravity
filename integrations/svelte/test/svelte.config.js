@@ -1,5 +1,9 @@
 import adapter from '@sveltejs/adapter-auto';
+import { dirname } from 'path';
 import preprocess from 'svelte-preprocess';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -16,6 +20,11 @@ const config = {
 		vite: {
 			optimizeDeps: {
 				exclude: ['sswr', '@digitak/gravity-svelte']
+			},
+			resolve: {
+				alias: {
+					'src/': `${__dirname}/src/`
+				}
 			}
 		}
 	}

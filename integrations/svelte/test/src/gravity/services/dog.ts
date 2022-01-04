@@ -17,7 +17,6 @@ export class dog extends Service {
 
 	@Public
 	async woof() {
-		console.log('cat', this.cat);
 		return await this.cat.meow();
 	}
 
