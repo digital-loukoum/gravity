@@ -1,6 +1,6 @@
 import { BaseService } from "@digitak/gravity/services/BaseService";
 
-export class Dog extends BaseService {
+export class dog extends BaseService {
 	name = "Some dog name";
 
 	woof() {

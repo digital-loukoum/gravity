@@ -17,10 +17,10 @@ export const gravity: GravityMiddleware = ({
 	return async (
 		request: IncomingMessage,
 		response: ServerResponse,
-		next: Function,
+		next?: Function,
 	) => {
 		const url = request.url ?? "";
-		if (!apiPath.startsWith(url)) return next?.();
+		if (!normalizePath(url).startsWith(apiPath)) return next?.();
 
 		let status: number;
 		let headers: Record<string, any>;
@@ -51,5 +51,6 @@ export const gravity: GravityMiddleware = ({
 		response.write(body);
 		await onResponseSend?.(response);
 		response.end();
+		return response;
 	};
 };

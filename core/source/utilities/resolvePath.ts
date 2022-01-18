@@ -1,4 +1,4 @@
-import { BaseService } from "..";
+import { BaseService } from "../services/BaseService";
 import { GravityError } from "../errors/GravityError";
 
 export function resolvePath(

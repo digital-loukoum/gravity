@@ -3,7 +3,7 @@ import { BaseService } from "@digitak/gravity/services/BaseService";
 const sleep = (value: number) =>
 	new Promise((resolve) => setTimeout(resolve, value));
 
-export class Cat extends BaseService {
+export class cat extends BaseService {
 	name = "A cat";
 
 	async meow() {
@@ -11,7 +11,7 @@ export class Cat extends BaseService {
 		return `Meow!`;
 	}
 	async attack(target: string) {
-		await sleep(100);
+		// await sleep(100);
 		return `[attack: ${target}] Meow!!!`;
 	}
 }

@@ -15,7 +15,7 @@ export const decodeParameters = (
 	headers: IncomingHttpHeaders,
 	rawBody: Uint8Array | null | undefined,
 ): unknown[] => {
-	if (!rawBody) return [];
+	if (!rawBody?.byteLength) return [];
 
 	const decode =
 		headers["content-type"] == "x-bunker" ? bunkerDecoder : jsonDecoder;
