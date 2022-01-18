@@ -1,51 +1,49 @@
 import { bunker } from "@digitak/bunker";
 import type { IncomingHttpHeaders } from "http";
 import { GravityError } from "../errors/GravityError";
-import { baseServiceProperties } from "../services/BaseService";
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import type { GravityAuthorizeFunction } from "../types/GravityAuthorizeFunction";
 import { GravityResponse } from "../types/GravityResponse";
-import { decodeRawBody } from "./decodeRawBody";
+import { decodeParameters } from "./decodeParameters";
+import { decodeUrl } from "./decodeUrl";
+import { resolvePath } from "./resolvePath";
 
 export async function resolveApiRequest<Context>({
+	url,
 	services,
 	headers,
 	rawBody,
 	context,
 	authorize,
 }: {
+	url: string;
 	services: Record<string, BaseServiceConstructor>;
 	headers: IncomingHttpHeaders;
 	rawBody: Uint8Array;
 	context: Context;
 	authorize: GravityAuthorizeFunction<Context> | undefined;
 }): Promise<GravityResponse> {
-	if (!rawBody) {
-		throw new GravityError("gravity/body-missing", { status: 400 });
-	}
+	const encoding = headers["content-type"] == "x-bunker" ? "bunker" : "json";
+	const [serviceName, ...path] = decodeUrl(url);
 
-	const body = decodeRawBody(headers, rawBody);
-
-	const serviceConstructor = services[body.service];
-	if (!serviceConstructor) {
-		throw new GravityError("gravity/service-inexistant", {
-			message: `The service '${body.service}' does not exist.`,
-			status: 404,
+	if (!serviceName) {
+		throw new GravityError("gravity/service-missing", {
+			message: "Service missing.",
+			status: 400,
 		});
 	}
 
-	const service = new serviceConstructor(context);
+	if (!path.length) {
+		throw new GravityError("gravity/operation-missing", {
+			message: `Operation missing when calling service '${serviceName}'.`,
+			status: 400,
+		});
+	}
 
-	const operationName = body.operation as keyof typeof service;
-	const operation = service?.[operationName] as unknown;
-
-	if (
-		!operation ||
-		operationName in baseServiceProperties ||
-		typeof operation != "function"
-	) {
-		throw new GravityError("gravity/operation-inexistant", {
-			message: `The operation '${body.operation}' does not exist in service '${body.service}'.`,
+	const serviceConstructor = services[serviceName];
+	if (!serviceConstructor) {
+		throw new GravityError("gravity/service-inexistant", {
+			message: `The service '${serviceName}' does not exist.`,
 			status: 404,
 		});
 	}
@@ -53,16 +51,23 @@ export async function resolveApiRequest<Context>({
 	await authorize?.({
 		context,
 		service: serviceConstructor,
-		operation: operationName,
+		path,
 	});
 
-	const response = await operation.apply(service, body.properties);
+	const service = new serviceConstructor(context);
+	const operation = resolvePath(serviceName, service, path);
+	let resolved: unknown;
+
+	if (typeof operation == "function") {
+		const parameters = decodeParameters(headers, rawBody);
+		resolved = await operation.apply(service, parameters);
+	} else resolved = await operation;
 
 	return {
 		status: 200,
 		headers: {
-			"content-type": "x-bunker",
+			"content-type": encoding == "bunker" ? "x-bunker" : "application/json",
 		},
-		body: bunker(response),
+		body: encoding == "bunker" ? bunker(resolved) : JSON.stringify(resolved),
 	};
 }

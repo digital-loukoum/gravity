@@ -4,3 +4,7 @@ export type Instance<Constructor> = Constructor extends new (
 ) => infer I
 	? I
 	: never;
+
+class Zabu {
+	x = 12;
+}

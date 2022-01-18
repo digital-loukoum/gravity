@@ -1,0 +1,6 @@
+- Default public decorator that bypass authorize callback
+- Methods that start with underscore should not be exposed
+- Schema generation
+- Parameters validation
+- MikroORM integration
+- BaseMikroService

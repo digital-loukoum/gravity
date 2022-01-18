@@ -19,7 +19,9 @@ export const gravity: GravityMiddleware = ({
 		response: ServerResponse,
 		next: Function,
 	) => {
-		if (apiPath != normalizePath(request.url ?? "")) return next?.();
+		const url = request.url ?? "";
+		if (!apiPath.startsWith(url)) return next?.();
+
 		let status: number;
 		let headers: Record<string, any>;
 		let body: string | Uint8Array;
@@ -31,6 +33,7 @@ export const gravity: GravityMiddleware = ({
 			const rawBody = await extractRawBody(request);
 
 			({ status, headers, body } = await resolveApiRequest({
+				url: url.slice(apiPath.length),
 				services,
 				headers: request.headers,
 				rawBody,

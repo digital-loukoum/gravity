@@ -12,6 +12,7 @@ Goodbye to our dearest decorators:
 @ResolveField
 @ResolveProperty
 @Args
+@ArgsType
 @Parent
 @ObjectType
 @Field
