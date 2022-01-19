@@ -1,3 +1,7 @@
+import type { BaseService } from "@digitak/gravity/services/BaseService";
+import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
+import type { SwrOptions } from "@digitak/gravity/swr/SwrOptions";
+
 import {
 	defineApi as defaultDefineApi,
 	DefineApiOptions,
@@ -5,12 +9,9 @@ import {
 import { apiProxy } from "@digitak/gravity/api/apiProxy";
 import { getCacheKey } from "@digitak/gravity/api/getCacheKey";
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser";
-import { swrResponse, SwrResponse } from "./_SwrResponse";
+import { swrResponse, SwrResponse } from "./swrResponse";
 import { swrCache } from "./swrCache";
-import type { BaseService } from "@digitak/gravity/services/BaseService";
-import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
 import { Instance } from "@digitak/gravity/types/Instance";
-import type { SwrOptions } from "./SwrOptions";
 import { responseNeedsRefresh } from "./responseNeedsRefresh";
 
 type UseApiService<Service extends BaseService> = {

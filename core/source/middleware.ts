@@ -1,18 +1,22 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import { resolveApiError } from "./errors/resolveApiError";
-import { GravityMiddleware } from "./types/GravityMiddleware";
-import { extractRawBody } from "./utilities/extractRawBody";
-import { normalizePath } from "./utilities/normalizePath";
-import { resolveApiRequest } from "./utilities/resolveApiRequest";
+import { logger } from "./logs/logger";
+import { GravityMiddleware } from "./middleware/GravityMiddleware";
+import { extractRawBody } from "./middleware/extractRawBody";
+import { normalizePath } from "./middleware/normalizePath";
+import { resolveApiRequest } from "./middleware/resolveApiRequest";
+import { apiMatchesUrl } from "./middleware/apiMatchesUrl";
 
 export const gravity: GravityMiddleware = ({
 	services,
 	apiPath = "/api",
+	verbose,
 	onRequestReceive,
 	onResponseSend,
 	authorize,
 }) => {
 	apiPath = normalizePath(apiPath);
+	logger.verbose = verbose ?? false;
 
 	return async (
 		request: IncomingMessage,
@@ -20,7 +24,7 @@ export const gravity: GravityMiddleware = ({
 		next?: Function,
 	) => {
 		const url = request.url ?? "";
-		if (!normalizePath(url).startsWith(apiPath)) return next?.();
+		if (!apiMatchesUrl(apiPath, url)) return next?.();
 
 		let status: number;
 		let headers: Record<string, any>;

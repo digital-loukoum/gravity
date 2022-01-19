@@ -4,29 +4,40 @@
 	"author": "Gin Quin",
 	"license": "GNU v3",
 	"type": "module",
-	"main": "./index.js",
+	"main": "./library/index.js",
 	"exports": {
-		".": "./index.js",
-		"./*": "./*.js"
+		".": "./library/index.js",
+		"./*": "./library/*.js"
 	},
 	"scripts": {
 		"build": "esrun scripts/build",
 		"typecheck": "tsc --noEmit",
 		"test": "esrun test",
-		"deploy": "yarn build && yarn test && yarn --cwd ./package publish"
+		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {
-		"@digitak/gravity": "../../core/package",
-		"sswr": "^1.3.1"
+		"@digitak/gravity": "../../core/package"
 	},
 	"peerDependencies": {
 		"svelte": "^3"
 	},
 	"devDependencies": {
 		"@digitak/esrun": "^3.1.0",
-		"@digitak/tsc-esm": "^3.0.2",
-		"@types/node": "^16.11.13",
+		"@digitak/tsc-esm": "^3.1.1",
+		"@sveltejs/kit": "next",
+		"@types/node": "^16.11.21",
 		"svelte": "^3",
-		"typescript": "^4.5.4"
+		"typescript": "^4.5.4",
+		"@sveltejs/adapter-auto": "next",
+		"@typescript-eslint/eslint-plugin": "^4.31.1",
+		"@typescript-eslint/parser": "^4.31.1",
+		"eslint": "^7.32.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^3.2.1",
+		"prettier": "^2.4.1",
+		"prettier-plugin-svelte": "^2.4.0",
+		"svelte-check": "^2.2.6",
+		"svelte-preprocess": "^4.9.4",
+		"tslib": "^2.3.1"
 	}
 }

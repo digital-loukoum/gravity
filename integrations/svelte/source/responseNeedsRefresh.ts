@@ -1,4 +1,4 @@
-import { SwrResponse } from "./_SwrResponse";
+import { SwrResponse } from "./swrResponse";
 
 export const responseNeedsRefresh = (
 	{ lastRefreshAt }: SwrResponse<unknown>,

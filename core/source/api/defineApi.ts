@@ -5,6 +5,7 @@ import { isBrowser } from "../utilities/isBrowser";
 import { apiProxy } from "./apiProxy";
 import type { Instance } from "../types/Instance";
 import { Promisify } from "../types/Promisify";
+import { normalizePath } from "../middleware/normalizePath";
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -31,6 +32,8 @@ export function defineApi<
 	onRequestSend,
 	onResponseReceive,
 }: DefineApiOptions = {}): Api<Services> {
+	apiPath = normalizePath(apiPath);
+
 	return apiProxy(async (service, operation, properties) => {
 		// on a non-browser environment, we return a promise that never resolves
 		if (!isBrowser()) return new Promise(() => {});
@@ -42,12 +45,12 @@ export function defineApi<
 		let request: RequestInit = {
 			method: "POST",
 			headers,
-			body: bunker({ service, operation, properties }),
+			body: properties?.length ? bunker(properties) : null,
 		};
 		await onRequestSend?.(request);
 
 		// fetch the server with the resulting request
-		let response = await fetch(apiPath, request);
+		let response = await fetch(`${apiPath}${service}/${operation}`, request);
 		await onResponseReceive?.(response);
 
 		// TODO: should return an error object

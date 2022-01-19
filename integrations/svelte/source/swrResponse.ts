@@ -1,10 +1,8 @@
 import { writable, Writable, Readable } from "svelte/store";
+import type { SwrData } from "@digitak/gravity/swr/SwrData";
+import type { SwrInterface } from "@digitak/gravity/swr/SwrInterface";
 
-// export type ReadonlySwrResponse<Data> = Readable<{
-// 	data: Data | undefined;
-// 	error?: Error;
-// 	isLoading: boolean;
-// }>;
+export type SwrResponse<Data> = Writable<SwrData<Data>> & SwrInterface;
 
 export const swrResponse = <Data>(
 	fetcher: () => Promise<Data>,
@@ -46,15 +44,4 @@ export const swrResponse = <Data>(
 	};
 
 	return store;
-};
-
-export type SwrResponse<Data> = Writable<{
-	data: Data | undefined;
-	error: Error | undefined;
-	isLoading: boolean;
-	isRefreshing: boolean;
-}> & {
-	refresh: () => void;
-	lastRefreshAt?: number;
-	poller?: NodeJS.Timer;
 };

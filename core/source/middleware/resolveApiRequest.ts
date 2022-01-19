@@ -19,7 +19,7 @@ export async function resolveApiRequest<Context>({
 	url: string;
 	services: Record<string, BaseServiceConstructor>;
 	headers: IncomingHttpHeaders;
-	rawBody: Uint8Array;
+	rawBody: Uint8Array | null | undefined;
 	context: Context;
 	authorize: GravityAuthorizeFunction<Context> | undefined;
 }): Promise<GravityResponse> {

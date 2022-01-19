@@ -23,7 +23,9 @@ const config = {
 			},
 			resolve: {
 				alias: {
-					'src/': `${__dirname}/src/`
+					'src/': `${__dirname}/src/`,
+					'@digitak/gravity-svelte': `${__dirname}/../source`,
+					'@digitak/gravity-svelte/': `${__dirname}/../source/`
 				}
 			}
 		}

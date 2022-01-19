@@ -4,7 +4,7 @@ specifiers:
   '@digitak/bunker': ^3.2.1
   '@digitak/esrun': ^3.1.0
   '@digitak/print': ^1.1.3
-  '@digitak/tsc-esm': ^3.0.2
+  '@digitak/tsc-esm': ^3.1.1
   '@types/node': ^16.11.13
   fartest: ^2.1.8
   typescript: ^4.5.3
@@ -15,8 +15,8 @@ dependencies:
 
 devDependencies:
   '@digitak/esrun': 3.1.2
-  '@digitak/tsc-esm': 3.0.2
-  '@types/node': 16.11.20
+  '@digitak/tsc-esm': 3.1.1
+  '@types/node': 16.11.21
   fartest: 2.1.8
   typescript: 4.5.4
 
@@ -36,19 +36,19 @@ packages:
       esbuild: 0.12.29
     dev: true
 
-  /@digitak/grubber/3.0.2:
-    resolution: {integrity: sha512-Vs1zYsmejKxGwshnmHm4YmykHZuYyX09qe7zWjPJHBOnxDfsyQX8jBOHYEfukY2aVY2T1ftxHU165PSMFFjRBA==}
+  /@digitak/grubber/3.1.1:
+    resolution: {integrity: sha512-xHpmj3Erk5AA/nKpOJzap23TJSV0MFRTgtciG8XZg0GP0CUwms0g02SQQaKEPCe2mvKVlqfzad3xV4DiHlq2jA==}
     dev: true
 
   /@digitak/print/1.1.4:
     resolution: {integrity: sha512-0RHK/VmKO/JXxvDjpUJo1IwYVf+ZSBx543sk8FVBegp9pUPkGnSnd9waQv5yBLuaRg+WneNiFBmnhOKdPV4pOQ==}
     dev: false
 
-  /@digitak/tsc-esm/3.0.2:
-    resolution: {integrity: sha512-U536ioWE2kpRQG92pMqg7RoCfldMO3xgOaXLtJlImzpXtI0VCHflDD0zDs1QtH/Oh0MtG6NxVzOjp78fC5Tr3Q==}
+  /@digitak/tsc-esm/3.1.1:
+    resolution: {integrity: sha512-ZsNM2vChiAqdmKZaQVOXvFey1VgdBDiiZJSu0hBih7M3DJtVFokQkouBFSYbpKOYexAhFy3V/EDPhSFglTCYGg==}
     hasBin: true
     dependencies:
-      '@digitak/grubber': 3.0.2
+      '@digitak/grubber': 3.1.1
       fast-glob: 3.2.11
       relaxed-json: 1.0.3
     dev: true
@@ -74,8 +74,8 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@types/node/16.11.20:
-    resolution: {integrity: sha512-lAKaZ0Lc1Umwd0AqLr6iy5U8u/1DpK7/JzNgQn9cMMUk2mFR8bbhEP8BQrI9Cm5CU0bOVCaWbkGBvgqKMOJHsw==}
+  /@types/node/16.11.21:
+    resolution: {integrity: sha512-Pf8M1XD9i1ksZEcCP8vuSNwooJ/bZapNmIzpmsMaL+jMI+8mEYU3PKvs+xDNuQcJWF/x24WzY4qxLtB0zNow9A==}
     dev: true
 
   /ansi-styles/3.2.1:
