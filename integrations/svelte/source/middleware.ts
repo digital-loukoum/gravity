@@ -23,17 +23,18 @@ export const gravity: GravityMiddleware<RequestEvent, Response> = ({
 	logger.verbose = verbose ?? false;
 
 	const handler: Handle = async ({ event, resolve }) => {
-		const { url, headers } = event.request;
-		if (!apiMatchesUrl(apiPath, url)) return await resolve(event);
+		const { url, request } = event;
+		const { headers } = request;
+		const { pathname } = url;
+		if (!apiMatchesUrl(apiPath, pathname)) return await resolve(event);
 
-		const rawBody = new Uint8Array(await event.request.arrayBuffer());
-
+		const rawBody = new Uint8Array(await request.arrayBuffer());
 		let resolved: GravityResponse;
 
 		try {
 			const context = await onRequestReceive?.(event)!;
 			resolved = await resolveApiRequest({
-				url: url.slice(apiPath.length),
+				url: pathname.slice(apiPath.length),
 				services,
 				headers: headersToIncomingHttpHeaders(headers),
 				rawBody,
