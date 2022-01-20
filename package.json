@@ -1,0 +1,15 @@
+{
+	"version": "0.0.4",
+	"scripts": {
+		"build": "esrun scripts/build",
+		"deploy": "esrun scripts/deploy"
+	},
+	"devDependencies": {
+		"@digitak/esrun": "^3.1.0",
+		"@types/async": "^3.2.12",
+		"@types/fs-extra": "^9.0.13",
+		"async": "^3.2.3",
+		"fs-extra": "^10.0.0",
+		"@digitak/print": "*"
+	}
+}
