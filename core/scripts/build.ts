@@ -1,15 +1,15 @@
 import { compile, patch } from "@digitak/tsc-esm";
-import { copyFileSync, rmSync } from "fs";
+import fs from "fs-extra";
 
 console.log("Cleaning package...");
-rmSync("package", { recursive: true, force: true });
+fs.rmSync("package", { recursive: true, force: true });
 
 console.log("Compiling typescript...");
 compile();
 
 console.log("Copying configuration files...");
-copyFileSync("./README.md", "./package/README.md");
-copyFileSync("./package.json", "./package/package.json");
+fs.copyFileSync("./README.md", "./package/README.md");
+fs.copyFileSync("./package.json", "./package/package.json");
 
 console.log("Patching imports...");
 patch();

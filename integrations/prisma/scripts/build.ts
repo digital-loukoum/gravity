@@ -1,24 +1,27 @@
 import { compile, patch } from "@digitak/tsc-esm";
-import { copyFileSync, rmSync, readFileSync, writeFileSync } from "fs";
+import fs from "fs-extra";
 
 console.log("Cleaning package...");
-rmSync("package", { recursive: true, force: true });
+fs.rmSync("package", { recursive: true, force: true });
 
 console.log("Compiling typescript...");
 compile();
 
-console.log("Copying configuration files...")
-copyFileSync("./README.md", "./package/README.md")
+console.log("Copying configuration files...");
+fs.copyFileSync("./README.md", "./package/README.md");
 
-const jsonPackage = JSON.parse(readFileSync("package.json", "utf8"))
+const jsonPackage = JSON.parse(fs.readFileSync("package.json", "utf8"));
 for (const option of ["dependencies", "devDependencies", "peerDependencies"]) {
 	for (const key in jsonPackage[option]) {
 		if (jsonPackage[option][key].startsWith("../")) {
-			jsonPackage[option][key] = "*"
+			jsonPackage[option][key] = "*";
 		}
 	}
 }
-writeFileSync("package/package.json", JSON.stringify(jsonPackage, null, "\t"))
+fs.writeFileSync(
+	"package/package.json",
+	JSON.stringify(jsonPackage, null, "\t"),
+);
 
 console.log("Patching imports...");
 patch();

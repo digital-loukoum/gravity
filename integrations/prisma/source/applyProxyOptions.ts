@@ -36,7 +36,5 @@ export function applyProxyOptions(
 		}
 	}
 
-	console.log("options", options);
-	throw "STOP";
 	return options;
 }

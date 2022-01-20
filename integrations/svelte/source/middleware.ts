@@ -1,20 +1,17 @@
 import type { GravityResponse } from "@digitak/gravity/types/GravityResponse";
-import type {
-	Handle,
-	ServerRequest,
-	ServerResponse,
-} from "@sveltejs/kit/types/hooks";
+import type { Handle, RequestEvent } from "@sveltejs/kit/types/hooks";
 import type { GravityMiddleware } from "@digitak/gravity/middleware/GravityMiddleware";
 import { normalizePath } from "@digitak/gravity/middleware/normalizePath";
 import { resolveApiError } from "@digitak/gravity/errors/resolveApiError";
 import { resolveApiRequest } from "@digitak/gravity/middleware/resolveApiRequest";
 import { apiMatchesUrl } from "@digitak/gravity/middleware/apiMatchesUrl";
 import { logger } from "@digitak/gravity/logs/logger";
+import { headersToIncomingHttpHeaders } from "@digitak/gravity/middleware/headersToIncomingHttpHeaders";
 
 /**
  * Add this middleware in '/hooks.ts' file
  */
-export const gravity: GravityMiddleware<ServerRequest, ServerResponse> = ({
+export const gravity: GravityMiddleware<RequestEvent, Response> = ({
 	services,
 	apiPath = "/api",
 	verbose,
@@ -25,26 +22,34 @@ export const gravity: GravityMiddleware<ServerRequest, ServerResponse> = ({
 	apiPath = normalizePath(apiPath);
 	logger.verbose = verbose ?? false;
 
-	const handler: Handle = async ({ request, resolve }) => {
-		const { url: rawUrl, rawBody, headers } = request;
-		const url = rawUrl.pathname;
-		if (!apiMatchesUrl(apiPath, url)) return await resolve(request);
+	const handler: Handle = async ({ event, resolve }) => {
+		const { url, headers } = event.request;
+		if (!apiMatchesUrl(apiPath, url)) return await resolve(event);
 
-		let response: GravityResponse;
+		const rawBody = new Uint8Array(await event.request.arrayBuffer());
+
+		let resolved: GravityResponse;
+
 		try {
-			const context = await onRequestReceive?.(request)!;
-			response = await resolveApiRequest({
+			const context = await onRequestReceive?.(event)!;
+			resolved = await resolveApiRequest({
 				url: url.slice(apiPath.length),
 				services,
-				headers,
+				headers: headersToIncomingHttpHeaders(headers),
 				rawBody,
 				context,
 				authorize,
 			});
 		} catch (error) {
-			response = resolveApiError(error);
+			resolved = resolveApiError(error);
 		}
-		onResponseSend?.(response);
+
+		const response: Response = new Response(resolved.body, {
+			headers: resolved.headers,
+			status: resolved.status,
+		});
+
+		await onResponseSend?.(response);
 		return response;
 	};
 

@@ -6,14 +6,6 @@ import Prisma from "@prisma/client";
 
 const prisma = new Prisma.PrismaClient();
 
-type Test = NonNullable<Prisma.Prisma.UserSelect["posts"]> extends
-	| boolean
-	| {
-			select?: infer Select;
-	  }
-	? Select
-	: false;
-
 const proxy = prismaProxy(prisma.user);
 proxy.$where = {
 	email: {
@@ -31,6 +23,9 @@ proxy.$include = {
 };
 proxy.$selectable = {
 	email: true,
+	posts: {
+		id: true,
+	},
 };
 
 // A `main` function so that you can use async/await

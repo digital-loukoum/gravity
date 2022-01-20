@@ -11,7 +11,6 @@ import { getCacheKey } from "@digitak/gravity/api/getCacheKey";
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser";
 import { swrResponse, SwrResponse } from "./swrResponse";
 import { swrCache } from "./swrCache";
-import { Instance } from "@digitak/gravity/types/Instance";
 import { responseNeedsRefresh } from "./responseNeedsRefresh";
 
 type UseApiService<Service extends BaseService> = {
@@ -25,7 +24,7 @@ type UseApiService<Service extends BaseService> = {
 };
 
 type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
-	[Key in keyof Services]: UseApiService<Instance<Services[Key]>>;
+	[Key in keyof Services]: UseApiService<InstanceType<Services[Key]>>;
 };
 
 export function defineApi<
