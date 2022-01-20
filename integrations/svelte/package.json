@@ -4,10 +4,10 @@
 	"author": "Gin Quin",
 	"license": "GNU v3",
 	"type": "module",
-	"main": "./library/index.js",
+	"main": "./index.js",
 	"exports": {
-		".": "./library/index.js",
-		"./*": "./library/*.js"
+		".": "./index.js",
+		"./*": "./*.js"
 	},
 	"scripts": {
 		"build": "esrun scripts/build",

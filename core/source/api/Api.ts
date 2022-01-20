@@ -1,5 +1,4 @@
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import type { Instance } from "../types/Instance";
 import { Promisify } from "../types/Promisify";
 
 /**
@@ -25,9 +24,13 @@ type Callable<Type> = Type extends (
 			| ArrayBuffer
 	? () => Promise<Type>
 	: Type extends object
-	? { [Key in keyof Type]: Callable<Type[Key]> }
+	? {
+			[Key in keyof Type as Exclude<Key, `${"$" | "_"}${string}`>]: Callable<
+				Type[Key]
+			>;
+	  }
 	: () => Promise<Type>;
 
 export type Api<Services extends Record<string, BaseServiceConstructor>> = {
-	[Key in keyof Services]: Callable<Instance<Services[Key]>>;
+	[Key in keyof Services]: Callable<InstanceType<Services[Key]>>;
 };

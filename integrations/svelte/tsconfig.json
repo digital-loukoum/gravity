@@ -7,9 +7,10 @@
 		"strict": true,
 		"outDir": "package",
 		"declaration": true,
+		"sourceMap": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
-		"baseUrl": ".",
+		"baseUrl": "."
 	},
 	"include": ["./source/**/*.ts"]
 }

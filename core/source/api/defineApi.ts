@@ -3,7 +3,6 @@ import { BaseService } from "../services/BaseService";
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import { isBrowser } from "../utilities/isBrowser";
 import { apiProxy } from "./apiProxy";
-import type { Instance } from "../types/Instance";
 import { Promisify } from "../types/Promisify";
 import { normalizePath } from "../middleware/normalizePath";
 
@@ -22,7 +21,7 @@ type ApiService<Service extends BaseService> = {
 };
 
 export type Api<Services extends Record<string, BaseServiceConstructor>> = {
-	[Key in keyof Services]: ApiService<Instance<Services[Key]>>;
+	[Key in keyof Services]: ApiService<InstanceType<Services[Key]>>;
 };
 
 export function defineApi<
