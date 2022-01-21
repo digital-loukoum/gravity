@@ -12,6 +12,5 @@ export function Assign<Constructor extends new (...args: any[]) => any, Object>(
 			Object.assign(this, object);
 		}
 	};
-	newConstructor.name = name;
 	return newConstructor;
 }

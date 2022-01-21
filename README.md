@@ -54,28 +54,52 @@ Go to the documentation and [get started!](documentation)
 ### Core features
 
 ✅ Server / client communication
+
 ✅ Context
+
 ✅ Use other services in service
+
 ✅ Low-level metadata API for services and operations
+
 ✅ Guard decorators
+
 ✅ Tag decorators
+
 ✅ Gravity callbacks (beforeRequestSend, afterRequestReceive, authorize, beforeResponseSend, afterResponseReceived)
+
 ✅ Error handling
+
 🚧 Automatic schema generation
+
 🚧 Parameters validation at runtime
+
 🚧 Validation decorators
 
 ### Integrations
 
 #### Back-end frameworks
+
 ✅ All frameworks with Express-like middlewares: Express, Polka, h3, Connect, ...
+
 ✅ SvelteKit
-🚧 Vanilla Node server
-🚧 Next.js
-🚧 Nuxt
+
+✅ Vanilla Node server
+
+❌ Next.js
+
+❌ Nuxt
 
 #### Front-end frameworks
 
 ✅ Svelte
-🚧 React
-🚧 Vue 3
+
+❌ React
+
+❌ Vue 3
+
+#### ORMs
+
+🚧 Prisma
+
+❌ MikroOrm
+

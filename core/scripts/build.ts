@@ -5,6 +5,7 @@ console.log("Cleaning package...");
 fs.rmSync("package", { recursive: true, force: true });
 
 console.log("Compiling typescript...");
+// fs.copySync("source", "package");
 compile();
 
 console.log("Copying configuration files...");

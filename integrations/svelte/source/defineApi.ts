@@ -9,6 +9,7 @@ import {
 import { apiProxy } from "@digitak/gravity/api/apiProxy";
 import { getCacheKey } from "@digitak/gravity/api/getCacheKey";
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser";
+import { Instance } from "@digitak/gravity/types/Instance";
 import { swrResponse, SwrResponse } from "./swrResponse";
 import { swrCache } from "./swrCache";
 import { responseNeedsRefresh } from "./responseNeedsRefresh";
@@ -24,7 +25,7 @@ type UseApiService<Service extends BaseService> = {
 };
 
 type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
-	[Key in keyof Services]: UseApiService<InstanceType<Services[Key]>>;
+	[Key in keyof Services]: UseApiService<Instance<Services[Key]>>;
 };
 
 export function defineApi<
@@ -41,8 +42,9 @@ export function defineApi<
 			if (!isBrowser()) return swrResponse<unknown>(async () => void 0);
 
 			const fetcher: () => Promise<unknown> = async () => {
+				// FIXME: will bug for nested services
 				// @ts-ignore
-				return await api[service][operation](properties);
+				return await api[service][operation](...properties);
 			};
 			const key = getCacheKey(service, operation, properties);
 			let response: SwrResponse<unknown>;

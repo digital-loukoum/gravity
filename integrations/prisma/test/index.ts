@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import { prismaProxy } from "../source/prismaProxy";
+import { BasePrismaService } from "../source/BasePrismaService";
+import { BaseService, BaseServiceConstructor } from "@digitak/gravity";
 import Prisma from "@prisma/client";
 
 const prisma = new Prisma.PrismaClient();

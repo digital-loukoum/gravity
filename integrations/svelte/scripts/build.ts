@@ -24,4 +24,9 @@ fs.writeFileSync(
 );
 
 console.log("Patching imports...");
-patch();
+patch([
+	{
+		find: /^@digitak\/gravity/,
+		replacement: null,
+	},
+]);

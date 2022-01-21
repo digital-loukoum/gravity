@@ -10,7 +10,6 @@ export function AssignPrototype<
 ) => InstanceType<Constructor> & Object {
 	// @ts-ignore
 	const newConstructor: any = class extends constructor {};
-	newConstructor.name = name;
 	Object.assign(newConstructor.prototype, prototype);
 	return newConstructor;
 }

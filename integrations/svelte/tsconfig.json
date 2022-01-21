@@ -7,7 +7,6 @@
 		"strict": true,
 		"outDir": "package",
 		"declaration": true,
-		"sourceMap": true,
 		"esModuleInterop": true,
 		"experimentalDecorators": true,
 		"baseUrl": "."

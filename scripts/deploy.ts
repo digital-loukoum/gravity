@@ -9,7 +9,7 @@ print`[blue: Starting deployment...]`;
 let deploymentCount = 0;
 
 for (const workspace of workspaces) {
-	exec(`npm publish --access public --prefix ${workspace}/package`, (error) => {
+	exec(`npm publish --prefix ${workspace}/package`, (error) => {
 		if (error) {
 			print`[red: －－－ [bold:${workspace}] • An error occured during deployment －－－]`;
 			console.log(error, "\n");

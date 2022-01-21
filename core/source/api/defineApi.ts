@@ -5,6 +5,7 @@ import { isBrowser } from "../utilities/isBrowser";
 import { apiProxy } from "./apiProxy";
 import { Promisify } from "../types/Promisify";
 import { normalizePath } from "../middleware/normalizePath";
+import { Instance } from "../types/Instance";
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -21,7 +22,7 @@ type ApiService<Service extends BaseService> = {
 };
 
 export type Api<Services extends Record<string, BaseServiceConstructor>> = {
-	[Key in keyof Services]: ApiService<InstanceType<Services[Key]>>;
+	[Key in keyof Services]: ApiService<Instance<Services[Key]>>;
 };
 
 export function defineApi<
