@@ -9,32 +9,47 @@ export function applyProxyOptions(
 ) {
 	options ??= {};
 
+	const $where = proxy?.$where?.();
+	const $select = proxy?.$select?.();
+	const $include = proxy?.$include?.();
+	const $selectable = proxy?.$selectable?.();
+
 	if (options.include) {
-		options.select = merge(options.select ?? {}, options.include);
+		options.select = merge(
+			options.include,
+			options.select ?? options.selectable ?? {},
+		);
 		options.include = undefined;
 	}
 
-	if (apply.where && proxy.$where) {
-		options.where = proxy.$where;
+	if ($where && apply.where) {
+		options.where = $where;
 	}
 
-	if (apply.select === true && proxy.$select) {
-		options.select = merge(options.select ?? {}, proxy.$select);
+	if ($select && apply.select === true) {
+		options.select = merge($select, options.select ?? options.selectable ?? {});
 	}
 
-	if (apply.select === true && proxy.$include) {
-		options.select = merge(options.select ?? {}, proxy.$include);
+	if ($include && apply.select === true) {
+		options.select = merge(
+			$include,
+			options.select ?? options.selectable ?? {},
+		);
 	}
 
-	if (apply.select === true && proxy.$selectable) {
-		if (options.select) {
-			options.select = narrow(options.select, proxy.$selectable);
+	if ($selectable) {
+		if (apply.select === true) {
+			if (options.select) {
+				options.select = narrow(options.select, $selectable);
+			}
+		} else if (Array.isArray(apply.select)) {
+			for (const key of apply.select) {
+				if (options[key]) options[key] = narrow(options[key], $selectable);
+			}
 		}
-	} else if (Array.isArray(apply.select)) {
-		for (const key of apply.select) {
-			if (options[key]) options[key] = narrow(options[key], proxy.$selectable);
-		}
 	}
 
+	// console.log("options", options);
+	// throw "STOP"
 	return options;
 }

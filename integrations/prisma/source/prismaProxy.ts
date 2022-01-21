@@ -1,4 +1,5 @@
 import { applyProxyOptions } from "./applyProxyOptions";
+import { PrismaConstraints } from "./PrismaConstraints";
 import { PrismaInterface } from "./PrismaInterface";
 import { PrismaProxyInterface } from "./PrismaProxyInterface";
 
@@ -6,8 +7,14 @@ import { PrismaProxyInterface } from "./PrismaProxyInterface";
 
 export const prismaProxy = <EntityManager extends PrismaInterface>(
 	entityManager: EntityManager,
+	constraints?: PrismaConstraints<EntityManager>,
 ): PrismaProxyInterface<EntityManager> =>
 	<PrismaInterface>{
+		$where: () => constraints?.where,
+		$select: () => constraints?.select,
+		$include: () => constraints?.include,
+		$selectable: () => constraints?.selectable,
+
 		aggregate(options: any) {
 			return entityManager.aggregate(
 				applyProxyOptions(options, this, {

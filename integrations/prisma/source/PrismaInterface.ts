@@ -1,5 +1,5 @@
 import { PrismaProxyInterface } from "./PrismaProxyInterface";
 
-export type PrismaInterface = {
-	[Key in keyof PrismaProxyInterface<unknown>]: any;
+export type PrismaInterface<EntityManager = any> = {
+	[Key in keyof PrismaProxyInterface<EntityManager>]: any;
 };
