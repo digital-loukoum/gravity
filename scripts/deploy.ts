@@ -1,23 +1,36 @@
 import workspaces from "../workspaces.json";
+import { bumpVersion } from "./utilities/bumpVersion";
+import { execSync } from "child_process";
 import { print } from "@digitak/print";
-import { exec } from "child_process";
+import { updateWorkspacesVersion } from "./utilities/updateWorkspacesVersion";
+import { execute } from "./utilities/execute";
+import path from "path";
 
-import "./build";
+print`[blue: Starting deploy...]`;
 
-print`[blue: Starting deployment...]`;
+bumpVersion();
+updateWorkspacesVersion();
+deploy();
 
-let deploymentCount = 0;
+async function deploy() {
+	try {
+		await Promise.all(
+			workspaces.map(async (workspace) => {
+				const cwd = path.resolve(workspace);
 
-for (const workspace of workspaces) {
-	exec(`npm publish --prefix ${workspace}/package`, (error) => {
-		if (error) {
-			print`[red: －－－ [bold:${workspace}] • An error occured during deployment －－－]`;
-			console.log(error, "\n");
-		} else {
-			print`[green: [bold:${workspace}] • Deployment successful 😉]`;
-			if (++deploymentCount == workspaces.length) {
-				print`\n[green.bold: Deployment done 🎉]\n`;
-			}
-		}
-	});
+				await execute(`npm run build`, { cwd });
+				print`[green: [bold:${workspace}] • Compilation successful 😉]`;
+
+				await execute(`npm publish`, { cwd });
+				print`[green: [bold:${workspace}] • Publication successful 🤗]`;
+			}),
+		);
+	} catch (error) {
+		// print`[red: －－－ [bold:${workspace}] • An error occured during deploy －－－]`;
+		print`[red: －－－ An error occured during deploy －－－]`;
+		console.log(error, "\n");
+		process.exit(1);
+	}
+
+	print`\n[green.bold: Deploy done 🎉]\n`;
 }
