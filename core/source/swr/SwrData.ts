@@ -1,6 +1,6 @@
 export type SwrData<Data> = {
-	data: Data | undefined;
-	error: Error | undefined;
+	data?: Data;
+	error?: Error;
 	isLoading: boolean;
 	isRefreshing: boolean;
 };
