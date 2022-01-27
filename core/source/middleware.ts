@@ -6,11 +6,13 @@ import { extractRawBody } from "./middleware/extractRawBody";
 import { normalizePath } from "./middleware/normalizePath";
 import { resolveApiRequest } from "./middleware/resolveApiRequest";
 import { apiMatchesUrl } from "./middleware/apiMatchesUrl";
+import { getAllowedOrigin } from "./middleware/getAllowedOrigin";
 
 export const gravity: GravityMiddleware = ({
 	services,
 	apiPath = "/api",
 	verbose,
+	allowedOrigins,
 	onRequestReceive,
 	onResponseSend,
 	authorize,
@@ -25,6 +27,10 @@ export const gravity: GravityMiddleware = ({
 	) => {
 		const url = request.url ?? "";
 		if (!apiMatchesUrl(apiPath, url)) return next?.();
+		const allowedOrigin = getAllowedOrigin(
+			request.headers.origin,
+			allowedOrigins,
+		);
 
 		let status: number;
 		let headers: Record<string, any>;
@@ -49,11 +55,18 @@ export const gravity: GravityMiddleware = ({
 		}
 
 		response.statusCode = status;
-		for (const header in headers) response.setHeader(header, headers[header]);
+		response.setHeader("Access-Control-Allow-Headers", "*");
+		if (allowedOrigin != null) {
+			response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+		}
+		for (const header in headers) {
+			response.setHeader(header, headers[header]);
+		}
+
+		await onResponseSend?.(response);
 
 		// we write the result
 		response.write(body);
-		await onResponseSend?.(response);
 		response.end();
 		return response;
 	};

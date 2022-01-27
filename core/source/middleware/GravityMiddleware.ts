@@ -11,8 +11,9 @@ export type GravityMiddleware<
 		services: Record<string, BaseServiceConstructor<Context>>;
 		apiPath?: string;
 		verbose?: boolean;
-		onResponseSend?: (response: Response) => MaybePromise<Response>;
+		onResponseSend?: (response: Response) => unknown;
 		authorize?: GravityAuthorizeFunction<Context>;
+		allowedOrigins?: string[];
 	} & (Context extends undefined
 		? { onRequestReceive?: (request: Request) => MaybePromise<Context> }
 		: {

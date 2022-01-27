@@ -9,8 +9,8 @@ import { Instance } from "../types/Instance";
 
 export type DefineApiOptions = {
 	apiPath?: string;
-	onRequestSend?: (request: RequestInit) => any;
-	onResponseReceive?: (response: Response) => any;
+	onRequestSend?: (request: RequestInit) => unknown;
+	onResponseReceive?: (response: Response) => unknown;
 };
 
 type ApiService<Service extends BaseService> = {

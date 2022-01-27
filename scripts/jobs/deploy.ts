@@ -12,7 +12,7 @@ export async function deploy() {
 	try {
 		await Promise.all(
 			workspaces.map(async (workspace) => {
-				const cwd = path.resolve(workspace);
+				const cwd = path.resolve(`${workspace}/package`);
 
 				await execute(`npm publish`, { cwd });
 				print`[blue: [bold:${workspace}] • Publication successful 🤗]`;
