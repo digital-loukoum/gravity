@@ -31,11 +31,6 @@ jobs:
           run_install: true
       # install/
 
-      - name: Deploy
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-        run: npm run deploy
-
   deploy:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
