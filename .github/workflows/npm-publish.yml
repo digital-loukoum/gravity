@@ -30,8 +30,10 @@ jobs:
           run_install: true
       # install/
 
+      - name: Install
+        run: pnpm i --dir core
       - name: Build
-        run: npm run build
+        run: pnpm run build --dir core
 #      - run: npm test
 
   publish:
