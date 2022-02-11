@@ -10,6 +10,7 @@ on:
     branches: [main]
 jobs:
   build:
+    if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,32 +31,34 @@ jobs:
           run_install: true
       # install/
 
-      - name: Build
-        run: npm run build
-#      - run: npm test
-
-  publish:
-    if: github.event_name == 'push'
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      # /install
-      - uses: actions/cache@v2
-        id: pnpm-cache
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-modules-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
-      - name: Install dependencies
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.30.1
-          run_install: true
-      # install/
-      - run: npm publish --prefix core/package
+      - name: Deploy
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npm run deploy
+
+  deploy:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      # /install
+      - uses: actions/cache@v2
+        id: pnpm-cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-modules-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.30.1
+          run_install: true
+      # install/
+
+      - name: Deploy
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+        run: npm run deploy
