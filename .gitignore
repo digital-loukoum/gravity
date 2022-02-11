@@ -2,3 +2,4 @@ node_modules/
 library/
 package/
 .env
+.DS_STORE

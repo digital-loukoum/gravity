@@ -1,12 +1,11 @@
 {
 	"name": "@digitak/gravity",
-	"version": "0.0.26",
+	"version": "0.0.28",
 	"description": "Next-generation backend framework with isomorphic capacities",
 	"repository": "https://github.com/digital-loukoum/gravity.git",
 	"author": "Gin Quin",
 	"license": "GNU v3",
 	"type": "module",
-	"main": "./index.js",
 	"exports": {
 		".": "./index.js",
 		"./*": "./*.js"
@@ -24,10 +23,10 @@
 	"devDependencies": {
 		"@digitak/esrun": "^3.1.0",
 		"@digitak/tsc-esm": "^3.1.1",
+		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^16.11.13",
 		"fartest": "^2.1.8",
-		"typescript": "^4.5.3",
-		"@types/fs-extra": "^9.0.13",
-		"fs-extra": "^10.0.0"
+		"fs-extra": "^10.0.0",
+		"typescript": "^4.5.3"
 	}
 }

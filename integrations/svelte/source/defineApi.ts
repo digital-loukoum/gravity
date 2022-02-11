@@ -31,7 +31,8 @@ type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
 export function defineApi<
 	Services extends Record<string, BaseServiceConstructor>,
 >(options: DefineApiOptions & SwrOptions = {}) {
-	const api = defaultDefineApi<Services>(options);
+	const { api, apiClient, apiServer, callApi } =
+		defaultDefineApi<Services>(options);
 
 	const useApi = ({
 		cache = options.cache ?? true,
@@ -80,5 +81,5 @@ export function defineApi<
 			return response;
 		}) as UseApi<Services>;
 
-	return { api, useApi };
+	return { api, apiClient, apiServer, callApi, useApi };
 }
