@@ -34,7 +34,7 @@ jobs:
         run: npm run build
 #      - run: npm test
 
-  publish-npm:
+  publish:
     if: github.event_name == 'push'
     needs: build
     runs-on: ubuntu-latest
