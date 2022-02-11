@@ -8,7 +8,7 @@ import { updateWorkspacesVersion } from "../utilities/updateWorkspacesVersion";
 export async function build() {
 	print`[yellow: Starting build...]`;
 
-	bumpVersion();
+	await bumpVersion();
 	updateWorkspacesVersion();
 
 	try {
