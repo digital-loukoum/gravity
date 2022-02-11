@@ -28,11 +28,10 @@ jobs:
         with:
           version: 6.30.1
           run_install: true
-          run_install.cwd: core
       # install/
 
       - name: Build
-        run: npm run build --prefix core
+        run: npm run build
 #      - run: npm test
 
   publish-npm:
