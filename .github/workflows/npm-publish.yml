@@ -19,25 +19,23 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       # # /install
-      # - uses: actions/cache@v2
-      #   id: pnpm-cache
-      #   with:
-      #     path: ~/.pnpm-store
-      #     key: ${{ runner.os }}-modules-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
-      # - name: Install dependencies
-      #   uses: pnpm/action-setup@v2.0.1
-      #   with:
-      #     version: 6.30.1
+      - uses: actions/cache@v2
+        id: pnpm-cache
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-modules-${{ matrix.node-version }}-${{ hashFiles('**/package.json') }}
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 6.30.1
       # # install/
 
-      - name: Install
-        run: npm i --prefix core
+      # - name: Install
+      #   run: npm i --prefix core
       - name: Build
-        run: npm run build --prefix core
+        run: pnpm build --dir core
       - name: Publish
-        run: |
-          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          npm publish core/package --ignore-scripts
+        run: npm publish core/package
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
