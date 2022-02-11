@@ -35,6 +35,8 @@ jobs:
       #   run: npm i --prefix core
       - name: Deploy
         run: npm run deploy
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   # publish:
   #   if: github.event_name == 'push'
