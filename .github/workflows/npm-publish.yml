@@ -33,7 +33,7 @@ jobs:
         run: pnpm i --dir core
       - name: Build
         run: pnpm run build --dir core
-      - run: pnpm publish --dir core/package
+      - run: npm publish core/package
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
