@@ -8,8 +8,11 @@ import { updateWorkspacesVersion } from "../utilities/updateWorkspacesVersion";
 export async function build() {
 	print`[yellow: Starting build...]`;
 
-	await bumpVersion();
+	const version = bumpVersion();
 	updateWorkspacesVersion();
+
+	await execute(`git add .`);
+	await execute(`git commit -m "📌 Version ${version}"`);
 
 	try {
 		await Promise.all(

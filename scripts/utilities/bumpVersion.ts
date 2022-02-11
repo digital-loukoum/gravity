@@ -1,9 +1,7 @@
 import fs from "fs-extra";
 import { print } from "@digitak/print";
-import { execute } from "../utilities/execute";
-import { sleep } from "./sleep";
 
-export async function bumpVersion() {
+export function bumpVersion() {
 	const file = "package.json";
 	const packageInfos = JSON.parse(fs.readFileSync(file, "utf8"));
 	const version = packageInfos.version
@@ -15,7 +13,6 @@ export async function bumpVersion() {
 
 	const newVersion = version.join(".");
 	print` New version is [bold:${newVersion}]\n`;
-	await sleep(500);
-	await execute(`git add .`);
-	await execute(`git commit -m "📌 Version ${newVersion}"`);
+
+	return newVersion;
 }
