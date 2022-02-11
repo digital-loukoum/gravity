@@ -33,12 +33,8 @@ jobs:
 
       # - name: Install
       #   run: npm i --prefix core
-      - name: Build
-        run: pnpm build --dir core
-      - name: Publish
-        run: npm publish core/package
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+      - name: Deploy
+        run: npm run deploy
 
   # publish:
   #   if: github.event_name == 'push'

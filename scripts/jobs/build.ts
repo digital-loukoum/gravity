@@ -13,6 +13,7 @@ export async function build() {
 
 	await execute(`git add .`);
 	await execute(`git commit -m "📌 Version ${version}"`);
+	await execute(`git push`);
 
 	try {
 		await Promise.all(
