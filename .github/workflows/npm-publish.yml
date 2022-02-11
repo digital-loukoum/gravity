@@ -1,7 +1,7 @@
 # This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
 # For more information see: https://help.github.com/actions/language-and-framework-guides/publishing-nodejs-packages
 
-name: Node.js Package
+name: NPM Package
 
 on:
   push:
@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
+          registry-url: https://registry.npmjs.org/
 
       # /install
       - uses: actions/cache@v2
@@ -35,6 +36,7 @@ jobs:
         run: pnpm run build --dir core
       - run: npm publish core/package
         env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   # publish:
@@ -59,6 +61,6 @@ jobs:
   #         version: 6.30.1
   #         run_install: true
   #     # install/
-  #     - run: npm publish --prefix core/package
+  #     - run: npm publish core/package
   #       env:
   #         NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
