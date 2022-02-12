@@ -2,18 +2,9 @@ import workspaces from "../../workspaces.json";
 import path from "path";
 import { execute } from "../utilities/execute";
 import { print } from "@digitak/print";
-import { bumpVersion } from "../utilities/bumpVersion";
-import { updateWorkspacesVersion } from "../utilities/updateWorkspacesVersion";
 
 export async function build() {
 	print`[yellow: Starting build...]`;
-
-	const version = bumpVersion();
-	updateWorkspacesVersion();
-
-	await execute(`git add .`);
-	await execute(`git commit -m "📌 Version ${version}"`);
-	await execute(`git push`);
 
 	try {
 		await Promise.all(
