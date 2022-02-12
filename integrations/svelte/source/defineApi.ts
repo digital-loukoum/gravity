@@ -4,6 +4,7 @@ import type { SwrOptions } from "@digitak/gravity/swr/SwrOptions";
 
 import {
 	defineApi as defaultDefineApi,
+	DefineApiReturnType,
 	DefineApiOptions,
 } from "@digitak/gravity/api/defineApi";
 import { apiProxy } from "@digitak/gravity/api/apiProxy";
@@ -30,9 +31,12 @@ type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
 
 export function defineApi<
 	Services extends Record<string, BaseServiceConstructor>,
->(options: DefineApiOptions & SwrOptions = {}) {
-	const { api, apiClient, apiServer, callApi } =
-		defaultDefineApi<Services>(options);
+>(
+	options: DefineApiOptions & SwrOptions = {},
+): DefineApiReturnType<Services> & {
+	useApi: (options: SwrOptions) => UseApi<Services>;
+} {
+	const core = defaultDefineApi<Services>(options);
 
 	const useApi = ({
 		cache = options.cache ?? true,
@@ -43,9 +47,7 @@ export function defineApi<
 			if (!isBrowser()) return swrResponse<unknown>(async () => void 0);
 
 			const fetcher: () => Promise<unknown> = async () => {
-				// FIXME: will bug for nested services
-				// @ts-ignore
-				return await api[service][operation](...properties);
+				return await core.resolveApiCall(service, operation, properties);
 			};
 			const key = getCacheKey(service, operation, properties);
 			let response: SwrResponse<unknown>;
@@ -81,5 +83,5 @@ export function defineApi<
 			return response;
 		}) as UseApi<Services>;
 
-	return { api, apiClient, apiServer, callApi, useApi };
+	return { ...core, useApi };
 }
