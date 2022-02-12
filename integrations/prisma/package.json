@@ -1,6 +1,6 @@
 {
 	"name": "@digitak/gravity-prisma",
-	"version": "0.0.37",
+	"version": "0.0.38",
 	"author": "Gin Quin",
 	"license": "GNU v3",
 	"type": "module",
