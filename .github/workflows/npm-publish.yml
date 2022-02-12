@@ -9,8 +9,8 @@ on:
   pull_request:
     branches: [main]
 jobs:
-  test:
-    if: github.event_name == 'pull_request'
+
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
-      # install
+      # install dependencies
       - uses: actions/cache@v2
         id: pnpm-cache
         with:
@@ -31,14 +31,15 @@ jobs:
           version: 6.30.1
           run_install: true
 
-      # Test
-      - name: Test
+      # build & test
+      - name: Build
         run: npm run build # TODO: Change "build" to "test" when tests are ready
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
   publish:
     if: github.event_name == 'push'
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -47,7 +48,7 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
 
-      # install
+      # install dependencies
       - uses: actions/cache@v2
         id: pnpm-cache
         with:
@@ -59,10 +60,10 @@ jobs:
           version: 6.30.1
           run_install: true
 
-      # push bumped versions
-      - name: setup git config
+      # setup git config (for auto-version bumping)
+      - name: Setup git config
         run: |
-          git config user.name "GitHub Actions Bot"
+          git config user.name "GitHub Actions"
           git config user.email "<>"
 
       # deploy to npm
