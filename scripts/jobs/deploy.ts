@@ -2,6 +2,7 @@ import workspaces from "../../workspaces.json";
 import { print } from "@digitak/print";
 import { execute } from "./../utilities/execute";
 import path from "path";
+import { build } from "./build";
 import { bumpVersion } from "../utilities/bumpVersion";
 import { updateWorkspacesVersion } from "../utilities/updateWorkspacesVersion";
 
@@ -12,6 +13,8 @@ export async function deploy() {
 	await execute(`git add .`);
 	await execute(`git commit -m "📌 Version ${version}"`);
 	await execute(`git push`);
+
+	await build();
 
 	print`[yellow: Starting deploy...]`;
 
