@@ -12,6 +12,6 @@ const server = createServer(
 		},
 	}),
 );
-server.listen(PORT);
-
-console.log(`Listening to port ${PORT}`);
+server.listen(PORT, () => {
+	console.log(`Listening to port ${PORT}`);
+});
