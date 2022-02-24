@@ -1,5 +1,5 @@
 {
-	"version": "0.0.42",
+	"version": "0.0.43",
 	"scripts": {
 		"build": "esrun scripts/build",
 		"deploy": "esrun scripts/deploy"
