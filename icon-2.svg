@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
+<metadata>
+<vectornator:setting key="IsTimeLapseWatermarkDisabled" value="false"/>
+<vectornator:setting key="UndoHistoryDisabled" value="true"/>
+<vectornator:setting key="VNDimensionsVisible" value="true"/>
+<vectornator:setting key="VNSnapToGuides" value="true"/>
+<vectornator:setting key="WDCMYKEnabledKey" value="false"/>
+<vectornator:setting key="WDDisplayWhiteBackground" value="false"/>
+<vectornator:setting key="WDDynamicGuides" value="false"/>
+<vectornator:setting key="WDGuidesVisible" value="true"/>
+<vectornator:setting key="WDIsolateActiveLayer" value="false"/>
+<vectornator:setting key="WDOutlineMode" value="false"/>
+<vectornator:setting key="WDRulersVisible" value="true"/>
+<vectornator:setting key="WDSnapToEdges" value="false"/>
+<vectornator:setting key="WDSnapToGrid" value="false"/>
+<vectornator:setting key="WDSnapToPoints" value="false"/>
+<vectornator:setting key="WDUnits" value="Pixels"/>
+</metadata>
+<defs>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="2287.41" id="Filter" width="2292.87" x="0" y="0">
+<feDropShadow dx="12.18" dy="26.3487" flood-color="#000000" flood-opacity="0.237964" height="2287.41" stdDeviation="0" width="2292.87"/>
+</filter>
+<linearGradient gradientTransform="matrix(1 0 0 1 0 0)" gradientUnits="userSpaceOnUse" id="LinearGradient" x1="687.763" x2="965.294" y1="539.991" y2="539.991">
+<stop offset="0.390018" stop-color="#ffffac"/>
+<stop offset="0.998979" stop-color="#f7acac"/>
+</linearGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="884.441" id="Filter_2" width="884.272" x="384.392" y="97.7709">
+<feDropShadow dx="10.9202" dy="23.4185" flood-color="#000000" flood-opacity="0.237964" height="884.441" stdDeviation="0" width="884.272"/>
+</filter>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="47.5405" id="Filter_3" width="507.166" x="339.57" y="519.982">
+<feDropShadow dx="9.85481" dy="21.1337" flood-color="#000000" flood-opacity="0.237964" height="47.5405" stdDeviation="0" width="507.166"/>
+</filter>
+</defs>
+<g id="Calque-1" vectornator:layerName="Calque 1">
+<path d="M103.73 525.144C103.73 319.937 270.49 153.585 476.199 153.585C681.908 153.585 848.668 319.937 848.668 525.144C848.668 730.351 681.908 896.704 476.199 896.704C270.49 896.704 103.73 730.351 103.73 525.144Z" fill="#ffffac" fill-rule="evenodd" filter="url(#Filter)" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="75" vectornator:shadowAngle="1.13779" vectornator:shadowColor="#000000" vectornator:shadowOffset="29.0277" vectornator:shadowOpacity="0.237964" vectornator:shadowRadius="0"/>
+<path d="M687.763 540.318C687.605 463.664 749.605 401.378 826.243 401.198C902.881 401.018 965.136 463.011 965.294 539.665C965.451 616.318 903.452 678.604 826.814 678.784C750.176 678.965 687.921 616.971 687.763 540.318Z" fill="url(#LinearGradient)" fill-rule="evenodd" filter="url(#Filter_2)" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="55" vectornator:shadowAngle="1.13446" vectornator:shadowColor="#000000" vectornator:shadowOffset="25.8394" vectornator:shadowOpacity="0.237964" vectornator:shadowRadius="0"/>
+<path d="M516.399 543.903C543.423 543.899 577.67 543.836 606.957 543.769C613.814 543.753 620.399 543.737 626.556 543.722C637.926 543.693 647.836 543.666 655.299 543.645C664.436 543.619 669.908 543.602 669.908 543.602" fill="none" fill-rule="evenodd" filter="url(#Filter_3)" opacity="1" stroke="#000000" stroke-linecap="round" stroke-linejoin="miter" stroke-width="68.6526" vectornator:shadowAngle="1.13446" vectornator:shadowColor="#000000" vectornator:shadowOffset="23.3185" vectornator:shadowOpacity="0.237964" vectornator:shadowRadius="0"/>
+</g>
+</svg>
