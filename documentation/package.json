@@ -1,0 +1,19 @@
+{
+  "name": "@example/docs",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@docsearch/react": "^1.0.0-alpha.28",
+    "react": "16",
+    "react-dom": "16"
+  },
+  "devDependencies": {
+    "astro": "^0.23.5"
+  }
+}
