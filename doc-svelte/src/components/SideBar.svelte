@@ -13,12 +13,13 @@
 
 <style lang="sass">
 	aside
-		width: var(--sidebar-width)
 		overflow: auto
-		padding: 12rem 0 24rem
+		--sidebar-footer-height: 64rem
+		width: var(--sidebar-width)
 		position: fixed
+		min-height: 100vh
 		top: var(--header-height)
 		left: 0
 		border-right: 1px solid var(--border-color)
-		min-height: 100vh
+		padding: 12rem 0 24rem
 </style>

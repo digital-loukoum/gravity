@@ -10,6 +10,19 @@
 		<Link variant="underline" to="/">
 			<span class="title"> Gravity </span>
 		</Link>
+		<Link
+			to="https://github.com/digital-loukoum"
+			style="
+				margin-left: 12rem;
+				font-family: Simplicity;
+				font-size: 18rem;
+				top: 1px;
+				letter-spacing: 1.4px;
+			"
+		>
+			<span style="margin-right: 4px; position: relative;">by Digital Loukoums</span>
+			<img src="/loukoums.png" alt="digital-loukoums-logo" width="36" height="36" />
+		</Link>
 	</aside>
 
 	<aside class="right">

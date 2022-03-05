@@ -25,6 +25,30 @@
 		font-family: Readex
 		src: url('/ReadexProFont/ReadexPro-Medium.ttf')
 
+	@font-face
+		font-family: Anthanista
+		src: url('/Anthanista/Anthanista.ttf')
+
+	@font-face
+		font-family: ShastaDaily
+		src: url('/ShastaDaily/ShastaDaily.otf')
+
+	@font-face
+		font-family: Love
+		src: url('/Love/Love.ttf')
+
+	@font-face
+		font-family: Homeday
+		src: url('/Homeday.otf')
+
+	@font-face
+		font-family: Simplicity
+		src: url('/Simplicity/Simplicity.ttf')
+
+	@font-face
+		font-family: Beauty
+		src: url('/Beauty/BeautyDemo.ttf')
+
 	:global(:root)
 		--header-height: 58rem
 		--sidebar-width: 320rem
