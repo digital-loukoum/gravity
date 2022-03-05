@@ -6,14 +6,16 @@
 <header>
 	<aside class="left">
 		<img src="/icon.svg" alt="icon" width="48" height="48" />
-		<div class="title">Gravity</div>
+		<a class="title" href="/">Gravity</a>
 	</aside>
 
 	<aside class="right">
 		<a href="/guide">Guide</a>
-		<a href="/api">API</a>
 		<a href="/changelog">v{version}</a>
-		<a href="/changelog"><GithubIcon size="24" /></a>
+		<a href="https://github.com/digital-loukoum/gravity" target="_blank">
+			<GithubIcon size="24" />
+			GitHub
+		</a>
 		<input placeholder="Search" />
 	</aside>
 </header>
@@ -31,15 +33,35 @@
 		border-bottom: 1px solid var(--border-color)
 		height: var(--header-height)
 		background-color: var(--background-color)
-		font-family: "Readex Pro", ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont, sans-serif
+		font-family: Readex
 
 		aside
 			display: flex
 			align-items: center
 
 			&.left
-				gap: 8rem
+				gap: 4rem
 				
 			&.right
 				gap: 24rem
+		
+		a
+			display: flex
+			align-items: center
+			gap: 6rem
+			&:not(.icon):hover
+				color: inherit
+				&:after
+					content: ""
+					position: absolute
+					bottom: -4px
+					left: 0
+					right: 0
+					height: 2px
+					background: var(--primary-color)
+
+		.title
+			// text-transform: uppercase
+			font-weight: bold
+			font-size: 18rem
 </style>

@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { join, extname } from 'path';
+import path from 'path';
 import yaml from 'js-yaml';
 
 const routesDirectory = 'src/routes';
@@ -41,8 +41,8 @@ export function getSiteNodes(parent = ''): Array<SiteNode> {
 	const children = getNodesOrder(parent);
 
 	for (const child of children) {
-		const childPath = join(parent, child);
-		const filePath = join(routesDirectory, childPath);
+		const childPath = path.join(parent, child);
+		const filePath = path.join(routesDirectory, childPath);
 
 		if (fs.statSync(filePath).isDirectory()) {
 			nodes.push({
@@ -52,7 +52,7 @@ export function getSiteNodes(parent = ''): Array<SiteNode> {
 				children: getSiteNodes(childPath)
 			});
 		} else {
-			const extension = extname(child);
+			const extension = path.extname(child);
 			const node: SiteFile = {
 				name: child.slice(0, -extension.length),
 				parent,
@@ -113,7 +113,7 @@ function parseMarkdown(content: string): MarkdownContent {
  * Return the ordered list of items from
  */
 function getNodesOrder(directory = ''): Array<string> {
-	const orderFilePath = join(routesDirectory, directory, '_order.yaml');
+	const orderFilePath = path.join(routesDirectory, directory, '_order.yaml');
 	if (!fs.existsSync(orderFilePath)) {
 		console.warn(`Missing '_order.yaml' file in directory '${routesDirectory}/${directory}'`);
 		return [];

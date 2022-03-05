@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { getSiteNodes } from 'src/utilities/getSiteNodes';
-	import SiteNode from './SiteNode.svelte';
+	import type { SiteNode } from 'src/utilities/getSiteNodes';
+	import SiteNodeView from './SiteNodeView.svelte';
+
+	export let siteNodes: Array<SiteNode>;
 </script>
 
 <aside>
-	{#each getSiteNodes() as node}
-		<SiteNode {node} />
+	{#each siteNodes as node}
+		<SiteNodeView {node} />
 	{/each}
 </aside>
 

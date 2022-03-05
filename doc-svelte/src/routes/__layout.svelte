@@ -1,10 +1,12 @@
 <script context="module" lang="ts">
 	import { getVersion } from 'src/utilities/getVersion';
+	import { getSiteNodes, type SiteNode } from 'src/utilities/getSiteNodes';
 
 	export async function load() {
 		return {
 			props: {
-				version: getVersion()
+				version: getVersion(),
+				siteNodes: getSiteNodes()
 			}
 		};
 	}
@@ -16,15 +18,20 @@
 	import SideBar from 'src/components/SideBar.svelte';
 
 	export let version: string;
+	export let siteNodes: Array<SiteNode>;
 </script>
 
 <Header {version} />
-<SideBar />
+<SideBar {siteNodes} />
 <Main>
 	<slot />
 </Main>
 
 <style lang="sass">
+	@font-face
+		font-family: Readex
+		src: url('/ReadexProFont/ReadexPro-Medium.ttf')
+
 	:global(:root)
 		--header-height: 58rem
 		--sidebar-width: 320rem
@@ -60,6 +67,7 @@
 	:global(a)
 		color: inherit
 		text-decoration: none
+		position: relative
 		&:hover
 			color: var(--primary-color)
 
