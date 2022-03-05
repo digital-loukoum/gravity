@@ -36,7 +36,7 @@ export class MarkdownContent {
  * Read all site nodes (directory and files) inside the "src/routes" directory
  * A site node can either be a directory or a file (markdown or regular svelte)
  */
-export function getSiteNodes(parent = ''): Array<SiteNode> {
+export function getSiteNodes(parent = 'documentation'): Array<SiteNode> {
 	const nodes: Array<SiteNode> = [];
 	const children = getNodesOrder(parent);
 

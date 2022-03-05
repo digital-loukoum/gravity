@@ -1,12 +1,8 @@
 <script context="module" lang="ts">
-	import { getVersion } from 'src/utilities/getVersion';
-	import { getSiteNodes, type SiteNode } from 'src/utilities/getSiteNodes';
-
-	export async function load() {
+	export async function load({ fetch }) {
 		return {
 			props: {
-				version: getVersion(),
-				siteNodes: getSiteNodes()
+				version: await (await fetch('/version')).text()
 			}
 		};
 	}
@@ -15,14 +11,11 @@
 <script lang="ts">
 	import Header from 'src/components/Header.svelte';
 	import Main from 'src/components/Main.svelte';
-	import SideBar from 'src/components/SideBar.svelte';
 
 	export let version: string;
-	export let siteNodes: Array<SiteNode>;
 </script>
 
 <Header {version} />
-<SideBar {siteNodes} />
 <Main>
 	<slot />
 </Main>
@@ -38,6 +31,7 @@
 		--background-color: white
 		--border-color: rgba(60, 60, 67, .12)
 		--text-color: #2c3e50
+		--pale-text-color: #888
 		--primary-color: #fd5591
 
 	:global(html)
@@ -64,13 +58,6 @@
 	:global(h1)
 		font-size: 2em
 	
-	:global(a)
-		color: inherit
-		text-decoration: none
-		position: relative
-		&:hover
-			color: var(--primary-color)
-
 	:global(code)
 		font-family: menlo, inconsolata, monospace
 		font-size: calc(1em - 2px)
