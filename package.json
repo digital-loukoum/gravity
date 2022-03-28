@@ -6,10 +6,10 @@
 	},
 	"devDependencies": {
 		"@digitak/esrun": "^3.1.0",
+		"@digitak/print": "*",
 		"@types/async": "^3.2.12",
 		"@types/fs-extra": "^9.0.13",
 		"async": "^3.2.3",
-		"fs-extra": "^10.0.0",
-		"@digitak/print": "*"
+		"fs-extra": "^10.0.0"
 	}
 }
