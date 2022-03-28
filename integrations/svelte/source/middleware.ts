@@ -1,5 +1,6 @@
 import type { GravityResponse } from "@digitak/gravity/types/GravityResponse";
-import type { Handle, RequestEvent } from "@sveltejs/kit/types/hooks";
+import type { Handle } from "@sveltejs/kit/types";
+import type { RequestEvent } from "@sveltejs/kit/types/private";
 import type { GravityMiddleware } from "@digitak/gravity/middleware/GravityMiddleware";
 import { normalizePath } from "@digitak/gravity/middleware/normalizePath";
 import { resolveApiError } from "@digitak/gravity/errors/resolveApiError";
@@ -25,6 +26,13 @@ export const gravity: GravityMiddleware<RequestEvent, Response> = ({
 	logger.verbose = verbose ?? false;
 
 	const handler: Handle = async ({ event, resolve }) => {
+		console.log("[Request event]", event.url.pathname);
+		// console.dir(event);
+		// console.log("\n[NEW REQUEST]");
+		// for (const key in event.request) {
+		// 	console.log(key, "=", event.request[key]);
+		// }
+
 		const { url, request } = event;
 		const { headers } = request;
 		const { pathname } = url;

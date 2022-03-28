@@ -10,7 +10,7 @@ export const handle = gravity<Context>({
 		return { user: 'admin' };
 	},
 
-	authorize: ({ service, operation, context }) => {
+	authorize: ({ service, context }) => {
 		// console.log('is Public?', isPublic(service, operation));
 	}
 });

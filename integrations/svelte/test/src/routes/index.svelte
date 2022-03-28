@@ -1,7 +1,17 @@
+<script context="module" lang="ts">
+	export async function load({ fetch }) {
+		const props = await (await fetch('/env')).json();
+		return { props };
+	}
+</script>
+
 <script lang="ts">
 	import Time from '../components/Time.svelte';
-
 	import { api, useApi } from '../gravity/api';
+
+	export let foo: string;
+
+	console.log('Foo:', foo);
 
 	let enemy = '';
 	// $: loadMeow = api.cat.meow(enemy);
