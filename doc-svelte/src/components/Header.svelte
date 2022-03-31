@@ -27,7 +27,7 @@
 
 	<aside class="right">
 		<Link variant="underline" to="/documentation">Documentation</Link>
-		<Link variant="underline" to="/changelog">@ {version}</Link>
+		<Link variant="underline" to="/changelog">Version {version}</Link>
 		<Link variant="default" to="https://github.com/digital-loukoum/gravity">
 			<GithubIcon size="24" />
 			GitHub

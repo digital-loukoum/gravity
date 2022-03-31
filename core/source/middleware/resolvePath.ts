@@ -18,8 +18,8 @@ export function resolvePath(
 		) {
 			resolved = resolved[name];
 		} else {
-			throw new GravityError("gravity/operation-not-in-service", {
-				message: `Operation '${path.join(
+			throw new GravityError("gravity/target-inexistant", {
+				message: `Target '${path.join(
 					"/",
 				)}' does not exist in service '${serviceName}'.`,
 				status: 400,

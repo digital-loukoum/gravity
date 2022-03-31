@@ -1,4 +1,4 @@
-import workspaces from "../../workspaces.json";
+import packages from "../packages.json";
 import { print } from "@digitak/print";
 import { execute } from "./../utilities/execute";
 import path from "path";
@@ -20,15 +20,15 @@ export async function deploy() {
 
 	try {
 		await Promise.all(
-			workspaces.map(async (workspace) => {
-				const cwd = path.resolve(`${workspace}/package`);
+			packages.map(async (pack) => {
+				const cwd = path.resolve(`${pack}/package`);
 
 				await execute(`npm publish`, { cwd });
-				print`[blue: [bold:${workspace}] • Publication successful 🤗]`;
+				print`[blue: [bold:${pack}] • Publication successful 🤗]`;
 			}),
 		);
 	} catch (error) {
-		// print`[red: －－－ [bold:${workspace}] • An error occured during deploy －－－]`;
+		// print`[red: －－－ [bold:${pack}] • An error occured during deploy －－－]`;
 		print`[red: －－－ An error occured during deploy －－－]`;
 		console.log(error, "\n");
 		process.exit(1);

@@ -3,13 +3,14 @@
 		"moduleResolution": "node",
 		"target": "es2020",
 		"lib": ["es2020", "dom"],
-		"module": "esnext",
+		"module": "ESNext",
 		"strict": true,
 		"outDir": "package",
 		"declaration": true,
 		"esModuleInterop": true,
+		"resolveJsonModule": true,
 		"experimentalDecorators": true,
 		"baseUrl": "."
 	},
-	"include": ["./source/**/*.ts"]
+	"include": ["source/**/*.ts"]
 }

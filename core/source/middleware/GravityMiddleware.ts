@@ -1,4 +1,5 @@
 import type { IncomingMessage, ServerResponse } from "http";
+import { Type } from "typezer";
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import { GravityAuthorizeFunction } from "../types/GravityAuthorizeFunction";
 import { MaybePromise } from "../types/MaybePromise";
@@ -9,6 +10,7 @@ export type GravityMiddleware<
 > = <Context = undefined>(
 	configuration: {
 		services: Record<string, BaseServiceConstructor<Context>>;
+		schema: Record<string, any>;
 		apiPath?: string;
 		verbose?: boolean;
 		onResponseSend?: (response: Response) => unknown;

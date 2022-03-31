@@ -1,5 +1,5 @@
 import { baseServiceProperties } from "../../services/BaseService";
-import { Type } from "typezer/library/types/Type/Type";
+import { Type } from "typezer";
 
 /**
  * Cleanly extract all services from a given schema.
@@ -9,7 +9,10 @@ import { Type } from "typezer/library/types/Type/Type";
 export function extractServicesFromSchema(
 	schema: Record<string, Type>,
 ): Record<string, Type> {
-	if (schema.services?.typeName !== "Object") {
+	if (!schema.services) {
+		throw new Error(`Missing exported variable 'service'`);
+	}
+	if (schema.services.typeName !== "Object") {
 		throw new Error(`Expected services to be an object`);
 	}
 	const services: Record<string, Type> = {};
@@ -19,20 +22,19 @@ export function extractServicesFromSchema(
 	)) {
 		if ("properties" in service) {
 			const cleanType = {} as Type;
-			for (const [key, type] of Object.entries(service.properties)) {
-				console.log("key", key);
-				console.log("type", type);
+			for (const [key, property] of Object.entries(service.properties)) {
 				if (
 					!(
+						key == "context" ||
 						key.startsWith("_") ||
 						key.startsWith("#") ||
-						type?.modifiers?.includes("private") ||
-						type?.modifiers?.includes("protected") ||
+						property?.modifiers?.includes("private") ||
+						property?.modifiers?.includes("protected") ||
 						key in baseServiceProperties
 					)
 				) {
 					// @ts-ignore
-					cleanType[key] = type[key];
+					cleanType[key] = service.properties[key];
 				}
 			}
 			services[serviceName] = cleanType;

@@ -7,10 +7,13 @@ import { GravityResponse } from "../types/GravityResponse";
 import { decodeParameters } from "./decodeParameters";
 import { decodeUrl } from "./decodeUrl";
 import { resolvePath } from "./resolvePath";
+import { validateSignature } from "typezer/validate";
+import { Type } from "typezer";
 
 export async function resolveApiRequest<Context>({
 	url,
 	services,
+	schema,
 	headers,
 	rawBody,
 	context,
@@ -18,6 +21,7 @@ export async function resolveApiRequest<Context>({
 }: {
 	url: string;
 	services: Record<string, BaseServiceConstructor>;
+	schema: Record<string, Record<string, Type>>;
 	headers: IncomingHttpHeaders;
 	rawBody: Uint8Array | null | undefined;
 	context: Context;
@@ -34,8 +38,8 @@ export async function resolveApiRequest<Context>({
 	}
 
 	if (!path.length) {
-		throw new GravityError("gravity/operation-missing", {
-			message: `Operation missing when calling service '${serviceName}'.`,
+		throw new GravityError("gravity/target-missing", {
+			message: `Target missing when calling service '${serviceName}'.`,
 			status: 400,
 		});
 	}
@@ -48,6 +52,7 @@ export async function resolveApiRequest<Context>({
 		});
 	}
 
+	// we authorize the call
 	await authorize?.({
 		context,
 		service: serviceConstructor,
@@ -56,10 +61,18 @@ export async function resolveApiRequest<Context>({
 
 	const service = new serviceConstructor(context);
 	const operation = resolvePath(serviceName, service, path);
+
 	let resolved: unknown;
 
 	if (typeof operation == "function") {
 		const parameters = decodeParameters(headers, rawBody);
+		const { errors } = validateSignature(schema[serviceName], path, parameters);
+		if (errors?.length) {
+			throw new GravityError("gravity/bad-parameters", {
+				message: `Bad parameters: ${errors.join("\n")}`,
+				status: 400,
+			});
+		}
 		resolved = await operation.apply(service, parameters);
 	} else resolved = await operation;
 

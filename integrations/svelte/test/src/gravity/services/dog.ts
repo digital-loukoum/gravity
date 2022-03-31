@@ -19,8 +19,4 @@ export class dog extends Service {
 	async woof() {
 		return await this.cat.meow();
 	}
-
-	attack() {
-		return 'WOOF! WOOF!';
-	}
 }

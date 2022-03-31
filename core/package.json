@@ -10,9 +10,10 @@
 		".": "./index.js",
 		"./*": "./*.js"
 	},
+	"bin": "./cli/gravity.js",
 	"scripts": {
 		"build": "esrun scripts/build",
-		"typecheck": "tsc --noEmit",
+		"check": "tsc --noEmit --watch",
 		"test": "esrun test",
 		"test:cli": "esrun test/cli",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
@@ -20,15 +21,17 @@
 	"dependencies": {
 		"@digitak/bunker": "^3.2.1",
 		"@digitak/print": "^1.1.4",
-		"typezer": "^0.9.4"
+		"esbuild": "^0.14.29",
+		"sade": "^1.8.1",
+		"typezer": "^0.9.14"
 	},
 	"devDependencies": {
-		"@digitak/esrun": "^3.1.0",
-		"@digitak/tsc-esm": "^3.1.1",
+		"@digitak/esrun": "^3.1.2",
+		"@digitak/tsc-esm": "^3.1.2",
 		"@types/fs-extra": "^9.0.13",
-		"@types/node": "^16.11.21",
+		"@types/node": "^16.11.26",
 		"fartest": "^2.1.8",
-		"fs-extra": "^10.0.0",
-		"typescript": "^4.5.3"
+		"fs-extra": "^10.0.1",
+		"typescript": "^4.6.3"
 	}
 }

@@ -1,4 +1,4 @@
-import workspaces from "../../workspaces.json";
+import packages from "../packages.json";
 import path from "path";
 import { execute } from "../utilities/execute";
 import { print } from "@digitak/print";
@@ -8,12 +8,12 @@ export async function build() {
 
 	try {
 		await Promise.all(
-			workspaces.map(async (workspace) => {
-				const cwd = path.resolve(workspace);
+			packages.map(async (pack) => {
+				const cwd = path.resolve(pack);
 
 				await execute(`npm run build`, { cwd });
 
-				print`[blue: [bold:${workspace}] • Compilation successful 😉]`;
+				print`[blue: [bold:${pack}] • Compilation successful 😉]`;
 			}),
 		);
 	} catch (error) {

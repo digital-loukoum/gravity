@@ -10,6 +10,7 @@ import { getAllowedOrigin } from "./middleware/getAllowedOrigin";
 
 export const gravity: GravityMiddleware = ({
 	services,
+	schema,
 	apiPath = "/api",
 	verbose,
 	allowedOrigins,
@@ -45,6 +46,7 @@ export const gravity: GravityMiddleware = ({
 			({ status, headers, body } = await resolveApiRequest({
 				url: url.slice(apiPath.length),
 				services,
+				schema,
 				headers: request.headers,
 				rawBody,
 				context,

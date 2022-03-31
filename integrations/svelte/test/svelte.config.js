@@ -15,13 +15,17 @@ const config = {
 		adapter: adapter(),
 		vite: {
 			optimizeDeps: {
-				exclude: ['sswr', '@digitak/gravity-svelte']
+				exclude: []
+			},
+			server: {
+				fs: {
+					allow: ['..']
+				}
 			},
 			resolve: {
 				alias: {
 					'src/': `${__dirname}/src/`,
-					'@digitak/gravity-svelte': `${__dirname}/../source`,
-					'@digitak/gravity-svelte/': `${__dirname}/../source/`
+					'@digitak/gravity-svelte': `${__dirname}/../source`
 				}
 			}
 		}
