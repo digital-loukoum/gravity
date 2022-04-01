@@ -1,12 +1,14 @@
 <script lang="ts">
 	export let version: string;
 	import GithubIcon from 'svelte-material-icons/Github.svelte';
+	import GravityIcon from './GravityIcon.svelte';
 	import Link from './Link.svelte';
 </script>
 
 <header>
 	<aside class="left">
-		<img src="/icon.svg" alt="icon" width="48" height="48" />
+		<GravityIcon />
+
 		<Link variant="underline" to="/">
 			<span class="title"> Gravity </span>
 		</Link>
@@ -27,7 +29,7 @@
 
 	<aside class="right">
 		<Link variant="underline" to="/documentation">Documentation</Link>
-		<Link variant="underline" to="/changelog">Version {version}</Link>
+		<Link variant="underline" to="/changelog">Beta {version}</Link>
 		<Link variant="default" to="https://github.com/digital-loukoum/gravity">
 			<GithubIcon size="24" />
 			GitHub
@@ -37,7 +39,7 @@
 
 <style lang="sass">
 	header
-		padding: 4rem 32rem 4rem 16rem
+		padding: 4rem 32rem 4rem 20rem
 		position: fixed
 		top: 0
 		left: 0
@@ -55,7 +57,7 @@
 			align-items: center
 
 			&.left
-				gap: 4rem
+				gap: 16rem
 				
 			&.right
 				gap: 24rem

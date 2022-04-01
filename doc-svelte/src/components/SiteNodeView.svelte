@@ -33,4 +33,7 @@
 		font-weight: bold
 		font-size: 18rem
 		padding-top: 28rem
+
+	.folder
+		margin: 8rem 0
 </style>

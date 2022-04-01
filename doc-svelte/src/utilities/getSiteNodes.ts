@@ -1,8 +1,10 @@
 import fs from 'fs';
-import path from 'path';
+import { join, extname } from 'path';
 import yaml from 'js-yaml';
+import { removeFileNameIndex } from './removeFileNameIndex';
+import { formatRouteName } from './formatRouteName';
 
-const routesDirectory = 'src/routes';
+const rootDirectory = 'src';
 
 export type SiteNode = SiteFile | SiteDirectory;
 
@@ -13,7 +15,6 @@ export type Header = {
 
 export type BaseSiteNode = {
 	name: string;
-	parent: string;
 	path: string;
 };
 
@@ -36,27 +37,33 @@ export class MarkdownContent {
  * Read all site nodes (directory and files) inside the "src/routes" directory
  * A site node can either be a directory or a file (markdown or regular svelte)
  */
-export function getSiteNodes(parent = 'documentation'): Array<SiteNode> {
+export function getSiteNodes(parent = 'documentation', route = parent): Array<SiteNode> {
 	const nodes: Array<SiteNode> = [];
-	const children = getNodesOrder(parent);
+
+	const children = fs
+		.readdirSync(join(rootDirectory, parent))
+		.filter((filename) => /^(\d+)\.(.*)$/.test(filename))
+		.sort((a, b) => parseInt(a) - parseInt(b));
 
 	for (const child of children) {
-		const childPath = path.join(parent, child);
-		const filePath = path.join(routesDirectory, childPath);
+		const childPath = join(parent, child);
+		const filePath = join(rootDirectory, childPath);
+		let name = removeFileNameIndex(child);
 
 		if (fs.statSync(filePath).isDirectory()) {
+			const path = join(route, formatRouteName(name));
 			nodes.push({
-				name: child,
-				parent,
-				path: childPath,
-				children: getSiteNodes(childPath)
+				name,
+				path: path,
+				children: getSiteNodes(childPath, path)
 			});
 		} else {
-			const extension = path.extname(child);
+			const extension = extname(child);
+			name = name.slice(0, -extension.length);
+
 			const node: SiteFile = {
-				name: child.slice(0, -extension.length),
-				parent,
-				path: childPath.slice(0, -extension.length),
+				name,
+				path: join(route, formatRouteName(name)),
 				extension
 			};
 
@@ -107,17 +114,4 @@ function parseMarkdown(content: string): MarkdownContent {
 		result.body = content;
 	}
 	return result;
-}
-
-/**
- * Return the ordered list of items from
- */
-function getNodesOrder(directory = ''): Array<string> {
-	const orderFilePath = path.join(routesDirectory, directory, '_order.yaml');
-	if (!fs.existsSync(orderFilePath)) {
-		console.warn(`Missing '_order.yaml' file in directory '${routesDirectory}/${directory}'`);
-		return [];
-	}
-	const order = yaml.load(fs.readFileSync(orderFilePath, 'utf-8'));
-	return order as Array<string>;
 }

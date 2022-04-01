@@ -22,6 +22,10 @@
 
 <style lang="sass">
 	@font-face
+		font-family: Acherus
+		src: url('/Acherus-Grotesque/Acherus-Grotesque-Thin.otf')
+
+	@font-face
 		font-family: Readex
 		src: url('/ReadexProFont/ReadexPro-Medium.ttf')
 
@@ -55,6 +59,7 @@
 		--background-color: white
 		--border-color: rgba(60, 60, 67, .12)
 		--text-color: #2c3e50
+		--secondary-text-color: #a2a2d4
 		--pale-text-color: #888
 		--primary-color: #fd5591
 
