@@ -10,13 +10,15 @@
 	<GravityIcon size={320} />
 
 	{#if mainElement}
-		<div class="title" in:fade={{ delay: 400, duration: 1000 }}>
-			Discover
+		<div class="title" in:fade={{ delay: 200, duration: 1000 }}>
+			<span>
+				<Typewriter value="Discover" initialDelay={200} />
+			</span>
 			<span class="gravity">
-				<Typewriter value="Gravity" initialDelay={1000} />
+				<Typewriter value="Gravity" initialDelay={1500} />
 			</span>
 		</div>
-		<div class="subtitle" in:fade={{ delay: 3000 }}>The natural RPC framework</div>
+		<div class="subtitle" in:fade={{ delay: 2800 }}>The intuitive RPC framework</div>
 	{/if}
 </main>
 
@@ -32,7 +34,7 @@
 		letter-spacing: 12rem
 	
 	.gravity
-		margin-left: 12rem
+		margin-left: 48rem
 		letter-spacing: 16rem
 
 	.subtitle

@@ -2,7 +2,8 @@
 	import { fly } from 'svelte/transition';
 	export let value: string;
 	export let initialDelay = 200;
-	export let delay = 160;
+	export let delay = 80;
+	export let duration = 400;
 
 	let ghostElement: HTMLSpanElement;
 </script>
@@ -14,7 +15,7 @@
 {#if ghostElement}
 	<span class="typewriter" style="margin-left: -{ghostElement.offsetWidth}px">
 		{#each value as character, index}
-			<span in:fly={{ y: -200, delay: initialDelay + index * delay, duration: 500 }}>
+			<span in:fly={{ y: -200, delay: initialDelay + index * delay, duration }}>
 				{character}
 			</span>
 		{/each}
