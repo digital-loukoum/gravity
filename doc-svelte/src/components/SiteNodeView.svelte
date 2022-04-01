@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+
 	import type { SiteNode } from 'src/utilities/getSiteNodes';
+	import { linkMatchesPath } from 'src/utilities/linkMatchesPath';
 	import Link from './Link.svelte';
 	export let node: SiteNode;
 	export let level = 0;
@@ -7,11 +10,14 @@
 	const baseIndentation = 24;
 	const indentationDelta = 20;
 
-	$: indentation = baseIndentation + indentationDelta * level;
-	$: style = `padding: 5rem 8rem 5rem ${indentation}rem`;
+	$: style = getStyle(level);
 
 	const getNodeName = (node: SiteNode) =>
 		node.name[0].toUpperCase() + node.name.slice(1).replace(/-/g, ' ');
+
+	function getStyle(level: number) {
+		return `padding: 5rem 8rem 5rem ${baseIndentation + indentationDelta * level}rem`;
+	}
 </script>
 
 {#if 'children' in node}
@@ -28,6 +34,20 @@
 		<Link variant="block" to="/{node.path}" {style}>
 			{node.attributes.title || getNodeName(node)}
 		</Link>
+
+		{#if linkMatchesPath(`/${node.path}`, $page.url.pathname)}
+			{#each node.headers as header}
+				<Link
+					variant="block"
+					to="/{node.path}#{header.label}"
+					style={getStyle(level + header.level)}
+				>
+					<span class="header">
+						{header.label}
+					</span>
+				</Link>
+			{/each}
+		{/if}
 	</div>
 {/if}
 
@@ -47,4 +67,7 @@
 				text-transform: uppercase
 				font-weight: normal
 				color: var(--pale-text-color)
+
+	.header
+		font-size: 14rem
 </style>

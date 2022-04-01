@@ -82,11 +82,19 @@
 	:global(h1, h2, h3, h4, h5, h6)
 		margin: 0 0 0.5em 0
 		font-weight: 400
-		line-height: 1.2
+		line-height: 1.8
+		font-family: Readex
+		letter-spacing: 1.2rem
+		color: black
 
 	:global(h1)
 		font-size: 2em
 	
+	:global(h2)
+		// padding: 4rem 0
+		margin: 36rem 0 16rem
+		border-bottom: 1px solid var(--border-color)
+
 	:global(code)
 		font-family: menlo, inconsolata, monospace
 		font-size: calc(1em - 2px)
@@ -94,4 +102,7 @@
 		background-color: #f0f0f0
 		padding: 0.2em 0.4em
 		border-radius: 2px
+
+	:global(p)
+		line-height: 1.8
 </style>

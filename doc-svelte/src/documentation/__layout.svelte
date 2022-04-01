@@ -15,13 +15,22 @@
 	export let siteNodes: Array<SiteNode>;
 </script>
 
-<div class="guide">
+<div class="content">
 	<SideBar {siteNodes} />
-	<slot />
+	<main>
+		<slot />
+	</main>
 </div>
 
 <style lang="sass">
-	.guide
+	.content
+		max-width: none
 		margin-left: var(--sidebar-width)
 		align-items: flex-start
+		padding: 0
+
+	main
+		max-width: 768rem
+		padding: 32rem 40rem
+		margin: auto
 </style>

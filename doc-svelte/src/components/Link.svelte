@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { linkMatchesPath } from 'src/utilities/linkMatchesPath';
 
 	export let to: string;
 	export let variant: 'default' | 'block' | 'underline' = 'default';
@@ -7,13 +8,6 @@
 
 	$: external = !to.startsWith('/');
 	$: active = linkMatchesPath(to, $page.url.pathname);
-
-	function linkMatchesPath(link: string, path: string) {
-		if (link == '/') return path == '/';
-		if (!link.endsWith('/')) link += '/';
-		if (!path.endsWith('/')) path += '/';
-		return path.startsWith(link);
-	}
 </script>
 
 <a href={to} class={variant} class:active target={external ? '_blank' : undefined} {style}>
