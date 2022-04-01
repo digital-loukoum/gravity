@@ -17,8 +17,8 @@
 		--sidebar-footer-height: 64rem
 		width: var(--sidebar-width)
 		position: fixed
-		min-height: 100vh
 		top: var(--header-height)
+		bottom: 0
 		left: 0
 		border-right: 1px solid var(--border-color)
 		padding: 12rem 0 24rem

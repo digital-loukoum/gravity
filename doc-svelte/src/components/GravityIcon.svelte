@@ -6,7 +6,7 @@
 	export let bigDotPosition = 11;
 	export let slidingDotAngle = 0.5;
 	export let slide = true;
-	export let walk = true;
+	export let walk = false;
 
 	const dotAngle = (Math.PI * 2) / dots;
 	const dotRadius = 40;
