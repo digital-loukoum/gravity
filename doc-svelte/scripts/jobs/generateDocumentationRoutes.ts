@@ -9,6 +9,7 @@ const documentationAlias = (source: string) =>
 	import Page from "${source}";
 </script>
 
+
 <Page />
 `.trim();
 
@@ -18,9 +19,10 @@ export function generateDocumentationRoutes(
 ) {
 	fs.ensureDirSync(target);
 
-	for (const fileName of fs.readdirSync(source)) {
+	for (let fileName of fs.readdirSync(source)) {
 		const filePath = path.join(source, fileName);
-		let targetPath = path.join(target, formatRouteName(removeFileNameIndex(fileName)));
+		fileName = removeFileNameIndex(fileName);
+		let targetPath = path.join(target, formatRouteName(fileName));
 
 		if (fs.statSync(filePath).isDirectory()) {
 			generateDocumentationRoutes(filePath, targetPath);

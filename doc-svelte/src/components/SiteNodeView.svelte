@@ -41,7 +41,7 @@
 				<Link
 					variant="block"
 					to="/{node.path}#{formatRouteName(header.label)}"
-					style={getStyle(level + header.level)}
+					style={getStyle(level + header.level - 1)}
 				>
 					<span class="header">
 						{header.label}
