@@ -20,11 +20,15 @@ export function generateDocumentationRoutes(
 
 	for (const fileName of fs.readdirSync(source)) {
 		const filePath = path.join(source, fileName);
-		const targetPath = path.join(target, formatRouteName(removeFileNameIndex(fileName)));
+		let targetPath = path.join(target, formatRouteName(removeFileNameIndex(fileName)));
 
 		if (fs.statSync(filePath).isDirectory()) {
 			generateDocumentationRoutes(filePath, targetPath);
 		} else {
+			if (targetPath.endsWith('.md')) {
+				targetPath = path.basename(targetPath, '.md') + '.svelte';
+			}
+
 			if (fileName == '__layout.svelte') {
 				fs.copyFileSync(filePath, targetPath);
 			} else {

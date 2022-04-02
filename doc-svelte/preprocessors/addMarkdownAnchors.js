@@ -6,10 +6,11 @@ export const addMarkdownAnchors = () => ({
 
 		const patch = new MagicString(content, filename);
 
-		patch.replace(
-			/^#{1,6}\s*(.*)\s*$/gm,
-			(match, title) => `<a name="${title.replace(/\s+/g, '-').toLowerCase()}"></a>\n\n${match}`
-		);
+		patch.replace(/^(#{1,6})\s*(.*)\s*$/gm, (_, level, title) => {
+			const id = title.replace(/\s+/g, '-').toLowerCase();
+			const tag = `h${level.length}`;
+			return `<${tag} id="${id}">${title}</${tag}>`;
+		});
 
 		return { code: patch.toString(), map: patch.generateMap() };
 	}

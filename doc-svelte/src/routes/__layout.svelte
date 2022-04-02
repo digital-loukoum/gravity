@@ -86,6 +86,9 @@
 		font-family: Readex
 		letter-spacing: 1.1rem
 		color: black
+	
+	:global(h1, h2, h3, h4, h5, h6, a)
+		scroll-margin-top: 90rem
 
 	:global(h1)
 		font-size: 2em
