@@ -26,7 +26,7 @@ export function generateDocumentationRoutes(
 			generateDocumentationRoutes(filePath, targetPath);
 		} else {
 			if (targetPath.endsWith('.md')) {
-				targetPath = path.basename(targetPath, '.md') + '.svelte';
+				targetPath = targetPath.slice(0, -3) + '.svelte';
 			}
 
 			if (fileName == '__layout.svelte') {
