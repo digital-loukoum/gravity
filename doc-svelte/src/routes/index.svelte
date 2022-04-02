@@ -10,15 +10,15 @@
 	<GravityIcon size={320} />
 
 	{#if mainElement}
-		<div class="title" in:fade={{ delay: 200, duration: 1000 }}>
+		<div class="title" in:fade={{ delay: 200, duration: 200 }}>
 			<span>
 				<Typewriter value="Discover" initialDelay={200} />
 			</span>
 			<span class="gravity">
-				<Typewriter value="Gravity" initialDelay={1500} />
+				<Typewriter value="Gravity" initialDelay={800} />
 			</span>
 		</div>
-		<div class="subtitle" in:fade={{ delay: 2800 }}>The intuitive RPC framework</div>
+		<div class="subtitle" in:fade={{ delay: 1800 }}>The intuitive RPC framework</div>
 	{/if}
 </main>
 

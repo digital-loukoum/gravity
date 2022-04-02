@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { formatRouteName } from 'src/utilities/formatRouteName';
 
 	import type { SiteNode } from 'src/utilities/getSiteNodes';
 	import { linkMatchesPath } from 'src/utilities/linkMatchesPath';
@@ -39,7 +40,7 @@
 			{#each node.headers as header}
 				<Link
 					variant="block"
-					to="/{node.path}#{header.label}"
+					to="/{node.path}#{formatRouteName(header.label)}"
 					style={getStyle(level + header.level)}
 				>
 					<span class="header">

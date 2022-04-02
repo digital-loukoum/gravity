@@ -84,7 +84,7 @@
 		font-weight: 400
 		line-height: 1.8
 		font-family: Readex
-		letter-spacing: 1.2rem
+		letter-spacing: 1.1rem
 		color: black
 
 	:global(h1)
