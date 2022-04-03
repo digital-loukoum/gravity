@@ -17,6 +17,9 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
+		prerender: {
+			crawl: true
+		},
 		vite: {
 			resolve: {
 				alias: {

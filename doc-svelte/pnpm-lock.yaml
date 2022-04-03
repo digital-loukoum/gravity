@@ -3,7 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@digitak/esrun': ^3.1.2
   '@sveltejs/adapter-auto': next
-  '@sveltejs/adapter-static': ^1.0.0-next.28
+  '@sveltejs/adapter-static': ^1.0.0-next.29
   '@sveltejs/kit': next
   '@types/js-yaml': ^4.0.5
   '@types/markdown-it': ^12.2.3
@@ -30,7 +30,7 @@ dependencies:
 devDependencies:
   '@digitak/esrun': 3.1.2
   '@sveltejs/adapter-auto': 1.0.0-next.34
-  '@sveltejs/adapter-static': 1.0.0-next.28
+  '@sveltejs/adapter-static': 1.0.0-next.29
   '@sveltejs/kit': 1.0.0-next.304_sass@1.49.9+svelte@3.46.4
   '@types/js-yaml': 4.0.5
   '@types/markdown-it': 12.2.3
@@ -118,8 +118,8 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /@sveltejs/adapter-static/1.0.0-next.28:
-    resolution: {integrity: sha512-c4xLyeSwnbGQxe4f1SLpHTbxZDm3TEr43scR3tOlVgQN+mnAL9aDdl3nTtdzWmrUDmDEmY4GriAwLyFLZuINLw==}
+  /@sveltejs/adapter-static/1.0.0-next.29:
+    resolution: {integrity: sha512-0hjGnfT3BRyoHnzJ2w0/xL+xICRpKneDTm45ZzggiRrc0r71WJfF6toGeg8N4QUQnj8EJ3Itm453gsS1kt7VUQ==}
     dependencies:
       tiny-glob: 0.2.9
     dev: true

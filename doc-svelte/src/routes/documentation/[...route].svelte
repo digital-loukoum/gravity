@@ -12,6 +12,13 @@
 		const map = await (await fetch(`/documentation/map.json`)).json();
 		const siteNode = findSiteNode(map, `documentation/${route}`);
 
+		if (!siteNode) {
+			return {
+				status: 404,
+				title: 'Not found'
+			};
+		}
+
 		return {
 			props: {
 				siteNode
@@ -47,8 +54,6 @@
 			{/if}
 		</div>
 	</div>
-{:else}
-	This page is missing
 {/if}
 
 <style lang="sass">
@@ -72,5 +77,4 @@
 
 		&.previous
 			color: var(--pale-text-color)
-
 </style>
