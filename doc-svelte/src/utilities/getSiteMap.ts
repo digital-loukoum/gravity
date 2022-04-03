@@ -4,6 +4,7 @@ import yaml from 'js-yaml';
 import { removeFileNameIndex } from './removeFileNameIndex';
 import { formatRouteName } from './formatRouteName';
 import { processMarkdown } from './processMarkdown';
+import { findLastSiteFile } from './findLastSiteFile';
 
 const rootDirectory = 'src';
 
@@ -16,16 +17,20 @@ export type BaseSiteNode = {
 	path: string;
 };
 
+export type SiteDirectory = BaseSiteNode & {
+	children: SiteMap;
+};
+
 export type SiteFile = BaseSiteNode & {
 	extension: string;
 	attributes?: Record<string, unknown>;
 	headers?: Array<SiteNodeHeader>;
 	html?: string;
+	previous?: SiteFileReference;
+	next?: SiteFileReference;
 };
 
-export type SiteDirectory = BaseSiteNode & {
-	children: SiteMap;
-};
+export type SiteFileReference = Pick<SiteFile, 'name' | 'path'>;
 
 export type SiteNodeHeader = {
 	level: number;
@@ -41,7 +46,11 @@ export type MarkdownContent = {
  * Read all site nodes (directory and files) inside the "src/routes" directory
  * A site node can either be a directory or a file (markdown or regular svelte)
  */
-export async function getSiteMap(directory: string, route = directory): Promise<SiteMap> {
+export async function getSiteMap(
+	directory: string,
+	route = directory,
+	previous?: SiteFile
+): Promise<SiteMap> {
 	const nodes: SiteMap = [];
 
 	const children = fs
@@ -56,11 +65,13 @@ export async function getSiteMap(directory: string, route = directory): Promise<
 
 		if (fs.statSync(filePath).isDirectory()) {
 			const path = join(route, formatRouteName(name));
+			const children = await getSiteMap(childPath, path, previous);
 			nodes.push({
 				name,
 				path: path,
-				children: await getSiteMap(childPath, path)
+				children
 			});
+			previous = findLastSiteFile(children) ?? previous;
 		} else {
 			const extension = extname(child);
 			name = name.slice(0, -extension.length);
@@ -79,7 +90,19 @@ export async function getSiteMap(directory: string, route = directory): Promise<
 				node.html = await processMarkdown(body);
 			}
 
+			if (previous) {
+				node.previous = {
+					name: previous.name,
+					path: previous.path
+				};
+				previous.next = {
+					name: node.name,
+					path: node.path
+				};
+			}
+
 			nodes.push(node);
+			previous = node;
 		}
 	}
 

@@ -34,7 +34,7 @@
 		padding: 0
 
 	main
-		max-width: 768rem
+		width: min(768rem, 100%)
 		padding: 32rem 40rem
 		margin: auto
 </style>
