@@ -1,12 +1,12 @@
 <script lang="ts">
-	import type { SiteNode } from 'src/utilities/getSiteNodes';
+	import type { SiteMap } from 'src/utilities/getSiteMap';
 	import SiteNodeView from './SiteNodeView.svelte';
 
-	export let siteNodes: Array<SiteNode>;
+	export let documentationMap: SiteMap;
 </script>
 
 <aside>
-	{#each siteNodes as node}
+	{#each documentationMap as node}
 		<SiteNodeView {node} />
 	{/each}
 </aside>

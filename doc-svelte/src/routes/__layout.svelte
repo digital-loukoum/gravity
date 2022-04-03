@@ -1,11 +1,13 @@
 <script context="module" lang="ts">
-	export async function load({ fetch }) {
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async ({ fetch }) => {
 		return {
 			props: {
 				version: await (await fetch('/version')).text()
 			}
 		};
-	}
+	};
 </script>
 
 <script lang="ts">

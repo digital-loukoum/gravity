@@ -1,22 +1,26 @@
 <script context="module" lang="ts">
-	export async function load({ fetch }) {
+	import type { Load } from '@sveltejs/kit';
+
+	export const load: Load = async ({ fetch }) => {
+		const documentationMap = await (await fetch('/documentation/map.json')).json();
+
 		return {
 			props: {
-				siteNodes: await (await fetch('/site-nodes')).json()
+				documentationMap
 			}
 		};
-	}
+	};
 </script>
 
 <script lang="ts">
 	import SideBar from 'src/components/SideBar.svelte';
-	import type { SiteNode } from 'src/utilities/getSiteNodes';
+	import type { SiteMap } from 'src/utilities/getSiteMap';
 
-	export let siteNodes: Array<SiteNode>;
+	export let documentationMap: SiteMap;
 </script>
 
 <div class="content">
-	<SideBar {siteNodes} />
+	<SideBar {documentationMap} />
 	<main>
 		<slot />
 	</main>

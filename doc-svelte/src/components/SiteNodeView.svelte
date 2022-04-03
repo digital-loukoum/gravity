@@ -1,8 +1,7 @@
 <script lang="ts">
+	import type { SiteNode } from 'src/utilities/getSiteMap';
 	import { page } from '$app/stores';
 	import { formatRouteName } from 'src/utilities/formatRouteName';
-
-	import type { SiteNode } from 'src/utilities/getSiteNodes';
 	import { linkMatchesPath } from 'src/utilities/linkMatchesPath';
 	import Link from './Link.svelte';
 	export let node: SiteNode;
@@ -33,11 +32,11 @@
 {:else}
 	<div class="page">
 		<Link variant="block" to="/{node.path}" {style}>
-			{node.attributes.title || getNodeName(node)}
+			{node.attributes?.title || getNodeName(node)}
 		</Link>
 
 		{#if linkMatchesPath(`/${node.path}`, $page.url.pathname)}
-			{#each node.headers as header}
+			{#each node.headers ?? [] as header}
 				<Link
 					variant="block"
 					to="/{node.path}#{formatRouteName(header.label)}"

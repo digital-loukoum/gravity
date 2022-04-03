@@ -2,7 +2,7 @@
   "name": "doc-svelte",
   "version": "0.0.1",
   "scripts": {
-    "dev": "esrun scripts/generate-documentation-routes && chokidar 'src/documentation/**/*' -c 'esrun scripts/generate-documentation-routes' & svelte-kit dev",
+    "dev": "svelte-kit dev",
     "build": "svelte-kit build",
     "generate:documentation": "esrun scripts/generate-documentation-routes",
     "package": "svelte-kit package",

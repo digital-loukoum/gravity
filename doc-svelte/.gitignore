@@ -1,5 +1,3 @@
-/src/routes/documentation/
-
 .DS_Store
 node_modules
 /build

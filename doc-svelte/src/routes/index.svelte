@@ -11,14 +11,9 @@
 
 	{#if mainElement}
 		<div class="title" in:fade={{ delay: 200, duration: 200 }}>
-			<span>
-				<Typewriter value="Discover" initialDelay={200} />
-			</span>
-			<span class="gravity">
-				<Typewriter value="Gravity" initialDelay={800} />
-			</span>
+			<Typewriter value="Gravity" initialDelay={400} />
 		</div>
-		<div class="subtitle" in:fade={{ delay: 1800 }}>The intuitive RPC framework</div>
+		<div class="subtitle" in:fade={{ delay: 1400 }}>The intuitive RPC framework</div>
 	{/if}
 </main>
 
@@ -30,11 +25,6 @@
 		font-family: Acherus
 		font-size: 40rem
 		text-transform: uppercase
-		margin: 48rem 0 16rem
-		letter-spacing: 12rem
-	
-	.gravity
-		margin-left: 48rem
 		letter-spacing: 16rem
 
 	.subtitle
@@ -43,4 +33,5 @@
 		font-size: 16rem
 		letter-spacing: 2rem
 		color: var(--secondary-text-color)
+		margin-top: 24rem
 </style>
