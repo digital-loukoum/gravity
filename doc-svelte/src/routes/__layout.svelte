@@ -61,9 +61,11 @@
 		--background-color: white
 		--border-color: rgba(60, 60, 67, .12)
 		--text-color: #2c3e50
-		--secondary-text-color: #a2a2d4
+		--secondary-text-color: #0053c7
 		--pale-text-color: #888
 		--primary-color: #fd5591
+		--secondary-color: #4fdeff
+		--tertiary-color: #55fdad
 
 	:global(html)
 		font-size: 1px
