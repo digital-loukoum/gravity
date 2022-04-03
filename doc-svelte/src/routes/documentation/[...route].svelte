@@ -28,33 +28,31 @@
 </script>
 
 <script lang="ts">
-	export let siteNode: SiteNode | undefined;
+	export let siteNode: SiteNode;
 </script>
 
-{#if siteNode}
-	<h1>{siteNode.name}</h1>
-	{@html 'html' in siteNode ? siteNode.html : ''}
+<h1>{siteNode.name}</h1>
+{@html 'html' in siteNode ? siteNode.html : ''}
 
-	<div class="navigator">
-		<div class="to previous">
-			{#if 'previous' in siteNode && siteNode.previous}
-				<Link to="/{siteNode.previous.path}">
-					<ArrowLeft />
-					{siteNode.previous.name}
-				</Link>
-			{/if}
-		</div>
-
-		<div class="to next">
-			{#if 'next' in siteNode && siteNode.next}
-				<Link to="/{siteNode.next.path}">
-					{siteNode.next.name}
-					<ArrowRight />
-				</Link>
-			{/if}
-		</div>
+<div class="navigator">
+	<div class="to previous">
+		{#if 'previous' in siteNode && siteNode.previous}
+			<Link to="/{siteNode.previous.path}">
+				<ArrowLeft />
+				{siteNode.previous.name}
+			</Link>
+		{/if}
 	</div>
-{/if}
+
+	<div class="to next">
+		{#if 'next' in siteNode && siteNode.next}
+			<Link to="/{siteNode.next.path}">
+				{siteNode.next.name}
+				<ArrowRight />
+			</Link>
+		{/if}
+	</div>
+</div>
 
 <style lang="sass">
 	.navigator
