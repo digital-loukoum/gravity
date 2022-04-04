@@ -1,6 +1,4 @@
 <script>
-	import Link from '../Link.svelte';
-
 	import CoreFeature from './CoreFeature.svelte';
 </script>
 
@@ -13,7 +11,7 @@
 		<span slot="link"> See examples </span>
 	</CoreFeature>
 
-	<CoreFeature color="tertiary">
+	<CoreFeature color="tertiary" link="/documentation/architecture/chose-your-architecture">
 		<span slot="title"> Flexible </span>
 
 		Use Gravity with Svelte, SvelteKit, React, Next, Solid, Vue, or any other framework.
@@ -21,7 +19,7 @@
 		<span slot="link"> Get started </span>
 	</CoreFeature>
 
-	<CoreFeature color="primary">
+	<CoreFeature color="primary" link="/documentation">
 		<span slot="title"> Scalable </span>
 
 		Group your server functions by services and enjoy a clean architecture.

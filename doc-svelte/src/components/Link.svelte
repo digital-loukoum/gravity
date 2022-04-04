@@ -3,7 +3,7 @@
 	import { linkMatchesPath } from 'src/utilities/linkMatchesPath';
 
 	export let to: string;
-	export let variant: 'default' | 'block' | 'underline' | 'hover:underline' = 'default';
+	export let variant: 'default' | 'block' | 'underline' = 'default';
 	export let style = '';
 
 	// $: external = !to.startsWith('/');

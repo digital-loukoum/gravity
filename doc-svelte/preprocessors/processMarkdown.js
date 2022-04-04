@@ -3,8 +3,6 @@ import { toHast } from 'mdast-util-to-hast';
 import { toHtml } from 'hast-util-to-html';
 import { remark } from 'remark';
 
-console.log('remarkShikiTwoslash', remarkShikiTwoslash);
-
 const shikiTwoSlash = remarkShikiTwoslash.default({
 	theme: 'dracula'
 });

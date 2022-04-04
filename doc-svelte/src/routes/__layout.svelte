@@ -75,13 +75,14 @@
 		--header-height: 58rem
 		--sidebar-width: 320rem
 		--background-color: white
+		--secondary-background-color: #ecf6f7
 		--border-color: rgba(60, 60, 67, .12)
 		--text-color: #2c3e50
 		--secondary-text-color: #0053c7
 		--pale-text-color: #888
 		--primary-color: #fd5591
-		--secondary-color: #4fdeff
-		--tertiary-color: #55fdad
+		--secondary-color: #1dc3e8
+		--tertiary-color: #0ed476
 
 	:global(html)
 		font-size: 1px
@@ -135,8 +136,29 @@
 		position: relative
 		color: var(--primary-color)
 	
-	:global(ul)
+	:global(ul, ol)
 		display: flex
 		flex-direction: column
 		gap: 8rem
+
+	:global(ol > li)
+		padding-left: 4rem
+	
+	:global(blockquote)
+		background: var(--secondary-background-color)
+		border-radius: 6px
+		margin: 20rem 0
+		padding: 4rem 24rem
+		position: relative
+
+		&:before
+			content: ""
+			position: absolute
+			top: 0
+			bottom: 0
+			left: 0
+			width: 3rem
+			background: var(--secondary-color)
+			border-top-left-radius: 6px
+			border-bottom-left-radius: 6px
 </style>

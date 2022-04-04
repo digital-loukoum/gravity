@@ -17,10 +17,14 @@
 	</main>
 
 	<footer>
-		<Link to={link} variant="hover:underline">
-			<slot name="link" />
-			<ArrowRight />
-		</Link>
+		<a href={link} class="feature-link">
+			<span class="link-text">
+				<slot name="link" />
+			</span>
+			<span class="link-arrow">
+				<ArrowRight />
+			</span>
+		</a>
 	</footer>
 </div>
 
@@ -47,4 +51,37 @@
 	footer
 		display: flex
 		justify-content: flex-end
+
+	.feature-link
+		display: flex
+		align-items: center
+		gap: 8rem
+
+
+	.link-text
+		color: var(--text-color)
+		display: flex
+		position: relative
+
+		&:after
+			content: ""
+			position: absolute
+			bottom: -4px
+			left: 0
+			right: 0
+			height: 2px
+			background: var(--color)
+
+	.link-arrow
+		font-size: 18rem
+		color: var(--text-color)
+		display: flex
+		align-items: center
+		margin-left: 4rem
+		transform: translateX(-4rem) scale(1)
+		transition: 150ms ease-in-out
+
+	.feature-link:hover
+		.link-arrow
+			transform: translateX(0) scale(1.2)
 </style>

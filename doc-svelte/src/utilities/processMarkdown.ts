@@ -1,8 +1,13 @@
 import { addMarkdownAnchors } from './addMarkdownAnchors';
-import remarkShikiTwoslash from 'remark-shiki-twoslash';
+import remarkShikiTwoslashImport from 'remark-shiki-twoslash';
 import { toHast } from 'mdast-util-to-hast';
 import { toHtml } from 'hast-util-to-html';
 import { remark } from 'remark';
+
+const remarkShikiTwoslash =
+	typeof remarkShikiTwoslashImport == 'function'
+		? remarkShikiTwoslashImport
+		: ((remarkShikiTwoslashImport as any).default as typeof remarkShikiTwoslashImport);
 
 const shikiTwoSlash = remarkShikiTwoslash({
 	theme: 'dracula'

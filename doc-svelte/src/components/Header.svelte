@@ -51,6 +51,7 @@
 		height: var(--header-height)
 		background-color: var(--background-color)
 		font-family: Readex
+		z-index: 1
 
 		aside
 			display: flex
