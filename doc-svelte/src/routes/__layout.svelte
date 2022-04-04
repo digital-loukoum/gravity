@@ -11,10 +11,26 @@
 </script>
 
 <script lang="ts">
+	import { browser } from '$app/env';
+
 	import Header from 'src/components/Header.svelte';
 	import Main from 'src/components/Main.svelte';
 
 	export let version: string;
+
+	if (browser) {
+		addEventListener('click', (event) => {
+			if (event.target instanceof HTMLAnchorElement) {
+				const href = event.target.getAttribute('href');
+				console.log('href', href);
+
+				if (href && !href.startsWith('/')) {
+					event.preventDefault();
+					window.open(href, '_blank');
+				}
+			}
+		});
+	}
 </script>
 
 <Header {version} />
@@ -112,4 +128,15 @@
 
 	:global(p)
 		line-height: 1.8
+
+	:global(a:not(.link))
+		color: inherit
+		text-decoration: none
+		position: relative
+		color: var(--primary-color)
+	
+	:global(ul)
+		display: flex
+		flex-direction: column
+		gap: 8rem
 </style>

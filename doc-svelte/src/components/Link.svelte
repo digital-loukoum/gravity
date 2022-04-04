@@ -6,11 +6,11 @@
 	export let variant: 'default' | 'block' | 'underline' | 'hover:underline' = 'default';
 	export let style = '';
 
-	$: external = !to.startsWith('/');
+	// $: external = !to.startsWith('/');
 	$: active = linkMatchesPath(to, $page.url.pathname);
 </script>
 
-<a href={to} class={variant} class:active target={external ? '_blank' : undefined} {style}>
+<a href={to} class="link {variant}" class:active {style}>
 	<slot />
 </a>
 
