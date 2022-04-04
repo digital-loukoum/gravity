@@ -23,6 +23,7 @@ pre.shiki code {
 	color: inherit;
 	padding: 0;
 	margin: 0;
+	font-size: 14rem;
 }
 
 .twoslash-exception-message {

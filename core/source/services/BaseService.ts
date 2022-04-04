@@ -1,4 +1,3 @@
-import { servicesStore } from "../metadata/metadataStores";
 import { getServiceInstance } from "./getServiceInstance";
 
 export abstract class BaseService<Context = any> {
@@ -7,7 +6,7 @@ export abstract class BaseService<Context = any> {
 	/**
 	 * Use this method to call another service from a service.
 	 */
-	useService<Service extends BaseService<Context>>(
+	protected useService<Service extends BaseService<Context>>(
 		serviceConstructor: new (context: Context) => Service,
 	): Service {
 		return getServiceInstance(this.context, serviceConstructor);
