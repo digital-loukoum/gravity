@@ -17,7 +17,7 @@
 	$: if (slide) {
 		if (!slider) {
 			slider = setInterval(() => {
-				slidingDotAngle = (slidingDotAngle + 0.01) % (2 * Math.PI);
+				slidingDotAngle = (slidingDotAngle + 0.002) % (2 * Math.PI);
 			}, 6);
 		}
 	} else {

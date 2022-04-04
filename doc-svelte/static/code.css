@@ -22,3 +22,11 @@ pre.shiki code {
 	padding: 0;
 	margin: 0;
 }
+
+.twoslash-exception-message {
+	font-size: 18rem !important;
+}
+
+.twoslash-exception-message h3 {
+	font-size: 22rem !important;
+}

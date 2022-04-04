@@ -1,14 +1,20 @@
-import MarkdownIt from 'markdown-it';
-import { markdownItShikiTwoslashSetup } from 'markdown-it-shiki-twoslash';
 import { addMarkdownAnchors } from './addMarkdownAnchors';
+import remarkShikiTwoslash from 'remark-shiki-twoslash';
+import { toHast } from 'mdast-util-to-hast';
+import { toHtml } from 'hast-util-to-html';
+import { remark } from 'remark';
 
-const shiki = markdownItShikiTwoslashSetup({
+const shikiTwoSlash = remarkShikiTwoslash({
 	theme: 'dracula'
 });
 
 export async function processMarkdown(content: string): Promise<string> {
 	content = addMarkdownAnchors(content);
-	return MarkdownIt({ html: true })
-		.use(await shiki)
-		.render(content);
+
+	const markdownAST = remark().parse(content);
+	await shikiTwoSlash(markdownAST);
+	const hAST = toHast(markdownAST, { allowDangerousHtml: true });
+	const html = hAST ? toHtml(hAST, { allowDangerousHtml: true }) : '';
+
+	return html;
 }

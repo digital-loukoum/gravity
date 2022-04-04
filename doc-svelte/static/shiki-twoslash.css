@@ -23,7 +23,7 @@ pre {
 	 border-left: 1px solid #999;
 	 border-bottom: 1px solid #999;
 
-	 margin-bottom: 3rem;
+	 margin-bottom: 48rem;
 
     /* Important to allow the code to move horizontally; */
     overflow-x: auto;
@@ -47,7 +47,7 @@ pre {
 	 background-color: #f1f8ff;
 }
  pre.shiki div.line {
-	 min-height: 1rem;
+	 min-height: 16rem;
 }
 
 /** Don't show the language identifiers */
@@ -69,7 +69,7 @@ pre.twoslash:hover data-lsp {
 pre.twoslash data-lsp:hover::before {
     content: attr(lsp);
     position: absolute;
-    transform: translate(0, 1rem);
+    transform: translate(0, 16rem);
 
     background-color: #3f3f3f;
     color: #fff;
@@ -172,7 +172,7 @@ pre .code-container {
 	 background-color: #eee;
 	 position: relative;
 	 top: -7px;
-	 margin-left: 0.1rem;
+	 margin-left: 2rem;
 	/* Edges */
 	 border-left: 1px solid #eee;
 	 border-top: 1px solid #eee;
@@ -185,7 +185,7 @@ pre .code-container {
 	 margin-bottom: 10px;
 	 background-color: #eee;
 	 display: inline-block;
-	 padding: 0 0.5rem 0.3rem;
+	 padding: 0 8rem 4rem;
 	 margin-top: 10px;
 	 border-radius: 3px;
 }
@@ -198,7 +198,7 @@ pre .code-container {
 	 color: grey;
 	 padding-top: 4px;
 	 font-family: var(--code-font);
-	 font-size: 0.8rem;
+	 font-size: 12rem;
 	 margin: 0;
 	 padding: 0;
 	 border-left: 4px solid #4b9edd;
@@ -207,7 +207,7 @@ pre .code-container {
 	 background-color: #4b9edd;
 	 width: 2px;
 	 position: absolute;
-	 top: -1.2rem;
+	 top: -20rem;
 	 left: -3px;
 	 content: " ";
 }
@@ -261,8 +261,8 @@ pre .code-container {
 }
 .tag-container .twoslash-annotation p {
 	text-align: left;
-	font-size: 0.8rem;
-	line-height: 0.9rem;
+	font-size: 12rem;
+	line-height: 14rem;
 }
 .tag-container .twoslash-annotation svg {
 	float: left;

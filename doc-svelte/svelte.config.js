@@ -9,8 +9,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
 	preprocess: [addMarkdownAnchors(), processMarkdown(), preprocess()],
 
 	extensions: ['.svelte', '.md'],

@@ -1,7 +1,11 @@
-import MarkdownIt from 'markdown-it';
-import { markdownItShikiTwoslashSetup } from 'markdown-it-shiki-twoslash';
+import remarkShikiTwoslash from 'remark-shiki-twoslash';
+import { toHast } from 'mdast-util-to-hast';
+import { toHtml } from 'hast-util-to-html';
+import { remark } from 'remark';
 
-const shiki = markdownItShikiTwoslashSetup({
+console.log('remarkShikiTwoslash', remarkShikiTwoslash);
+
+const shikiTwoSlash = remarkShikiTwoslash.default({
 	theme: 'dracula'
 });
 
@@ -9,11 +13,10 @@ export const processMarkdown = () => ({
 	markup: async ({ content, filename }) => {
 		if (!filename.endsWith('.md')) return;
 
-		const code = MarkdownIt({ html: true })
-			.use(await shiki)
-			.render(content)
-			.replace(/{/g, '&lbrace;')
-			.replace(/}/g, '&rbrace;');
+		const markdownAST = remark().parse(content);
+		await shikiTwoSlash(markdownAST);
+		const hAST = toHast(markdownAST, { allowDangerousHtml: true });
+		const code = hAST ? toHtml(hAST, { allowDangerousHtml: true }) : '';
 
 		return { code };
 	}
