@@ -141,6 +141,9 @@
 		flex-direction: column
 		gap: 8rem
 
+	:global(li > ul)
+		margin: 8rem 0 4rem
+
 	:global(ol > li)
 		padding-left: 4rem
 	

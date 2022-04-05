@@ -23,9 +23,9 @@ export type SiteDirectory = BaseSiteNode & {
 
 export type SiteFile = BaseSiteNode & {
 	extension: string;
+	content: string;
 	attributes?: Record<string, unknown>;
 	headers?: Array<SiteNodeHeader>;
-	html?: string;
 	previous?: SiteFileReference;
 	next?: SiteFileReference;
 };
@@ -75,19 +75,19 @@ export async function getSiteMap(
 		} else {
 			const extension = extname(child);
 			name = name.slice(0, -extension.length);
+			const content = fs.readFileSync(filePath, 'utf-8');
 
 			const node: SiteFile = {
 				name,
 				path: join(route, formatRouteName(name)),
-				extension
+				extension,
+				content
 			};
 
 			if (extension == '.md') {
-				const content = fs.readFileSync(filePath, 'utf-8');
 				const { attributes, body } = parseMarkdown(content);
 				node.attributes = attributes;
 				node.headers = getMarkdownHeaders(body);
-				node.html = await processMarkdown(body);
 			}
 
 			if (previous) {

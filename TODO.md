@@ -1,6 +1,6 @@
 - Default public decorator that bypass authorize callback
 - Methods that start with underscore should not be exposed
-- Schema generation
 - Parameters validation
-- MikroORM integration
-- BaseMikroService
+- lastRefreshAt should be reactive
+- Replace `Swr` prefix by `UseApi`
+- Use bunker format instead of JSON to cache requests (more powerful)

@@ -4,7 +4,8 @@ import { toHtml } from 'hast-util-to-html';
 import { remark } from 'remark';
 
 const shikiTwoSlash = remarkShikiTwoslash.default({
-	theme: 'dracula'
+	theme: 'dracula',
+	langs: ['html', 'css', 'javascript', 'svelte', 'vue']
 });
 
 export const processMarkdown = () => ({

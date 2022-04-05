@@ -1,25 +1,29 @@
+import withShiki from '@stefanprobst/remark-shiki';
+import fromMarkdown from 'remark-parse';
+import * as shiki from 'shiki';
+import { unified } from 'unified';
+import toHast from 'remark-rehype';
+import withHtmlInMarkdown from 'rehype-raw';
+import toHtml from 'rehype-stringify';
 import { addMarkdownAnchors } from './addMarkdownAnchors';
-import remarkShikiTwoslashImport from 'remark-shiki-twoslash';
-import { toHast } from 'mdast-util-to-hast';
-import { toHtml } from 'hast-util-to-html';
-import { remark } from 'remark';
 
-const remarkShikiTwoslash =
-	typeof remarkShikiTwoslashImport == 'function'
-		? remarkShikiTwoslashImport
-		: ((remarkShikiTwoslashImport as any).default as typeof remarkShikiTwoslashImport);
+async function createProcessor() {
+	const highlighter = await shiki.getHighlighter({ theme: 'dracula' });
 
-const shikiTwoSlash = remarkShikiTwoslash({
-	theme: 'dracula'
-});
+	const processor = unified()
+		.use(fromMarkdown)
+		.use(withShiki, { highlighter })
+		.use(toHast, { allowDangerousHtml: true })
+		.use(withHtmlInMarkdown)
+		.use(toHtml);
+
+	return processor;
+}
+
+const processor = createProcessor();
 
 export async function processMarkdown(content: string): Promise<string> {
 	content = addMarkdownAnchors(content);
-
-	const markdownAST = remark().parse(content);
-	await shikiTwoSlash(markdownAST);
-	const hAST = toHast(markdownAST, { allowDangerousHtml: true });
-	const html = hAST ? toHtml(hAST, { allowDangerousHtml: true }) : '';
-
-	return html;
+	const result = (await processor).process(content);
+	return String(await result);
 }

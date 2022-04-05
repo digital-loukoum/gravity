@@ -1,7 +1,6 @@
 <script context="module" lang="ts">
 	import type { Load } from '@sveltejs/kit/types';
 	import Link from 'src/components/Link.svelte';
-	import { findSiteNode } from 'src/utilities/findSiteNode';
 	import type { SiteNode } from 'src/utilities/getSiteMap';
 	import ArrowRight from 'svelte-material-icons/ArrowRight.svelte';
 	import ArrowLeft from 'svelte-material-icons/ArrowLeft.svelte';
@@ -9,8 +8,7 @@
 	export const load: Load = async ({ params, fetch }) => {
 		const { route } = params;
 
-		const map = await (await fetch(`/documentation/map.json`)).json();
-		const siteNode = findSiteNode(map, `documentation/${route}`);
+		const { siteNode, html } = await (await fetch(`/documentation/${route}.json`)).json();
 
 		if (!siteNode) {
 			return {
@@ -21,7 +19,8 @@
 
 		return {
 			props: {
-				siteNode
+				siteNode,
+				html
 			}
 		};
 	};
@@ -29,10 +28,11 @@
 
 <script lang="ts">
 	export let siteNode: SiteNode;
+	export let html: string;
 </script>
 
 <h1>{siteNode.name}</h1>
-{@html 'html' in siteNode ? siteNode.html : ''}
+{@html html}
 
 <div class="navigator">
 	<div class="to previous">
