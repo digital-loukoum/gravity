@@ -11,3 +11,5 @@
 - Export BasePrismaService from @digitak/gravity-prisma
 - Make prisma proxy options bet contextable (have context as argument)
 - Add "includable" to the prisma proxy options
+- SvelteKit SSR
+- Next SSR
