@@ -14,7 +14,7 @@
 	<CoreFeature color="tertiary" link="/documentation/architecture/chose-your-architecture">
 		<span slot="title"> Flexible </span>
 
-		Use Gravity with Svelte, SvelteKit, React, Next, Solid, Vue, or any other framework.
+		Use Gravity with Svelte, SvelteKit, React, Next, and Solid.
 
 		<span slot="link"> Get started </span>
 	</CoreFeature>

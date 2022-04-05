@@ -39,7 +39,10 @@
 		flex-direction: column
 		align-items: stretch
 		font-family: Readex
-		justify-content: space-between
+
+	main
+		flex: 1
+		padding: 16rem 0
 
 	header
 		display: flex

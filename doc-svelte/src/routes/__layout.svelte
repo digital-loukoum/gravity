@@ -71,6 +71,10 @@
 		font-family: Beauty
 		src: url('/Beauty/BeautyDemo.ttf')
 
+	@font-face
+		font-family: "Virgil"
+		src: url("/Virgil.woff2")
+
 	:global(:root)
 		--header-height: 58rem
 		--sidebar-width: 320rem
