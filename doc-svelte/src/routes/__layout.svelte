@@ -134,6 +134,9 @@
 	:global(p)
 		line-height: 1.8
 
+	:global(li)
+		line-height: 1.8
+
 	:global(a:not(.link))
 		color: inherit
 		text-decoration: none
@@ -143,10 +146,10 @@
 	:global(ul, ol)
 		display: flex
 		flex-direction: column
-		gap: 8rem
+		gap: 6rem
 
 	:global(li > ul)
-		margin: 8rem 0 4rem
+		margin: 4rem 0
 
 	:global(ol > li)
 		padding-left: 4rem

@@ -1,5 +1,6 @@
 GENERAL
 - Methods that start with underscore should not be exposed
+- Finish CLI
 - Parameters validation
 - lastRefreshAt should be reactive
 - Replace `Swr` prefix by `UseApi`
