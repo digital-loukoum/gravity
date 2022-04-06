@@ -1,21 +1,32 @@
-import remarkShikiTwoslash from 'remark-shiki-twoslash';
-import { toHast } from 'mdast-util-to-hast';
-import { toHtml } from 'hast-util-to-html';
-import { remark } from 'remark';
+import withShiki from '@stefanprobst/remark-shiki';
+import fromMarkdown from 'remark-parse';
+import * as shiki from 'shiki';
+import { unified } from 'unified';
+import toHast from 'remark-rehype';
+import withHtmlInMarkdown from 'rehype-raw';
+import toHtml from 'rehype-stringify';
 
-const shikiTwoSlash = remarkShikiTwoslash.default({
-	theme: 'dracula',
-	langs: ['html', 'css', 'javascript', 'svelte', 'vue']
-});
+async function createProcessor() {
+	const highlighter = await shiki.getHighlighter({ theme: 'dracula' });
+
+	const processor = unified()
+		.use(fromMarkdown)
+		.use(withShiki, { highlighter })
+		.use(toHast, { allowDangerousHtml: true })
+		.use(withHtmlInMarkdown)
+		.use(toHtml);
+
+	return processor;
+}
+
+const processor = createProcessor();
 
 export const processMarkdown = () => ({
 	markup: async ({ content, filename }) => {
 		if (!filename.endsWith('.md')) return;
 
-		const markdownAST = remark().parse(content);
-		await shikiTwoSlash(markdownAST);
-		const hAST = toHast(markdownAST, { allowDangerousHtml: true });
-		const code = hAST ? toHtml(hAST, { allowDangerousHtml: true }) : '';
+		const result = (await processor).process(content);
+		const code = String(await result);
 
 		return { code };
 	}
