@@ -1,6 +1,6 @@
 import type { BaseService } from "@digitak/gravity/services/BaseService";
 import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
-import type { SwrOptions } from "@digitak/gravity/swr/SwrOptions";
+import type { UseApiOptions } from "@digitak/gravity/swr/UseApiOptions";
 
 import {
 	defineApi as defaultDefineApi,
@@ -32,9 +32,9 @@ type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
 export function defineApi<
 	Services extends Record<string, BaseServiceConstructor>,
 >(
-	options: DefineApiOptions & SwrOptions = {},
+	options: DefineApiOptions & UseApiOptions = {},
 ): DefineApiReturnType<Services> & {
-	useApi: (options: SwrOptions) => UseApi<Services>;
+	useApi: (options: UseApiOptions) => UseApi<Services>;
 } {
 	const core = defaultDefineApi<Services>(options);
 
@@ -42,7 +42,7 @@ export function defineApi<
 		cache = options.cache ?? true,
 		network = options.network ?? true,
 		interval = options.interval,
-	}: SwrOptions = {}) =>
+	}: UseApiOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) return swrResponse<unknown>(async () => void 0);
 

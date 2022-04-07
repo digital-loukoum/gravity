@@ -1,32 +1,29 @@
 import { bunker, debunker } from "@digitak/bunker";
-import { BaseService } from "../services/BaseService";
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import { isBrowser } from "../utilities/isBrowser";
 import { apiProxy } from "./apiProxy";
-import { Promisify } from "../types/Promisify";
 import { normalizePath } from "../middleware/normalizePath";
-import { Instance } from "../types/Instance";
 import { Api } from "./Api";
-import { ApiHandler } from "./ApiHandler";
+import { MaybePromise } from "source/types/MaybePromise";
 
 export type DefineApiOptions = {
 	apiPath?: string;
-	onRequestSend?: (request: RequestInit) => unknown;
-	onResponseReceive?: (response: Response) => unknown;
-};
-
-export type DefineApiReturnType<
-	Services extends Record<string, BaseServiceConstructor>,
-> = {
-	api: Api<Services>;
-	apiClient: Api<Services>;
-	apiServer: Api<Services>;
-	resolveApiCall: ApiHandler;
-	callApi: (options: CallApiOptions) => Api<Services>;
+	onRequestSend?: (
+		request: RequestInit,
+	) => MaybePromise<RequestInit | undefined>;
+	onResponseReceive?: (
+		response: Response,
+	) => MaybePromise<Response | undefined>;
 };
 
 export type CallApiOptions = {
-	from?: "browser" | "server";
+	fetcher: typeof fetch;
+};
+
+export type DefineApiResult<
+	Services extends Record<string, BaseServiceConstructor>,
+> = {
+	api: Api<Services>;
+	callApi: (options: CallApiOptions) => Api<Services>;
 };
 
 export function defineApi<
@@ -35,47 +32,42 @@ export function defineApi<
 	apiPath = "/api",
 	onRequestSend,
 	onResponseReceive,
-}: DefineApiOptions = {}): DefineApiReturnType<Services> {
+}: DefineApiOptions = {}): DefineApiResult<Services> {
 	apiPath = normalizePath(apiPath);
 
-	const resolveApiCall: ApiHandler = async (service, operation, properties) => {
-		const headers = new Headers();
-		headers.append("Content-Type", "x-bunker");
+	const callApi = (options: CallApiOptions) =>
+		apiProxy<Api<Services>>(async (service, path, properties) => {
+			const headers = new Headers();
+			headers.append("Content-Type", "x-bunker");
 
-		// define the base request object and pass it to the onRequestSend middleware
-		let request: RequestInit = {
-			method: "POST",
-			headers,
-			body: properties?.length ? bunker(properties) : null,
-		};
-		await onRequestSend?.(request);
+			// define the base request object and pass it to the onRequestSend middleware
+			let request: RequestInit = {
+				method: "POST",
+				headers,
+				body: properties?.length ? bunker(properties) : null,
+			};
+			request = (await onRequestSend?.(request)) ?? request;
 
-		// fetch the server with the resulting request
-		let response = await fetch(`${apiPath}${service}/${operation}`, request);
-		await onResponseReceive?.(response);
+			// fetch the server with the resulting request
+			let response = await options.fetcher(
+				`${apiPath}${service}/${path.join("/")}`,
+				request,
+			);
+			response = (await onResponseReceive?.(response)) ?? response;
 
-		// TODO: should return an error object
-		if (!response.ok) return undefined;
+			// TODO: should return an error object
+			if (!response.ok) return undefined;
 
-		// we receive a JSON object unless "x-bunker" content type is specified
-		if (response.headers.get("Content-Type") == "x-bunker") {
-			return debunker(new Uint8Array(await response.arrayBuffer()));
-		}
-		return (await response.json()) as unknown;
-	};
-
-	const callApi = ({ from }: CallApiOptions = {}) =>
-		apiProxy(async (service, operation, properties) => {
-			if (from && (isBrowser() ? "browser" : "server") != from) {
-				// on an unwanted environment, we return a promise that never resolves
-				return new Promise(() => {});
+			// we receive a JSON object unless "x-bunker" content type is specified
+			if (response.headers.get("Content-Type") == "x-bunker") {
+				return debunker(new Uint8Array(await response.arrayBuffer()));
 			}
-			return resolveApiCall(service, operation, properties);
-		}) as Api<Services>;
+			return (await response.json()) as unknown;
+		});
 
-	const apiClient = callApi({ from: "browser" });
-	const apiServer = callApi({ from: "server" });
-	const api = apiClient;
+	const api = callApi({
+		fetcher: fetch,
+	});
 
-	return { api, apiClient, apiServer, resolveApiCall, callApi };
+	return { api, callApi };
 }

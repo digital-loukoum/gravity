@@ -1,8 +1,8 @@
 import { writable, Writable, Readable } from "svelte/store";
-import type { SwrData } from "@digitak/gravity/swr/SwrData";
-import type { SwrInterface } from "@digitak/gravity/swr/SwrInterface";
+import type { UseApiData } from "@digitak/gravity/swr/UseApiData";
+import type { UseApiInterface } from "@digitak/gravity/swr/UseApiInterface";
 
-export type SwrResponse<Data> = Writable<SwrData<Data>> & SwrInterface;
+export type SwrResponse<Data> = Writable<UseApiData<Data>> & UseApiInterface;
 
 export const swrResponse = <Data>(
 	fetcher: () => Promise<Data>,

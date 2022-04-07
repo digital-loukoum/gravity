@@ -1,4 +1,4 @@
-export type SwrOptions = {
+export type UseApiOptions = {
 	cache?: boolean | "read" | "write";
 } & (
 	| {

@@ -6,7 +6,7 @@ export function Assign<Constructor extends new (...args: any[]) => any, Object>(
 	...args: ConstructorParameters<Constructor>
 ) => InstanceType<Constructor> & Object {
 	// @ts-ignore
-	const newConstructor: any = class extends constructor {
+	const newConstructor = class extends constructor {
 		constructor(...args: ConstructorParameters<Constructor>) {
 			super(...args);
 			Object.assign(this, object);
