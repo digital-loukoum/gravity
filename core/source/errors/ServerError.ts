@@ -1,5 +1,5 @@
 export class ServerError<ErrorName extends string = string> extends Error {
-	readonly name: string;
+	readonly name: ErrorName;
 	readonly critical: boolean;
 	status = 500;
 

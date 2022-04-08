@@ -8,7 +8,8 @@ GENERAL
 - Create cookie parser that works with Node and browser
 - Guards and tags should take a path as main argument
 - Test guards with parameters
-- Rename "middleware" to "handler". "gravity" handlers should be renamed "gravityHandler".
+- Rename "middleware" to "handler". "gravity" handlers should be renamed "defineHandler" and return an object.
+- Export "useServices"
 
 CLI
 - gravity create
