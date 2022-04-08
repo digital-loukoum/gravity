@@ -1,7 +1,7 @@
 import { bunker, debunker } from "@digitak/bunker";
 import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
 import { apiProxy } from "./apiProxy";
-import { normalizePath } from "../middleware/normalizePath";
+import { normalizePath } from "../utilities/normalizePath";
 import { Api } from "./Api";
 import { MaybePromise } from "source/types/MaybePromise";
 
@@ -10,9 +10,7 @@ export type DefineApiOptions = {
 	onRequestSend?: (
 		request: RequestInit,
 	) => MaybePromise<RequestInit | undefined>;
-	onResponseReceive?: (
-		response: Response,
-	) => MaybePromise<Response | undefined>;
+	onResponseReceive?: (response: Response) => unknown;
 };
 
 export type CallApiOptions = {
@@ -36,9 +34,9 @@ export function defineApi<
 	apiPath = normalizePath(apiPath);
 
 	const callApi = (options: CallApiOptions) =>
-		apiProxy<Api<Services>>(async (service, path, properties) => {
+		apiProxy<Api<Services>>(async (service, target, properties) => {
 			const headers = new Headers();
-			headers.append("Content-Type", "x-bunker");
+			headers.append("Content-Type", "application/bunker");
 
 			// define the base request object and pass it to the onRequestSend middleware
 			let request: RequestInit = {
@@ -50,19 +48,21 @@ export function defineApi<
 
 			// fetch the server with the resulting request
 			let response = await options.fetcher(
-				`${apiPath}${service}/${path.join("/")}`,
+				`${apiPath}${service}/${target}}`,
 				request,
 			);
-			response = (await onResponseReceive?.(response)) ?? response;
 
-			// TODO: should return an error object
-			if (!response.ok) return undefined;
-
-			// we receive a JSON object unless "x-bunker" content type is specified
-			if (response.headers.get("Content-Type") == "x-bunker") {
-				return debunker(new Uint8Array(await response.arrayBuffer()));
+			// we receive a JSON object unless "application/bunker" content type is specified
+			let data;
+			if (response.headers.get("Content-Type") == "application/bunker") {
+				data = debunker(new Uint8Array(await response.arrayBuffer()));
+			} else {
+				data = (await response.json()) as unknown;
 			}
-			return (await response.json()) as unknown;
+
+			await onResponseReceive?.(response);
+
+			return response.ok ? { data } : { error: data };
 		});
 
 	const api = callApi({

@@ -18,7 +18,9 @@ export const decodeParameters = (
 	if (!rawBody?.byteLength) return [];
 
 	const decode =
-		headers["content-type"] == "x-bunker" ? bunkerDecoder : jsonDecoder;
+		headers["content-type"] == "application/bunker"
+			? bunkerDecoder
+			: jsonDecoder;
 
 	let parameters: any = decode(rawBody) ?? [];
 	if (!Array.isArray(parameters)) parameters = [parameters];

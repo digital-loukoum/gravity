@@ -1,5 +1,5 @@
 import { BaseService } from "../services/BaseService";
-import { GravityError } from "../errors/GravityError";
+import { gravityError, GravityError } from "../errors/GravityError";
 
 const privateIndicators = ["_", "$"];
 
@@ -18,10 +18,10 @@ export function resolvePath(
 		) {
 			resolved = resolved[name];
 		} else {
-			throw new GravityError("gravity/target-inexistant", {
-				message: `Target '${path.join(
-					"/",
-				)}' does not exist in service '${serviceName}'.`,
+			throw gravityError({
+				message: "Target inexistant",
+				serviceName,
+				target: path.join("/"),
 				status: 400,
 			});
 		}

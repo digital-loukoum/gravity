@@ -1,14 +1,10 @@
 GENERAL
 - Methods that start with underscore should not be exposed
-- Replace `Swr` prefix by `UseApi`
-- simple `api` requests should return a { data, errors } object
-- lastRefreshAt should be reactive
-- Use bunker format instead of JSON to cache requests (more powerful)
+- simple `api` requests should return a { data, error } object
 - Pass resolved response to onResponseReceive callback
 - Create cookie parser that works with Node and browser
 - Guards and tags should take a path as main argument
 - Test guards with parameters
-- Rename "middleware" to "handler". "gravity" handlers should be renamed "defineHandler" and return an object.
 - Export "useServices"
 
 CLI
@@ -19,6 +15,9 @@ CLI
 - Parameters validation
 
 SVELTE / SVELTEKIT
+- Use bunker format instead of JSON to cache requests (more powerful)
+- Replace `Swr` prefix by `UseApi`
+- lastRefreshAt should be reactive
 - SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")
 
 REACT

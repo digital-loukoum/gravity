@@ -8,6 +8,9 @@
 		"outDir": "package",
 		"declaration": true,
 		"esModuleInterop": true,
+		"importsNotUsedAsValues": "error",
+		"preserveValueImports": true,
+		"isolatedModules": true,
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,
 		"baseUrl": "."

@@ -1,75 +1,54 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import { resolveApiError } from "./errors/resolveApiError";
+import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions";
 import { logger } from "./logs/logger";
-import { GravityMiddleware } from "./middleware/GravityMiddleware";
-import { extractRawBody } from "./middleware/extractRawBody";
-import { normalizePath } from "./middleware/normalizePath";
-import { resolveApiRequest } from "./middleware/resolveApiRequest";
-import { apiMatchesUrl } from "./middleware/apiMatchesUrl";
-import { getAllowedOrigin } from "./middleware/getAllowedOrigin";
+import { extractRawBody } from "./utilities/extractRawBody";
+import { normalizePath } from "./utilities/normalizePath";
+import { resolveApiRequest } from "./handler/resolveApiRequest";
+import { apiMatchesUrl } from "./utilities/apiMatchesUrl";
 
-export const gravity: GravityMiddleware = ({
-	services,
-	schema,
-	apiPath = "/api",
-	verbose,
-	allowedOrigins,
-	onRequestReceive,
-	onResponseSend,
-	authorize,
-}) => {
-	apiPath = normalizePath(apiPath);
-	logger.verbose = verbose ?? false;
+export const defineHandler = <Context>(
+	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
+) => {
+	const apiPath = normalizePath(options.apiPath ?? "/api");
+	logger.verbose = options.verbose ?? false;
 
-	return async (
+	const handler = async (
 		request: IncomingMessage,
 		response: ServerResponse,
 		next?: Function,
 	) => {
 		const url = request.url ?? "";
 		if (!apiMatchesUrl(apiPath, url)) return next?.();
-		const allowedOrigin = getAllowedOrigin(
-			request.headers.origin,
-			allowedOrigins,
-		);
+		const rawBody = await extractRawBody(request);
 
-		let status: number;
-		let headers: Record<string, any>;
-		let body: string | Uint8Array;
-
-		try {
-			// we get the context from the request
-			// (request transformations can also be applied here)
-			const context = await onRequestReceive?.(request)!;
-			const rawBody = await extractRawBody(request);
-
-			({ status, headers, body } = await resolveApiRequest({
-				url: url.slice(apiPath.length),
-				services,
-				schema,
-				headers: request.headers,
-				rawBody,
-				context,
-				authorize,
-			}));
-		} catch (error) {
-			({ status, headers, body } = resolveApiError(error));
-		}
+		const { status, headers, body } = await resolveApiRequest<
+			Context,
+			IncomingMessage
+		>({
+			request,
+			url: url.slice(apiPath.length),
+			rawBody,
+			allowedOrigins: options.allowedOrigins,
+			services: options.services,
+			schema: options.schema,
+			headers: request.headers,
+			authorize: options.authorize,
+			onRequestReceive: options.onRequestReceive,
+		});
 
 		response.statusCode = status;
-		response.setHeader("Access-Control-Allow-Headers", "*");
-		if (allowedOrigin != null) {
-			response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
-		}
+
 		for (const header in headers) {
 			response.setHeader(header, headers[header]);
 		}
 
-		await onResponseSend?.(response);
+		response = (await options.onResponseSend?.(response)) ?? response;
 
 		// we write the result
 		response.write(body);
 		response.end();
 		return response;
 	};
+
+	return { handler };
 };

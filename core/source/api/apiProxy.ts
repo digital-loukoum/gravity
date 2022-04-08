@@ -3,21 +3,21 @@ import { ApiHandler } from "./ApiHandler";
 
 export function apiProxy<Result = unknown>(handler: ApiHandler): Result {
 	return proxy<Result>((service) =>
-		proxy((operation) => operationProxy(handler, service, operation)),
+		proxy((operation) => apiTargetProxy(handler, service, operation)),
 	);
 }
 
 // recursive proxy that can deal with nested services
-function operationProxy<Result = unknown>(
+function apiTargetProxy<Result = unknown>(
 	handler: ApiHandler,
 	service: string,
-	operation = "",
+	target = "",
 ): Result {
 	return new Proxy(
-		(...properties: unknown[]) => handler(service, operation, properties),
+		(...properties: unknown[]) => handler(service, target, properties),
 		{
 			get: (_, property) =>
-				operationProxy(handler, service, `${operation}/${String(property)}`),
+				apiTargetProxy(handler, service, `${target}/${String(property)}`),
 		},
 	) as unknown as Result;
 }

@@ -1,9 +1,12 @@
-import { GravityResponse } from "../types/GravityResponse"
+import { GravityResponse } from "../handler/GravityResponse";
 
-export default function error(status: number, message: string): GravityResponse {
+export default function error(
+	status: number,
+	message: string,
+): GravityResponse {
 	return {
 		status,
 		headers: {},
 		body: message,
-	}
+	};
 }

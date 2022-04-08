@@ -1,13 +1,19 @@
-import { IncomingMessage, ServerResponse } from "http";
-import { gravity as defaultMiddleware } from "./middleware";
-import { GravityMiddleware } from "./middleware/GravityMiddleware";
+import type { IncomingMessage, ServerResponse } from "http";
+import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions";
+import { defineHandler as defineHandlerMiddleware } from "./middleware";
 
 /**
  * Default handler for node taht returns 404 if apiPath is not matched
  */
-export const gravity: GravityMiddleware = (options) => {
-	const handler = defaultMiddleware(options);
-	return async (request: IncomingMessage, response: ServerResponse) => {
-		handler(request, response, () => response.writeHead(404).end());
+export const defineHandler = <Context>(
+	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
+) => {
+	const defined = defineHandlerMiddleware(options);
+	const handler = async (
+		request: IncomingMessage,
+		response: ServerResponse,
+	) => {
+		defined.handler(request, response, () => response.writeHead(404).end());
 	};
+	return { ...defined, handler };
 };
