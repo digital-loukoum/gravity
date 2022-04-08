@@ -10,7 +10,7 @@ export type DefineApiOptions = {
 	onRequestSend?: (
 		request: RequestInit,
 	) => MaybePromise<RequestInit | undefined>;
-	onResponseReceive?: (response: Response) => unknown;
+	onResponseReceive?: (response: Response, data: unknown) => unknown;
 };
 
 export type CallApiOptions = {
@@ -54,13 +54,14 @@ export function defineApi<
 
 			// we receive a JSON object unless "application/bunker" content type is specified
 			let data;
+
 			if (response.headers.get("Content-Type") == "application/bunker") {
 				data = debunker(new Uint8Array(await response.arrayBuffer()));
 			} else {
 				data = (await response.json()) as unknown;
 			}
 
-			await onResponseReceive?.(response);
+			await onResponseReceive?.(response, data);
 
 			return response.ok ? { data } : { error: data };
 		});
