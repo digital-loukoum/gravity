@@ -1,8 +1,9 @@
-import { Type, Typezer } from "typezer";
+import type { Type } from "typezer";
+import { Typezer } from "typezer";
+import type { GravityCliOptions } from "../GravityCliOptions";
 import fs from "fs-extra";
 import { join } from "path";
 import { extractServicesFromSchema } from "../utilities/extractServicesFromSchema";
-import { GravityCliOptions } from "../GravityCliOptions";
 import print from "@digitak/print";
 import { findSchemaFile } from "../utilities/findSchemaFile";
 

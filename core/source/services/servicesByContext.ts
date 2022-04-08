@@ -1,5 +1,5 @@
-import { BaseService } from "./BaseService";
-import { BaseServiceConstructor } from "./BaseServiceConstructor";
+import type { BaseService } from "./BaseService";
+import type { BaseServiceConstructor } from "./BaseServiceConstructor";
 
 export const servicesByContext = new WeakMap<
 	any,

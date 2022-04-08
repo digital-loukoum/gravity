@@ -52,7 +52,6 @@ export type GravityErrorInput =
 	  }
 	| {
 			message: "Guards cannot be asynchronous";
-			guardName: string;
 	  }
 	| {
 			message: "Unexpected error";

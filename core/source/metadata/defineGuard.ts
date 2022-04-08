@@ -1,4 +1,4 @@
-import { GravityError } from "../errors/GravityError";
+import { gravityError } from "source/errors/GravityError";
 import { BaseService, baseServiceProperties } from "../services/BaseService";
 
 export function defineGuard<Service extends BaseService<any>>(
@@ -60,7 +60,8 @@ function guardMethod<Service extends BaseService<any>>(
 			typeof guardResult == "object" &&
 			typeof guardResult.then == "function"
 		) {
-			throw new GravityError("gravity/guards-cannot-be-asynchronous", {
+			throw gravityError({
+				message: "Guards cannot be asynchronous",
 				status: 500,
 			});
 		}

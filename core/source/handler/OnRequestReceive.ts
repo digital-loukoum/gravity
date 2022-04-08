@@ -1,4 +1,4 @@
-import { MaybePromise } from "source/types/MaybePromise";
+import type { MaybePromise } from "source/types/MaybePromise";
 
 export type OnRequestReceive<Context, Request> = (
 	request: Request,

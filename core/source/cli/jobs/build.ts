@@ -1,5 +1,5 @@
+import type { GravityCliOptions } from "../GravityCliOptions";
 import { join } from "path";
-import { GravityCliOptions } from "../GravityCliOptions";
 import fs from "fs-extra";
 import print from "@digitak/print";
 import { generateSchema } from "./generateSchema";

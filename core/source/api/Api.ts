@@ -1,5 +1,5 @@
-import { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import { Promisify } from "../types/Promisify";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
+import type { Promisify } from "../types/Promisify";
 
 /**
  * Transforms a type into a callable type:

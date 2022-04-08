@@ -1,5 +1,5 @@
-import { debunker } from "@digitak/bunker";
 import type { IncomingHttpHeaders } from "http";
+import { debunker } from "@digitak/bunker";
 
 type RawBodyDecoder = (rawBody: Uint8Array) => unknown;
 

@@ -1,6 +1,6 @@
+import type { GravityCliOptions } from "../GravityCliOptions";
 import esrun from "@digitak/esrun";
 import { join } from "path";
-import { GravityCliOptions } from "../GravityCliOptions";
 import { generateSchema } from "./generateSchema";
 import fs from "fs-extra";
 import print from "@digitak/print";

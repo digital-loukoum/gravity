@@ -1,4 +1,4 @@
-import { GravityResponse } from "../handler/GravityResponse";
+import type { GravityResponse } from "../handler/GravityResponse";
 
 export default function error(
 	status: number,
