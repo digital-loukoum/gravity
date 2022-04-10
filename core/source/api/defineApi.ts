@@ -1,9 +1,9 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import type { Api } from "./Api";
-import type { MaybePromise } from "source/types/MaybePromise";
 import { bunker, debunker } from "@digitak/bunker";
-import { apiProxy } from "./apiProxy";
-import { normalizePath } from "../utilities/normalizePath";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
+import type { Api } from "./Api.js";
+import type { MaybePromise } from "source/types/MaybePromise.js";
+import { apiProxy } from "./apiProxy.js";
+import { normalizePath } from "../utilities/normalizePath.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;

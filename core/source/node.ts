@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions";
-import { defineHandler as defineHandlerMiddleware } from "./middleware";
+import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions.js";
+import { defineHandler as defineHandlerMiddleware } from "./middleware.js";
 
 /**
  * Default handler for node taht returns 404 if apiPath is not matched

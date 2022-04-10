@@ -4,5 +4,5 @@
     "module": "esnext",
     "jsx": "preserve"
   },
-  "moduleResolution": "node"
+  "moduleResolution": "NodeNext",
 }

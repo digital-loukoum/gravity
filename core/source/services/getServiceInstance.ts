@@ -1,6 +1,6 @@
-import type { BaseService } from "./BaseService";
-import type { BaseServiceConstructor } from "./BaseServiceConstructor";
-import { servicesByContext } from "./servicesByContext";
+import type { BaseService } from "./BaseService.js";
+import type { BaseServiceConstructor } from "./BaseServiceConstructor.js";
+import { servicesByContext } from "./servicesByContext.js";
 
 export function getServiceInstance<
 	Context,

@@ -1,5 +1,5 @@
-import type { ApiHandler } from "./ApiHandler";
-import { proxy } from "../utilities/proxy";
+import type { ApiHandler } from "./ApiHandler.js";
+import { proxy } from "../utilities/proxy.js";
 
 export function apiProxy<Result = unknown>(handler: ApiHandler): Result {
 	return proxy<Result>((service) =>

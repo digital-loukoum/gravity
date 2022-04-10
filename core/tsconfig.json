@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
-		"moduleResolution": "node",
+		"moduleResolution": "NodeNext",
 		"target": "es2020",
 		"lib": ["es2020", "dom"],
 		"module": "ESNext",
 		"strict": true,
 		"outDir": "package",
 		"declaration": true,
+		// "skipLibCheck": true,
 		"esModuleInterop": true,
 		"importsNotUsedAsValues": "error",
 		"preserveValueImports": true,

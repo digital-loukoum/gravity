@@ -1,11 +1,11 @@
-import { compile, patch } from "@digitak/tsc-esm";
+import { execSync } from "child_process";
 import fs from "fs-extra";
 
 console.log("Cleaning package...");
 fs.rmSync("package", { recursive: true, force: true });
 
 console.log("Compiling typescript...");
-compile();
+execSync("tsc");
 
 console.log("Copying configuration files...");
 fs.copyFileSync("./README.md", "./package/README.md");
@@ -22,11 +22,3 @@ fs.writeFileSync(
 	"package/package.json",
 	JSON.stringify(jsonPackage, null, "\t"),
 );
-
-console.log("Patching imports...");
-patch([
-	{
-		find: /^@digitak\/gravity/,
-		replacement: null,
-	},
-]);

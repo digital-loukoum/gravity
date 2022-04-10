@@ -1,4 +1,4 @@
-import type { BaseServiceConstructor } from "source/services/BaseServiceConstructor";
+import type { BaseServiceConstructor } from "source/services/BaseServiceConstructor.js";
 
 export type AuthorizeOptions<Context> = {
 	context: Context;

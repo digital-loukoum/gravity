@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import sade from "sade";
 import fs from "fs";
-import { generateSchema } from "./jobs/generateSchema";
-import { develop } from "./jobs/develop";
-import { build } from "./jobs/build";
-import { preview } from "./jobs/preview";
+import { generateSchema } from "./jobs/generateSchema.js";
+import { develop } from "./jobs/develop.js";
+import { build } from "./jobs/build.js";
+import { preview } from "./jobs/preview.js";
 
 let packageInfos: Record<string, unknown>;
 try {

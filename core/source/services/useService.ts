@@ -1,5 +1,5 @@
-import type { BaseService } from "./BaseService";
-import type { BaseServiceConstructor } from "./BaseServiceConstructor";
+import type { BaseService } from "./BaseService.js";
+import type { BaseServiceConstructor } from "./BaseServiceConstructor.js";
 
 export const useService =
 	<Service extends BaseService<any>>(service: BaseServiceConstructor) =>

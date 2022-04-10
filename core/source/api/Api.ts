@@ -1,6 +1,6 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import type { Promisify } from "../types/Promisify";
-import type { ApiResponse } from "./ApiResponse";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
+import type { Promisify } from "../types/Promisify.js";
+import type { ApiResponse } from "./ApiResponse.js";
 
 /**
  * Transforms a type into a callable type:

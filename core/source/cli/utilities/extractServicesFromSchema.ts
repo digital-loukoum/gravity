@@ -1,5 +1,5 @@
+import { baseServiceProperties } from "source/services/BaseService.js";
 import type { Type } from "typezer";
-import { baseServiceProperties } from "../../services/BaseService";
 
 /**
  * Cleanly extract all services from a given schema.

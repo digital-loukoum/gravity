@@ -1,7 +1,7 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import type { Authorize } from "./Authorize";
-import type { OnRequestReceive } from "./OnRequestReceive";
-import type { OnResponseSend } from "./OnResponseSend";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
+import type { Authorize } from "./Authorize.js";
+import type { OnRequestReceive } from "./OnRequestReceive.js";
+import type { OnResponseSend } from "./OnResponseSend.js";
 
 export type DefineHandlerOptions<Context, Request, Response> = {
 	services: Record<string, BaseServiceConstructor<Context>>;

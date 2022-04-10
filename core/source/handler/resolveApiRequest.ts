@@ -1,17 +1,17 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import type { GravityResponse } from "./GravityResponse";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
+import type { GravityResponse } from "./GravityResponse.js";
 import type { Type } from "typezer";
-import type { Authorize } from "./Authorize";
-import type { OnRequestReceive } from "./OnRequestReceive";
+import type { Authorize } from "./Authorize.js";
+import type { OnRequestReceive } from "./OnRequestReceive.js";
 import type { IncomingHttpHeaders } from "http";
 import { bunker } from "@digitak/bunker";
-import { gravityError, isGravityError } from "../errors/GravityError";
-import { decodeParameters } from "../utilities/decodeParameters";
-import { decodeUrl } from "../utilities/decodeUrl";
+import { gravityError, isGravityError } from "../errors/GravityError.js";
+import { decodeParameters } from "../utilities/decodeParameters.js";
+import { decodeUrl } from "../utilities/decodeUrl.js";
 import { validateSignature } from "typezer/validate";
-import { resolvePath } from "./resolvePath";
-import { getAllowedOrigin } from "source/utilities/getAllowedOrigin";
-import { logger } from "source/logs/logger";
+import { resolvePath } from "./resolvePath.js";
+import { getAllowedOrigin } from "source/utilities/getAllowedOrigin.js";
+import { logger } from "source/logs/logger.js";
 
 export type ResolveApiRequestOptions<Context, Request> = {
 	request: Request;

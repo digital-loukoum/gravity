@@ -1,5 +1,5 @@
-import { gravityError } from "source/errors/GravityError";
-import { BaseService, baseServiceProperties } from "../services/BaseService";
+import { gravityError } from "source/errors/GravityError.js";
+import { BaseService, baseServiceProperties } from "../services/BaseService.js";
 
 export function defineGuard<Service extends BaseService<any>>(
 	guard: (service: Service) => any,

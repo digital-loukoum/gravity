@@ -1,5 +1,5 @@
-import type { BaseService } from "../services/BaseService";
-import { gravityError } from "../errors/GravityError";
+import { gravityError } from "source/errors/GravityError.js";
+import type { BaseService } from "../services/BaseService.js";
 
 const privateIndicators = ["_", "$"];
 

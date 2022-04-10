@@ -1,9 +1,9 @@
-import type { GravityCliOptions } from "../GravityCliOptions";
 import { join } from "path";
 import fs from "fs-extra";
 import print from "@digitak/print";
-import { generateSchema } from "./generateSchema";
 import { build as esbuild } from "esbuild";
+import type { GravityCliOptions } from "../GravityCliOptions.js";
+import { generateSchema } from "./generateSchema.js";
 
 export type GravityBuildOptions = Pick<
 	GravityCliOptions,

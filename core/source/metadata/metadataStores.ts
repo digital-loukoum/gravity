@@ -1,4 +1,4 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 
 type Store = Record<string, unknown>;
 

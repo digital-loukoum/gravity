@@ -1,4 +1,4 @@
-import type { GravityCliOptions } from "../GravityCliOptions";
+import type { GravityCliOptions } from "../GravityCliOptions.js";
 import fs from "fs-extra";
 import print from "@digitak/print";
 import { execSync } from "child_process";

@@ -1,11 +1,11 @@
 import type { Type } from "typezer";
 import { Typezer } from "typezer";
-import type { GravityCliOptions } from "../GravityCliOptions";
+import type { GravityCliOptions } from "../GravityCliOptions.js";
 import fs from "fs-extra";
 import { join } from "path";
-import { extractServicesFromSchema } from "../utilities/extractServicesFromSchema";
+import { extractServicesFromSchema } from "../utilities/extractServicesFromSchema.js";
 import print from "@digitak/print";
-import { findSchemaFile } from "../utilities/findSchemaFile";
+import { findSchemaFile } from "../utilities/findSchemaFile.js";
 
 export type GravityGenerateSchemaOptions = Pick<
 	GravityCliOptions,

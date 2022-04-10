@@ -1,5 +1,5 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor";
-import { operationsStore, servicesStore } from "./metadataStores";
+import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
+import { operationsStore, servicesStore } from "./metadataStores.js";
 
 export const defineMetadata = <Metadata extends Record<never, any>>() => {
 	return {

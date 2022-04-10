@@ -1,10 +1,10 @@
 import type { IncomingMessage, ServerResponse } from "http";
-import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions";
-import { logger } from "./logs/logger";
-import { extractRawBody } from "./utilities/extractRawBody";
-import { normalizePath } from "./utilities/normalizePath";
-import { resolveApiRequest } from "./handler/resolveApiRequest";
-import { apiMatchesUrl } from "./utilities/apiMatchesUrl";
+import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions.js";
+import { logger } from "./logs/logger.js";
+import { extractRawBody } from "./utilities/extractRawBody.js";
+import { normalizePath } from "./utilities/normalizePath.js";
+import { resolveApiRequest } from "./handler/resolveApiRequest.js";
+import { apiMatchesUrl } from "./utilities/apiMatchesUrl.js";
 
 export const defineHandler = <Context>(
 	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
