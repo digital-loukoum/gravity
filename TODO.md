@@ -5,7 +5,6 @@ GENERAL
 - Create cookie parser that works with Node and browser
 - Guards and tags should take a path as main argument
 - Test guards with parameters
-- Export "useServices"
 
 CLI
 - gravity create
