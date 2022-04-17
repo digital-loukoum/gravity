@@ -13,6 +13,22 @@ type Callable<Type> = Type extends (
 	...args: infer Parameters
 ) => infer ReturnType
 	? (...args: Parameters) => Promisify<ApiResponse<ReturnType>>
+	: Type extends any[]
+	? Array<() => Promise<ApiResponse<Type[number]>>> &
+			(() => Promise<ApiResponse<Type>>)
+	: Type extends
+			| Set<any>
+			| Map<any, any>
+			| RegExp
+			| String
+			| Number
+			| BigInt
+			| Boolean
+			| Date
+			| ArrayBuffer
+	? () => Promise<ApiResponse<Type>>
+	: Type extends object
+	? { [Key in keyof Type]: Callable<Type[Key]> }
 	: () => Promise<ApiResponse<Type>>;
 
 type ExposedProperties<Service extends BaseService> = {

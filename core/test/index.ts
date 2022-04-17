@@ -26,7 +26,7 @@ const test = async () => {
 	await serverIsReady;
 
 	console.log("server is ready =)");
-	const result = await api.math.add(3, 4);
+	const result = await api.foo.nested.value();
 	console.log("Addition result:", result);
 };
 

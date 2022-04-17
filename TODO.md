@@ -1,5 +1,4 @@
 GENERAL
-- Pass resolved response to onResponseReceive callback
 - Create cookie parser that works with Node and browser
 - Guards and tags should take a path as main argument
 - Test guards with parameters

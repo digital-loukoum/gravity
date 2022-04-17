@@ -1,3 +1,5 @@
+import { validateSignature } from "typezer/validate";
+import { findTargetInSchema } from "typezer/types/Type/findPathTarget";
 import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 import type { GravityResponse } from "./GravityResponse.js";
 import type { Type } from "typezer";
@@ -8,7 +10,6 @@ import { bunker } from "@digitak/bunker";
 import { gravityError, isGravityError } from "../errors/GravityError.js";
 import { decodeParameters } from "../utilities/decodeParameters.js";
 import { decodeUrl } from "../utilities/decodeUrl.js";
-import { validateSignature } from "typezer/validate";
 import { resolvePath } from "./resolvePath.js";
 import { getAllowedOrigin } from "../utilities/getAllowedOrigin.js";
 import { logger } from "../logs/logger.js";
@@ -79,6 +80,17 @@ export async function resolveApiRequest<Context, Request>(
 		const service = new serviceConstructor(context);
 
 		console.log("path", serviceName, path);
+		// we check the path exists in schema
+		const targetType = findTargetInSchema(options.schema[serviceName], path);
+		if (!targetType) {
+			throw gravityError({
+				message: "Target inexistant",
+				serviceName,
+				target: path.join("/"),
+				status: 404,
+			});
+		}
+		// then we retrieve the target
 		const target = resolvePath(serviceName, service, path);
 		console.log("target", target);
 		console.log("rawBody", options.rawBody);
