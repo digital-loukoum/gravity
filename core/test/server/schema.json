@@ -38,21 +38,145 @@
         }
       ]
     },
-    "multiply": {
+    "fooService": {
+      "typeName": "Class",
+      "staticProperties": {},
+      "properties": {
+        "foo": {
+          "typeName": "Function",
+          "signatures": [
+            {
+              "minimumParameters": 0,
+              "parameters": [],
+              "returnType": {
+                "typeName": "String"
+              }
+            }
+          ]
+        },
+        "fooService": {
+          "typeName": "CircularReference",
+          "level": 1
+        },
+        "bar": {
+          "typeName": "Function",
+          "signatures": [
+            {
+              "minimumParameters": 0,
+              "parameters": [],
+              "returnType": {
+                "typeName": "String"
+              }
+            }
+          ]
+        },
+        "context": {
+          "typeName": "Any",
+          "modifiers": [
+            "public",
+            "readonly"
+          ]
+        },
+        "useService": {
+          "typeName": "Function",
+          "signatures": [
+            {
+              "minimumParameters": 1,
+              "parameters": [
+                {
+                  "typeName": "Class",
+                  "staticProperties": {},
+                  "properties": {
+                    "context": {
+                      "typeName": "Any",
+                      "modifiers": [
+                        "public",
+                        "readonly"
+                      ]
+                    },
+                    "useService": {
+                      "typeName": "CircularReference",
+                      "level": 3,
+                      "modifiers": [
+                        "protected"
+                      ]
+                    }
+                  },
+                  "signature": {
+                    "minimumParameters": 1,
+                    "parameters": [
+                      {
+                        "typeName": "Any"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "returnType": {
+                "typeName": "Object",
+                "properties": {
+                  "context": {
+                    "typeName": "Any",
+                    "modifiers": [
+                      "public",
+                      "readonly"
+                    ]
+                  },
+                  "useService": {
+                    "typeName": "CircularReference",
+                    "level": 2,
+                    "modifiers": [
+                      "protected"
+                    ]
+                  }
+                }
+              }
+            }
+          ],
+          "modifiers": [
+            "protected"
+          ]
+        }
+      }
+    },
+    "bar": {
       "typeName": "Function",
       "signatures": [
         {
-          "minimumParameters": 2,
-          "parameters": [
-            {
-              "typeName": "Number"
-            },
-            {
-              "typeName": "Number"
-            }
-          ],
+          "minimumParameters": 0,
+          "parameters": [],
           "returnType": {
-            "typeName": "Number"
+            "typeName": "String"
+          }
+        }
+      ]
+    }
+  },
+  "foo": {
+    "foo": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    },
+    "fooService": {
+      "typeName": "CircularReference",
+      "level": 1
+    },
+    "bar": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
           }
         }
       ]

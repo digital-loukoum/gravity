@@ -1,5 +1,4 @@
 import { spawn } from "child_process";
-import start from "fartest";
 import { api } from "./api";
 
 const server = spawn(`npm`, ["run", "test:server"]);

@@ -1,6 +1,6 @@
-export type UseApiData<Data> = {
-	data?: Data;
-	error?: Error;
+import type { ApiResponse } from "../api/ApiResponse.js";
+
+export type UseApiData<Data> = ApiResponse<Data> & {
 	isLoading: boolean;
 	isRefreshing: boolean;
 	lastRefreshAt?: number;

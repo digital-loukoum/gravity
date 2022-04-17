@@ -1,6 +1,6 @@
-import { BaseService } from "../../../source/services/BaseService";
+import { Service } from "../Service";
 
-export class math extends BaseService {
+export class math extends Service {
 	add(x: number, y: number) {
 		return x + y;
 	}
@@ -9,7 +9,7 @@ export class math extends BaseService {
 		return x - y;
 	}
 
-	multiply(x: number, y: number) {
+	private multiply(x: number, y: number) {
 		return x * y;
 	}
 }

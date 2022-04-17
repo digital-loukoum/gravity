@@ -1,6 +1,4 @@
 GENERAL
-- Methods that start with underscore should not be exposed
-- simple `api` requests should return a { data, error } object
 - Pass resolved response to onResponseReceive callback
 - Create cookie parser that works with Node and browser
 - Guards and tags should take a path as main argument
@@ -8,10 +6,6 @@ GENERAL
 
 CLI
 - gravity create
-- gravity dev
-- gravity build
-- gravity preview
-- Should use package.gravity for configuration
 - Parameters validation
 - Gravity version is based on cwd package.json ^^'
 
@@ -43,3 +37,4 @@ DOCUMENTATION
 FUTURE
 - Download / upload
 - UInt8Array, UInt16Array, UInt32Array, DataView, ArrayBuffer
+- Allow to use message pack or a custom encoder
