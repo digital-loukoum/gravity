@@ -1,0 +1,4 @@
+# This configuration file is for test purpose
+entryFile = "test/server/index.ts"
+servicesFile = "test/server/services/index.ts"
+schemaFile = "test/server/schema.json"

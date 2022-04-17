@@ -37,7 +37,9 @@ PRISMA
 - Add "includable" to the prisma proxy options
 
 DOCUMENTATION
-- Add "Gravity as middleware" section
+- Add cli configuration section
+- Set default entry file to src/index.ts
 
 FUTURE
 - Download / upload
+- UInt8Array, UInt16Array, UInt32Array, DataView, ArrayBuffer

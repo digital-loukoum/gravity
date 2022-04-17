@@ -76,10 +76,15 @@ export async function resolveApiRequest<Context, Request>(
 		});
 
 		const service = new serviceConstructor(context);
-		const operation = resolvePath(serviceName, service, path);
 
-		if (typeof operation == "function") {
+		console.log("path", serviceName, path);
+		const target = resolvePath(serviceName, service, path);
+		console.log("target", target);
+		console.log("rawBody", options.rawBody);
+
+		if (typeof target == "function") {
 			const parameters = decodeParameters(options.headers, options.rawBody);
+			console.log("validation", options.schema[serviceName], path);
 			const { errors } = validateSignature(
 				options.schema[serviceName],
 				path,
@@ -92,9 +97,11 @@ export async function resolveApiRequest<Context, Request>(
 					status: 400,
 				});
 			}
-			resolved = await operation.apply(service, parameters);
-		} else resolved = await operation;
+			resolved = await target.apply(service, parameters);
+		} else resolved = await target;
+		console.log("No errors happened during request");
 	} catch (error) {
+		console.log("An error happened during request");
 		if (error instanceof Error) {
 			const log = isGravityError(error) ? logger.warning : logger.error;
 			log(error.name, error.message, error.stack);
@@ -117,9 +124,14 @@ export async function resolveApiRequest<Context, Request>(
 		headers["access-control-allow-origin"] = allowedOrigin;
 	}
 
+	const body =
+		encoding == "bunker" ? bunker(resolved) : JSON.stringify(resolved);
+	console.log("resolved", resolved, typeof resolved);
+	console.log("body", body);
+
 	return {
 		status,
 		headers,
-		body: encoding == "bunker" ? bunker(resolved) : JSON.stringify(resolved),
+		body,
 	};
 }

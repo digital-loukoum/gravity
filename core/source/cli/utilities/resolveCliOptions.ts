@@ -1,10 +1,13 @@
 import type { GravityCliOptions } from "../GravityCliOptions.js";
+import { findConfiguration } from "./findConfiguration.js";
 import { findPackageInfos } from "./findPackageInfos.js";
+import { merge } from "./merge.js";
 
 export function resolveCliOptions(
 	cliOptions?: GravityCliOptions,
 ): Required<GravityCliOptions> {
 	const packageInfos = findPackageInfos();
+	const configuration = findConfiguration();
 
 	const defaultOptions: Required<GravityCliOptions> = {
 		entryFile: "src/index.ts",
@@ -16,5 +19,10 @@ export function resolveCliOptions(
 		esbuildOptions: {},
 	};
 
-	return Object.assign(defaultOptions, packageInfos?.gravity, cliOptions);
+	return merge(
+		defaultOptions,
+		packageInfos?.gravity,
+		configuration,
+		cliOptions,
+	);
 }

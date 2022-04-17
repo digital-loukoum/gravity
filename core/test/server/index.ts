@@ -1,12 +1,12 @@
-import { gravity } from "../../source/node";
+import { defineHandler } from "../../source/node";
 import { services } from "./services";
 import { createServer } from "http";
 import { print } from "@digitak/print";
-import schema from "@gravity/schema.json";
+import schema from "./schema.json";
 
 const PORT = 4000;
 
-const handler = gravity({
+const handler = defineHandler({
 	services,
 	schema,
 	allowedOrigins: [],

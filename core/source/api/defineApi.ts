@@ -37,18 +37,20 @@ export function defineApi<
 		apiProxy<Api<Services>>(async (service, target, properties) => {
 			const headers = new Headers();
 			headers.append("Content-Type", "application/bunker");
+			const body = properties?.length ? bunker(properties) : null;
+			console.log("Sending request", service, target, properties, body);
 
 			// define the base request object and pass it to the onRequestSend middleware
 			let request: RequestInit = {
 				method: "POST",
 				headers,
-				body: properties?.length ? bunker(properties) : null,
+				body,
 			};
 			request = (await onRequestSend?.(request)) ?? request;
 
 			// fetch the server with the resulting request
 			let response = await options.fetcher(
-				`${apiPath}${service}/${target}}`,
+				`${apiPath}${service}/${target}`,
 				request,
 			);
 

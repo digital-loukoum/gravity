@@ -1,0 +1,61 @@
+{
+  "math": {
+    "add": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 2,
+          "parameters": [
+            {
+              "typeName": "Number"
+            },
+            {
+              "typeName": "Number"
+            }
+          ],
+          "returnType": {
+            "typeName": "Number"
+          }
+        }
+      ]
+    },
+    "subtract": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 2,
+          "parameters": [
+            {
+              "typeName": "Number"
+            },
+            {
+              "typeName": "Number"
+            }
+          ],
+          "returnType": {
+            "typeName": "Number"
+          }
+        }
+      ]
+    },
+    "multiply": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 2,
+          "parameters": [
+            {
+              "typeName": "Number"
+            },
+            {
+              "typeName": "Number"
+            }
+          ],
+          "returnType": {
+            "typeName": "Number"
+          }
+        }
+      ]
+    }
+  }
+}
