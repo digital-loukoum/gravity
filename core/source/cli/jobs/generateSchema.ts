@@ -5,34 +5,19 @@ import fs from "fs-extra";
 import { join } from "path";
 import { extractServicesFromSchema } from "../utilities/extractServicesFromSchema.js";
 import print from "@digitak/print";
-import { findSchemaFile } from "../utilities/findSchemaFile.js";
+import { resolveCliOptions } from "../utilities/resolveCliOptions.js";
 
 export type GravityGenerateSchemaOptions = Pick<
 	GravityCliOptions,
-	| "servicesFile"
-	| "serverSourceDirectory"
-	| "watch"
-	| "verbose"
-	| "schemaLocation"
+	"servicesFile" | "watch" | "verbose" | "schemaFile"
 >;
 
-export function generateSchema({
-	serverSourceDirectory = "./src",
-	servicesFile = "services/index.ts",
-	schemaLocation = "",
-	watch = false,
-	verbose = true,
-}: GravityGenerateSchemaOptions = {}) {
-	servicesFile = join(serverSourceDirectory, servicesFile);
+export function generateSchema(options?: GravityGenerateSchemaOptions) {
+	const { servicesFile, schemaFile, verbose, watch } =
+		resolveCliOptions(options);
 
 	if (!fs.existsSync(servicesFile)) {
 		print.error`\n  ❌ [white: Could not find services file at [bold:'${servicesFile}']]\n`;
-		return;
-	}
-
-	const schemaFile = findSchemaFile(schemaLocation);
-	if (!schemaFile) {
-		print.error`\n  ❌ [white: Could not find [underline:.gravity/schema.json] file at [bold:'${schemaLocation}']\n`;
 		return;
 	}
 

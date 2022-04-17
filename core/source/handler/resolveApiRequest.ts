@@ -10,8 +10,8 @@ import { decodeParameters } from "../utilities/decodeParameters.js";
 import { decodeUrl } from "../utilities/decodeUrl.js";
 import { validateSignature } from "typezer/validate";
 import { resolvePath } from "./resolvePath.js";
-import { getAllowedOrigin } from "source/utilities/getAllowedOrigin.js";
-import { logger } from "source/logs/logger.js";
+import { getAllowedOrigin } from "../utilities/getAllowedOrigin.js";
+import { logger } from "../logs/logger.js";
 
 export type ResolveApiRequestOptions<Context, Request> = {
 	request: Request;

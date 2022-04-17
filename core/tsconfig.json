@@ -14,7 +14,6 @@
 		"isolatedModules": true,
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,
-		"baseUrl": "."
 	},
 	"include": ["source/**/*.ts"]
 }

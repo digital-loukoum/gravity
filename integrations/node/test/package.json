@@ -2,7 +2,10 @@
 	"name": "test-h3",
 	"version": "0.0.0",
 	"scripts": {
-		"serve": "esrun serve"
+		"dev": "gravity dev --entry main.ts --server-directory .",
+		"build": "gravity build --entry main.ts --server-directory .",
+		"preview": "gravity preview",
+		"generate:schema": "gravity generate schema  --server-directory ."
 	},
 	"dependencies": {
 		"@digitak/esrun": "^3.1.1",

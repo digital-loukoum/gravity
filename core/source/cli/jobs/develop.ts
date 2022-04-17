@@ -4,27 +4,24 @@ import fs from "fs-extra";
 import print from "@digitak/print";
 import type { GravityCliOptions } from "../GravityCliOptions.js";
 import { generateSchema } from "./generateSchema.js";
+import { resolveCliOptions } from "../utilities/resolveCliOptions.js";
 
 export type GravityDevelopOptions = Pick<
 	GravityCliOptions,
-	"entryFile" | "serverSourceDirectory" | "servicesFile"
+	"entryFile" | "servicesFile" | "schemaFile"
 >;
 
-export function develop({
-	entryFile = "index.ts",
-	servicesFile = "services/index.ts",
-	serverSourceDirectory = "./src",
-}: GravityCliOptions = {}) {
-	entryFile = join(serverSourceDirectory, entryFile);
+export function develop(options?: GravityCliOptions) {
+	const { entryFile, servicesFile, schemaFile } = resolveCliOptions(options);
 
 	if (!fs.existsSync(entryFile)) {
-		print.error`\n  ❌ [white: Could not entry file [bold:'${entryFile}']]\n`;
+		print.error`\n  ❌ [white: Could not find entry file [bold:'${entryFile}']]\n`;
 		return;
 	}
 
 	generateSchema({
 		servicesFile,
-		serverSourceDirectory,
+		schemaFile,
 		watch: true,
 	});
 

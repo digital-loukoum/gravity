@@ -1,21 +1,12 @@
 #!/usr/bin/env node
 import sade from "sade";
-import fs from "fs";
 import { generateSchema } from "./jobs/generateSchema.js";
 import { develop } from "./jobs/develop.js";
 import { build } from "./jobs/build.js";
 import { preview } from "./jobs/preview.js";
-
-let packageInfos: Record<string, unknown>;
-try {
-	packageInfos = JSON.parse(fs.readFileSync("../package.json", "utf8"));
-} catch (error) {
-	packageInfos = JSON.parse(fs.readFileSync("../../package.json", "utf8"));
-}
-const version = <string>packageInfos.version ?? "";
+import { version } from "../version.js";
 
 const program = sade("gravity");
-
 program.version(version);
 
 const defineOptions = <
@@ -29,15 +20,11 @@ const options = defineOptions({
 	outputFile: ["--output [file]", "Output file resulting from the build"],
 	watch: ["--watch", "Pass this option to watch schema changes"],
 	verbose: ["--no-logs", "Set to false to prevent console logs"],
-	serverSourceDirectory: [
-		"--server-directory [file]",
-		"Directory of the server sources",
-	],
 	servicesFile: [
 		"--services [file]",
 		"Path to the file that exports the services",
 	],
-	schemaLocation: [
+	schemaFile: [
 		"--schema [file]",
 		"Path to schema.json file\nCan be a directory; in that case all parents node_modules/.gravity/schema.json will be searched until a match is found",
 	],
@@ -45,18 +32,16 @@ const options = defineOptions({
 
 // gravity develop
 program
-	.command("develop")
+	.command("dev")
 	.describe("Run gravity server in development mode")
 	.option(...options.entryFile)
-	.option(...options.serverSourceDirectory)
 	.option(...options.servicesFile)
-	.option(...options.schemaLocation)
+	.option(...options.schemaFile)
 	.action((options) => {
 		develop({
 			entryFile: options["entry"],
 			servicesFile: options["services"],
-			serverSourceDirectory: options["server-directory"],
-			schemaLocation: options["schema"],
+			schemaFile: options["schema"],
 		});
 	});
 
@@ -66,9 +51,8 @@ program
 	.describe("Build gravity server for production")
 	.option(...options.entryFile)
 	.option(...options.outputFile)
-	.option(...options.serverSourceDirectory)
 	.option(...options.servicesFile)
-	.option(...options.schemaLocation)
+	.option(...options.schemaFile)
 	.option("--esbuild:*", "Custom esbuild options")
 	.action((options) => {
 		const esbuildOptions: any = {};
@@ -82,29 +66,26 @@ program
 		build({
 			entryFile: options["entry"],
 			servicesFile: options["services"],
-			serverSourceDirectory: options["server-directory"],
 			outputFile: options["output"],
-			schemaLocation: options["schema"],
+			schemaFile: options["schema"],
 			esbuildOptions,
 		});
 	});
 
 // gravity generate:schema
 program
-	.command("generate:schema")
-	.describe("Generate the services' schema")
+	.command("generate schema")
+	.describe("Generate the api schema from the services")
 	.option(...options.watch)
 	.option(...options.verbose)
-	.option(...options.serverSourceDirectory)
 	.option(...options.servicesFile)
-	.option(...options.schemaLocation)
+	.option(...options.schemaFile)
 	.action((options) => {
 		generateSchema({
 			servicesFile: options["services"],
-			serverSourceDirectory: options["server-directory"],
 			watch: options["watch"],
 			verbose: !options["no-logs"],
-			schemaLocation: options["schema"],
+			schemaFile: options["schema"],
 		});
 	});
 

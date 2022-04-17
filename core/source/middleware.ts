@@ -50,5 +50,5 @@ export const defineHandler = <Context>(
 		return response;
 	};
 
-	return { handler };
+	return handler;
 };

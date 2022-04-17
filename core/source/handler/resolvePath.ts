@@ -1,4 +1,4 @@
-import { gravityError } from "source/errors/GravityError.js";
+import { gravityError } from "../errors/GravityError.js";
 import type { BaseService } from "../services/BaseService.js";
 
 const privateIndicators = ["_", "$"];

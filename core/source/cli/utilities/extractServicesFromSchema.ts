@@ -1,4 +1,4 @@
-import { baseServiceProperties } from "source/services/BaseService.js";
+import { baseServiceProperties } from "../../services/BaseService.js";
 import type { Type } from "typezer";
 
 /**

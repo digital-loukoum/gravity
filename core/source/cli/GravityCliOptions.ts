@@ -20,12 +20,7 @@ export type GravityCliOptions = {
 	 * Directory or file where the schema is located
 	 * If a directory path is given, then Gravity will look for all parent 'node_modules' directories
 	 */
-	schemaLocation?: string;
-
-	/**
-	 * The source directory where lives the server code
-	 */
-	serverSourceDirectory?: string;
+	schemaFile?: string;
 
 	/**
 	 * Whether to run in watch mode or not

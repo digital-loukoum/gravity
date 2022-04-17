@@ -1,7 +1,7 @@
 import { bunker, debunker } from "@digitak/bunker";
 import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 import type { Api } from "./Api.js";
-import type { MaybePromise } from "source/types/MaybePromise.js";
+import type { MaybePromise } from "../types/MaybePromise.js";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
 

@@ -11,7 +11,9 @@ CLI
 - gravity dev
 - gravity build
 - gravity preview
+- Should use package.gravity for configuration
 - Parameters validation
+- Gravity version is based on cwd package.json ^^'
 
 SVELTE / SVELTEKIT
 - Use bunker format instead of JSON to cache requests (more powerful)
