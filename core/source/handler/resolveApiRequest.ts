@@ -40,7 +40,8 @@ export async function resolveApiRequest<Context, Request>(
 
 	let status = 200;
 	let resolved: unknown;
-	let { headers } = options;
+	let headers: IncomingHttpHeaders = {};
+	let body: string | Uint8Array;
 
 	try {
 		if (!serviceName) {
@@ -85,11 +86,22 @@ export async function resolveApiRequest<Context, Request>(
 		if (typeof target == "function") {
 			const parameters = decodeParameters(options.headers, options.rawBody);
 			console.log("validation", options.schema[serviceName], path);
-			const { errors } = validateSignature(
-				options.schema[serviceName],
-				path,
-				parameters,
-			);
+			let errors: Array<string> | undefined;
+
+			try {
+				({ errors } = validateSignature(
+					options.schema[serviceName],
+					path,
+					parameters,
+				));
+			} catch (error) {
+				throw gravityError({
+					message: "Target inexistant",
+					serviceName,
+					target: path.join("/"),
+					status: 404,
+				});
+			}
 			if (errors?.length) {
 				throw gravityError({
 					message: "Bad parameters",
@@ -124,8 +136,13 @@ export async function resolveApiRequest<Context, Request>(
 		headers["access-control-allow-origin"] = allowedOrigin;
 	}
 
-	const body =
-		encoding == "bunker" ? bunker(resolved) : JSON.stringify(resolved);
+	if (encoding == "bunker") {
+		body = bunker(resolved);
+		headers["content-length"] = String(body.length);
+	} else {
+		body = JSON.stringify(resolved);
+		headers["content-length"] = String(new TextEncoder().encode(body).length);
+	}
 	console.log("resolved", resolved, typeof resolved);
 	console.log("body", body);
 
