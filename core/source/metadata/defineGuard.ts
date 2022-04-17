@@ -1,9 +1,7 @@
 import { gravityError } from "../errors/GravityError.js";
 import { BaseService, baseServiceProperties } from "../services/BaseService.js";
 
-export function defineGuard<Service extends BaseService<any>>(
-	guard: (service: Service) => any,
-) {
+export function defineGuard<Service>(guard: (service: Service) => any) {
 	return (
 		serviceInstance: Service | (new (...args: any[]) => Service),
 		operation?: string,
@@ -11,14 +9,12 @@ export function defineGuard<Service extends BaseService<any>>(
 	): any => {
 		if (operation) {
 			// if we target an operation: we guard the given instance method value
-			if (!(serviceInstance instanceof BaseService)) {
-				return console.warn(`Guards can only be used on services`);
-			}
 			if (typeof (serviceInstance as any)[operation] != "function") {
-				return console.warn(`A guard can only be used on a service method`);
+				return console.warn(`A guard can only be used on a function`);
 			}
 
-			descriptor!.value = guardMethod(
+			descriptor ??= {};
+			descriptor.value = guardMethod(
 				(serviceInstance as any)[operation],
 				guard,
 			);
@@ -49,7 +45,7 @@ export function defineGuard<Service extends BaseService<any>>(
 	};
 }
 
-function guardMethod<Service extends BaseService<any>>(
+function guardMethod<Service>(
 	method: Function,
 	guard: (service: Service) => any,
 ) {

@@ -1,3 +1,4 @@
+export { ServerError } from "./errors/ServerError.js";
 export { defineApi } from "./api/defineApi.js";
 
 export { BaseService } from "./services/BaseService.js";
