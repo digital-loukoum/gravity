@@ -122,7 +122,9 @@ export async function resolveApiRequest<Context, Request>(
 				});
 			}
 			resolved = await target.apply(service, parameters);
-		} else resolved = await target;
+		} else {
+			resolved = await target;
+		}
 		console.log("No errors happened during request");
 	} catch (error) {
 		console.log("An error happened during request");

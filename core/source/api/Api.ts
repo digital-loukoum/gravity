@@ -32,9 +32,10 @@ type Callable<Type> = Type extends (
 	: () => Promise<ApiResponse<Type>>;
 
 type ExposedProperties<Service extends BaseService> = {
-	[Key in Exclude<keyof Service, `${"$" | "_"}${string}`>]: Callable<
-		Service[Key]
-	>;
+	[Key in Exclude<
+		keyof Service,
+		"context" | `${"$" | "_"}${string}`
+	>]: Callable<Service[Key]>;
 };
 
 export type Api<Services extends Record<string, BaseServiceConstructor>> = {

@@ -3,15 +3,20 @@ import { services } from "./services";
 import { createServer } from "http";
 import { print } from "@digitak/print";
 import schema from "./schema.json";
+import type { Context } from "./Context";
 
 const PORT = 4000;
 
-const handler = defineHandler({
+const handler = defineHandler<Context>({
 	services,
 	schema,
 	allowedOrigins: [],
 	onRequestReceive() {
-		return {};
+		return {
+			user: {
+				isAdmin: false,
+			},
+		};
 	},
 });
 

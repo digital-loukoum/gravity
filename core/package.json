@@ -24,7 +24,7 @@
 		"@digitak/print": "^1.1.4",
 		"esbuild": "^0.14.29",
 		"sade": "^1.8.1",
-		"typezer": "^0.9.18"
+		"typezer": "^0.9.19"
 	},
 	"devDependencies": {
 		"@digitak/bunker": "^3.3.3",

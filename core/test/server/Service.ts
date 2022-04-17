@@ -1,11 +1,7 @@
 import { BaseService } from "../../source/services/BaseService";
-import { foo } from "./services/foo";
+import { Context } from "./Context";
 
-export class Service extends BaseService {
-	protected get fooService() {
-		return this.useService(foo);
-	}
-
+export class Service extends BaseService<Context> {
 	bar() {
 		return "bar";
 	}

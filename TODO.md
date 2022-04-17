@@ -37,3 +37,4 @@ FUTURE
 - Download / upload
 - UInt8Array, UInt16Array, UInt32Array, DataView, ArrayBuffer
 - Allow to use message pack or a custom encoder
+- Protect non-service methods with guards (use a getter)

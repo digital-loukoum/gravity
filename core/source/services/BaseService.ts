@@ -1,7 +1,7 @@
 import { getServiceInstance } from "./getServiceInstance.js";
 
-export abstract class BaseService<Context = any> {
-	constructor(protected readonly context: Context) {}
+export abstract class BaseService<Context = unknown> {
+	constructor(public readonly context: Context) {}
 
 	/**
 	 * Use this method to call another service from a service.

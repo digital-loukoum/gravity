@@ -13,13 +13,13 @@ specifiers:
   node-fetch: ^3.2.3
   sade: ^1.8.1
   typescript: ^4.7.0-dev.20220408
-  typezer: ^0.9.18
+  typezer: ^0.9.19
 
 dependencies:
   '@digitak/print': 1.1.4
   esbuild: 0.14.29
   sade: 1.8.1
-  typezer: 0.9.18
+  typezer: 0.9.19
 
 devDependencies:
   '@digitak/bunker': 3.3.3
@@ -572,8 +572,8 @@ packages:
     hasBin: true
     dev: true
 
-  /typezer/0.9.18:
-    resolution: {integrity: sha512-XJL5BSvvFDleOBL2AKsK7JMTduL10BGWg6G1IctDS/zugILuMXIo4oYOQ8G0wMXH2xfMbZX9JeYe8dBMlTTFGQ==}
+  /typezer/0.9.19:
+    resolution: {integrity: sha512-ASy2TayLPwfHjwKDdkrpXT8RQkgwIqoQxIDtdOQ8lLcmK82gyUs1RaJvDKeYo/gG6E8Pyywb/9KU+sw9bgEc9g==}
     dependencies:
       '@digitak/cute': 1.0.2
       '@digitak/print': 1.1.4

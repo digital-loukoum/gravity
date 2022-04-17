@@ -64,11 +64,17 @@
         }
       ]
     },
-    "coco": {
+    "rawString": {
+      "typeName": "String"
+    },
+    "rawArray": {
       "typeName": "Array",
       "items": {
         "typeName": "Number"
       }
+    },
+    "rawDate": {
+      "typeName": "Date"
     },
     "nested": {
       "typeName": "Object",
@@ -77,6 +83,50 @@
           "typeName": "Number"
         }
       }
+    },
+    "$dollar": {
+      "typeName": "String"
+    },
+    "onlyForAdmins": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    },
+    "bar": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    }
+  },
+  "admin": {
+    "rawNumber": {
+      "typeName": "Number"
+    },
+    "onlyForAdmins": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
     },
     "bar": {
       "typeName": "Function",
