@@ -1,47 +1,47 @@
 import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
-import { operationsStore, servicesStore } from "./metadataStores.js";
+import { propertiesStore, servicesStore } from "./metadataStores.js";
 
 export const defineMetadata = <Metadata extends Record<never, any>>() => {
 	return {
 		setMetadata: <Key extends keyof Metadata>({
 			service,
-			operation,
+			property,
 			key,
 			value,
 		}: {
 			key: Key;
 			service: BaseServiceConstructor;
-			operation?: string;
+			property?: string;
 			value: Metadata[Key];
 		}) => {
-			if (operation == null) {
+			if (property == null) {
 				let store = servicesStore.get(service);
 				if (!store) servicesStore.set(service, (store = {}));
 				store[String(key)] = value;
 			} else {
-				let rootStore = operationsStore.get(service);
-				if (!rootStore) operationsStore.set(service, (rootStore = new Map()));
-				let store = rootStore.get(operation);
-				if (!store) rootStore.set(operation, (store = {}));
+				let rootStore = propertiesStore.get(service);
+				if (!rootStore) propertiesStore.set(service, (rootStore = new Map()));
+				let store = rootStore.get(property);
+				if (!store) rootStore.set(property, (store = {}));
 				store[String(key)] = value;
 			}
 		},
 		getMetadata: <Key extends keyof Metadata>({
 			service,
-			operation,
+			property,
 			key,
 		}: {
 			key: Key;
 			service: BaseServiceConstructor;
-			operation?: string;
+			property?: string;
 		}): Metadata[Key] | undefined => {
-			if (operation == null) {
+			if (property == null) {
 				const store = servicesStore.get(service);
 				return store?.[String(key)] as any;
 			} else {
-				const rootStore = operationsStore.get(service);
+				const rootStore = propertiesStore.get(service);
 				if (!rootStore) return undefined;
-				const store = rootStore.get(operation);
+				const store = rootStore.get(property);
 				return store?.[String(key)] as any;
 			}
 		},

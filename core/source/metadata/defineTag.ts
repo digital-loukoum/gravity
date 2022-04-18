@@ -5,36 +5,28 @@ import { defineMetadata } from "./defineMetadata.js";
 export function defineTag(
 	name = "",
 ): [
-	(service: BaseService | BaseServiceConstructor, operation?: string) => any,
-	(service: BaseServiceConstructor, operation?: string) => boolean,
+	(service: BaseService | BaseServiceConstructor, property?: string) => any,
+	(service: BaseServiceConstructor, property?: string) => boolean,
 ] {
 	const key = Symbol(name);
 	const { getMetadata, setMetadata } = defineMetadata<{ [key]: true }>();
 
 	return [
-		(serviceInstance, operation) => {
+		(serviceInstance, property) => {
 			const service = (
-				operation ? serviceInstance.constructor : serviceInstance
+				property ? serviceInstance.constructor : serviceInstance
 			) as BaseServiceConstructor;
 
 			if (!(service.prototype instanceof BaseService)) {
 				return console.warn(`Tag decorators can only be used on services`);
 			}
-			if (
-				operation &&
-				typeof (serviceInstance as any)[operation] != "function"
-			) {
-				return console.warn(
-					`Tag decorators can only be used on a service method`,
-				);
-			}
 
-			setMetadata({ service, operation, key, value: true });
+			setMetadata({ service, property, key, value: true });
 		},
-		(service, operation): boolean => {
+		(service, property): boolean => {
 			return (
 				!!getMetadata({ service, key }) ||
-				!!getMetadata({ service, operation, key })
+				!!getMetadata({ service, property, key })
 			);
 		},
 	];

@@ -1,5 +1,6 @@
 import { Service } from "../Service";
 import { Admin } from "../guards/Admin";
+import { Private } from "../guards/Private";
 
 export class foo extends Service {
 	foo() {
@@ -31,5 +32,20 @@ export class foo extends Service {
 	primitiveForAdmins = 12;
 
 	@Admin
-	otherPrimitiveForAdmins = 12;
+	nestedForAdmins = {
+		value: 12,
+	};
+
+	@Private
+	onlyForPrivate() {
+		return "onlyForPrivate";
+	}
+
+	@Private
+	primitiveForPrivate = 12;
+
+	@Private
+	nestedPrivate = {
+		value: 12,
+	};
 }

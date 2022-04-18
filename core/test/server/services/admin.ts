@@ -14,4 +14,8 @@ export class admin extends Service {
 	onlyForAdmins() {
 		return "onlyForAdmins";
 	}
+
+	nested = {
+		value: 12,
+	};
 }

@@ -102,8 +102,36 @@
     "primitiveForAdmins": {
       "typeName": "Number"
     },
-    "otherPrimitiveForAdmins": {
+    "nestedForAdmins": {
+      "typeName": "Object",
+      "properties": {
+        "value": {
+          "typeName": "Number"
+        }
+      }
+    },
+    "onlyForPrivate": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    },
+    "primitiveForPrivate": {
       "typeName": "Number"
+    },
+    "nestedPrivate": {
+      "typeName": "Object",
+      "properties": {
+        "value": {
+          "typeName": "Number"
+        }
+      }
     },
     "bar": {
       "typeName": "Function",
@@ -133,6 +161,51 @@
           }
         }
       ]
+    },
+    "nested": {
+      "typeName": "Object",
+      "properties": {
+        "value": {
+          "typeName": "Number"
+        }
+      }
+    },
+    "bar": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    }
+  },
+  "privateService": {
+    "rawString": {
+      "typeName": "String"
+    },
+    "onlyForPrivate": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    },
+    "nested": {
+      "typeName": "Object",
+      "properties": {
+        "value": {
+          "typeName": "Number"
+        }
+      }
     },
     "bar": {
       "typeName": "Function",

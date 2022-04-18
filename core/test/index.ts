@@ -67,6 +67,11 @@ start("gravity/core", async ({ stage, same, test }) => {
 			`Primitive-level guard`,
 		);
 		same(
+			(await api.foo.nestedForAdmins.value()).error?.message,
+			"Forbidden access",
+			`Nested guard`,
+		);
+		same(
 			(await api.admin.onlyForAdmins()).error?.message,
 			"Forbidden access",
 			`Service-level guard`,
@@ -76,9 +81,46 @@ start("gravity/core", async ({ stage, same, test }) => {
 			"Forbidden access",
 			`Primitive of service-level guard`,
 		);
+		same(
+			(await api.admin.nested.value()).error?.message,
+			"Forbidden access",
+			`Service-level nested guard`,
+		);
 	}
 
-	stage(`Decorators`);
+	stage(`Tags`);
+	{
+		same(
+			(await api.foo.onlyForPrivate()).error?.message,
+			"Forbidden access",
+			`Method-level tag`,
+		);
+		same(
+			(await api.foo.primitiveForPrivate()).error?.message,
+			"Forbidden access",
+			`Primitive-level tag`,
+		);
+		same(
+			(await api.foo.nestedPrivate.value()).error?.message,
+			"Forbidden access",
+			`Nested tag`,
+		);
+		same(
+			(await api.privateService.onlyForPrivate()).error?.message,
+			"Forbidden access",
+			`Service-level guard`,
+		);
+		same(
+			(await api.privateService.rawString()).error?.message,
+			"Forbidden access",
+			`Primitive of service-level guard`,
+		);
+		same(
+			(await api.privateService.nested.value()).error?.message,
+			"Forbidden access",
+			`Service-level nested tag`,
+		);
+	}
 
 	stopServer();
 });
