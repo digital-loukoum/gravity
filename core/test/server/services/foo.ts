@@ -26,4 +26,10 @@ export class foo extends Service {
 	onlyForAdmins() {
 		return "onlyForAdmins";
 	}
+
+	@Admin
+	primitiveForAdmins = 12;
+
+	@Admin
+	otherPrimitiveForAdmins = 12;
 }

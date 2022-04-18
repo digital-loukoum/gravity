@@ -1,9 +1,15 @@
-import { Admin } from "../guards/Admin";
+import { guard } from "../../../source";
+import { Context } from "../Context";
+import { isAdmin } from "../guards/Admin";
 import { Service } from "../Service";
 
-@Admin
 export class admin extends Service {
-	rawNumber = 12;
+	constructor(context: Context) {
+		super(context);
+		return guard(this, isAdmin);
+	}
+
+	rawString = "onlyForAdmins";
 
 	onlyForAdmins() {
 		return "onlyForAdmins";

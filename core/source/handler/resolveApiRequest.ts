@@ -79,7 +79,6 @@ export async function resolveApiRequest<Context, Request>(
 
 		const service = new serviceConstructor(context);
 
-		console.log("path", serviceName, path);
 		// we check the path exists in schema
 		const targetType = findTargetInSchema(options.schema[serviceName], path);
 		if (!targetType) {
@@ -92,12 +91,9 @@ export async function resolveApiRequest<Context, Request>(
 		}
 		// then we retrieve the target
 		const target = resolvePath(serviceName, service, path);
-		console.log("target", target);
-		console.log("rawBody", options.rawBody);
 
 		if (typeof target == "function") {
 			const parameters = decodeParameters(options.headers, options.rawBody);
-			console.log("validation", options.schema[serviceName], path);
 			let errors: Array<string> | undefined;
 
 			try {
@@ -125,9 +121,7 @@ export async function resolveApiRequest<Context, Request>(
 		} else {
 			resolved = await target;
 		}
-		console.log("No errors happened during request");
 	} catch (error) {
-		console.log("An error happened during request");
 		if (error instanceof Error) {
 			const log = isGravityError(error) ? logger.warning : logger.error;
 			log(error.name, error.message, error.stack);
@@ -157,8 +151,6 @@ export async function resolveApiRequest<Context, Request>(
 		body = JSON.stringify(resolved);
 		headers["content-length"] = String(new TextEncoder().encode(body).length);
 	}
-	console.log("resolved", resolved, typeof resolved);
-	console.log("body", body);
 
 	return {
 		status,

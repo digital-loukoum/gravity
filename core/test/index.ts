@@ -62,16 +62,20 @@ start("gravity/core", async ({ stage, same, test }) => {
 			`Method-level guard`,
 		);
 		same(
+			(await api.foo.primitiveForAdmins()).error?.message,
+			"Forbidden access",
+			`Primitive-level guard`,
+		);
+		same(
 			(await api.admin.onlyForAdmins()).error?.message,
 			"Forbidden access",
 			`Service-level guard`,
 		);
-		// TODO
-		// same(
-		// 	(await api.admin.rawNumber()).error?.message,
-		// 	"Forbidden access",
-		// 	`Raw value of service-level guard`,
-		// );
+		same(
+			(await api.admin.rawString()).error?.message,
+			"Forbidden access",
+			`Primitive of service-level guard`,
+		);
 	}
 
 	stage(`Decorators`);

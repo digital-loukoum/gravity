@@ -99,6 +99,12 @@
         }
       ]
     },
+    "primitiveForAdmins": {
+      "typeName": "Number"
+    },
+    "otherPrimitiveForAdmins": {
+      "typeName": "Number"
+    },
     "bar": {
       "typeName": "Function",
       "signatures": [
@@ -113,8 +119,8 @@
     }
   },
   "admin": {
-    "rawNumber": {
-      "typeName": "Number"
+    "rawString": {
+      "typeName": "String"
     },
     "onlyForAdmins": {
       "typeName": "Function",

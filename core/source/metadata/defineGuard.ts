@@ -1,66 +1,41 @@
-import { gravityError } from "../errors/GravityError.js";
-import { BaseService, baseServiceProperties } from "../services/BaseService.js";
+import { assertNotPromise } from "../utilities/assertNotPromise.js";
 
 export function defineGuard<Service>(guard: (service: Service) => any) {
 	return (
-		serviceInstance: Service | (new (...args: any[]) => Service),
-		operation?: string,
+		service: Service,
+		property?: string,
 		descriptor?: PropertyDescriptor,
 	): any => {
-		if (operation) {
-			// if we target an operation: we guard the given instance method value
-			if (typeof (serviceInstance as any)[operation] != "function") {
-				return console.warn(`A guard can only be used on a function`);
-			}
-
-			descriptor ??= {};
-			descriptor.value = guardMethod(
-				(serviceInstance as any)[operation],
-				guard,
-			);
-
-			return descriptor;
+		// if we target an property: we guard the given instance method value
+		if (!descriptor) {
+			let value: unknown = undefined;
+			descriptor = {
+				set: (newValue: unknown) => (value = newValue),
+				get(this: Service) {
+					assertNotPromise(guard(this));
+					return value;
+				},
+				enumerable: true,
+				configurable: true,
+			};
+		} else if (typeof descriptor.get == "function") {
+			descriptor.get = guardProperty(descriptor.get, guard);
 		} else {
-			// if we target a service: we guard the entire prototype
-			const service: any = serviceInstance;
-			if (!(service.prototype instanceof BaseService)) {
-				return console.warn(`Guards can only be used on services`);
-			}
-			const properties = Object.getOwnPropertyDescriptors(service.prototype);
-
-			for (const propertyKey in properties) {
-				// we dismiss base methods (constructor, useService, etc...)
-				if (propertyKey in baseServiceProperties) continue;
-
-				const property = properties[propertyKey];
-
-				if (typeof property.value == "function")
-					property.value = guardMethod(property.value, guard);
-				else if (typeof property.get?.() == "function")
-					property.get = guardMethod(property.get, guard);
-
-				Object.defineProperty(service.prototype, propertyKey, property);
-			}
+			descriptor.value = guardProperty(descriptor.value, guard);
 		}
+
+		return descriptor;
 	};
 }
 
-function guardMethod<Service>(
-	method: Function,
+function guardProperty<Service>(
+	property: unknown,
 	guard: (service: Service) => any,
 ) {
 	return function (this: Service, ...args: any) {
-		const guardResult = guard(this);
-		if (
-			guardResult &&
-			typeof guardResult == "object" &&
-			typeof guardResult.then == "function"
-		) {
-			throw gravityError({
-				message: "Guards cannot be asynchronous",
-				status: 500,
-			});
-		}
-		return method.call(this, ...args);
+		assertNotPromise(guard(this));
+		return typeof property == "function"
+			? property.call(this, ...args)
+			: property;
 	};
 }

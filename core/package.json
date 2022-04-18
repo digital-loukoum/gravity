@@ -16,8 +16,10 @@
 		"check": "tsc --noEmit --watch",
 		"dev": "esrun --watch test",
 		"test": "esrun test",
+		"test:inspect": "esrun --inspect test",
 		"test:server": "npm run test:generate && esrun test/server",
 		"test:generate": "esrun source/cli/gravity generate schema",
+		"test:guard": "esrun test/guard",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {
