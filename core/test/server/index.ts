@@ -14,7 +14,6 @@ const handler = defineHandler<Context>({
 	schema,
 	allowedOrigins: [],
 	onRequestReceive(request) {
-		console.log("Receiving request", request);
 		return {
 			user: {
 				isAdmin: false,
