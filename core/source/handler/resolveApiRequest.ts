@@ -13,6 +13,7 @@ import { decodeUrl } from "../utilities/decodeUrl.js";
 import { resolvePath } from "./resolvePath.js";
 import { getAllowedOrigin } from "../utilities/getAllowedOrigin.js";
 import { logger } from "../logs/logger.js";
+import { parseCookies } from "../cookie/parseCookies.js";
 
 export type ResolveApiRequestOptions<Context, Request> = {
 	request: Request;
@@ -33,7 +34,10 @@ export async function resolveApiRequest<Context, Request>(
 		options.headers.origin,
 		options.allowedOrigins,
 	);
-	const context = await options.onRequestReceive?.(options.request)!;
+	const context = await options.onRequestReceive?.({
+		request: options.request,
+		cookies: parseCookies(options.headers.cookie ?? ""),
+	})!;
 
 	const encoding =
 		options.headers["content-type"] == "application/bunker" ? "bunker" : "json";

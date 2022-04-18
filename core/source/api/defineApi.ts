@@ -1,16 +1,16 @@
 import { bunker, debunker } from "@digitak/bunker";
 import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 import type { Api } from "./Api.js";
-import type { MaybePromise } from "../types/MaybePromise.js";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
+import type { OnRequestSend } from "./OnRequestSend.js";
+import type { OnResponseReceive } from "./OnResponseReceive.js";
+import type { ApiResponse } from "./ApiResponse.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;
-	onRequestSend?: (
-		request: RequestInit,
-	) => MaybePromise<RequestInit | undefined>;
-	onResponseReceive?: (response: Response, data: unknown) => unknown;
+	onRequestSend?: OnRequestSend;
+	onResponseReceive?: OnResponseReceive;
 };
 
 export type CallApiOptions = {
@@ -45,7 +45,7 @@ export function defineApi<
 				headers,
 				body,
 			};
-			request = (await onRequestSend?.(request)) ?? request;
+			request = (await onRequestSend?.({ request })) ?? request;
 
 			// fetch the server with the resulting request
 			let response = await options.fetcher(
@@ -62,9 +62,11 @@ export function defineApi<
 				data = (await response.json()) as unknown;
 			}
 
-			await onResponseReceive?.(response, data);
-
-			return response.ok ? { data } : { error: data };
+			const result: ApiResponse = response.ok
+				? { data }
+				: { error: data as Error };
+			await onResponseReceive?.({ response, ...result });
+			return result;
 		});
 
 	const api = callApi({

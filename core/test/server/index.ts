@@ -13,7 +13,8 @@ const handler = defineHandler<Context>({
 	services,
 	schema,
 	allowedOrigins: [],
-	onRequestReceive() {
+	onRequestReceive(request) {
+		console.log("Receiving request", request);
 		return {
 			user: {
 				isAdmin: false,
@@ -24,6 +25,9 @@ const handler = defineHandler<Context>({
 		if (isPrivate(service, property)) {
 			throw new ServerError(`Forbidden access`);
 		}
+	},
+	onResponseSend({ response }) {
+		return response;
 	},
 });
 

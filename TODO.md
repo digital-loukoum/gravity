@@ -1,12 +1,11 @@
 GENERAL
-- Create cookie parser that works with Node and browser
-- Test cookie parser
 
 CLI
 - gravity create
 - Gravity version is based on cwd package.json ^^'
 
 SVELTE / SVELTEKIT
+- Test cookies
 - Use bunker format instead of JSON to cache requests (more powerful)
 - Replace `Swr` prefix by `UseApi`
 - lastRefreshAt should be reactive
@@ -31,6 +30,7 @@ DOCUMENTATION
 - Documentation for nested values
 - Add cli configuration section
 - Set default entry file to src/index.ts
+- Add a section for reading and setting cookies
 
 FUTURE
 - Download / upload
