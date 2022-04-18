@@ -1,13 +1,9 @@
 GENERAL
-- Tags should take a path as main argument?
-- Test guards with parameters
-- Test tags
 - Create cookie parser that works with Node and browser
 - Test cookie parser
 
 CLI
 - gravity create
-- Parameters validation
 - Gravity version is based on cwd package.json ^^'
 
 SVELTE / SVELTEKIT
@@ -32,6 +28,7 @@ PRISMA
 - Add "includable" to the prisma proxy options
 
 DOCUMENTATION
+- Documentation for nested values
 - Add cli configuration section
 - Set default entry file to src/index.ts
 
