@@ -1,4 +1,4 @@
-import TOML from "@iarna/toml";
+import TOML from "@ltd/j-toml";
 import { readFileSync } from "fs";
 import { findClosestFile } from "./findClosestFile.js";
 

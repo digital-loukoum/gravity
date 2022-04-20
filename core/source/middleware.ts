@@ -42,7 +42,7 @@ export const defineHandler = <Context>(
 			response.setHeader(header, headers[header]);
 		}
 
-		response = (await options.onResponseSend?.(response)) ?? response;
+		response = (await options.onResponseSend?.({ response })) ?? response;
 
 		// we write the result
 		response.write(body);

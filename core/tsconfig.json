@@ -15,5 +15,6 @@
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,
 	},
-	"include": ["source/**/*.ts"]
+	"include": ["source/**/*.ts"],
+	"exclude": ["source/templates/**/*.ts"],
 }
