@@ -1,1 +1,1 @@
-export const version = "GRAVITY_VERSION";
+export const version = "0.0.43";

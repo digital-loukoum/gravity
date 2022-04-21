@@ -1,7 +1,7 @@
 GENERAL
 
 CLI
-- gravity create
+- add gravity.toml in templates
 - Gravity version is based on cwd package.json ^^'
 
 SVELTE / SVELTEKIT
@@ -28,7 +28,7 @@ PRISMA
 
 DOCUMENTATION
 - Documentation for nested values
-- Add cli configuration section
+- Add cli configuration section (in project structure > gravity.toml)
 - Set default entry file to src/index.ts
 - Add a section for reading and setting cookies
 
