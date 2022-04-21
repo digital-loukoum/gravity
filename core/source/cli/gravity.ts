@@ -18,6 +18,7 @@ const defineOptions = <
 
 const options = defineOptions({
 	manual: ["--manual", "Manually select options"],
+	destination: ["--destination", "Path location"],
 	entryFile: ["--entry [file]", "Entry file path"],
 	outputFile: ["--output [file]", "Output file resulting from the build"],
 	watch: ["--watch", "Pass this option to watch schema changes"],
@@ -37,9 +38,11 @@ program
 	.command("create")
 	.describe("Scaffold a new Gravity project")
 	.option(...options.manual)
+	.option(...options.destination)
 	.action((options) => {
 		create({
-			manual: options["manual"],
+			manual: options?.["manual"],
+			destination: options?.["destination"] || ".",
 		});
 	});
 

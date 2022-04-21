@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@digitak/bunker': ^3.3.3
-  '@digitak/esrun': ^3.2.0
+  '@digitak/esrun': ^3.2.2
   '@digitak/print': ^1.1.4
   '@ltd/j-toml': ^1.30.0
   '@types/cookie': ^0.5.0
@@ -28,7 +28,7 @@ dependencies:
 
 devDependencies:
   '@digitak/bunker': 3.3.3
-  '@digitak/esrun': 3.2.0
+  '@digitak/esrun': 3.2.2
   '@ltd/j-toml': 1.30.0
   '@types/degit': 2.8.3
   '@types/fs-extra': 9.0.13
@@ -52,8 +52,8 @@ packages:
     resolution: {integrity: sha512-Lr5Wz5So9p0rO6JEGAw6HaknLTZd0c9CVsTbGYiyh66bnyEk1qY1ZqFHF05nswm1M/vF9txiF36WjBGgPfLbAw==}
     dev: false
 
-  /@digitak/esrun/3.2.0:
-    resolution: {integrity: sha512-RqzsYKsCGcg83IfYOuew3vq2sNO77OkpES/rP4+zmjs+f+0DZZOYcMb3hFQVch7YeYVzuIGo9N8dHVLzVsncXQ==}
+  /@digitak/esrun/3.2.2:
+    resolution: {integrity: sha512-A79xtbVB4F1NXZOzhJGNEbp+MsuwA0XbZ3FlsWvvsZz5/9GWeTb02jI0axJzf7C1cB49GEeRzVagp4p8PxywSQ==}
     engines: {node: '>=14.0'}
     hasBin: true
     dependencies:

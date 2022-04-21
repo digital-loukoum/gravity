@@ -14,15 +14,15 @@
 	"scripts": {
 		"generate": "esrun scripts/generate",
 		"check": "tsc --noEmit",
-		"dev": "esrun scripts/generate && esrun --watch test",
-		"build": "esrun scripts/generate && esrun scripts/build",
-		"test": "esrun scripts/generate && esrun test",
-		"test:inspect": "esrun scripts/generate && esrun --inspect test",
+		"dev": "esrun --watch test",
+		"build": "esrun scripts/build",
+		"test": "esrun test",
+		"test:inspect": "esrun --inspect test",
 		"test:server": "npm run test:generate && esrun test/server",
 		"test:server:inspect": "npm run test:generate && esrun --inspect test/server",
 		"test:generate": "esrun source/cli/gravity generate schema",
 		"test:guard": "esrun test/guard",
-		"test:create": "esrun scripts/generate && esrun source/cli/gravity create",
+		"test:create": "esrun source/cli/gravity create",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {
@@ -33,7 +33,7 @@
 	},
 	"devDependencies": {
 		"@digitak/bunker": "^3.3.3",
-		"@digitak/esrun": "^3.2.0",
+		"@digitak/esrun": "^3.2.2",
 		"@ltd/j-toml": "^1.30.0",
 		"@types/degit": "^2.8.3",
 		"@types/fs-extra": "^9.0.13",
