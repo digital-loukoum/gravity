@@ -10,6 +10,8 @@ import fs from "fs-extra";
 import chalk from "chalk";
 import { join } from "path";
 import { findPackageInfos } from "../utilities/findPackageInfos.js";
+import { findPackageScripts } from "../utilities/findPackageScripts.js";
+import { updatePackageInfos } from "../utilities/updatePackageInfos.js";
 
 export type GravityCreateOptions = {
 	destination?: string;
@@ -175,10 +177,18 @@ export async function create(
 	/**
 	 * 8. Patching npm scripts
 	 */
-	// stage("Patching npm scripts");
-	// let scripts: Record<string, string> = findPackageInfos()?.scripts
-	// if (typeof scripts != "object") scripts = {}
-	// scripts
+	stage("Patching npm scripts");
+	const scripts = findPackageScripts();
+	scripts.dev =
+		scripts.dev && !scripts.dev.startsWith("gravity ")
+			? `gravity dev --use "${scripts.dev.replace(/"/g, '\\"')}"`
+			: `gravity dev`;
+	scripts.build =
+		scripts.build && !scripts.build.startsWith("gravity ")
+			? `gravity build --use '${scripts.build.replace(/'/g, "\\'")}'`
+			: `gravity build`;
+	updatePackageInfos({ scripts });
+	done("npm scripts patched");
 
-	console.log("\n✨ Gravity is ready\n");
+	console.log("\n✨ Gravity is ready to use\n");
 }
