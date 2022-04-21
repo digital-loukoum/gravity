@@ -1,8 +1,6 @@
 {
-  "compilerOptions": {
-    "target": "es2020",
-    "module": "esnext",
-    "jsx": "preserve"
-  },
-  "moduleResolution": "NodeNext",
+	"extends": "./.svelte-kit/tsconfig.json",
+	"compilerOptions": {
+		"strict": true,
+	}
 }
