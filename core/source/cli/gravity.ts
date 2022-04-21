@@ -5,6 +5,7 @@ import { develop } from "./jobs/develop.js";
 import { build } from "./jobs/build.js";
 import { preview } from "./jobs/preview.js";
 import { version } from "../version.js";
+import { create } from "./jobs/create.js";
 
 const program = sade("gravity");
 program.version(version);
@@ -16,6 +17,7 @@ const defineOptions = <
 ) => options;
 
 const options = defineOptions({
+	manual: ["--manual", "Manually select options"],
 	entryFile: ["--entry [file]", "Entry file path"],
 	outputFile: ["--output [file]", "Output file resulting from the build"],
 	watch: ["--watch", "Pass this option to watch schema changes"],
@@ -30,7 +32,18 @@ const options = defineOptions({
 	],
 });
 
-// gravity develop
+// gravity create
+program
+	.command("create")
+	.describe("Scaffold a new Gravity project")
+	.option(...options.manual)
+	.action((options) => {
+		create({
+			manual: options["manual"],
+		});
+	});
+
+// gravity dev
 program
 	.command("dev")
 	.describe("Run gravity server in development mode")

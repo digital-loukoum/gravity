@@ -12,34 +12,39 @@
 	},
 	"bin": "./cli/gravity.js",
 	"scripts": {
-		"build": "esrun scripts/build",
-		"check": "tsc --noEmit --watch",
-		"dev": "esrun --watch test",
-		"test": "esrun test",
-		"test:inspect": "esrun --inspect test",
+		"generate": "esrun scripts/generate",
+		"check": "tsc --noEmit",
+		"dev": "esrun scripts/generate && esrun --watch test",
+		"build": "esrun scripts/generate && esrun scripts/build",
+		"test": "esrun scripts/generate && esrun test",
+		"test:inspect": "esrun scripts/generate && esrun --inspect test",
 		"test:server": "npm run test:generate && esrun test/server",
 		"test:server:inspect": "npm run test:generate && esrun --inspect test/server",
 		"test:generate": "esrun source/cli/gravity generate schema",
 		"test:guard": "esrun test/guard",
+		"test:create": "esrun scripts/generate && esrun source/cli/gravity create",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {
 		"@digitak/print": "^1.1.4",
-		"@ltd/j-toml": "^1.30.0",
 		"@types/cookie": "^0.5.0",
 		"cookie": "^0.5.0",
-		"esbuild": "^0.14.29",
-		"sade": "^1.8.1",
 		"typezer": "^0.9.19"
 	},
 	"devDependencies": {
 		"@digitak/bunker": "^3.3.3",
-		"@digitak/esrun": "^3.1.2",
+		"@digitak/esrun": "^3.2.0",
+		"@ltd/j-toml": "^1.30.0",
+		"@types/degit": "^2.8.3",
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^16.11.26",
+		"chalk": "^5.0.1",
+		"cli-select": "^1.1.2",
+		"esbuild": "^0.14.29",
 		"fartest": "^2.1.8",
 		"fs-extra": "^10.0.1",
 		"node-fetch": "^3.2.3",
+		"sade": "^1.8.1",
 		"typescript": "^4.7.0-dev.20220408"
 	}
 }

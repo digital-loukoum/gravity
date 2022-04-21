@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { defineHandler } from "@digitak/gravity/node";
-import { services } from "./services";
-import schema from "./schema.json";
+import { services } from "./services.js";
+import schema from "./schema.json.js";
 
 const PORT = 3000;
 
