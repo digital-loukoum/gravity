@@ -9,7 +9,6 @@ import { copyTemplates } from "../utilities/copyTemplates.js";
 import fs from "fs-extra";
 import chalk from "chalk";
 import { join } from "path";
-import { findPackageInfos } from "../utilities/findPackageInfos.js";
 import { findPackageScripts } from "../utilities/findPackageScripts.js";
 import { updatePackageInfos } from "../utilities/updatePackageInfos.js";
 
@@ -59,7 +58,7 @@ export async function create(
 	/**
 	 * 4. Read package.json and detect dependencies
 	 */
-	const frameworks: Array<CompatibleFramework> = [];
+	const frameworks = new Set<CompatibleFramework>();
 
 	if (manual) {
 		const selected = await select(
@@ -67,8 +66,8 @@ export async function create(
 			compatibleFrameworks,
 		);
 		if (selected === undefined) return;
-		if (selected !== "none") {
-			frameworks.push(selected);
+		if (selected !== "gravity") {
+			frameworks.add(selected);
 			done(`Using Gravity with ${compatibleFrameworks[selected]}`);
 		} else {
 			done("Using Gravity without any framework");
@@ -88,22 +87,33 @@ export async function create(
 			nuxt: ["nuxt"],
 		});
 
-		if (guessedFrameworks.length) {
+		if (guessedFrameworks.size) {
+			if (guessedFrameworks.has("svelte-kit")) {
+				guessedFrameworks.add("svelte");
+			}
+			if (guessedFrameworks.has("next")) {
+				guessedFrameworks.add("react");
+			}
+			if (guessedFrameworks.has("nuxt")) {
+				guessedFrameworks.add("vue");
+			}
+
 			guessedFrameworks.forEach((framework) =>
 				done(`Detected ${compatibleFrameworks[framework]}`),
 			);
 			const ok = await ask(
-				`Do you want to install Gravity with ${guessedFrameworks
+				`Do you want to install Gravity with ${[...guessedFrameworks]
 					.map((framework) => chalk.bold(compatibleFrameworks[framework]))
 					.join(" and ")}?`,
 			);
 			if (ok === undefined) return;
 			if (!ok) return create({ ...options, manual: true });
-			frameworks.push(...guessedFrameworks);
-			guessedFrameworks.forEach((framework) =>
-				done(`Using ${compatibleFrameworks[framework]}`),
-			);
+			guessedFrameworks.forEach((framework) => {
+				frameworks.add(framework);
+				done(`Using ${compatibleFrameworks[framework]}`);
+			});
 		} else {
+			frameworks.add("gravity");
 			done("No front-end framework detected");
 		}
 	}
@@ -120,7 +130,7 @@ export async function create(
 	const packagesToInstall = [
 		"@digitak/gravity",
 		...new Set(
-			frameworks.map((framework) => {
+			[...frameworks].map((framework) => {
 				if (framework == "svelte-kit") framework = "svelte";
 				return `@digitak/gravity-${framework}`;
 			}),
@@ -145,18 +155,14 @@ export async function create(
 	 */
 	stage("Copying necessary files");
 	const templates = <string[]>[];
-	const backEndFrameworks = ["none", "svelte-kit", "next", "nuxt"];
+	const backEndFrameworks = ["gravity", "svelte-kit", "next", "nuxt"];
 
 	if (
-		!frameworks.length ||
-		frameworks.some((framework) => backEndFrameworks.includes(framework))
+		[...frameworks].some((framework) => backEndFrameworks.includes(framework))
 	) {
 		templates.push(`server`);
 	}
-
-	for (const framework of frameworks) {
-		if (framework != "none") templates.push(framework);
-	}
+	frameworks.forEach((framework) => templates.push(framework));
 
 	await copyTemplates(templates, destination);
 

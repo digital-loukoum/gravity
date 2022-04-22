@@ -2,8 +2,8 @@ import { findDependencies } from "./findDependencies.js";
 
 export function searchDependencies<Dependencies extends string>(
 	search: Record<Dependencies, Array<string>>,
-): Array<Dependencies> {
-	const result: Array<Dependencies> = [];
+): Set<Dependencies> {
+	const result = new Set<Dependencies>();
 	const dependencies = findDependencies();
 
 	for (const dependency in search) {
@@ -11,7 +11,7 @@ export function searchDependencies<Dependencies extends string>(
 		if (
 			dependencies.some((dependency) => searchDependencies.includes(dependency))
 		) {
-			result.push(dependency as Dependencies);
+			result.add(dependency as Dependencies);
 		}
 	}
 

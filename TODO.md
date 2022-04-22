@@ -28,11 +28,9 @@ PRISMA
 - Add "includable" to the prisma proxy options
 
 DOCUMENTATION
-- Documentation for nested values
-- Add cli configuration section (in project structure > gravity.toml)
-- Set default entry file to src/index.ts
 - Add a section for reading and setting cookies
 - Remove polling (bad practice)
+- Add main page additional sections
 
 FUTURE
 - Download / upload

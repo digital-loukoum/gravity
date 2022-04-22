@@ -1,0 +1,4 @@
+servicesFile = "src/services/index.js"
+schemaFile = "src/schema.json"
+entryFile = "src/index.ts"
+outputFile = "build/index.js"

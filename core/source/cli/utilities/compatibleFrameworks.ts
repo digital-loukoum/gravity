@@ -3,7 +3,7 @@ import chalk from "chalk";
 export type CompatibleFramework = keyof typeof compatibleFrameworks;
 
 export const compatibleFrameworks = {
-	none: chalk.gray("no framework"),
+	gravity: chalk.gray("no framework"),
 	svelte: chalk.redBright("svelte"),
 	"svelte-kit": chalk.redBright("svelte-kit"),
 	react: chalk.blue("react"),

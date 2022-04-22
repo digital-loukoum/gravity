@@ -1,4 +1,4 @@
-import { math } from "./math/index.js";
+import { math } from "./math/math.js";
 
 export const services = {
 	math,
