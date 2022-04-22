@@ -1,0 +1,46 @@
+#main-sidebar > nav > ul > li {
+	margin-top: 2rem !important;
+}
+
+#main-sidebar > nav > ul > li > ul > li {
+	margin-top: 0.5rem !important;
+}
+
+.admonition {
+	border-top: none;
+	border-bottom: none;
+	border-right: none;
+	border-left-width: 3px;
+	border-radius: 3px;
+}
+
+.admonition > div {
+	font-size: 17px;
+}
+
+h3 {
+	margin-top: 2rem !important;
+	margin-bottom: 1.4rem !important;
+}
+
+article {
+	color: var(--text-color) !important;
+}
+
+*:not(pre) > code {
+	color: var(--inline-code-text-color) !important;
+}
+
+.admonition.border-blue-400 {
+	background-color: var(--secondary-background-color);
+	border-color: var(--secondary-color);
+}
+
+.admonition.border-blue-400 > div:first-child {
+	color: var(--secondary-color);
+}
+
+.code-fence {
+	max-height: none;
+	overflow: none;
+}

@@ -1,0 +1,39 @@
+:root {
+	--header-height: 76px;
+	--sidebar-width: 320px;
+	--background-color: white;
+	--secondary-background-color: rgba(29, 195, 241, 0.12);
+	--border-color: rgba(60, 60, 67, .12);
+	--text-color: rgb(70, 70, 70);
+	--inline-code-text-color: rgb(0, 0, 0);
+	--secondary-text-color: #0053c7;
+	--pale-text-color: #888;
+	--primary-color: #fd5591;
+	--secondary-color: #1dc3e8;
+	--tertiary-color: #0ed476;
+}
+
+:root.dark {
+	--text-color: rgb(210, 210, 210);
+	--inline-code-text-color: white;
+}
+
+@font-face {
+	font-family: Acherus;
+	src: url('/fonts/Acherus-Grotesque/Acherus-Grotesque-Thin.otf');
+}
+
+@font-face {
+	font-family: Readex;
+	src: url('/fonts/ReadexProFont/ReadexPro-Medium.ttf');
+}
+
+@font-face {
+	font-family: Simplicity;
+	src: url('/fonts/Simplicity/Simplicity.ttf');
+}
+
+@font-face {
+	font-family: "Virgil";
+	src: url("/fonts/Virgil.woff2");
+}
