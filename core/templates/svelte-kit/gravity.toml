@@ -1,2 +1,2 @@
-servicesFile = "src/services/index.js"
+servicesFile = "src/services/index.ts"
 schemaFile = "src/schema.json"

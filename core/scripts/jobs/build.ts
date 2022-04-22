@@ -17,4 +17,7 @@ export async function build() {
 	console.log("Copying configuration files...");
 	fs.copyFileSync("./README.md", "./package/README.md");
 	fs.copyFileSync("./package.json", "./package/package.json");
+
+	console.log("Making binaries executable...");
+	fs.chmodSync("./package/cli/gravity.js", 0o755);
 }

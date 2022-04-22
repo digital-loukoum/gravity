@@ -1,4 +1,4 @@
-servicesFile = "src/services/index.js"
+servicesFile = "src/services/index.ts"
 schemaFile = "src/schema.json"
 entryFile = "src/index.ts"
 outputFile = "build/index.js"

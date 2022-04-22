@@ -121,7 +121,7 @@ export async function create(
 	/**
 	 * 5. Install packages
 	 */
-	stage(`Installing Gravity packages`);
+	stage(`Installing Gravity packages (this can take some time)`);
 	const installCommand = {
 		npm: "install",
 		yarn: "add",
@@ -156,12 +156,11 @@ export async function create(
 	stage("Copying necessary files");
 	const templates = <string[]>[];
 	const backEndFrameworks = ["gravity", "svelte-kit", "next", "nuxt"];
+	const isServerSide = [...frameworks].some((framework) =>
+		backEndFrameworks.includes(framework),
+	);
 
-	if (
-		[...frameworks].some((framework) => backEndFrameworks.includes(framework))
-	) {
-		templates.push(`server`);
-	}
+	if (isServerSide) templates.push(`server`);
 	frameworks.forEach((framework) => templates.push(framework));
 
 	await copyTemplates(templates, destination);
@@ -183,18 +182,25 @@ export async function create(
 	/**
 	 * 8. Patching npm scripts
 	 */
-	stage("Patching npm scripts");
-	const scripts = findPackageScripts();
-	scripts.dev =
-		scripts.dev && !scripts.dev.startsWith("gravity ")
-			? `gravity dev --use "${scripts.dev.replace(/"/g, '\\"')}"`
-			: `gravity dev`;
-	scripts.build =
-		scripts.build && !scripts.build.startsWith("gravity ")
-			? `gravity build --use '${scripts.build.replace(/'/g, "\\'")}'`
-			: `gravity build`;
-	updatePackageInfos({ scripts });
-	done("npm scripts patched");
+	if (isServerSide) {
+		stage("Patching npm scripts");
+		const scripts = findPackageScripts();
+		scripts.dev =
+			scripts.dev && !scripts.dev.startsWith("gravity ")
+				? `gravity dev --use "${scripts.dev.replace(/"/g, '\\"')}"`
+				: `gravity dev`;
+		scripts.build =
+			scripts.build && !scripts.build.startsWith("gravity ")
+				? `gravity build --use '${scripts.build.replace(/'/g, "\\'")}'`
+				: `gravity build`;
+		if (frameworks.has("gravity")) {
+			scripts.preview ||= `gravity preview`;
+		}
+		scripts["generate:schema"] ||= `gravity generate schema`;
+
+		updatePackageInfos({ scripts });
+		done("npm scripts patched");
+	}
 
 	console.log("\n✨ Gravity is ready to use\n");
 }

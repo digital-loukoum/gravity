@@ -2,6 +2,7 @@ GENERAL
 
 CLI
 - add gravity.toml in templates
+- implement --use option for dev and build
 
 SVELTE / SVELTEKIT
 - Test cookies
