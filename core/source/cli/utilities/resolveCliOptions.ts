@@ -17,6 +17,7 @@ export function resolveCliOptions(
 		watch: false,
 		verbose: true,
 		esbuildOptions: {},
+		use: "",
 	};
 
 	return merge(

@@ -23,6 +23,7 @@ const options = defineOptions({
 	outputFile: ["--output [file]", "Output file resulting from the build"],
 	watch: ["--watch", "Pass this option to watch schema changes"],
 	verbose: ["--no-logs", "Set to false to prevent console logs"],
+	use: ["--use", "Another command to use along the main gravity command"],
 	servicesFile: [
 		"--services [file]",
 		"Path to the file that exports the services",
@@ -53,6 +54,7 @@ program
 	.option(...options.entryFile)
 	.option(...options.servicesFile)
 	.option(...options.schemaFile)
+	.option(...options.use)
 	.action((options) => {
 		develop({
 			entryFile: options["entry"],
@@ -69,6 +71,7 @@ program
 	.option(...options.outputFile)
 	.option(...options.servicesFile)
 	.option(...options.schemaFile)
+	.option(...options.use)
 	.option("--esbuild:*", "Custom esbuild options")
 	.action((options) => {
 		const esbuildOptions: any = {};

@@ -1,7 +1,7 @@
 import { readFileSystem } from "../utilities/readFileSystem";
 import fs from "fs-extra";
 
-export async function generate() {
+export async function generate(options: { silent?: boolean } = {}) {
 	/**
 	 * Generate version
 	 */
@@ -27,5 +27,6 @@ export async function generate() {
 	)};\n`;
 
 	fs.writeFileSync("source/cli/templates.ts", templatesContent);
-	console.log("✨ Templates generated");
+
+	if (!options.silent) console.log("✨ Templates generated");
 }

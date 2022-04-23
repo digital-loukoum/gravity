@@ -33,6 +33,11 @@ export type GravityCliOptions = {
 	verbose?: boolean;
 
 	/**
+	 * Another command to use along the main gravity command
+	 */
+	use?: string;
+
+	/**
 	 * Optional options to pass to esbuild when building the server
 	 */
 	esbuildOptions?: BuildOptions;

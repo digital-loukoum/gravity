@@ -4,7 +4,7 @@ import { generate } from "./generate";
 
 export async function build() {
 	console.log("Generating files...");
-	generate();
+	await generate({ silent: true });
 
 	console.log("Cleaning package...");
 	fs.rmSync("package", { recursive: true, force: true });
