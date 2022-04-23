@@ -9,7 +9,7 @@ export class cat extends Service {
 
 	async meow(enemy?: string) {
 		await sleep(200);
-		return `[to ${enemy ?? 'you'}] Meow!`;
+		return `Meow ${enemy ?? 'you'}!`;
 	}
 
 	attack() {

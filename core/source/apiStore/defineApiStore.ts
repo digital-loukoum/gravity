@@ -29,11 +29,12 @@ export function defineApiStore<ApiStore extends BaseApiStore>(
 	}: ApiStoreOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) {
-				return createStore(new Promise(() => {}) as any);
+				return createStore(() => new Promise(() => {}));
 			}
-			const fetcher: () => Promise<ApiResponse<unknown>> = async () => {
-				return await resolveApiCall(fetch, service, operation, properties);
-			};
+
+			const fetcher = () =>
+				resolveApiCall(fetch, service, operation, properties);
+
 			const key = getCacheKey(service, operation, properties);
 
 			let store: ApiStore;
@@ -48,14 +49,11 @@ export function defineApiStore<ApiStore extends BaseApiStore>(
 				}
 			} else store = createStore(fetcher);
 
-			if (
-				interval &&
-				(network === true || (!cached && network == "if-needed"))
-			) {
+			if (network === true || (network == "if-needed" && !cached)) {
 				const { lastRefreshAt } = getStoreData(store);
-				if (!lastRefreshAt || lastRefreshAt + interval < Date.now()) {
-					store.refresh();
-				}
+				const shouldRefresh =
+					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();
+				if (shouldRefresh) store.refresh();
 			}
 
 			return store;

@@ -7,38 +7,31 @@
 
 <script lang="ts">
 	import Time from '../components/Time.svelte';
-	// import { api, apiStore } from '../gravity/api';
+	import { api, apiStore } from '../gravity/api';
 
 	export let foo: string;
 
 	console.log('Foo:', foo);
 
 	let enemy = '';
-	// $: loadMeow = api.cat.meow(enemy);
-	// $: meow = apiStore({}).cat.meow(enemy);
-	let showTime = false;
+	$: loadMeow = api.cat.meow(enemy);
+	$: meow = apiStore().cat.meow(enemy);
+
+	$: console.log('meow', meow, $meow);
+
+	let showTime = true;
 </script>
 
-<!-- <button on:click={() => (showTime = !showTime)}>Show time</button>
+<button on:click={() => (showTime = !showTime)}>Show time</button>
+
 {#if showTime}
 	<Time />
-{/if} -->
+{/if}
 
 <p>Enemy: <input bind:value={enemy} /></p>
 
-<!-- <div>api:</div> -->
-<!-- {#await loadMeow}
-	<p>Loading...</p>
-	<p />
-{:then meow}
-	<p>Loaded!...</p>
-	<p>
-		Received: {meow}
-	</p>
-{/await} -->
-
-<div>apiStore:</div>
-<!-- <p>
+<div>[[ API STORE ]]</div>
+<p>
 	{#if $meow.isLoading}
 		Loading...
 	{:else if $meow.error}
@@ -55,4 +48,15 @@
 	{#if $meow.isRefreshing}
 		Refreshing...
 	{/if}
-</p> -->
+</p>
+
+<div>[[ API ]]</div>
+{#await loadMeow}
+	<p>Loading...</p>
+	<p />
+{:then meow}
+	<p>Loaded!...</p>
+	<p>
+		Received: {meow.data}
+	</p>
+{/await}
