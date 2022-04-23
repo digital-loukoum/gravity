@@ -3,7 +3,7 @@ import type {
 	BaseServiceConstructor,
 	ApiResponse,
 } from "@digitak/gravity";
-import type { Promisify } from "@digitak/gravity/types/Promisify";
+import type { Promisify } from "@digitak/gravity/types/Promisify.js";
 import { ApiStore } from "./ApiStore.js";
 
 /**

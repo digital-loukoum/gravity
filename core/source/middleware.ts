@@ -1,18 +1,16 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions.js";
-import { logger } from "./logs/logger.js";
 import { extractRawBody } from "./utilities/extractRawBody.js";
-import { normalizePath } from "./utilities/normalizePath.js";
 import { resolveApiRequest } from "./handler/resolveApiRequest.js";
 import { apiMatchesUrl } from "./utilities/apiMatchesUrl.js";
+import { normalizeHandlerOptions } from "./handler/normalizeHandlerOptions.js";
 
 export const defineHandler = <Context>(
 	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
 ) => {
-	const apiPath = normalizePath(options.apiPath ?? "/api");
-	logger.verbose = options.verbose ?? false;
+	const { apiPath } = normalizeHandlerOptions(options);
 
-	const handler = async (
+	return async (
 		request: IncomingMessage,
 		response: ServerResponse,
 		next?: Function,
@@ -49,6 +47,4 @@ export const defineHandler = <Context>(
 		response.end();
 		return response;
 	};
-
-	return handler;
 };

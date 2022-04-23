@@ -1,8 +1,8 @@
-import { ApiResponse } from "@digitak/gravity";
+import type { ApiResponse } from "@digitak/gravity";
 import { writable } from "svelte/store";
 import type { ApiStore } from "./ApiStore.js";
 
-export const swrResponse = <Data>(
+export const createStore = <Data>(
 	fetcher: () => Promise<ApiResponse<Data>>,
 ): ApiStore<Data> => {
 	const store: ApiStore<Data> = writable({
@@ -11,7 +11,7 @@ export const swrResponse = <Data>(
 		isLoading: true,
 		isRefreshing: true,
 		lastRefreshAt: <number | undefined>undefined,
-	}) as any;
+	}) as unknown as ApiStore<Data>;
 
 	store.refresh = async () => {
 		store.update(($store) => {
