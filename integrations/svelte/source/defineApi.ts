@@ -19,6 +19,6 @@ export function defineApi<
 		createStore,
 		getStoreData,
 	}) as DefineApiResult<Services> & {
-		apiStore: (options: ApiStoreOptions) => ApiStoreProxy<Services>;
+		apiStore: (options?: ApiStoreOptions) => ApiStoreProxy<Services>;
 	};
 }

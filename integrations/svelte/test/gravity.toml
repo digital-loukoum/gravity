@@ -1,0 +1,2 @@
+schemaFile = "src/gravity/schema.json"
+servicesFile = "src/gravity/services/index.ts"

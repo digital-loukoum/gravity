@@ -1,8 +1,4 @@
-import type {
-	BaseService,
-	BaseServiceConstructor,
-	ApiResponse,
-} from "@digitak/gravity";
+import type { BaseService, BaseServiceConstructor } from "@digitak/gravity";
 import type { Promisify } from "@digitak/gravity/types/Promisify.js";
 import { ApiStore } from "./ApiStore.js";
 
@@ -22,10 +18,9 @@ import { ApiStore } from "./ApiStore.js";
 type Callable<Type> = Type extends (
 	...args: infer Parameters
 ) => infer ReturnType
-	? (...args: Parameters) => Promisify<ApiResponse<ReturnType>>
+	? (...args: Parameters) => ApiStore<ReturnType>
 	: Type extends any[]
-	? Array<() => Promise<ApiStore<Type[number]>>> &
-			(() => Promise<ApiStore<Type>>)
+	? Array<() => ApiStore<Type[number]>> & (() => ApiStore<Type>)
 	: Type extends
 			| Set<any>
 			| Map<any, any>
@@ -36,10 +31,10 @@ type Callable<Type> = Type extends (
 			| Boolean
 			| Date
 			| ArrayBuffer
-	? () => Promise<ApiStore<Type>>
+	? () => ApiStore<Type>
 	: Type extends object
 	? { [Key in keyof Type]: Callable<Type[Key]> }
-	: () => Promise<ApiStore<Type>>;
+	: () => ApiStore<Type>;
 
 type ExposedProperties<Service extends BaseService> = {
 	[Key in Exclude<

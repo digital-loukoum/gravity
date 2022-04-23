@@ -2,8 +2,8 @@
 	"name": "test-svelte",
 	"version": "0.0.1",
 	"scripts": {
-		"dev": "../node_modules/.bin/gravity generate:schema --server-directory src/gravity --schema .. & ../node_modules/.bin/svelte-kit dev",
-		"build": "../node_modules/.bin/gravity generate:schema --server-directory src/gravity --schema ../../../core && ../node_modules/.bin/svelte-kit build",
+		"dev": "../node_modules/.bin/gravity dev --use '../node_modules/.bin/svelte-kit dev'",
+		"build": "../node_modules/.bin/gravity build --use '../node_modules/.bin/svelte-kit build'",
 		"package": "../node_modules/.bin/svelte-kit package",
 		"preview": "../node_modules/.bin/svelte-kit preview",
 		"check": "../node_modules/.bin/svelte-check --tsconfig ./tsconfig.json",
