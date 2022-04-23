@@ -1,13 +1,16 @@
-import type { BaseService } from "../index.js";
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
-import type { Promisify } from "../types/Promisify.js";
-import type { ApiResponse } from "./ApiResponse.js";
+import type {
+	BaseService,
+	BaseServiceConstructor,
+	ApiResponse,
+} from "@digitak/gravity";
+import type { Promisify } from "@digitak/gravity/types/Promisify";
+import { ApiStore } from "./ApiStore.js";
 
 /**
  * ⛔️ Because Typescript does not support type injection (ie passing a generic as a generic paremeter),
- * we can't be DRY and this code has to be repeated for every Api.ts + ApiStoreProxy.ts file.
- * If you have to modify Api.ts or any ApiStoreProxy.ts of the compatible front-end frameworks,
- * please make sure to modify all other Api.ts and ApiStoreProxy.ts files.
+ * we can't be DRY and this code has to be repeated for every Api.ts + ApiStore.ts file.
+ * If you have to modify Api.ts or any ApiStore.ts of the compatible front-end frameworks,
+ * please make sure to modify all other Api.ts and ApiStore.ts files.
  */
 
 /**
@@ -21,8 +24,8 @@ type Callable<Type> = Type extends (
 ) => infer ReturnType
 	? (...args: Parameters) => Promisify<ApiResponse<ReturnType>>
 	: Type extends any[]
-	? Array<() => Promise<ApiResponse<Type[number]>>> &
-			(() => Promise<ApiResponse<Type>>)
+	? Array<() => Promise<ApiStore<Type[number]>>> &
+			(() => Promise<ApiStore<Type>>)
 	: Type extends
 			| Set<any>
 			| Map<any, any>
@@ -33,10 +36,10 @@ type Callable<Type> = Type extends (
 			| Boolean
 			| Date
 			| ArrayBuffer
-	? () => Promise<ApiResponse<Type>>
+	? () => Promise<ApiStore<Type>>
 	: Type extends object
 	? { [Key in keyof Type]: Callable<Type[Key]> }
-	: () => Promise<ApiResponse<Type>>;
+	: () => Promise<ApiStore<Type>>;
 
 type ExposedProperties<Service extends BaseService> = {
 	[Key in Exclude<
@@ -45,6 +48,8 @@ type ExposedProperties<Service extends BaseService> = {
 	>]: Callable<Service[Key]>;
 };
 
-export type Api<Services extends Record<string, BaseServiceConstructor>> = {
+export type ApiStoreProxy<
+	Services extends Record<string, BaseServiceConstructor>,
+> = {
 	[Key in keyof Services]: ExposedProperties<InstanceType<Services[Key]>>;
 };

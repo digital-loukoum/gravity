@@ -1,48 +1,48 @@
 import type { BaseService } from "@digitak/gravity/services/BaseService";
 import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
-import type { UseApiOptions } from "@digitak/gravity/swr/UseApiOptions";
+import type { ApiStoreOptions } from "@digitak/gravity/apiStore/ApiStoreOptions";
 
 import {
 	defineApi as defaultDefineApi,
-	DefineApiReturnType,
+	DefineApiResult,
 	DefineApiOptions,
 } from "@digitak/gravity/api/defineApi";
 import { apiProxy } from "@digitak/gravity/api/apiProxy";
 import { getCacheKey } from "@digitak/gravity/api/getCacheKey";
 import { isBrowser } from "@digitak/gravity/utilities/isBrowser";
 import { Instance } from "@digitak/gravity/types/Instance";
-import { swrResponse, SwrResponse } from "./swrResponse";
-import { swrCache } from "./swrCache";
+import type { ApiStore } from "./ApiStore";
+import { apiCache } from "./apiCache";
 import { responseNeedsRefresh } from "./responseNeedsRefresh";
 
-type UseApiService<Service extends BaseService> = {
+type ApiStoreService<Service extends BaseService> = {
 	[Key in keyof Service as Service[Key] extends (...args: any[]) => any
 		? Key
 		: never]: Service[Key] extends (...args: any[]) => any
 		? (
 				...args: Parameters<Service[Key]>
-		  ) => SwrResponse<Awaited<ReturnType<Service[Key]>>>
+		  ) => ApiStore<Awaited<ReturnType<Service[Key]>>>
 		: never;
 };
 
-type UseApi<Services extends Record<string, BaseServiceConstructor>> = {
-	[Key in keyof Services]: UseApiService<Instance<Services[Key]>>;
+type ApiStoreProxy<Services extends Record<string, BaseServiceConstructor>> = {
+	[Key in keyof Services]: ApiStoreService<Instance<Services[Key]>>;
 };
 
 export function defineApi<
 	Services extends Record<string, BaseServiceConstructor>,
 >(
-	options: DefineApiOptions & UseApiOptions = {},
-): DefineApiReturnType<Services> & {
-	useApi: (options: UseApiOptions) => UseApi<Services>;
+	options: DefineApiOptions & ApiStoreOptions = {},
+): DefineApiResult<Services> & {
+	apiStore: (options: ApiStoreOptions) => ApiStoreProxy<Services>;
 } {
 	const core = defaultDefineApi<Services>(options);
 
-	const useApi = ({
+	const apiStore = ({
 		cache = options.cache ?? true,
 		network = options.network ?? true,
 		interval = options.interval,
-	}: UseApiOptions = {}) =>
+	}: ApiStoreOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) return swrResponse<unknown>(async () => void 0);
 
@@ -50,38 +50,30 @@ export function defineApi<
 				return await core.resolveApiCall(service, operation, properties);
 			};
 			const key = getCacheKey(service, operation, properties);
+
+			// by framework
 			let response: SwrResponse<unknown>;
 			let cached: false | undefined | SwrResponse<unknown> = false;
+			///
 
 			if (key) {
-				cached = (cache === true || cache == "read") && swrCache.get(key);
+				cached = (cache === true || cache == "read") && apiCache.get(key);
 				if (cached) response = cached;
 				else {
 					response = swrResponse<unknown>(fetcher);
-					if (cache === true || cache == "write") swrCache.set(key, response);
+					if (cache === true || cache == "write") cache.set(key, response);
 				}
 			} else response = swrResponse<unknown>(fetcher);
 
 			if (
-				network == "poll" ||
-				((network === true || (!cached && network == "if-needed")) &&
-					responseNeedsRefresh(response, interval))
+				(network === true || (!cached && network == "if-needed")) &&
+				responseNeedsRefresh(response, interval)
 			) {
 				response.refresh();
-				if (network == "poll" && response.poller) {
-					clearInterval(response.poller);
-					response.poller = undefined;
-				}
-			}
-
-			if (network == "poll" && !response.poller) {
-				response.poller = setInterval(() => {
-					response.refresh();
-				}, interval);
 			}
 
 			return response;
-		}) as UseApi<Services>;
+		}) as ApiStoreProxy<Services>;
 
-	return { ...core, useApi };
+	return { ...core, apiStore };
 }

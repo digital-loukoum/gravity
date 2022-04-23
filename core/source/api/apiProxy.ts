@@ -14,7 +14,7 @@ function apiTargetProxy<Result = unknown>(
 	target = "",
 ): Result {
 	return new Proxy(
-		(...properties: unknown[]) => handler(service, target, properties),
+		(...properties: string[]) => handler(service, target, properties),
 		{
 			get: (_, property) =>
 				apiTargetProxy(handler, service, `${target}/${String(property)}`),

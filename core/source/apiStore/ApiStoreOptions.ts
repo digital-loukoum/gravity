@@ -1,4 +1,4 @@
-export type UseApiOptions = {
+export type ApiStoreOptions = {
 	cache?: boolean | "read" | "write";
 } & (
 	| {

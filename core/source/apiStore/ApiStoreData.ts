@@ -1,6 +1,6 @@
 import type { ApiResponse } from "../api/ApiResponse.js";
 
-export type UseApiData<Data> = ApiResponse<Data> & {
+export type ApiStoreData<Data> = ApiResponse<Data> & {
 	isLoading: boolean;
 	isRefreshing: boolean;
 	lastRefreshAt?: number;

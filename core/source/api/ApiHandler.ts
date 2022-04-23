@@ -1,5 +1,5 @@
 export type ApiHandler = (
 	service: string,
 	target: string,
-	properties: unknown[],
+	properties: string[],
 ) => unknown;

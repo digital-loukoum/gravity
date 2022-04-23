@@ -1,30 +1,17 @@
-import { writable, Writable, Readable } from "svelte/store";
-import type { UseApiData } from "@digitak/gravity/swr/UseApiData";
-import type { UseApiInterface } from "@digitak/gravity/swr/UseApiInterface";
-
-export type SwrResponse<Data> = Writable<UseApiData<Data>> & UseApiInterface;
+import { ApiResponse } from "@digitak/gravity";
+import { writable } from "svelte/store";
+import type { ApiStore } from "./ApiStore.js";
 
 export const swrResponse = <Data>(
-	fetcher: () => Promise<Data>,
-): SwrResponse<Data> => {
-	const store: SwrResponse<Data> = writable(
-		{
-			data: <Data | undefined>undefined,
-			error: <Error | undefined>undefined,
-			isLoading: true,
-			isRefreshing: true,
-		},
-		() => () => {
-			// on unsubscribe, clear polling interval
-			if (store.poller) {
-				clearInterval(store.poller);
-				store.poller = undefined;
-			}
-		},
-	) as any;
-
-	store.lastRefreshAt = undefined;
-	store.poller = undefined;
+	fetcher: () => Promise<ApiResponse<Data>>,
+): ApiStore<Data> => {
+	const store: ApiStore<Data> = writable({
+		data: <Data | undefined>undefined,
+		error: <Error | undefined>undefined,
+		isLoading: true,
+		isRefreshing: true,
+		lastRefreshAt: <number | undefined>undefined,
+	}) as any;
 
 	store.refresh = async () => {
 		store.update(($store) => {
@@ -32,13 +19,14 @@ export const swrResponse = <Data>(
 			return $store;
 		});
 
-		store.lastRefreshAt = Date.now();
-		const data = await fetcher();
+		const { data, error } = await fetcher();
 
 		store.update(($store) => {
-			$store.data = data; // TODO: error should be in 'then'
+			$store.data = data;
+			$store.error = error;
 			$store.isLoading = false;
 			$store.isRefreshing = false;
+			$store.lastRefreshAt = Date.now();
 			return $store;
 		});
 	};
