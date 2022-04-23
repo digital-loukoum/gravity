@@ -7,7 +7,7 @@
 
 <script lang="ts">
 	import Time from '../components/Time.svelte';
-	// import { api, useApi } from '../gravity/api';
+	// import { api, apiStore } from '../gravity/api';
 
 	export let foo: string;
 
@@ -15,7 +15,7 @@
 
 	let enemy = '';
 	// $: loadMeow = api.cat.meow(enemy);
-	// $: meow = useApi({}).cat.meow(enemy);
+	// $: meow = apiStore({}).cat.meow(enemy);
 	let showTime = false;
 </script>
 
@@ -37,7 +37,7 @@
 	</p>
 {/await} -->
 
-<div>useApi:</div>
+<div>apiStore:</div>
 <!-- <p>
 	{#if $meow.isLoading}
 		Loading...

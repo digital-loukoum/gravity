@@ -1,11 +1,11 @@
-import { bunker, debunker } from "@digitak/bunker";
 import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 import type { Api } from "./Api.js";
-import { apiProxy } from "./apiProxy.js";
-import { normalizePath } from "../utilities/normalizePath.js";
 import type { OnRequestSend } from "./OnRequestSend.js";
 import type { OnResponseReceive } from "./OnResponseReceive.js";
 import type { ApiResponse } from "./ApiResponse.js";
+import { bunker, debunker } from "@digitak/bunker";
+import { apiProxy } from "./apiProxy.js";
+import { normalizePath } from "../utilities/normalizePath.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;

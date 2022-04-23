@@ -60,6 +60,7 @@ program
 			entryFile: options["entry"],
 			servicesFile: options["services"],
 			schemaFile: options["schema"],
+			use: options["use"] || "",
 		});
 	});
 
@@ -87,6 +88,7 @@ program
 			servicesFile: options["services"],
 			outputFile: options["output"],
 			schemaFile: options["schema"],
+			use: options["use"] || "",
 			esbuildOptions,
 		});
 	});
