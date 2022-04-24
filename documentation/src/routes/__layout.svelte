@@ -34,8 +34,6 @@
 		createSidebarContext,
 		type SidebarLinks
 	} from '@svelteness/kit-docs';
-	import GravityIcon from 'src/components/GravityIcon.svelte';
-	import Link from 'src/components/Link.svelte';
 	import Header from 'src/components/Header.svelte';
 	import type { MarkdownFrontmatter, MarkdownHeader } from '@svelteness/kit-docs/node';
 
@@ -55,6 +53,23 @@
 	} = null;
 	export let version = '?';
 
+	export let navbar = {
+		links: [
+			{
+				title: 'Documentation',
+				slug: '/docs'
+			},
+			// {
+			// 	title: 'Changelog',
+			// 	slug: '/changelog'
+			// },
+			{
+				title: 'Github',
+				slug: 'https://github.com/digital-loukoum/gravity'
+			}
+		]
+	};
+
 	const { activeCategory } = createSidebarContext(sidebar);
 
 	$: category = $activeCategory ? `${$activeCategory}: ` : '';
@@ -71,31 +86,9 @@
 	{/key}
 </svelte:head>
 
-<Header {version} />
-
 <KitDocs {meta}>
-	<KitDocsLayout navbar={false} {sidebar}>
-		<div class="logo" slot="navbar-left">
-			<GravityIcon />
-
-			<Link variant="underline" to="/">
-				<span class="title"> Gravity </span>
-			</Link>
-			<Link
-				to="https://github.com/digital-loukoum"
-				style="
-					margin-left: 12px;
-					font-family: Simplicity;
-					font-size: 18px;
-					top: 1px;
-					letter-spacing: 1.4px;
-				"
-			>
-				<span style="margin-right: 4px; position: relative;">by Digital Loukoums</span>
-				<img src="/loukoums.png" alt="digital-loukoums-logo" width="36" height="36" />
-			</Link>
-		</div>
-
+	<KitDocsLayout {navbar} {sidebar}>
+		<Header {version} slot="navbar-left" />
 		<slot />
 	</KitDocsLayout>
 </KitDocs>

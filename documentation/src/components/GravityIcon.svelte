@@ -1,7 +1,7 @@
 <script context="module" lang="ts">
 	const dotRadius = 40;
 	const ringRadius = 24;
-	const slide = true;
+	const slide = false;
 	const walk = false;
 	const dots = 18;
 

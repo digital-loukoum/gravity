@@ -8,7 +8,7 @@
 	"type": "module",
 	"exports": {
 		".": "./index.js",
-		"./*": "./*"
+		"./*": "./*.js"
 	},
 	"bin": "./cli/gravity.js",
 	"scripts": {

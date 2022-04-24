@@ -29,10 +29,8 @@ PRISMA
 - Add "includable" to the prisma proxy options
 
 DOCUMENTATION
-- Add a section for reading and setting cookies
 - Add a section for cli options
 - Add main page additional sections (example)
-- Deal with menu on small screens
 
 FUTURE
 - Download / upload

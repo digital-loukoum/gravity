@@ -5,31 +5,34 @@
 	import Link from './Link.svelte';
 </script>
 
-<header>
+<header id="gravity-header">
 	<aside class="left">
 		<GravityIcon />
 
 		<Link variant="underline" to="/">
 			<span class="title"> Gravity </span>
 		</Link>
-		<Link
-			to="https://github.com/digital-loukoum"
-			style="
+
+		<div class="by-digital-loukoums">
+			<Link
+				to="https://github.com/digital-loukoum"
+				style="
 				margin-left: 12px;
 				font-family: Simplicity;
 				font-size: 18px;
 				top: 1px;
 				letter-spacing: 1.4px;
 			"
-		>
-			<span style="margin-right: 4px; position: relative;">by Digital Loukoums</span>
-			<img src="/loukoums.png" alt="digital-loukoums-logo" width="36" height="36" />
-		</Link>
+			>
+				<span style="margin-right: 4px; position: relative;">by Digital Loukoums</span>
+				<img src="/loukoums.png" alt="digital-loukoums-logo" width="36" height="36" />
+			</Link>
+		</div>
 	</aside>
 
 	<aside class="right">
 		<Link variant="underline" to="/docs">Documentation</Link>
-		<Link variant="underline" to="/changelog">Beta {version}</Link>
+		<!-- <Link variant="underline" to="/changelog">Beta {version}</Link> -->
 		<Link variant="default" to="https://github.com/digital-loukoum/gravity">
 			<GithubIcon size="24" />
 			GitHub
@@ -39,19 +42,11 @@
 
 <style lang="sass">
 	header
-		padding: 4px 32px 4px 20px
-		position: fixed
-		top: 0
-		left: 0
-		right: 0
 		display: flex
 		justify-content: space-between
 		align-items: center
-		border-bottom: 1px solid var(--border-color)
-		height: var(--header-height)
-		background-color: var(--background-color)
 		font-family: Readex
-		z-index: 1
+		width: 100%
 
 		aside
 			display: flex
@@ -66,4 +61,13 @@
 		.title
 			font-weight: bold
 			font-size: 18px
+
+	@media (max-width: 840px)
+		.by-digital-loukoums
+			display: none
+
+	@media (max-width: 600px)
+		aside.right
+			display: none
+
 </style>
