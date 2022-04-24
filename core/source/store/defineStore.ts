@@ -3,7 +3,7 @@ import type { DefineApiOptions, DefineApiResult } from "../api/defineApi.js";
 import { getCacheKey } from "../api/getCacheKey.js";
 import { isBrowser } from "../utilities/isBrowser.js";
 import type { StoreData } from "./StoreData.js";
-import type { StoreOptions } from "./StoreOptions.js";
+import type { FetchOptions } from "./FetchOptions.js";
 import type { BaseStore } from "./BaseStore.js";
 import type { ApiResponse, BaseServiceConstructor } from "../index.js";
 import { defineApi } from "../api.js";
@@ -14,14 +14,14 @@ export type DefineStoreInterface<Store extends BaseStore> = {
 	getStoreData: (store: Store) => StoreData<unknown>;
 };
 
-export type DefineStoreOptions = DefineApiOptions & StoreOptions;
+export type DefineStoreOptions = DefineApiOptions & FetchOptions;
 
 export type DefineStoreResult<
 	Services extends Record<string, BaseServiceConstructor>,
 	StoreProxy,
 > = DefineApiResult<Services> & {
 	store: StoreProxy;
-	useStore: (options?: StoreOptions) => StoreProxy;
+	useStore: (options?: FetchOptions) => StoreProxy;
 };
 
 export function defineStore<Store extends BaseStore>(
@@ -35,7 +35,7 @@ export function defineStore<Store extends BaseStore>(
 		cache = options.cache ?? true,
 		network = options.network ?? true,
 		interval = options.interval,
-	}: StoreOptions = {}) =>
+	}: FetchOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) {
 				return createStore(() => new Promise(() => {}));
