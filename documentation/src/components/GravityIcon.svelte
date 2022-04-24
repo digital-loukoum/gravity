@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	const dotRadius = 40;
 	const ringRadius = 24;
-	const slide = false;
-	const walk = false;
+	const slide = true;
+	const walk = true;
 	const dots = 18;
 
 	const dotAngle = (Math.PI * 2) / dots;
@@ -22,7 +22,7 @@
 		if (walk) {
 			setInterval(() => {
 				bigDotPosition.update((value) => (value - 1) % dots);
-			}, 1200);
+			}, 3000);
 		}
 	}
 </script>

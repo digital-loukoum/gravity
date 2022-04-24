@@ -1,13 +1,12 @@
 <script lang="ts">
 	export let version: string;
 	import GithubIcon from 'svelte-material-icons/Github.svelte';
-	import GravityIcon from './GravityIcon.svelte';
 	import Link from './Link.svelte';
 </script>
 
 <header id="gravity-header">
 	<aside class="left">
-		<GravityIcon />
+		<img width="40" src="/icon.svg" alt="Gravity icon" />
 
 		<Link variant="underline" to="/">
 			<span class="title"> Gravity </span>

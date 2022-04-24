@@ -38,11 +38,12 @@
 		display: flex
 		flex-direction: column
 		align-items: stretch
+		justify-content: space-between
 		font-family: Readex
 
 	main
 		flex: 1
-		padding: 16px 0
+		padding: 4px 0
 
 	header
 		display: flex

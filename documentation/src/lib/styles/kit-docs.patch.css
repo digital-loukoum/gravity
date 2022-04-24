@@ -49,6 +49,16 @@ article {
 	font-size: 17px;
 }
 
+.steps h3 {
+	margin: 0 !important;
+	transform: translateY(-2px);
+}
+
+#gravity-header ~ *:last-child > nav {
+	display: none;
+}
+
+
 @media (max-width: 768px) {
 	.prose p {
 		font-size: 16px;

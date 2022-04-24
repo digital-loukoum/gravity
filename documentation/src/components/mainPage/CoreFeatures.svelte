@@ -3,7 +3,7 @@
 </script>
 
 <div class="core-features">
-	<CoreFeature color="secondary" link="/docs/project-structure/sample-service">
+	<CoreFeature color="secondary" link="#simple-workflow">
 		<span slot="title"> Simple </span>
 
 		Call your server functions from your client like any Javascript function.

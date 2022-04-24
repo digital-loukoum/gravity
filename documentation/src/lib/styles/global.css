@@ -37,3 +37,11 @@
 	font-family: "Virgil";
 	src: url("/fonts/Virgil.woff2");
 }
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	width: 100%;
+}
