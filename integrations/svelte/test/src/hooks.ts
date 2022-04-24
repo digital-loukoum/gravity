@@ -13,7 +13,8 @@ export const handle = defineHandler<Context>({
 		return { user: 'admin' };
 	},
 
-	authorize: () => {
+	authorize: async () => {
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 		// console.log('is Public?', isPublic(service, operation));
 	}
 });

@@ -6,55 +6,40 @@
 </script>
 
 <script lang="ts">
-	import Time from '../components/Time.svelte';
+	import RequestCard from 'src/components/RequestCard.svelte';
 	import { api, store } from '../gravity/api';
 
-	export let foo: string;
+	export let a = 1,
+		b = 2;
 
-	console.log('Foo:', foo);
-
-	let enemy = '';
-	$: loadMeow = api.cat.meow(enemy);
-	$: meow = store.cat.meow(enemy);
-
-	let showTime = true;
+	$: apiSum = api.math.add(+a, +b);
+	$: storeSum = store.math.add(+a, +b);
 </script>
 
-<button on:click={() => (showTime = !showTime)}>Show time</button>
-
-{#if showTime}
-	<Time />
-{/if}
-
-<p>Enemy: <input bind:value={enemy} /></p>
-
-<div>[[ API STORE ]]</div>
 <p>
-	{#if $meow.isLoading}
-		Loading...
-	{:else if $meow.error}
-		Error: {$meow.error}
-	{:else}
-		Loaded!
-	{/if}
-</p>
-<p>
-	Received: {$meow.data}
+	a: <input bind:value={a} />
 </p>
 
 <p>
-	{#if $meow.isRefreshing}
-		Refreshing...
-	{/if}
+	b: <input bind:value={b} />
 </p>
 
-<div>[[ API ]]</div>
-{#await loadMeow}
-	<p>Loading...</p>
-	<p />
-{:then meow}
-	<p>Loaded!...</p>
-	<p>
-		Received: {meow.data}
-	</p>
+{#await apiSum}
+	<RequestCard
+		title="Api sum"
+		loading={true}
+		refreshing={true}
+		data={undefined}
+		error={undefined}
+	/>
+{:then { data, error }}
+	<RequestCard title="Api sum" loading={false} refreshing={false} {data} {error} />
 {/await}
+
+<RequestCard
+	title="Store sum"
+	loading={$storeSum.isLoading}
+	refreshing={$storeSum.isRefreshing}
+	data={$storeSum.data}
+	error={$storeSum.error}
+/>
