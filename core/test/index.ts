@@ -14,7 +14,7 @@ const stopServer = () => {
 
 const serverIsReady = new Promise((resolve) => {
 	server?.stdout.on("data", (data) => {
-		console.log(data.toString());
+		// console.log(data.toString());
 		if (data.toString().includes("Gravity server is running")) {
 			resolve(undefined);
 		}

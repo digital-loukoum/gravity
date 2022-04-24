@@ -1,3 +1,3 @@
-import { ApiStore } from "./ApiStore.js";
+import { Store } from "./Store.js";
 
-export const storeCache = new Map<string, ApiStore<unknown>>();
+export const storeCache = new Map<string, Store<unknown>>();

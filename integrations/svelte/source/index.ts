@@ -1,4 +1,4 @@
 export { defineApi } from "./defineApi";
-export type { ApiStore } from "./ApiStore.js";
-export type { ApiStoreProxy } from "./ApiStoreProxy.js";
+export type { Store } from "./Store.js";
+export type { StoreProxy } from "./StoreProxy.js";
 export * from "@digitak/gravity";

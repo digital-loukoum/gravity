@@ -1,12 +1,11 @@
 import type { BaseService, BaseServiceConstructor } from "@digitak/gravity";
-import type { Promisify } from "@digitak/gravity/types/Promisify.js";
-import { ApiStore } from "./ApiStore.js";
+import { Store } from "./Store.js";
 
 /**
  * ⛔️ Because Typescript does not support type injection (ie passing a generic as a generic paremeter),
- * we can't be DRY and this code has to be repeated for every Api.ts + ApiStore.ts file.
- * If you have to modify Api.ts or any ApiStore.ts of the compatible front-end frameworks,
- * please make sure to modify all other Api.ts and ApiStore.ts files.
+ * we can't be DRY and this code has to be repeated for every Api.ts + StoreProxy.ts file.
+ * If you have to modify Api.ts or any StoreProxy.ts of the compatible front-end frameworks,
+ * please make sure to modify all other Api.ts and StoreProxy.ts files.
  */
 
 /**
@@ -18,9 +17,9 @@ import { ApiStore } from "./ApiStore.js";
 type Callable<Type> = Type extends (
 	...args: infer Parameters
 ) => infer ReturnType
-	? (...args: Parameters) => ApiStore<ReturnType>
+	? (...args: Parameters) => Store<ReturnType>
 	: Type extends any[]
-	? Array<() => ApiStore<Type[number]>> & (() => ApiStore<Type>)
+	? Array<() => Store<Type[number]>> & (() => Store<Type>)
 	: Type extends
 			| Set<any>
 			| Map<any, any>
@@ -31,10 +30,10 @@ type Callable<Type> = Type extends (
 			| Boolean
 			| Date
 			| ArrayBuffer
-	? () => ApiStore<Type>
+	? () => Store<Type>
 	: Type extends object
 	? { [Key in keyof Type]: Callable<Type[Key]> }
-	: () => ApiStore<Type>;
+	: () => Store<Type>;
 
 type ExposedProperties<Service extends BaseService> = {
 	[Key in Exclude<
@@ -43,7 +42,7 @@ type ExposedProperties<Service extends BaseService> = {
 	>]: Callable<Service[Key]>;
 };
 
-export type ApiStoreProxy<
+export type StoreProxy<
 	Services extends Record<string, BaseServiceConstructor>,
 > = {
 	[Key in keyof Services]: ExposedProperties<InstanceType<Services[Key]>>;

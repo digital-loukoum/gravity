@@ -1,17 +1,12 @@
 GENERAL
 
 CLI
-- add gravity.toml in templates
-- implement --use option for dev and build
 
 SVELTE / SVELTEKIT
 - Test cookies
 - Use bunker format instead of JSON to cache requests (more powerful)
-- Replace `Swr` prefix by `UseApi`
-- lastRefreshAt should be reactive
-- use pure functions as much as possible from the main package
+- Replace `apiStore` by `store` and `useStore`
 - SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")
-- Remove polling (bad practice and easy to implement by the user)
 
 REACT
 - React useApi()
