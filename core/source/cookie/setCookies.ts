@@ -5,9 +5,9 @@ import type { Cookie } from "./Cookie.js";
 /**
  * Set an object of cookies to a response object.
  */
-export function setCookies(
-	response: Response | ServerResponse,
-	cookies: Record<string, string | Cookie>,
+export function setCookies<ResponseType extends Response | ServerResponse>(
+	response: ResponseType,
+	cookies: Record<string, Cookie>,
 ) {
 	const cookiesValue = Object.entries(cookies).map(([name, cookie]) =>
 		serializeCookie(

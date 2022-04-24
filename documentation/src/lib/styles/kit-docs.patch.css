@@ -44,3 +44,7 @@ article {
 	max-height: none;
 	overflow: none;
 }
+
+.prose p {
+	font-size: 17px;
+}

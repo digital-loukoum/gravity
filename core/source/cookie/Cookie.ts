@@ -1,5 +1,7 @@
 import type { SerializeCookieOptions } from "./serializeCookie.js";
 
-export type Cookie = {
-	value: string;
-} & SerializeCookieOptions;
+export type Cookie =
+	| string
+	| ({
+			value: string;
+	  } & SerializeCookieOptions);

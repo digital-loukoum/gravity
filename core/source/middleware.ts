@@ -19,10 +19,7 @@ export const defineHandler = <Context>(
 		if (!apiMatchesUrl(apiPath, url)) return next?.();
 		const rawBody = await extractRawBody(request);
 
-		const { status, headers, body } = await resolveApiRequest<
-			Context,
-			IncomingMessage
-		>({
+		await resolveApiRequest<Context, IncomingMessage, ServerResponse>({
 			request,
 			url: url.slice(apiPath.length),
 			rawBody,
@@ -32,19 +29,17 @@ export const defineHandler = <Context>(
 			headers: request.headers,
 			authorize: options.authorize,
 			onRequestReceive: options.onRequestReceive,
+			onResponseSend: options.onResponseSend,
+			createResponse: ({ body, headers, status }) => {
+				response.statusCode = status;
+				for (const header in headers) {
+					response.setHeader(header, headers[header]);
+				}
+				response.write(body);
+				return response;
+			},
 		});
 
-		response.statusCode = status;
-
-		for (const header in headers) {
-			response.setHeader(header, headers[header]);
-		}
-
-		response = (await options.onResponseSend?.({ response })) ?? response;
-
-		// we write the result
-		response.write(body);
-		response.end();
-		return response;
+		return response.end();
 	};
 };

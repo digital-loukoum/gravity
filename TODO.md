@@ -3,7 +3,6 @@ GENERAL
 CLI
 
 SVELTE / SVELTEKIT
-- Test cookies
 - SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")
 
 REACT

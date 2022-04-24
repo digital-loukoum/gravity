@@ -14,28 +14,24 @@ export const defineHandler = <Context>(
 		const { url, request } = event;
 		const { pathname } = url;
 		if (!apiMatchesUrl(apiPath, pathname)) return resolve(event);
-
 		const rawBody = new Uint8Array(await request.arrayBuffer());
 
-		const { status, headers, body } = await resolveApiRequest<Context, Request>(
-			{
-				request,
-				url: pathname.slice(apiPath.length),
-				rawBody,
-				allowedOrigins: options.allowedOrigins,
-				services: options.services,
-				schema: options.schema,
-				headers: parseHeaders(request.headers),
-				authorize: options.authorize,
-				onRequestReceive: options.onRequestReceive,
-			},
-		);
-
-		let response = new Response(body, {
-			headers,
-			status,
+		return await resolveApiRequest<Context, Request, Response>({
+			request,
+			url: pathname.slice(apiPath.length),
+			rawBody,
+			allowedOrigins: options.allowedOrigins,
+			services: options.services,
+			schema: options.schema,
+			headers: parseHeaders(request.headers),
+			authorize: options.authorize,
+			onRequestReceive: options.onRequestReceive,
+			onResponseSend: options.onResponseSend,
+			createResponse: ({ body, headers, status }) =>
+				new Response(body, {
+					headers,
+					status,
+				}),
 		});
-		response = (await options.onResponseSend?.({ response })) ?? response;
-		return response;
 	});
 };

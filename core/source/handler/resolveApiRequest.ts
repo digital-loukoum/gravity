@@ -5,7 +5,7 @@ import type { GravityResponse } from "./GravityResponse.js";
 import type { Type } from "typezer";
 import type { Authorize } from "./Authorize.js";
 import type { OnRequestReceive } from "./OnRequestReceive.js";
-import type { IncomingHttpHeaders } from "http";
+import type { IncomingHttpHeaders, ServerResponse } from "http";
 import { bunker } from "@digitak/bunker";
 import { gravityError, isGravityError } from "../errors/GravityError.js";
 import { decodeParameters } from "../utilities/decodeParameters.js";
@@ -14,8 +14,9 @@ import { resolvePath } from "./resolvePath.js";
 import { getAllowedOrigin } from "../utilities/getAllowedOrigin.js";
 import { logger } from "../logs/logger.js";
 import { parseCookies } from "../cookie/parseCookies.js";
+import type { OnResponseSend } from "./OnResponseSend.js";
 
-export type ResolveApiRequestOptions<Context, Request> = {
+export type ResolveApiRequestOptions<Context, Request, Response> = {
 	request: Request;
 	url: string;
 	services: Record<string, BaseServiceConstructor>;
@@ -25,11 +26,13 @@ export type ResolveApiRequestOptions<Context, Request> = {
 	allowedOrigins: string[] | undefined;
 	authorize: Authorize<Context> | undefined;
 	onRequestReceive: OnRequestReceive<Context, Request> | undefined;
+	onResponseSend: OnResponseSend<Context, Response> | undefined;
+	createResponse: (options: GravityResponse) => Response;
 };
 
-export async function resolveApiRequest<Context, Request>(
-	options: ResolveApiRequestOptions<Context, Request>,
-): Promise<GravityResponse> {
+export async function resolveApiRequest<Context, Request, Response>(
+	options: ResolveApiRequestOptions<Context, Request, Response>,
+): Promise<Response> {
 	const allowedOrigin = getAllowedOrigin(
 		options.headers.origin,
 		options.allowedOrigins,
@@ -156,9 +159,6 @@ export async function resolveApiRequest<Context, Request>(
 		headers["content-length"] = String(new TextEncoder().encode(body).length);
 	}
 
-	return {
-		status,
-		headers,
-		body,
-	};
+	let response = options.createResponse({ status, headers, body });
+	return (await options.onResponseSend?.({ context, response })) ?? response;
 }

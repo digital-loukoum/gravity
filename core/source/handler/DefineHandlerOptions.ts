@@ -8,7 +8,7 @@ export type DefineHandlerOptions<Context, Request, Response> = {
 	schema: Record<string, any>;
 	apiPath?: string;
 	verbose?: boolean;
-	onResponseSend?: OnResponseSend<Response>;
+	onResponseSend?: OnResponseSend<Context, Response>;
 	authorize?: Authorize<Context>;
 	allowedOrigins?: string[];
 } & (Context extends undefined
