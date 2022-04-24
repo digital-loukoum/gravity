@@ -27,6 +27,7 @@ export type DefineApiResult<
 		service: string,
 		target: string,
 		properties: string[],
+		body?: Uint8Array | null,
 	) => Promise<ApiResponse<unknown>>;
 };
 
@@ -44,10 +45,13 @@ export function defineApi<
 		service,
 		target,
 		properties,
+		body,
 	) => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/bunker");
-		const body = properties?.length ? bunker(properties) : null;
+		if (body === undefined) {
+			body = properties?.length ? bunker(properties) : null;
+		}
 
 		// define the base request object and pass it to the onRequestSend middleware
 		let request: RequestInit = {

@@ -4,18 +4,24 @@ CLI
 
 SVELTE / SVELTEKIT
 - Test cookies
-- Use bunker format instead of JSON to cache requests (more powerful)
-- Replace `apiStore` by `store` and `useStore`
 - SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")
 
 REACT
-- React useApi()
+- React stores
+
+VUE
+- Vue stores
 
 SOLID
-- Solid useApi()
+- Solid stores
 
 NEXT
+- Next handler
 - Next SSR (use "loader" from "@digitak/gravity-next")
+
+NUXT
+- Nuxt handler
+- Nuxt SSR (use "loader" from "@digitak/gravity-next")
 
 PRISMA
 - Export BasePrismaService from @digitak/gravity-prisma
@@ -25,8 +31,9 @@ PRISMA
 
 DOCUMENTATION
 - Add a section for reading and setting cookies
-- Remove polling (bad practice)
-- Add main page additional sections
+- Add a section for cli options
+- Add main page additional sections (example)
+- Deal with menu on small screens
 
 FUTURE
 - Download / upload

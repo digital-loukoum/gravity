@@ -7,7 +7,7 @@
 
 <script lang="ts">
 	import Time from '../components/Time.svelte';
-	import { api, apiStore } from '../gravity/api';
+	import { api, store } from '../gravity/api';
 
 	export let foo: string;
 
@@ -15,9 +15,7 @@
 
 	let enemy = '';
 	$: loadMeow = api.cat.meow(enemy);
-	$: meow = apiStore().cat.meow(enemy);
-
-	$: console.log('meow', meow, $meow);
+	$: meow = store.cat.meow(enemy);
 
 	let showTime = true;
 </script>

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { apiStore } from 'src/gravity/api';
+	import { useStore } from 'src/gravity/api';
 	import { onDestroy, onMount } from 'svelte';
 
-	const now = apiStore({ network: 'if-needed', interval: 450 }).time.now();
+	const now = useStore({ network: 'if-needed', interval: 50000 }).time.now();
 	let interval: NodeJS.Timer;
 
 	onMount(() => {
