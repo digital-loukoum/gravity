@@ -30,7 +30,6 @@ PRISMA
 
 DOCUMENTATION
 - Add a section for cli options
-- Add main page additional sections (example)
 
 FUTURE
 - Download / upload
