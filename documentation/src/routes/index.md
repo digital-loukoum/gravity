@@ -94,10 +94,12 @@ Stay **dry** and reuse **the same types** from your server and your client.
 The [api](/docs/usage/use-a-service#api) and the [store](/docs/usage/use-a-service#store) proxy both preserve your services types.
 !!!
 
-!!!step title="No wrong types from the client"|orientation="vertical"
-Gravity **parses** your source code and **extract** the types of your services.
+!!!step title="Always get the right types"|orientation="vertical"
+Gravity **parses** your source code and **extracts** the types of your services.
 
-The resulting types is then generated into a [schema file](/docs/project-structure/schema) that is used by Gravity to validate every client call.
+The resulting types are then generated into a [schema file](/docs/project-structure/schema) that is internally used by Gravity to **validate every client call**.
+
+**Write your server code safely**. You will always get the expected types without having to use a validation library.
 !!!
 
 :::

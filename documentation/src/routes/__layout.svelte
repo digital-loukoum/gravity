@@ -75,6 +75,8 @@
 	$: category = $activeCategory ? `${$activeCategory}: ` : '';
 	$: title = (category && meta && `${category}${meta.title ?? ''} | Gravity`) || 'Gravity';
 	$: description = meta?.description;
+
+	$: console.log($page);
 </script>
 
 <svelte:head>
@@ -86,9 +88,16 @@
 	{/key}
 </svelte:head>
 
-<KitDocs {meta}>
-	<KitDocsLayout {navbar} {sidebar}>
-		<Header {version} slot="navbar-left" />
-		<slot />
-	</KitDocsLayout>
-</KitDocs>
+<div class:index={$page.url.pathname == '/'}>
+	<KitDocs {meta}>
+		<KitDocsLayout {navbar} {sidebar}>
+			<Header {version} slot="navbar-left" />
+			<slot />
+		</KitDocsLayout>
+	</KitDocs>
+</div>
+
+<style lang="sass">
+	.index :global(.on-this-page)
+		display: none
+</style>
