@@ -12,6 +12,7 @@
 
 <script lang="ts">
 	import MainSection from 'src/components/MainSection.svelte';
+	import FeatureFooter from 'src/components/FeatureFooter.svelte';
 
 	export let version: string
 </script>
@@ -24,9 +25,9 @@
 
 :::steps
 
-!!!step title="Create a new service"|orientation="vertical"
+!!!step title="Create a new service on your server"|orientation="vertical"
 
-And define some functions.
+And define some functions inside.
 
 ```ts
 import { Service } from "./Service.js"
@@ -45,7 +46,7 @@ export class math extends Service {
 
 !!!step title="Export your service to your clients"|orientation="vertical"
 
-All services in the `services` object will be exposed.
+All services in the `services` object will be exposed to your clients.
 
 ```ts
 import { math } from "./math.js"
@@ -61,6 +62,9 @@ export const services = {
 Use the `api` proxy to access all your exported services **from your client**.
 
 ```ts
+/**
+ * This is client-side code.
+ */ 
 import { api } from "./api.js"
 
 const { data, error } = await api.math.add(4, 2)
@@ -73,12 +77,17 @@ if (error) {
 ```
 !!!
 
-!!!step title="And let Gravity handle the rest"|orientation="vertical"
+!!!step title="Let Gravity handle the rest"|orientation="vertical"
 
-Sit back and congrats yourself.
+Sit back and congrats yourself!
 
 You just defined a new server method and used it from your client.
 !!!
+
+<FeatureFooter link="/docs/installation/install-gravity" alignment='center' color="secondary" padding="4px 0 12px">
+	Get started
+</FeatureFooter>
+
 :::
 
 
@@ -100,6 +109,10 @@ Gravity **parses** your source code and **extracts** the types of your services.
 The resulting types are then generated into a [schema file](/docs/project-structure/schema) that is internally used by Gravity to **validate every client call**.
 
 **Write your server code safely**. You will always get the expected types without having to use a validation library.
+
+<FeatureFooter link="/docs/presentation/typescript-usage" alignment='center' color="tertiary" padding="16px 0 12px">
+	Learn more
+</FeatureFooter>
 !!!
 
 :::
@@ -160,6 +173,10 @@ export class user extends PrismaService(prisma.user, context => ({
 	// ...your other custom methods here
 }
 ```
+
+<FeatureFooter link="/docs/prisma/presentation" alignment='center' color="primary" padding="12px 0 12px">
+	Learn more about Prisma
+</FeatureFooter>
 
 !!!
 

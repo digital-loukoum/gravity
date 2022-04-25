@@ -54,8 +54,16 @@ article {
 	transform: translateY(-2px);
 }
 
+.step {
+	padding-bottom: 8px;
+}
+
 #gravity-header ~ *:last-child > nav {
 	display: none;
+}
+
+.kit-docs .step .code-fence {
+	margin-bottom: 32px;
 }
 
 
@@ -70,3 +78,4 @@ article {
 		display: none;
 	}
 }
+

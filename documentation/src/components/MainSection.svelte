@@ -17,7 +17,4 @@
 		align-items: center
 		font-size: 16px
 		padding-bottom: 60px
-
-	main :global(a)
-		border-bottom: none !important
 </style>
