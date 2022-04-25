@@ -29,7 +29,6 @@ PRISMA
 - Add "includable" to the prisma proxy options
 
 DOCUMENTATION
-- Add a section for cli options
 
 FUTURE
 - Download / upload
