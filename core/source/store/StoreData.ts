@@ -4,4 +4,5 @@ export type StoreData<Data> = ApiResponse<Data> & {
 	isLoading: boolean;
 	isRefreshing: boolean;
 	lastRefreshAt?: number;
+	refresh: () => any;
 };

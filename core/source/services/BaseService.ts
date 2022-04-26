@@ -6,7 +6,7 @@ export abstract class BaseService<Context = unknown> {
 	/**
 	 * Use this method to call another service from a service.
 	 */
-	protected useService<Service extends BaseService<Context>>(
+	useService<Service extends BaseService<Context>>(
 		serviceConstructor: new (context: Context) => Service,
 	): Service {
 		return getServiceInstance(this.context, serviceConstructor);

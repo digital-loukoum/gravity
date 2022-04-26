@@ -1,27 +1,27 @@
 import type { ApiResponse } from "@digitak/gravity";
 import { createStoreData } from "@digitak/gravity/store/createStoreData";
+import { refreshStoreData } from "@digitak/gravity/store/refreshStoreData";
+import { updateStoreData } from "@digitak/gravity/store/updateStoreData";
+import { atom, useAtom } from "jotai";
 import type { Store } from "./Store.js";
-import { useState } from "react";
 
 export const createStore = <Data>(
 	fetcher: () => Promise<ApiResponse<Data>>,
 ): Store<Data> => {
-	const storeData = createStoreData<Data>();
-
-	const [store, setStore] = useState({
-		...storeData,
+	const store = atom({
+		...createStoreData<Data>(),
 		refresh: async () => {
-			setStore({ ...store, isRefreshing: true });
-			const response = await fetcher();
-			setStore({
-				...store,
-				...response,
-				isLoading: false,
-				isRefreshing: false,
-				lastRefreshAt: Date.now(),
-			} as Store<Data>);
+			setStoreData(() => ({
+				...storeData,
+				...(refreshStoreData(storeData) as any),
+			}));
+			const data = await fetcher();
+			setStoreData(() => ({
+				...storeData,
+				...(updateStoreData(storeData, data) as any),
+			}));
 		},
-	} as Store<Data>);
-
+	});
+	const [storeData, setStoreData] = useAtom(store);
 	return store;
 };

@@ -1,7 +1,7 @@
-import { useStore } from "@digitak/gravity-react/useStore";
+import { store } from "../api";
 
 export function Zabu() {
-	const zabu = useStore("zabu");
+	const zabu = store.math.add(3, 4);
 	console.log("Zabu", zabu);
 
 	return (

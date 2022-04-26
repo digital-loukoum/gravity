@@ -9,8 +9,8 @@
 	import RequestCard from 'src/components/RequestCard.svelte';
 	import { api, store } from '../gravity/api';
 
-	export let a = 1,
-		b = 2;
+	let a = 1;
+	let b = 2;
 
 	$: apiSum = api.math.add(+a, +b);
 	$: storeSum = store.math.add(+a, +b);

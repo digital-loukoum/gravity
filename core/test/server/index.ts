@@ -12,18 +12,20 @@ const PORT = 4000;
 const handler = defineHandler<Context>({
 	services,
 	schema,
-	allowedOrigins: [],
-	onRequestReceive(request) {
+	allowedOrigins: ["http://localhost:3000"],
+	onRequestReceive({ request }) {
+		console.log("Received request", request.method, request.url);
 		return {
 			user: {
 				isAdmin: false,
 			},
 		};
 	},
-	authorize({ service, path: [property] }) {
+	async authorize({ service, path: [property] }) {
 		if (isPrivate(service, property)) {
 			throw new ServerError(`Forbidden access`);
 		}
+		await new Promise((resolve) => setTimeout(resolve, 1000));
 	},
 	onResponseSend({ response }) {
 		return response;

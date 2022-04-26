@@ -5,7 +5,11 @@ import type { GravityResponse } from "./GravityResponse.js";
 import type { Type } from "typezer";
 import type { Authorize } from "./Authorize.js";
 import type { OnRequestReceive } from "./OnRequestReceive.js";
-import type { IncomingHttpHeaders, ServerResponse } from "http";
+import type {
+	IncomingHttpHeaders,
+	IncomingMessage,
+	ServerResponse,
+} from "http";
 import { bunker } from "@digitak/bunker";
 import { gravityError, isGravityError } from "../errors/GravityError.js";
 import { decodeParameters } from "../utilities/decodeParameters.js";
@@ -18,6 +22,7 @@ import type { OnResponseSend } from "./OnResponseSend.js";
 
 export type ResolveApiRequestOptions<Context, Request, Response> = {
 	request: Request;
+	method: string | undefined;
 	url: string;
 	services: Record<string, BaseServiceConstructor>;
 	schema: Record<string, Record<string, Type>>;
@@ -33,23 +38,38 @@ export type ResolveApiRequestOptions<Context, Request, Response> = {
 export async function resolveApiRequest<Context, Request, Response>(
 	options: ResolveApiRequestOptions<Context, Request, Response>,
 ): Promise<Response> {
+	const encoding =
+		options.headers["content-type"] == "application/bunker" ? "bunker" : "json";
 	const allowedOrigin = getAllowedOrigin(
 		options.headers.origin,
 		options.allowedOrigins,
 	);
+
+	let status = 200;
+	let resolved: unknown;
+	let headers: IncomingHttpHeaders = {};
+	let body: string | Uint8Array = "";
+
+	// setting response headers
+	headers["content-type"] = `application/${encoding}`;
+	headers["access-control-allow-headers"] = "*";
+	if (allowedOrigin != null) {
+		headers["access-control-allow-origin"] = allowedOrigin;
+	}
+
+	// if case of an "OPTIONS" request, we just return the headers
+	// so that the browser can check if the POST request is
+	// allowed or not
+	if (options.method == "OPTIONS") {
+		return options.createResponse({ status, headers, body });
+	}
+
 	const context = await options.onRequestReceive?.({
 		request: options.request,
 		cookies: parseCookies(options.headers.cookie ?? ""),
 	})!;
 
-	const encoding =
-		options.headers["content-type"] == "application/bunker" ? "bunker" : "json";
 	const [serviceName, ...path] = decodeUrl(options.url);
-
-	let status = 200;
-	let resolved: unknown;
-	let headers: IncomingHttpHeaders = {};
-	let body: string | Uint8Array;
 
 	try {
 		if (!serviceName) {
@@ -143,12 +163,6 @@ export async function resolveApiRequest<Context, Request, Response>(
 				detail: error,
 			};
 		}
-	}
-
-	headers["content-type"] = `application/${encoding}`;
-	headers["access-control-allow-headers"] = "*";
-	if (allowedOrigin != null) {
-		headers["access-control-allow-origin"] = allowedOrigin;
 	}
 
 	if (encoding == "bunker") {

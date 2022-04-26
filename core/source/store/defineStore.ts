@@ -4,16 +4,16 @@ import { getCacheKey } from "../api/getCacheKey.js";
 import { isBrowser } from "../utilities/isBrowser.js";
 import type { StoreData } from "./StoreData.js";
 import type { FetchOptions } from "./FetchOptions.js";
-import type { BaseStore } from "./BaseStore.js";
 import type { ApiResponse, BaseServiceConstructor } from "../index.js";
 import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
 import { compareArrays } from "../utilities/compareArrays.js";
 
-export type DefineStoreInterface<Store extends BaseStore> = {
+export type DefineStoreInterface<Store> = {
 	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;
 	storeCache: Map<string, Map<Uint8Array | null, Store>>;
 	getStoreData: (store: Store) => StoreData<unknown>;
+	unwrapStore?: boolean;
 };
 
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
@@ -26,9 +26,14 @@ export type DefineStoreResult<
 	useStore: (options?: FetchOptions) => StoreProxy;
 };
 
-export function defineStore<Store extends BaseStore>(
+export function defineStore<Store>(
 	options: DefineStoreOptions,
-	{ createStore, storeCache, getStoreData }: DefineStoreInterface<Store>,
+	{
+		createStore,
+		storeCache,
+		getStoreData,
+		unwrapStore,
+	}: DefineStoreInterface<Store>,
 ) {
 	const api = defineApi(options);
 	const { resolveApiCall } = api;
@@ -75,14 +80,19 @@ export function defineStore<Store extends BaseStore>(
 				}
 			}
 
-			if (network === true || (network == "if-needed" && !cached)) {
-				const { lastRefreshAt } = getStoreData(store);
+			const storeData = (() => {
+				let data: undefined | StoreData<unknown> = undefined;
+				return () => (data === undefined ? (data = getStoreData(store)) : data);
+			})();
+
+			if ((network === true || network == "if-needed") && !cached) {
+				const { lastRefreshAt, refresh } = storeData();
 				const shouldRefresh =
 					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();
-				if (shouldRefresh) store.refresh();
+				if (shouldRefresh) refresh();
 			}
 
-			return store;
+			return unwrapStore ? storeData() : store;
 		});
 
 	const store = useStore();

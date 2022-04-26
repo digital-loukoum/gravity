@@ -21,6 +21,7 @@ export const defineHandler = <Context>(
 
 		await resolveApiRequest<Context, IncomingMessage, ServerResponse>({
 			request,
+			method: request.method,
 			url: url.slice(apiPath.length),
 			rawBody,
 			allowedOrigins: options.allowedOrigins,

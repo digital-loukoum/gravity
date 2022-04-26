@@ -1,4 +1,4 @@
 import type { StoreData } from "@digitak/gravity/store/StoreData";
-import type { BaseStore } from "@digitak/gravity/store/BaseStore";
+import type { Atom } from "jotai";
 
-export type Store<Data> = StoreData<Data> & BaseStore;
+export type Store<Data> = Atom<StoreData<Data>>;
