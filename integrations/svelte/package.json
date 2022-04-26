@@ -11,19 +11,17 @@
 	},
 	"scripts": {
 		"build": "esrun scripts/build",
-		"typecheck": "tsc --noEmit",
+		"check": "tsc --noEmit",
+		"check:dev": "tsc --noEmit --watch",
 		"test": "esrun test",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
-	"dependencies": {
-		"@digitak/gravity": "link:../../core/package"
-	},
 	"peerDependencies": {
+		"@digitak/gravity": "link:../../core/package",
 		"svelte": "^3"
 	},
 	"devDependencies": {
 		"@digitak/esrun": "^3.1.2",
-		"@digitak/tsc-esm": "^3.1.2",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@types/fs-extra": "^9.0.13",

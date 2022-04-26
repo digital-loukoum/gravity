@@ -1,7 +1,7 @@
 import type { ApiResponse } from "@digitak/gravity";
-import { createStoreData } from "@digitak/gravity/store/createStoreData.js";
-import { refreshStoreData } from "@digitak/gravity/store/refreshStoreData.js";
-import { updateStoreData } from "@digitak/gravity/store/updateStoreData.js";
+import { createStoreData } from "@digitak/gravity/store/createStoreData";
+import { refreshStoreData } from "@digitak/gravity/store/refreshStoreData";
+import { updateStoreData } from "@digitak/gravity/store/updateStoreData";
 import { writable } from "svelte/store";
 import type { Store } from "./Store.js";
 

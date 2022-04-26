@@ -1,8 +1,8 @@
-import type { DefineHandlerOptions } from "@digitak/gravity/handler/DefineHandlerOptions.js";
-import { normalizeHandlerOptions } from "@digitak/gravity/handler/normalizeHandlerOptions.js";
-import { resolveApiRequest } from "@digitak/gravity/handler/resolveApiRequest.js";
-import { apiMatchesUrl } from "@digitak/gravity/utilities/apiMatchesUrl.js";
-import { parseHeaders } from "@digitak/gravity/utilities/parseHeaders.js";
+import type { DefineHandlerOptions } from "@digitak/gravity/handler/DefineHandlerOptions";
+import { normalizeHandlerOptions } from "@digitak/gravity/handler/normalizeHandlerOptions";
+import { resolveApiRequest } from "@digitak/gravity/handler/resolveApiRequest";
+import { apiMatchesUrl } from "@digitak/gravity/utilities/apiMatchesUrl";
+import { parseHeaders } from "@digitak/gravity/utilities/parseHeaders";
 import type { Handle } from "@sveltejs/kit";
 
 export const defineHandler = <Context>(
