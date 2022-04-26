@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { api } from "./api";
+import { api, store } from "./api";
 import { Coco } from "./components/Coco";
 import { RequestCard } from "./components/RequestCard";
 import { Zabu } from "./components/Zabu";
@@ -15,7 +15,10 @@ function App() {
 	const [apiData, setApiData] = useState<number>();
 	const [apiError, setApiError] = useState<Error>();
 
+	const storeSum = store.math.add(a, b);
+
 	useMemo(() => {
+		storeSum.refresh();
 		setIsApiLoading(true);
 		setApiData(undefined);
 		setApiError(undefined);
@@ -41,6 +44,14 @@ function App() {
 				refreshing={isApiLoading}
 				data={apiData}
 				error={apiError}
+			/>
+
+			<RequestCard
+				title="Store sum"
+				loading={storeSum.isLoading}
+				refreshing={storeSum.isRefreshing}
+				data={storeSum.data}
+				error={storeSum.error}
 			/>
 		</>
 	);
