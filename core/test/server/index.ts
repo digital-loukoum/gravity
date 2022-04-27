@@ -25,7 +25,7 @@ const handler = defineHandler<Context>({
 		if (isPrivate(service, property)) {
 			throw new ServerError(`Forbidden access`);
 		}
-		await new Promise((resolve) => setTimeout(resolve, 1000));
+		await new Promise((resolve) => setTimeout(resolve, 400));
 	},
 	onResponseSend({ response }) {
 		return response;

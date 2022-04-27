@@ -14,6 +14,6 @@ export function defineApi<
 		storeCache,
 		createStore,
 		getStoreData: (store) => store,
-		refreshOnStoreRequest: true,
+		// refreshOnStoreRequest: true,
 	}) as DefineStoreResult<Services, StoreProxy<Services>>;
 }

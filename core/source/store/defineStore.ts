@@ -71,6 +71,7 @@ export function defineStore<Store>(
 				}
 			}
 
+			console.log("storeCache", storeCache);
 			if (cached) store = cached;
 			else {
 				store = createStore(fetcher);
