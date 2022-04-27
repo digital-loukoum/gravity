@@ -12,6 +12,8 @@
 			<span class="title"> Gravity </span>
 		</Link>
 
+		<div class="beta">beta</div>
+
 		<div class="by-digital-loukoums">
 			<Link
 				to="https://github.com/digital-loukoum"
@@ -60,6 +62,14 @@
 		.title
 			font-weight: bold
 			font-size: 18px
+
+	.beta
+		padding: 2px 6px
+		background: var(--secondary-color)
+		color: white
+		border-radius: 8px
+		font-size: 12px
+		// transform: rotate(-3deg)
 
 	@media (max-width: 840px)
 		.by-digital-loukoums

@@ -75,8 +75,6 @@
 	$: category = $activeCategory ? `${$activeCategory}: ` : '';
 	$: title = (category && meta && `${category}${meta.title ?? ''} | Gravity`) || 'Gravity';
 	$: description = meta?.description;
-
-	$: console.log($page);
 </script>
 
 <svelte:head>

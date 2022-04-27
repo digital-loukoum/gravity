@@ -28,8 +28,7 @@
 
 	.section :global(.admonition h2)
 		font-family: Readex
-		margin-top: 12px
-		margin-bottom: 44px
+		margin: 12px 0 56px
 		text-align: center
 		letter-spacing: 1px
 		font-size: 36px

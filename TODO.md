@@ -1,18 +1,7 @@
 GENERAL
 
-CLI
-
 SVELTE / SVELTEKIT
 - SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")
-
-REACT
-- React stores
-
-VUE
-- Vue stores
-
-SOLID
-- Solid stores
 
 NEXT
 - Next handler
@@ -29,8 +18,13 @@ PRISMA
 - Add "includable" to the prisma proxy options
 
 DOCUMENTATION
+- Next installation
+- Next server-side rendering
+- Nuxt installation
+- Nuxt server-side rendering
 
 FUTURE
+- Use typeName + id to detect unique objects
 - Download / upload
 - UInt8Array, UInt16Array, UInt32Array, DataView, ArrayBuffer
 - Allow to use message pack or a custom encoder
