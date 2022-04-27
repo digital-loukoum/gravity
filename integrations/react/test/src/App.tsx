@@ -1,8 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { api, store } from "./api";
-import { Coco } from "./components/Coco";
 import { RequestCard } from "./components/RequestCard";
-import { Zabu } from "./components/Zabu";
 
 function App() {
 	console.log("App is called");

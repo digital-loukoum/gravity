@@ -1,0 +1,9 @@
+{
+  "name": "vite-template-solid",
+  "scripts": {
+    "start": "../node_modules/.bin/vite",
+    "dev": "../node_modules/.bin/vite",
+    "build": "../node_modules/.bin/vite build",
+    "serve": "../node_modules/.bin/vite preview"
+  }
+}
