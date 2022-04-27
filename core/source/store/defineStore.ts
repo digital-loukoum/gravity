@@ -13,7 +13,7 @@ export type DefineStoreInterface<Store> = {
 	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;
 	storeCache: Map<string, Map<Uint8Array | null, Store>>;
 	getStoreData: (store: Store) => StoreData<unknown>;
-	unwrapStore?: boolean;
+	unwrapStore?: (store: Store) => any;
 };
 
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
@@ -32,7 +32,7 @@ export function defineStore<Store>(
 		createStore,
 		storeCache,
 		getStoreData,
-		unwrapStore,
+		unwrapStore = (store) => store,
 	}: DefineStoreInterface<Store>,
 ) {
 	const api = defineApi(options);
@@ -80,19 +80,14 @@ export function defineStore<Store>(
 				}
 			}
 
-			const storeData = (() => {
-				let data: undefined | StoreData<unknown> = undefined;
-				return () => (data === undefined ? (data = getStoreData(store)) : data);
-			})();
-
 			if ((network === true || network == "if-needed") && !cached) {
-				const { lastRefreshAt, refresh } = storeData();
+				const { lastRefreshAt, refresh } = getStoreData(store);
 				const shouldRefresh =
 					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();
 				if (shouldRefresh) refresh();
 			}
 
-			return unwrapStore ? storeData() : store;
+			return unwrapStore(store);
 		});
 
 	const store = useStore();

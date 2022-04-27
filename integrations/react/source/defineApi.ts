@@ -6,7 +6,7 @@ import type { DefineStoreResult } from "@digitak/gravity/store/defineStore";
 import { StoreProxy } from "./StoreProxy.js";
 import { createStore } from "./createStore.js";
 import { storeCache } from "./storeCache.js";
-import { useAtom } from "jotai";
+import { useStore } from "zustand";
 
 export function defineApi<
 	Services extends Record<string, BaseServiceConstructor>,
@@ -14,7 +14,7 @@ export function defineApi<
 	return defineStore<Store<unknown>>(options, {
 		storeCache,
 		createStore,
-		getStoreData: (store) => useAtom(store)[0],
-		unwrapStore: true,
+		getStoreData: (store) => store.getState(),
+		unwrapStore: (store) => useStore(store),
 	}) as DefineStoreResult<Services, StoreProxy<Services>>;
 }

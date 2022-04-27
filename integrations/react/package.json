@@ -36,6 +36,6 @@
 		"vite": "^2.9.5"
 	},
 	"dependencies": {
-		"jotai": "^1.6.4"
+		"zustand": "^4.0.0-rc.0"
 	}
 }
