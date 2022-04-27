@@ -18,6 +18,7 @@ export const defineHandler = <Context>(
 
 		return await resolveApiRequest<Context, Request, Response>({
 			request,
+			method: request.method,
 			url: pathname.slice(apiPath.length),
 			rawBody,
 			allowedOrigins: options.allowedOrigins,

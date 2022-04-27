@@ -16,5 +16,6 @@ export function defineApi<
 		createStore,
 		getStoreData: (store) => store.getState(),
 		unwrapStore: (store) => useStore(store),
+		refreshOnStoreRequest: true,
 	}) as DefineStoreResult<Services, StoreProxy<Services>>;
 }

@@ -14,6 +14,7 @@ export type DefineStoreInterface<Store> = {
 	storeCache: Map<string, Map<Uint8Array | null, Store>>;
 	getStoreData: (store: Store) => StoreData<unknown>;
 	unwrapStore?: (store: Store) => any;
+	refreshOnStoreRequest?: boolean;
 };
 
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
@@ -29,8 +30,9 @@ export type DefineStoreResult<
 export function defineStore<Store>(
 	options: DefineStoreOptions,
 	{
-		createStore,
 		storeCache,
+		refreshOnStoreRequest,
+		createStore,
 		getStoreData,
 		unwrapStore = (store) => store,
 	}: DefineStoreInterface<Store>,
@@ -80,7 +82,7 @@ export function defineStore<Store>(
 				}
 			}
 
-			if ((network === true || network == "if-needed") && !cached) {
+			if ((network && !cached) || (refreshOnStoreRequest && network === true)) {
 				const { lastRefreshAt, refresh } = getStoreData(store);
 				const shouldRefresh =
 					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();

@@ -2,7 +2,7 @@ import { defineHandler } from '@digitak/gravity-svelte/kit';
 import { services } from './gravity/services';
 import type { Context } from './gravity/Context';
 import schema from './gravity/schema.json';
-import { setCookies } from '@digitak/gravity/cookie.js';
+import { setCookies } from '@digitak/gravity/cookie';
 
 export const handle = defineHandler<Context>({
 	services,

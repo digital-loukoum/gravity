@@ -1,10 +1,3 @@
-<script context="module" lang="ts">
-	export async function load({ fetch }) {
-		const props = await (await fetch('/env')).json();
-		return { props };
-	}
-</script>
-
 <script lang="ts">
 	import RequestCard from 'src/components/RequestCard.svelte';
 	import { api, store } from '../gravity/api';
