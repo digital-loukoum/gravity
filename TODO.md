@@ -1,4 +1,5 @@
 GENERAL
+- Make CI/CD work again with framework integrations (bugs with tsc)
 
 SVELTE / SVELTEKIT
 - SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")

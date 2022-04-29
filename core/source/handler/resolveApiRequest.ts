@@ -96,6 +96,12 @@ export async function resolveApiRequest<Context, Request, Response>(
 				status: 404,
 			});
 		}
+		if (!options.schema[serviceName]) {
+			throw gravityError({
+				message: "Schema is not in sync with services",
+				status: 500,
+			});
+		}
 
 		// we authorize the call
 		await options.authorize?.({

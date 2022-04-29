@@ -26,6 +26,9 @@ export type GravityError = {
 
 export type GravityErrorInput =
 	| {
+			message: "Schema is not in sync with services";
+	  }
+	| {
 			message: "Service inexistant";
 			serviceName: string;
 	  }

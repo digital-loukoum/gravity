@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "../node_modules/.bin/gravity dev --use '../node_modules/.bin/nuxt build'",
+    "dev": "../node_modules/.bin/gravity dev --use '../node_modules/.bin/nuxt dev'",
+    "generate:schema": "../node_modules/.bin/gravity generate schema",
+    "generate": "../node_modules/.bin/nuxt generate",
+    "preview": "../node_modules/.bin/nuxt preview"
+  }
+}
