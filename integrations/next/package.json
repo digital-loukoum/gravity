@@ -1,5 +1,5 @@
 {
-	"name": "@digitak/gravity-vue",
+	"name": "@digitak/gravity-nuxt",
 	"version": "0.0.43",
 	"author": "Gin Quin",
 	"license": "GNU v3",
@@ -18,18 +18,11 @@
 	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../../core/package",
-		"vue": "^3.2.25"
+		"nuxt": "^3.0.0-rc.1"
 	},
 	"devDependencies": {
-		"@digitak/esrun": "^3.2.2",
 		"@digitak/gravity": "link:../../core/package",
-		"@types/fs-extra": "^9.0.13",
-		"@types/node": "^16.11.29",
-		"@vitejs/plugin-vue": "^2.3.1",
-		"fs-extra": "^10.1.0",
-		"typescript": "^4.7.0-dev.20220426",
-		"vite": "^2.9.5",
-		"vue": "^3.2.25",
-		"vue-tsc": "^0.34.7"
+		"@types/node": "^17.0.30",
+		"nuxt": "^3.0.0-rc.1"
 	}
 }

@@ -8,6 +8,7 @@
 		"outDir": "package",
 		"declaration": true,
 		"esModuleInterop": true,
+		"skipLibCheck": true,
 		"experimentalDecorators": true,
 		"baseUrl": "."
 	},

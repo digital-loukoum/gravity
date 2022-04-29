@@ -2,8 +2,12 @@ lockfileVersion: 5.3
 
 specifiers:
   '@digitak/gravity': link:../../core/package
+  '@digitak/gravity-vue': link:../vue/package
   '@types/node': ^17.0.30
   nuxt: ^3.0.0-rc.1
+
+dependencies:
+  '@digitak/gravity-vue': link:../vue/package
 
 devDependencies:
   '@digitak/gravity': link:../../core/package

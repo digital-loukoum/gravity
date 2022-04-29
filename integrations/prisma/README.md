@@ -1,3 +1,3 @@
-🚧 WORK IN PROGRESS 🚧 
+This is the Prisma integration package for Gravity.
 
-Prisma proxy service for the framework Gravity
+See [gravity documentation](https://digitak-gravity.netlify.app/) for more infos.

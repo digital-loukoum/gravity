@@ -16,6 +16,9 @@
 		"test": "esrun test",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
+	"dependencies": {
+		"@digitak/gravity-vue": "link:../vue/package"
+	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../../core/package",
 		"nuxt": "^3.0.0-rc.1"
