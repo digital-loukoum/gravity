@@ -9,11 +9,14 @@ import type { IncomingMessage, ServerResponse } from "http";
 export const defineHandler = <Context>(
 	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
 ) => {
-	const handler = defineBaseHandler<Context>(options);
+	const coreHandler = defineBaseHandler<Context>(options);
+	const { handler } = coreHandler;
 
-	return defineEventHandler((event) => {
-		if ("__is_event__" in event) {
-			return handler(event.req, event.res);
-		}
-	});
+	return {
+		handler: defineEventHandler((event) => {
+			if ("__is_event__" in event) {
+				return handler(event.req, event.res);
+			}
+		}),
+	};
 };

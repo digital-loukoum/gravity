@@ -10,7 +10,7 @@ export const defineHandler = <Context>(
 ) => {
 	const { apiPath } = normalizeHandlerOptions(options);
 
-	return async (
+	const handler = async (
 		request: IncomingMessage,
 		response: ServerResponse,
 		next?: Function,
@@ -43,4 +43,6 @@ export const defineHandler = <Context>(
 
 		return response.end();
 	};
+
+	return { handler };
 };

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "dev": "../node_modules/.bin/gravity dev --use '../node_modules/.bin/next dev'",
+    "build": "../node_modules/.bin/gravity build --use '../node_modules/.bin/next build'",
+    "start": "../node_modules/.bin/next start",
+    "lint": "../node_modules/.bin/next lint"
+  }
+}

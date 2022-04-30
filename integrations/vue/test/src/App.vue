@@ -36,7 +36,7 @@ watch([a, b], refreshApi);
 		:error="apiResult?.error"
 	/>
 
-<RequestCard
+	<RequestCard
 		title="Store sum"
 		:loading="storeSum.isLoading"
 		:refreshing="storeSum.isRefreshing"

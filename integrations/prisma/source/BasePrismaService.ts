@@ -1,4 +1,4 @@
-import { BaseService, BaseServiceConstructor } from "@digitak/gravity";
+import { BaseServiceConstructor } from "@digitak/gravity";
 import { Assign } from "@digitak/gravity/utilities/Assign";
 import { PrismaConstraints } from "./PrismaConstraints";
 import { PrismaInterface } from "./PrismaInterface";
@@ -10,7 +10,7 @@ export function BasePrismaService<
 >(serviceConstructor: ServiceConstructor) {
 	return <EntityManager extends PrismaInterface>(
 		entityManager: EntityManager,
-		constraints?: PrismaConstraints<EntityManager>,
+		constraints?: PrismaConstraints<Context, EntityManager>,
 	) => {
 		return Assign(serviceConstructor, prismaProxy(entityManager, constraints));
 	};

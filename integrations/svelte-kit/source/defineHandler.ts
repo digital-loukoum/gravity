@@ -10,10 +10,9 @@ export const defineHandler = <Context>(
 ) => {
 	const { apiPath } = normalizeHandlerOptions(options);
 
-	return <Handle>(async ({ event, resolve }) => {
+	const resolve = async (event: any) => {
 		const { url, request } = event;
 		const { pathname } = url;
-		if (!apiMatchesUrl(apiPath, pathname)) return resolve(event);
 		const rawBody = new Uint8Array(await request.arrayBuffer());
 
 		return await resolveApiRequest<Context, Request, Response>({
@@ -34,5 +33,12 @@ export const defineHandler = <Context>(
 					status,
 				}),
 		});
+	};
+
+	const handle = <Handle>(async ({ event, resolve: baseResolve }) => {
+		if (!apiMatchesUrl(apiPath, event.url.pathname)) return baseResolve(event);
+		return resolve(event);
 	});
+
+	return { handle };
 };

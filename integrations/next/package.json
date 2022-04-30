@@ -16,13 +16,25 @@
 		"test": "esrun test",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
+	"dependencies": {
+		"@digitak/gravity-react": "link:../integrations/react"
+	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../../core/package",
-		"nuxt": "^3.0.0-rc.1"
-	},
+		"next": "12.1.5",
+		"react": "18.1.0",
+		"react-dom": "18.1.0"
+	  },
 	"devDependencies": {
 		"@digitak/gravity": "link:../../core/package",
 		"@types/node": "^17.0.30",
-		"nuxt": "^3.0.0-rc.1"
+		"@types/react": "18.0.8",
+		"@types/react-dom": "18.0.3",
+		"eslint": "8.14.0",
+		"eslint-config-next": "12.1.5",
+		"typescript": "^4.7.0-dev.20220429",
+		"next": "12.1.5",
+		"react": "18.1.0",
+		"react-dom": "18.1.0"
 	}
 }

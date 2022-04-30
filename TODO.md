@@ -1,16 +1,7 @@
 GENERAL
-- Make CI/CD work again with framework integrations (bugs with tsc)
 
-SVELTE / SVELTEKIT
-- SvelteKit SSR (use "loader" from "@digitak/gravity-svelte")
-
-NEXT
-- Next handler
-- Next SSR (use "loader" from "@digitak/gravity-next")
-
-NUXT
-- Nuxt handler
-- Nuxt SSR (use "loader" from "@digitak/gravity-next")
+SVELTEKIT
+Move defineHandler import in `server.ts` instead of `index.ts` (dont mix client and server code)
 
 PRISMA
 - Export BasePrismaService from @digitak/gravity-prisma
@@ -18,14 +9,18 @@ PRISMA
 - Remove $where and others
 - Add "includable" to the prisma proxy options
 
-DOCUMENTATION
-- Next installation
-- Next server-side rendering
-- Nuxt installation
-- Nuxt server-side rendering
+SSR
+- SvelteKit SSR (useServices from defineHandler + loader from defineApi)
+- Next SSR (useServices from defineHandler)
+- Nuxt SSR (loader proxy from defineApi with base64 encoding as key)
 
-FUTURE
-- Use typeName + id to detect unique objects
+DOCUMENTATION
+
+
+@NEXT
 - Download / upload
-- UInt8Array, UInt16Array, UInt32Array, DataView, ArrayBuffer
+
+@FUTURE
+- UInt8Array, UInt16Array, UInt32Array, DataView, ArrayBuffer; a way to pass binary data
+- Use typeName + id to detect unique objects
 - Allow to use message pack or a custom encoder

@@ -18,7 +18,7 @@
 		"generate": "prisma generate"
 	},
 	"dependencies": {
-		"@digitak/gravity": "../../core/package"
+		"@digitak/gravity": "link:../../core/package"
 	},
 	"peerDependencies": {
 		"prisma": "^3",

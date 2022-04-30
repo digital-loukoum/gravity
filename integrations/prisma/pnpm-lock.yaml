@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@digitak/esrun': '*'
-  '@digitak/gravity': ../../core/package
+  '@digitak/gravity': link:../../core/package
   '@digitak/tsc-esm': '*'
   '@prisma/client': ^3.8.1
   '@types/fs-extra': ^9.0.13

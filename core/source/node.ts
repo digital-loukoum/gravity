@@ -8,8 +8,12 @@ import { defineHandler as defineHandlerMiddleware } from "./middleware.js";
 export const defineHandler = <Context>(
 	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
 ) => {
-	const handler = defineHandlerMiddleware(options);
-	return async (request: IncomingMessage, response: ServerResponse) => {
-		handler(request, response, () => response.writeHead(404).end());
+	const coreHandler = defineHandlerMiddleware(options);
+	const { handler } = coreHandler;
+
+	return {
+		...coreHandler,
+		handler: async (request: IncomingMessage, response: ServerResponse) =>
+			handler(request, response, () => response.writeHead(404).end()),
 	};
 };

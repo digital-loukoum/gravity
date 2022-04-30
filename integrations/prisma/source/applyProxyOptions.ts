@@ -11,8 +11,8 @@ export function applyProxyOptions(
 
 	const $where = proxy?.$where?.();
 	const $select = proxy?.$select?.();
-	const $include = proxy?.$include?.();
 	const $selectable = proxy?.$selectable?.();
+	const $include = proxy?.$include?.();
 
 	if (options.include) {
 		options.select = merge(

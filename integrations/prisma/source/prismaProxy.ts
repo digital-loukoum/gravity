@@ -5,9 +5,9 @@ import { PrismaProxyInterface } from "./PrismaProxyInterface";
 
 // type UserWhere = Where<UserDelegate>;
 
-export const prismaProxy = <EntityManager extends PrismaInterface>(
+export const prismaProxy = <Context, EntityManager extends PrismaInterface>(
 	entityManager: EntityManager,
-	constraints?: PrismaConstraints<EntityManager>,
+	constraints?: PrismaConstraints<Context, EntityManager>,
 ): PrismaProxyInterface<EntityManager> =>
 	<PrismaInterface>{
 		$where: () => constraints?.where,
