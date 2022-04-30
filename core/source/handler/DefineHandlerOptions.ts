@@ -1,10 +1,15 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 import type { Authorize } from "./Authorize.js";
 import type { OnRequestReceive } from "./OnRequestReceive.js";
 import type { OnResponseSend } from "./OnResponseSend.js";
+import type { ServicesRecord } from "./ServicesRecord.js";
 
-export type DefineHandlerOptions<Context, Request, Response> = {
-	services: Record<string, BaseServiceConstructor<Context>>;
+export type DefineHandlerOptions<
+	Context,
+	Services extends ServicesRecord<Context>,
+	Request,
+	Response,
+> = {
+	services: Services;
 	schema: Record<string, any>;
 	apiPath?: string;
 	verbose?: boolean;

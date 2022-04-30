@@ -1,6 +1,5 @@
 import type { BaseService } from "./BaseService.js";
 
-export type BaseServiceConstructor<Context = any> = new (
+export type BaseServiceConstructor<Context> = new (
 	context: Context,
-	...args: any[]
 ) => BaseService<Context>;

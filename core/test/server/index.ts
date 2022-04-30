@@ -9,7 +9,7 @@ import { ServerError } from "../../source";
 
 const PORT = 4000;
 
-const handler = defineHandler<Context>({
+const { handler } = defineHandler<Context, typeof services>({
 	services,
 	schema,
 	allowedOrigins: ["http://localhost:3000"],

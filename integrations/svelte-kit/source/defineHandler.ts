@@ -1,12 +1,16 @@
 import type { DefineHandlerOptions } from "@digitak/gravity/handler/DefineHandlerOptions";
 import { normalizeHandlerOptions } from "@digitak/gravity/handler/normalizeHandlerOptions";
 import { resolveApiRequest } from "@digitak/gravity/handler/resolveApiRequest";
+import { ServicesRecord } from "@digitak/gravity/handler/ServicesRecord";
 import { apiMatchesUrl } from "@digitak/gravity/utilities/apiMatchesUrl";
 import { parseHeaders } from "@digitak/gravity/utilities/parseHeaders";
 import type { Handle } from "@sveltejs/kit";
 
-export const defineHandler = <Context>(
-	options: DefineHandlerOptions<Context, Request, Response>,
+export const defineHandler = <
+	Context,
+	Services extends ServicesRecord<Context>,
+>(
+	options: DefineHandlerOptions<Context, Services, Request, Response>,
 ) => {
 	const { apiPath } = normalizeHandlerOptions(options);
 

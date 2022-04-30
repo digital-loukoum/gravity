@@ -4,9 +4,18 @@ import { extractRawBody } from "./utilities/extractRawBody.js";
 import { resolveApiRequest } from "./handler/resolveApiRequest.js";
 import { apiMatchesUrl } from "./utilities/apiMatchesUrl.js";
 import { normalizeHandlerOptions } from "./handler/normalizeHandlerOptions.js";
+import type { ServicesRecord } from "./handler/ServicesRecord.js";
 
-export const defineHandler = <Context>(
-	options: DefineHandlerOptions<Context, IncomingMessage, ServerResponse>,
+export const defineHandler = <
+	Services extends ServicesRecord<Context>,
+	Context = undefined,
+>(
+	options: DefineHandlerOptions<
+		Context,
+		Services,
+		IncomingMessage,
+		ServerResponse
+	>,
 ) => {
 	const { apiPath } = normalizeHandlerOptions(options);
 
