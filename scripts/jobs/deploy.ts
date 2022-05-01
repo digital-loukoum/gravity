@@ -16,13 +16,13 @@ export async function deploy() {
 	await execute(`git push`);
 
 	// run build with turbo
+	print`[yellow: Starting build...]`;
 	await execute("npm run build");
 
 	// TODO: add tests
 
 	// deploy to npm
 	print`[yellow: Starting deploy...]`;
-
 	try {
 		await Promise.all(
 			packages.map(async (packageName) => {
