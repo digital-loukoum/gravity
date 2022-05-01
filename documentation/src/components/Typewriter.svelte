@@ -13,7 +13,7 @@
 </span>
 
 {#if ghostElement}
-	<span class="typewriter" style="margin-left: -{ghostElement.offsetWidth}px">
+	<span class="typewriter">
 		{#each value as character, index}
 			<span in:fly={{ y: -200, delay: initialDelay + index * delay, duration }}>
 				{character}
@@ -27,6 +27,9 @@
 		position: absolute
 		display: inline-flex
 		width: 0
+		left: 0
+		right: 0
+		top: 0
 
 	.ghost
 		opacity: 0

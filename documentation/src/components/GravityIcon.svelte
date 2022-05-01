@@ -21,7 +21,7 @@
 
 		if (walk) {
 			setInterval(() => {
-				bigDotPosition.update((value) => (value - 1) % dots);
+				bigDotPosition.update((value) => (value || dots) - 1);
 			}, 3000);
 		}
 	}
@@ -30,6 +30,7 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { writable } from 'svelte/store';
+	import { fade, fly } from 'svelte/transition';
 
 	export let size = 36;
 </script>
@@ -49,11 +50,26 @@
 		fill="#fd5591"
 	/>
 
-	<!-- small dots -->
 	{#each [...Array(dots).keys()] as dotIndex}
+		<!-- small dots -->
 		<circle cx={dotX(dotIndex)} cy={dotY(dotIndex)} r="2" fill="#fd5591" />
-	{/each}
 
-	<!-- big dot -->
-	<circle cx={dotX($bigDotPosition)} cy={dotY($bigDotPosition)} r="6" fill="#fd5591" />
+		<!-- big dot -->
+		<circle
+			class="big-dot"
+			class:visible={dotIndex === $bigDotPosition}
+			cx={dotX(dotIndex)}
+			cy={dotY(dotIndex)}
+			r="6"
+			fill="#fd5591"
+		/>
+	{/each}
 </svg>
+
+<style lang="sass">
+	.big-dot
+		opacity: 0
+		transition: opacity 350ms ease-in
+		&.visible
+			opacity: 1
+</style>

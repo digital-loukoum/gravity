@@ -28,6 +28,7 @@
 		font-size: 40px
 		text-transform: uppercase
 		letter-spacing: 16px
+		position: relative
 
 	.subtitle
 		font-family: Acherus

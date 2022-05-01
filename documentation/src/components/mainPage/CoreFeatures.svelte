@@ -14,7 +14,7 @@
 	<CoreFeature color="tertiary" link="/docs/installation/install-gravity">
 		<span slot="title"> Flexible </span>
 
-		Use Gravity with Svelte, SvelteKit, React, Next, and Solid.
+		Use Gravity with Svelte, React, Vue, Solid and deploy to a classic server or edge functions.
 
 		<span slot="link"> Get started </span>
 	</CoreFeature>
