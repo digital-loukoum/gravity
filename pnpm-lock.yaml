@@ -93,9 +93,11 @@ importers:
       '@digitak/gravity': link:../../core/package
       '@digitak/gravity-vue': link:../vue/package
       '@types/node': ^17.0.30
+      h3: ^0.7.6
       nuxt: ^3.0.0-rc.1
     dependencies:
       '@digitak/gravity-vue': link:../vue/package
+      h3: 0.7.6
     devDependencies:
       '@digitak/gravity': link:../../core/package
       '@types/node': 17.0.30
@@ -165,7 +167,7 @@ importers:
       '@types/node': ^16.11.29
       fs-extra: ^10.1.0
       solid-js: ^1.3.13
-      typescript: ^4.7.0-dev.20220426
+      typescript: ^4.7.0-dev.20220422
       vite: ^2.9.5
       vite-plugin-solid: ^2.2.6
     devDependencies:
@@ -2453,7 +2455,6 @@ packages:
 
   /cookie-es/0.5.0:
     resolution: {integrity: sha512-RyZrFi6PNpBFbIaQjXDlFIhFVqV42QeKSZX1yQIl6ihImq6vcHNGMtqQ/QzY3RMPuYSkvsRwtnt5M9NeYxKt0g==}
-    dev: true
 
   /core-js-pure/3.22.3:
     resolution: {integrity: sha512-oN88zz7nmKROMy8GOjs+LN+0LedIvbMdnB5XsTlhcOg1WGARt9l0LFg0zohdoFmCsEZ1h2ZbSQ6azj3M+vhzwQ==}
@@ -2698,7 +2699,6 @@ packages:
 
   /destr/1.1.1:
     resolution: {integrity: sha512-QqkneF8LrYmwATMdnuD2MLI3GHQIcBnG6qFC2q9bSH430VTCDAVjcspPmUaKhPGtAtPAftIUFqY1obQYQuwmbg==}
-    dev: true
 
   /destroy/1.2.0:
     resolution: {integrity: sha512-2sJGJTaXIIaR1w4iJSNoN0hnMY7Gpc/n8D4qSCJw8QqFWXf7cuAgnEHxBpweaVcPevC2l3KpjYCx3NypQQgaJg==}
@@ -3940,7 +3940,6 @@ packages:
       destr: 1.1.1
       radix3: 0.1.1
       ufo: 0.8.3
-    dev: true
 
   /has-bigints/1.0.2:
     resolution: {integrity: sha512-tSvCKtBr9lkF0Ex0aQiP9N+OpV4zi2r/Nee5VkRDbaqv35RLYMzbwQfFSZZH0kR+Rd6302UJZ2p/bJCEoR3VoQ==}
@@ -5854,7 +5853,6 @@ packages:
 
   /radix3/0.1.1:
     resolution: {integrity: sha512-9Np01fn+penHvC05A9EkRpyObPMS0ht3t1UP6KlnQPCfTNzArmEZW/+t2SLsDtPcZyXPDbYCGWA8dSQqWaVwQQ==}
-    dev: true
 
   /randombytes/2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
@@ -7014,7 +7012,6 @@ packages:
 
   /ufo/0.8.3:
     resolution: {integrity: sha512-AIkk06G21y/P+NCatfU+1qldCmI0XCszZLn8AkuKotffF3eqCvlce0KuwM7ZemLE/my0GSYADOAeM5zDYWMB+A==}
-    dev: true
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}

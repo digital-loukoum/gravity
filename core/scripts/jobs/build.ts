@@ -20,4 +20,6 @@ export async function build() {
 
 	console.log("Making binaries executable...");
 	fs.chmodSync("./package/cli/gravity.js", 0o755);
+
+	console.log("✨ Build done");
 }

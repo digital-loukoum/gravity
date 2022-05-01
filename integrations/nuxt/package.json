@@ -17,7 +17,8 @@
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {
-		"@digitak/gravity-vue": "link:../vue/package"
+		"@digitak/gravity-vue": "link:../vue/package",
+		"h3": "^0.7.6"
 	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../../core/package",

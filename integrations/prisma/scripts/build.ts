@@ -11,3 +11,5 @@ execSync("tsc", { stdio: "inherit" });
 console.log("Copying configuration files...");
 fs.copyFileSync("./README.md", "./package/README.md");
 patchLocalDependencies();
+
+console.log("✨ Build done");
