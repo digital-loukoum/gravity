@@ -6,6 +6,12 @@
 	margin-top: 0.5rem !important;
 }
 
+@supports not ((backdrop-filter: blur(0)) or (-webkit-backdrop-filter: blur(0))) {
+	.kit-docs > :first-child {
+		background-color: rgba(var(--kd-gray-body), 0.92);
+	}
+}
+
 .admonition {
 	border-top: none;
 	border-bottom: none;

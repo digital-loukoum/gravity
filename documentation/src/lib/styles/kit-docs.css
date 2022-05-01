@@ -20,6 +20,8 @@
 	  Fira Code VF, monospace;
 
 	--kd-color-brand: var(--primary-color);
+
+	--kd-gray-body: 255, 255, 255;
   
 	--kd-color-gray-soft: rgb(112, 112, 112);
 	--kd-color-gray-inverse: rgb(0, 0, 0);
@@ -28,7 +30,7 @@
 	--kd-color-gray-hover: rgb(245, 245, 245);
 	--kd-color-gray-hover-inverse: rgb(53, 53, 53);
 	--kd-color-gray-elevate: rgb(255, 255, 255);
-	--kd-color-gray-body: rgb(255, 255, 255);
+	--kd-color-gray-body: rgb(var(--kd-gray-body));
  
 	--kd-prose-pre-bg: rgb(31, 41, 55);
 	--kd-sidebar-border-active: var(--primary-color);
@@ -45,7 +47,8 @@
  
  :root.dark {
 	color-scheme: dark;
- 
+	--kd-gray-body: 26, 26, 26;
+
 	--kd-color-gray-soft: rgb(140, 140, 140);
 	--kd-color-gray-inverse: rgb(255, 255, 255);
 	--kd-color-gray-current: rgb(0, 0, 0);
@@ -53,6 +56,5 @@
 	--kd-color-gray-hover: rgb(54, 54, 54);
 	--kd-color-gray-hover-inverse: rgb(245, 245, 245);
 	--kd-color-gray-elevate: rgb(45, 45, 45);
-	--kd-color-gray-body: rgb(26, 26, 26);
  }
  
