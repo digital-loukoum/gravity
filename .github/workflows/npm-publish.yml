@@ -8,8 +8,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-jobs:
 
+jobs:
   build:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest

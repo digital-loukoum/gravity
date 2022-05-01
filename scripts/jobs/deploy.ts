@@ -1,30 +1,35 @@
-import packages from "../packages.json";
 import { print } from "@digitak/print";
 import { execute } from "./../utilities/execute";
 import path from "path";
-import { build } from "./build";
 import { bumpVersion } from "../utilities/bumpVersion";
 import { updateWorkspacesVersion } from "../utilities/updateWorkspacesVersion";
+import { packages } from "../utilities/workspace";
 
 export async function deploy() {
+	// update all pacakge versions
 	const version = bumpVersion();
 	updateWorkspacesVersion();
 
+	// push new versions to git
 	await execute(`git add .`);
 	await execute(`git commit -m "📌 Version ${version}"`);
 	await execute(`git push`);
 
-	await build();
+	// run build with turbo
+	await execute("npm run build");
 
+	// TODO: add tests
+
+	// deploy to npm
 	print`[yellow: Starting deploy...]`;
 
 	try {
 		await Promise.all(
-			packages.map(async (pack) => {
-				const cwd = path.resolve(`${pack}/package`);
+			packages.map(async (packageName) => {
+				const cwd = path.resolve(`${packageName}/package`);
 
-				await execute(`npm publish`, { cwd });
-				print`[blue: [bold:${pack}] • Publication successful 🤗]`;
+				await execute(`npm publish --access public`, { cwd });
+				print`[blue: [bold:${packageName}] • Publication successful 🤗]`;
 			}),
 		);
 	} catch (error) {

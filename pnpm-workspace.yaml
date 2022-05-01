@@ -1,0 +1,10 @@
+packages:
+  - core
+  - integrations/svelte
+  - integrations/svelte-kit
+  - integrations/react
+  - integrations/solid
+  - integrations/next
+  - integrations/vue
+  - integrations/nuxt
+  - integrations/prisma

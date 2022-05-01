@@ -1,7 +1,18 @@
 {
-	"version": "0.0.43",
+	"version": "0.0.44",
+	"workspaces": [
+		"core",
+		"integrations/svelte",
+		"integrations/svelte-kit",
+		"integrations/react",
+		"integrations/solid",
+		"integrations/next",
+		"integrations/vue",
+		"integrations/nuxt",
+		"integrations/prisma"
+	],
 	"scripts": {
-		"build": "esrun scripts/build",
+		"build": "turbo run build",
 		"deploy": "esrun scripts/deploy"
 	},
 	"devDependencies": {
@@ -9,7 +20,10 @@
 		"@digitak/print": "*",
 		"@types/async": "^3.2.12",
 		"@types/fs-extra": "^9.0.13",
+		"@types/js-yaml": "^4.0.5",
 		"async": "^3.2.3",
-		"fs-extra": "^10.0.0"
+		"fs-extra": "^10.0.0",
+		"js-yaml": "^4.1.0",
+		"turbo": "^1.2.6"
 	}
 }

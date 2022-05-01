@@ -1,6 +1,6 @@
 {
-	"name": "@digitak/gravity-nuxt",
-	"version": "0.0.43",
+	"name": "@digitak/gravity-next",
+	"version": "0.0.44",
 	"author": "Gin Quin",
 	"license": "GNU v3",
 	"type": "module",
@@ -24,7 +24,7 @@
 		"next": "12.1.5",
 		"react": "18.1.0",
 		"react-dom": "18.1.0"
-	  },
+	},
 	"devDependencies": {
 		"@digitak/gravity": "link:../../core/package",
 		"@types/node": "^17.0.30",
