@@ -1,16 +1,19 @@
 import type { DefineHandlerOptions } from "@digitak/gravity/handler/DefineHandlerOptions";
+import type { Handle } from "@sveltejs/kit";
+import type { GetContext } from "@digitak/gravity/services/GetContext";
 import { normalizeHandlerOptions } from "@digitak/gravity/handler/normalizeHandlerOptions";
 import { resolveApiRequest } from "@digitak/gravity/handler/resolveApiRequest";
 import { ServicesRecord } from "@digitak/gravity/handler/ServicesRecord";
 import { apiMatchesUrl } from "@digitak/gravity/utilities/apiMatchesUrl";
 import { parseHeaders } from "@digitak/gravity/utilities/parseHeaders";
-import type { Handle } from "@sveltejs/kit";
 
-export const defineHandler = <
-	Context,
-	Services extends ServicesRecord<Context>,
->(
-	options: DefineHandlerOptions<Context, Services, Request, Response>,
+export const defineHandler = <Services extends ServicesRecord<any>>(
+	options: DefineHandlerOptions<
+		GetContext<Services>,
+		Services,
+		Request,
+		Response
+	>,
 ) => {
 	const { apiPath } = normalizeHandlerOptions(options);
 
@@ -19,7 +22,7 @@ export const defineHandler = <
 		const { pathname } = url;
 		const rawBody = new Uint8Array(await request.arrayBuffer());
 
-		return await resolveApiRequest<Context, Request, Response>({
+		return await resolveApiRequest<GetContext<Services>, Request, Response>({
 			request,
 			method: request.method,
 			url: pathname.slice(apiPath.length),

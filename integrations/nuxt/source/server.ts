@@ -1,24 +1,22 @@
 import type { DefineHandlerOptions } from "@digitak/gravity/handler/DefineHandlerOptions";
-import { ServicesRecord } from "@digitak/gravity/handler/ServicesRecord";
-import { defineHandler as defineBaseHandler } from "@digitak/gravity/middleware";
-import { defineEventHandler } from "h3";
+import type { ServicesRecord } from "@digitak/gravity/handler/ServicesRecord";
+import type { GetContext } from "@digitak/gravity/services/GetContext";
 import type { IncomingMessage, ServerResponse } from "http";
+import { defineEventHandler } from "h3";
+import { defineHandler as defineBaseHandler } from "@digitak/gravity/middleware";
 
 /**
  * Nuxt request handler for Gravity services.
  */
-export const defineHandler = <
-	Context,
-	Services extends ServicesRecord<Context>,
->(
+export const defineHandler = <Services extends ServicesRecord<any>>(
 	options: DefineHandlerOptions<
-		Context,
+		GetContext<Services>,
 		Services,
 		IncomingMessage,
 		ServerResponse
 	>,
 ) => {
-	const coreHandler = defineBaseHandler<Context, Services>(options);
+	const coreHandler = defineBaseHandler<Services>(options);
 	const { handler } = coreHandler;
 
 	return {

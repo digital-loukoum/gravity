@@ -1,9 +1,9 @@
-import { defineHandler } from "@digitak/gravity-next";
+import { defineHandler } from "@digitak/gravity-next/server";
 import { Context } from "../server/Context";
 import schema from "../server/schema.json";
 import { services } from "../server/services";
 
-export default defineHandler<Context>({
+export default defineHandler({
 	schema,
 	services,
 	onRequestReceive({ request }) {

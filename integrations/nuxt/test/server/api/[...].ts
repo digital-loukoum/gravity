@@ -1,9 +1,8 @@
-import { defineHandler } from "@digitak/gravity-nuxt/defineHandler";
-import { Context } from "../Context";
+import { defineHandler } from "@digitak/gravity-nuxt/server";
 import schema from "../schema.json";
 import { services } from "../services";
 
-export default defineHandler<Context>({
+export default defineHandler({
 	schema,
 	services,
 	onRequestReceive({ request }) {

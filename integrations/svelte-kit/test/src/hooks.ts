@@ -1,10 +1,9 @@
-import { defineHandler } from '@digitak/gravity-svelte/kit';
+import { defineHandler } from '@digitak/gravity-svelte/server';
 import { services } from './gravity/services';
-import type { Context } from './gravity/Context';
 import schema from './gravity/schema.json';
 import { setCookies } from '@digitak/gravity/cookie';
 
-export const handle = defineHandler<Context>({
+export const { handle } = defineHandler({
 	services,
 	schema,
 
