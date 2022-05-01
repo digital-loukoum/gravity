@@ -2,7 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@digitak/gravity': link:../../core/package
-  '@digitak/gravity-react': link:../integrations/react
+  '@digitak/gravity-react': link:../react/package
   '@types/node': ^17.0.30
   '@types/react': 18.0.8
   '@types/react-dom': 18.0.3
@@ -14,7 +14,7 @@ specifiers:
   typescript: ^4.7.0-dev.20220429
 
 dependencies:
-  '@digitak/gravity-react': link:../integrations/react
+  '@digitak/gravity-react': link:../react/package
 
 devDependencies:
   '@digitak/gravity': link:../../core/package

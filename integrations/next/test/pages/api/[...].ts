@@ -1,9 +1,14 @@
 import { defineHandler } from "@digitak/gravity-next/server";
-import { Context } from "../server/Context";
-import schema from "../server/schema.json";
-import { services } from "../server/services";
+import schema from "../../server/schema.json";
+import { services } from "../../server/services";
 
-export default defineHandler({
+export const config = {
+	api: {
+		bodyParser: false,
+	},
+};
+
+const { handler } = defineHandler({
 	schema,
 	services,
 	onRequestReceive({ request }) {
@@ -15,3 +20,5 @@ export default defineHandler({
 		};
 	},
 });
+
+export default handler;

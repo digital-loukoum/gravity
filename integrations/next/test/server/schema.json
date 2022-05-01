@@ -1,1 +1,80 @@
-{}
+{
+  "math": {
+    "add": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 2,
+          "parameters": [
+            {
+              "typeName": "Number"
+            },
+            {
+              "typeName": "Number"
+            }
+          ],
+          "returnType": {
+            "typeName": "Number"
+          }
+        }
+      ]
+    },
+    "subtract": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 2,
+          "parameters": [
+            {
+              "typeName": "Number"
+            },
+            {
+              "typeName": "Number"
+            }
+          ],
+          "returnType": {
+            "typeName": "Number"
+          }
+        }
+      ]
+    },
+    "bar": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    }
+  },
+  "foo": {
+    "hello": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    },
+    "bar": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -16,7 +16,7 @@ function App() {
 	const storeSum = store.math.add(a, b);
 
 	useMemo(() => {
-		storeSum.refresh();
+		// storeSum.refresh();
 		setIsApiLoading(true);
 		setApiData(undefined);
 		setApiError(undefined);

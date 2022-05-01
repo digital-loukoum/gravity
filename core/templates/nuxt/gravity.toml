@@ -1,0 +1,2 @@
+servicesFile = "server/services/index.ts"
+schemaFile = "server/schema.json"

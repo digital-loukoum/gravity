@@ -15,6 +15,9 @@
 		width: min(1140px, 90%)
 		margin: 60px auto
 
+		@media (max-width: 420px)
+			display: none
+
 	.section :global(.admonition)
 		padding: 40px
 		padding-right: 50px
