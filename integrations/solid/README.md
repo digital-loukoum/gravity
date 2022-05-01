@@ -1,3 +1,6 @@
+# Gravity for Solid
+
 This is the Solid integration package for Gravity.
 
-See [gravity documentation](https://digitak-gravity.netlify.app/) for more infos.
+👉 [Gravity documentation](https://digitak-gravity.netlify.app/)
+👉 [How to setup with Solid](https://digitak-gravity.netlify.app/docs/frameworks/solid)

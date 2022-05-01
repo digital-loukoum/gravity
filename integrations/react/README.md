@@ -1,3 +1,6 @@
+# Gravity for React
+
 This is the React integration package for Gravity.
 
-See [gravity documentation](https://digitak-gravity.netlify.app/) for more infos.
+👉 [Gravity documentation](https://digitak-gravity.netlify.app/)
+👉 [How to setup with React](https://digitak-gravity.netlify.app/docs/frameworks/react)

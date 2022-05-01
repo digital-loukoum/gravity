@@ -1,3 +1,6 @@
-This is the Svelte integration package for Gravity.
+# Gravity for SvelteKit
 
-See [gravity documentation](https://digitak-gravity.netlify.app/) for more infos.
+This is the SvelteKit integration package for Gravity.
+
+👉 [Gravity documentation](https://digitak-gravity.netlify.app/)
+👉 [How to setup with SvelteKit](https://digitak-gravity.netlify.app/docs/frameworks/svelte-kit)
