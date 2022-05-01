@@ -5,13 +5,11 @@ import { resolveApiRequest } from "./handler/resolveApiRequest.js";
 import { apiMatchesUrl } from "./utilities/apiMatchesUrl.js";
 import { normalizeHandlerOptions } from "./handler/normalizeHandlerOptions.js";
 import type { ServicesRecord } from "./handler/ServicesRecord.js";
+import type { GetContext } from "./services/GetContext.js";
 
-export const defineHandler = <
-	Services extends ServicesRecord<Context>,
-	Context = undefined,
->(
+export const defineHandler = <Services extends ServicesRecord<any>>(
 	options: DefineHandlerOptions<
-		Context,
+		GetContext<Services>,
 		Services,
 		IncomingMessage,
 		ServerResponse
@@ -28,7 +26,11 @@ export const defineHandler = <
 		if (!apiMatchesUrl(apiPath, url)) return next?.();
 		const rawBody = await extractRawBody(request);
 
-		await resolveApiRequest<Context, IncomingMessage, ServerResponse>({
+		await resolveApiRequest<
+			GetContext<Services>,
+			IncomingMessage,
+			ServerResponse
+		>({
 			request,
 			method: request.method,
 			url: url.slice(apiPath.length),

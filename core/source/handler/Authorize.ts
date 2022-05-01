@@ -2,7 +2,7 @@ import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.
 
 export type AuthorizeOptions<Context> = {
 	context: Context;
-	service: BaseServiceConstructor;
+	service: BaseServiceConstructor<Context>;
 	path: string[];
 };
 

@@ -14,6 +14,7 @@
 	"scripts": {
 		"generate": "esrun scripts/generate",
 		"check": "tsc --noEmit",
+		"check:dev": "tsc --noEmit --watch",
 		"dev": "esrun --watch test",
 		"build": "esrun scripts/build",
 		"test": "esrun test",

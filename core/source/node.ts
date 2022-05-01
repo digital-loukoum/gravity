@@ -2,16 +2,14 @@ import type { IncomingMessage, ServerResponse } from "http";
 import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions.js";
 import type { ServicesRecord } from "./handler/ServicesRecord.js";
 import { defineHandler as defineHandlerMiddleware } from "./middleware.js";
+import type { GetContext } from "./services/GetContext.js";
 
 /**
  * Default handler for node taht returns 404 if apiPath is not matched
  */
-export const defineHandler = <
-	Services extends ServicesRecord<Context>,
-	Context = undefined,
->(
+export const defineHandler = <Services extends ServicesRecord<any>>(
 	options: DefineHandlerOptions<
-		Context,
+		GetContext<Services>,
 		Services,
 		IncomingMessage,
 		ServerResponse

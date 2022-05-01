@@ -1,6 +1,6 @@
-import type { BaseServiceConstructor } from "../index.js";
+import type { BaseService } from "../services/BaseService.js";
 
 export type ServicesRecord<Context> = Record<
 	string,
-	new (context: Context) => { context: Context }
+	new (context: Context) => BaseService<Context>
 >;

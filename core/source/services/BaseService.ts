@@ -1,6 +1,6 @@
 import { getServiceInstance } from "./getServiceInstance.js";
 
-export abstract class BaseService<Context> {
+export abstract class BaseService<Context = any> {
 	constructor(public readonly context: Context) {}
 
 	/**

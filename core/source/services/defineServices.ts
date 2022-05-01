@@ -1,9 +1,5 @@
 import type { ServicesRecord } from "../handler/ServicesRecord.js";
-import type { BaseServiceConstructor } from "./BaseServiceConstructor.js";
 
-export const defineServices = <
-	Context,
-	Services extends ServicesRecord<Context>,
->(
+export const defineServices = <Services extends ServicesRecord<any>>(
 	services: Services,
 ) => services;

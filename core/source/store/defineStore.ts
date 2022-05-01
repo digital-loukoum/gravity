@@ -8,6 +8,7 @@ import type { ApiResponse, BaseServiceConstructor } from "../index.js";
 import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
 import { compareArrays } from "../utilities/compareArrays.js";
+import type { ServicesRecord } from "../handler/ServicesRecord.js";
 
 export type DefineStoreInterface<Store> = {
 	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;
@@ -20,7 +21,7 @@ export type DefineStoreInterface<Store> = {
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
 
 export type DefineStoreResult<
-	Services extends Record<string, BaseServiceConstructor>,
+	Services extends ServicesRecord<any>,
 	StoreProxy,
 > = DefineApiResult<Services> & {
 	store: StoreProxy;

@@ -6,6 +6,7 @@ import type { ApiResponse } from "./ApiResponse.js";
 import { bunker, debunker } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
+import type { ServicesRecord } from "../handler/ServicesRecord.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -17,9 +18,7 @@ export type CallApiOptions = {
 	fetcher: typeof fetch;
 };
 
-export type DefineApiResult<
-	Services extends Record<string, BaseServiceConstructor>,
-> = {
+export type DefineApiResult<Services extends ServicesRecord<any>> = {
 	api: Api<Services>;
 	callApi: (options: CallApiOptions) => Api<Services>;
 	resolveApiCall: (
@@ -31,9 +30,7 @@ export type DefineApiResult<
 	) => Promise<ApiResponse<unknown>>;
 };
 
-export function defineApi<
-	Services extends Record<string, BaseServiceConstructor>,
->({
+export function defineApi<Services extends ServicesRecord<any>>({
 	apiPath = "/api",
 	onRequestSend,
 	onResponseReceive,
