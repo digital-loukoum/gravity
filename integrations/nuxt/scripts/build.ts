@@ -1,6 +1,6 @@
 import { execSync } from "child_process";
-import fs from "fs-extra";
 import { patchLocalDependencies } from "../../../scripts/utilities/patchLocalDependencies";
+import fs from "fs-extra";
 
 console.log("Cleaning package...");
 fs.rmSync("package", { recursive: true, force: true });

@@ -1,4 +1,4 @@
-export type PrismeEntityProperty<
+export type PrismaEntityProperty<
 	PrismaEntity,
 	PropertyName extends string,
 > = PrismaEntity extends { [Key in PropertyName]: infer Result }
@@ -27,7 +27,7 @@ type Selectable<SelectOption> = SelectOption extends Record<string, any>
 								select?: infer SubSelectOption;
 						  }
 						? Selectable<SubSelectOption>
-						: 12);
+						: never);
 	  }
 	: never;
 

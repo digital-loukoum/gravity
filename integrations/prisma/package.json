@@ -11,7 +11,8 @@
 	},
 	"scripts": {
 		"build": "esrun scripts/build",
-		"typecheck": "tsc --noEmit",
+		"check": "tsc --noEmit",
+		"check:dev": "tsc --noEmit --watch",
 		"dev": "esrun --watch test",
 		"test": "esrun test",
 		"deploy": "pnpm build && pnpm test && pnpm publish",
@@ -21,19 +22,19 @@
 		"@digitak/gravity": "link:../../core/package"
 	},
 	"peerDependencies": {
-		"prisma": "^3",
-		"@prisma/client": "^3"
+		"@prisma/client": "^3",
+		"prisma": "^3"
 	},
 	"devDependencies": {
 		"@digitak/esrun": "*",
 		"@digitak/tsc-esm": "*",
 		"@prisma/client": "^3.8.1",
 		"@types/fs-extra": "^9.0.13",
-		"fs-extra": "^10.0.0",
 		"@types/node": "^17.0.10",
 		"dotenv": "^14.2.0",
+		"fs-extra": "^10.0.0",
 		"prisma": "^3.8.1",
-		"typescript": "^4.5.3"
+		"typescript": "^4.7.0-dev.20220501"
 	},
 	"prisma": {
 		"schema": "test/prisma/schema.prisma"

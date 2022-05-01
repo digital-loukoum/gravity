@@ -1,84 +1,161 @@
-import { applyProxyOptions } from "./applyProxyOptions";
-import { PrismaConstraints } from "./PrismaConstraints";
-import { PrismaInterface } from "./PrismaInterface";
-import { PrismaProxyInterface } from "./PrismaProxyInterface";
+import { AnyPrismaInterface } from "./AnyPrismaInterface.js";
+import { applyProxyOptions } from "./applyProxyOptions.js";
+import { ContextualPrismaConstraint } from "./PrismaConstraint.js";
 
-// type UserWhere = Where<UserDelegate>;
-
-export const prismaProxy = <Context, EntityManager extends PrismaInterface>(
+export const prismaProxy = <
+	EntityManager extends AnyPrismaInterface,
+	Constraints extends ContextualPrismaConstraint<EntityManager, Target>,
+	Target = Record<never, never>,
+>(
 	entityManager: EntityManager,
-	constraints?: PrismaConstraints<Context, EntityManager>,
-): PrismaProxyInterface<EntityManager> =>
-	<PrismaInterface>{
-		$where: () => constraints?.where,
-		$select: () => constraints?.select,
-		$include: () => constraints?.include,
-		$selectable: () => constraints?.selectable,
-
-		aggregate(options: any) {
+	constraints?: Constraints,
+) =>
+	<Target & EntityManager>{
+		aggregate(this: Target & EntityManager, options: any) {
 			return entityManager.aggregate(
-				applyProxyOptions(options, this, {
-					where: true,
-					select: ["_count", "_avg", "_sum", "_min", "_max"],
-				}),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: ["_count", "_avg", "_sum", "_min", "_max"],
+					},
+				),
 			);
 		},
-		count(options: any) {
+		count(this: Target & EntityManager, options: any) {
 			return entityManager.count(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
-		create(options: any) {
+		create(this: Target & EntityManager, options: any) {
 			return entityManager.create(
-				applyProxyOptions(options, this, { select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{ select: true },
+				),
 			);
 		},
-		delete(options: any) {
+		delete(this: Target & EntityManager, options: any) {
 			return entityManager.delete(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
-		deleteMany(options: any) {
+		deleteMany(this: Target & EntityManager, options: any) {
 			return entityManager.deleteMany(
-				applyProxyOptions(options, this, { where: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{ where: true },
+				),
 			);
 		},
-		findUnique(options: any) {
+		findUnique(this: Target & EntityManager, options: any) {
 			return entityManager.findFirst(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
-		findMany(options: any) {
+		findMany(this: Target & EntityManager, options: any) {
 			return entityManager.findMany(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
-		findFirst(options: any) {
+		findFirst(this: Target & EntityManager, options: any) {
 			return entityManager.findFirst(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
-		groupBy(options: any) {
+		groupBy(this: Target & EntityManager, options: any) {
 			return entityManager.groupBy(
-				applyProxyOptions(options, this, {
-					where: true,
-					select: ["_count", "_avg", "_sum", "_min", "_max"],
-				}),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: ["_count", "_avg", "_sum", "_min", "_max"],
+					},
+				),
 			);
 		},
-		update(options: any) {
+		update(this: Target & EntityManager, options: any) {
 			return entityManager.update(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
-		updateMany(options: any) {
+		updateMany(this: Target & EntityManager, options: any) {
 			return entityManager.updateMany(
-				applyProxyOptions(options, this, { where: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{ where: true },
+				),
 			);
 		},
-		upsert(options: any) {
+		upsert(this: Target & EntityManager, options: any) {
 			return entityManager.upsert(
-				applyProxyOptions(options, this, { where: true, select: true }),
+				applyProxyOptions<EntityManager, Constraints, Target>(
+					options,
+					this,
+					constraints,
+					{
+						where: true,
+						select: true,
+					},
+				),
 			);
 		},
 	};

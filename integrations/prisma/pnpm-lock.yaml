@@ -10,7 +10,7 @@ specifiers:
   dotenv: ^14.2.0
   fs-extra: ^10.0.0
   prisma: ^3.8.1
-  typescript: ^4.5.3
+  typescript: ^4.7.0-dev.20220501
 
 dependencies:
   '@digitak/gravity': link:../../core/package
@@ -24,7 +24,7 @@ devDependencies:
   dotenv: 14.2.0
   fs-extra: 10.0.0
   prisma: 3.8.1
-  typescript: 4.5.4
+  typescript: 4.7.0-dev.20220501
 
 packages:
 
@@ -352,8 +352,8 @@ packages:
       is-number: 7.0.0
     dev: true
 
-  /typescript/4.5.4:
-    resolution: {integrity: sha512-VgYs2A2QIRuGphtzFV7aQJduJ2gyfTljngLzjpfW9FoYZF6xuw1W0vW9ghCKLfcWrCFxK81CSGRAvS1pn4fIUg==}
+  /typescript/4.7.0-dev.20220501:
+    resolution: {integrity: sha512-B7jOkO+Wxe8+MfKAtjAeA0iQQVAYnUXDkdoqw9CjRQX87ZcLZxUvlqkcWmBdJ5swzbFjFAqa4PJvN5zOTgSOUw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true

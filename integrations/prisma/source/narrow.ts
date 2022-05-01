@@ -1,4 +1,4 @@
-import { isObject } from "./isObject";
+import { isObject } from "./isObject.js";
 
 export type Narrower = {
 	[key: string]: true | Narrower;

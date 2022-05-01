@@ -8,21 +8,24 @@ import Prisma from "@prisma/client";
 
 const prisma = new Prisma.PrismaClient();
 
-// class Service extends BaseService {}
-// class user extends BasePrismaService(Service)(prisma.user, {
-// 	where: {
-// 		id: {
-// 			gt: 12,
-// 		},
-// 	},
-// }) {}
+class Service extends BaseService<number> {}
+class user extends BasePrismaService(Service)(prisma.user, ({ context }) => ({
+	selectable: {
+		posts: {
+			authorId: true,
+			author: {
+				email: true,
+			},
+		},
+	},
+})) {}
 
 const proxy = prismaProxy(prisma.user, {
 	where: {},
-	// select: {
-	// 	id: true,
-	// 	email: true,
-	// },
+	select: {
+		id: true,
+		email: true,
+	},
 	include: {
 		posts: true,
 	},
@@ -34,10 +37,6 @@ const proxy = prismaProxy(prisma.user, {
 			title: true,
 		},
 	},
-});
-proxy.$select = () => ({
-	id: true,
-	email: true,
 });
 
 // A `main` function so that you can use async/await
