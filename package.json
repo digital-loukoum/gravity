@@ -12,6 +12,7 @@
 		"integrations/prisma"
 	],
 	"scripts": {
+		"init": "esrun scripts/initialize",
 		"build": "turbo run build",
 		"deploy": "esrun scripts/deploy"
 	},

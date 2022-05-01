@@ -1,6 +1,7 @@
 node_modules/
 library/
-package/
+**/package/*
+!**/package/package.json
 .env
 .DS_STORE
 .turbo
