@@ -28,22 +28,21 @@
 	},
 	"dependencies": {
 		"@digitak/print": "^1.1.4",
-		"typezer": "^0.9.19"
-	},
-	"devDependencies": {
+		"typezer": "^0.9.19",
+		"fs-extra": "^10.0.1",
+		"sade": "^1.8.1",
 		"@digitak/bunker": "^3.3.3",
-		"@digitak/esrun": "^3.2.2",
 		"@ltd/j-toml": "^1.30.0",
-		"@types/degit": "^2.8.3",
-		"@types/fs-extra": "^9.0.13",
-		"@types/node": "^16.11.26",
 		"chalk": "^5.0.1",
 		"cli-select": "^1.1.2",
 		"esbuild": "^0.14.29",
+		"@digitak/esrun": "^3.2.2",
+		"node-fetch": "^3.2.3"
+	},
+	"devDependencies": {
+		"@types/fs-extra": "^9.0.13",
+		"@types/node": "^16.11.26",
 		"fartest": "^2.1.8",
-		"fs-extra": "^10.0.1",
-		"node-fetch": "^3.2.3",
-		"sade": "^1.8.1",
 		"typescript": "^4.7.0-dev.20220408"
 	}
 }
