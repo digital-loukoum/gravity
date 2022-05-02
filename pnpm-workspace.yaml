@@ -1,10 +1,11 @@
 packages:
-  - core
-  - integrations/svelte
-  - integrations/svelte-kit
-  - integrations/react
-  - integrations/solid
-  - integrations/next
-  - integrations/vue
-  - integrations/nuxt
-  - integrations/prisma
+  - packages/gravity
+  - packages/create-gravity
+  - packages/gravity-svelte
+  - packages/gravity-svelte-kit
+  - packages/gravity-react
+  - packages/gravity-solid
+  - packages/gravity-next
+  - packages/gravity-vue
+  - packages/gravity-nuxt
+  - packages/gravity-prisma

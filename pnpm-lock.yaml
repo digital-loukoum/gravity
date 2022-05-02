@@ -24,7 +24,20 @@ importers:
       js-yaml: 4.1.0
       turbo: 1.2.6
 
-  core:
+  packages/create-gravity:
+    specifiers:
+      '@digitak/esrun': ^3.2.2
+      '@digitak/gravity': link:../gravity/package
+      fs-extra: ^10.0.0
+      sade: ^1.8.1
+    dependencies:
+      '@digitak/gravity': link:../gravity/package
+      sade: 1.8.1
+    devDependencies:
+      '@digitak/esrun': 3.2.2
+      fs-extra: 10.1.0
+
+  packages/gravity:
     specifiers:
       '@digitak/bunker': ^3.3.3
       '@digitak/esrun': ^3.2.2
@@ -61,10 +74,10 @@ importers:
       sade: 1.8.1
       typescript: 4.7.0-dev.20220501
 
-  integrations/next:
+  packages/gravity-next:
     specifiers:
-      '@digitak/gravity': link:../../core/package
-      '@digitak/gravity-react': link:../react/package
+      '@digitak/gravity': link:../gravity/package
+      '@digitak/gravity-react': link:../gravity-react/package
       '@types/node': ^17.0.30
       '@types/react': 18.0.8
       '@types/react-dom': 18.0.3
@@ -75,9 +88,9 @@ importers:
       react-dom: 18.1.0
       typescript: ^4.7.0-dev.20220429
     dependencies:
-      '@digitak/gravity-react': link:../react/package
+      '@digitak/gravity-react': link:../gravity-react/package
     devDependencies:
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/node': 17.0.30
       '@types/react': 18.0.8
       '@types/react-dom': 18.0.3
@@ -88,25 +101,25 @@ importers:
       react-dom: 18.1.0_react@18.1.0
       typescript: 4.7.0-dev.20220501
 
-  integrations/nuxt:
+  packages/gravity-nuxt:
     specifiers:
-      '@digitak/gravity': link:../../core/package
-      '@digitak/gravity-vue': link:../vue/package
+      '@digitak/gravity': link:../gravity/package
+      '@digitak/gravity-vue': link:../gravity-vue/package
       '@types/node': ^17.0.30
       h3: ^0.7.6
       nuxt: ^3.0.0-rc.1
     dependencies:
-      '@digitak/gravity-vue': link:../vue/package
+      '@digitak/gravity-vue': link:../gravity-vue/package
       h3: 0.7.6
     devDependencies:
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/node': 17.0.30
       nuxt: 3.0.0-rc.1
 
-  integrations/prisma:
+  packages/gravity-prisma:
     specifiers:
       '@digitak/esrun': '*'
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@digitak/tsc-esm': '*'
       '@prisma/client': ^3.8.1
       '@types/fs-extra': ^9.0.13
@@ -116,7 +129,7 @@ importers:
       prisma: ^3.8.1
       typescript: ^4.7.0-dev.20220501
     dependencies:
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
     devDependencies:
       '@digitak/esrun': 3.2.2
       '@digitak/tsc-esm': 3.1.2
@@ -128,10 +141,10 @@ importers:
       prisma: 3.13.0
       typescript: 4.7.0-dev.20220501
 
-  integrations/react:
+  packages/gravity-react:
     specifiers:
       '@digitak/esrun': ^3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/fs-extra': ^9.0.13
       '@types/node': ^16.11.29
       '@types/react': ^18.0.0
@@ -147,7 +160,7 @@ importers:
       zustand: 4.0.0-rc.1_react@18.1.0
     devDependencies:
       '@digitak/esrun': 3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/fs-extra': 9.0.13
       '@types/node': 16.11.32
       '@types/react': 18.0.8
@@ -159,10 +172,10 @@ importers:
       typescript: 4.7.0-dev.20220501
       vite: 2.9.6
 
-  integrations/solid:
+  packages/gravity-solid:
     specifiers:
       '@digitak/esrun': ^3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/fs-extra': ^9.0.13
       '@types/node': ^16.11.29
       fs-extra: ^10.1.0
@@ -172,7 +185,7 @@ importers:
       vite-plugin-solid: ^2.2.6
     devDependencies:
       '@digitak/esrun': 3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/fs-extra': 9.0.13
       '@types/node': 16.11.32
       fs-extra: 10.1.0
@@ -181,10 +194,10 @@ importers:
       vite: 2.9.6
       vite-plugin-solid: 2.2.6
 
-  integrations/svelte:
+  packages/gravity-svelte:
     specifiers:
       '@digitak/esrun': ^3.1.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@sveltejs/vite-plugin-svelte': ^1.0.0-next.30
       '@tsconfig/svelte': ^2.0.1
       '@types/fs-extra': ^9.0.13
@@ -197,7 +210,7 @@ importers:
       vite: ^2.9.5
     devDependencies:
       '@digitak/esrun': 3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@sveltejs/vite-plugin-svelte': 1.0.0-next.42_svelte@3.48.0+vite@2.9.6
       '@tsconfig/svelte': 2.0.1
       '@types/fs-extra': 9.0.13
@@ -209,11 +222,11 @@ importers:
       typescript: 4.7.0-dev.20220501
       vite: 2.9.6
 
-  integrations/svelte-kit:
+  packages/gravity-svelte-kit:
     specifiers:
       '@digitak/esrun': ^3.1.2
-      '@digitak/gravity': link:../../core/package
-      '@digitak/gravity-svelte': link:../svelte/package
+      '@digitak/gravity': link:../gravity/package
+      '@digitak/gravity-svelte': link:../gravity-svelte/package
       '@sveltejs/adapter-auto': next
       '@sveltejs/kit': next
       '@types/fs-extra': ^9.0.13
@@ -232,10 +245,10 @@ importers:
       tslib: ^2.3.1
       typescript: ^4.7.0-dev.20220422
     dependencies:
-      '@digitak/gravity-svelte': link:../svelte/package
+      '@digitak/gravity-svelte': link:../gravity-svelte/package
     devDependencies:
       '@digitak/esrun': 3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@sveltejs/adapter-auto': 1.0.0-next.40
       '@sveltejs/kit': 1.0.0-next.324_svelte@3.48.0
       '@types/fs-extra': 9.0.13
@@ -254,10 +267,10 @@ importers:
       tslib: 2.4.0
       typescript: 4.7.0-dev.20220501
 
-  integrations/vue:
+  packages/gravity-vue:
     specifiers:
       '@digitak/esrun': ^3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/fs-extra': ^9.0.13
       '@types/node': ^16.11.29
       '@vitejs/plugin-vue': ^2.3.1
@@ -268,7 +281,7 @@ importers:
       vue-tsc: ^0.34.7
     devDependencies:
       '@digitak/esrun': 3.2.2
-      '@digitak/gravity': link:../../core/package
+      '@digitak/gravity': link:../gravity/package
       '@types/fs-extra': 9.0.13
       '@types/node': 16.11.32
       '@vitejs/plugin-vue': 2.3.1_vite@2.9.6+vue@3.2.33
@@ -1460,7 +1473,7 @@ packages:
   /@types/sass/1.43.1:
     resolution: {integrity: sha512-BPdoIt1lfJ6B7rw35ncdwBZrAssjcwzI5LByIrYs+tpXlj/CAkuVdRsgZDdP4lq5EjyWzwxZCqAoFyHKFwp32g==}
     dependencies:
-      '@types/node': 16.11.32
+      '@types/node': 17.0.30
     dev: true
 
   /@types/scheduler/0.16.2:
@@ -4778,7 +4791,6 @@ packages:
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
-    dev: true
 
   /mrmime/1.0.0:
     resolution: {integrity: sha512-a70zx7zFfVO7XpnQ2IX1Myh9yY4UYvfld/dikWRnsXxbyvMcfz+u6UfgNAtH+k2QqtJuzVpv6eLTx1G2+WKZbQ==}
@@ -6123,7 +6135,6 @@ packages:
     engines: {node: '>=6'}
     dependencies:
       mri: 1.2.0
-    dev: true
 
   /safe-buffer/5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
@@ -7512,7 +7523,7 @@ packages:
   /wide-align/1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
     dependencies:
-      string-width: 1.0.2
+      string-width: 4.2.3
     dev: true
 
   /word-wrap/1.2.3:

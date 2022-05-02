@@ -1,0 +1,22 @@
+{
+	"name": "@digitak/create-gravity",
+	"version": "0.9.5",
+	"description": "Next-generation backend framework with isomorphic capacities",
+	"repository": "https://github.com/digital-loukoum/gravity.git",
+	"author": "Gin Quin",
+	"license": "GNU v3",
+	"type": "module",
+	"bin": "./bin.js",
+	"scripts": {
+		"test": "esrun source/bin",
+		"build": "esrun scripts/build"
+	},
+	"dependencies": {
+		"@digitak/gravity": "0.9.5",
+		"sade": "^1.8.1"
+	},
+	"devDependencies": {
+		"@digitak/esrun": "^3.2.2",
+		"fs-extra": "^10.0.0"
+	}
+}

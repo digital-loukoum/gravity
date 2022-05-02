@@ -1,0 +1,32 @@
+{
+	"name": "@digitak/gravity-nuxt",
+	"version": "0.9.5",
+	"author": "Gin Quin",
+	"license": "GNU v3",
+	"type": "module",
+	"main": "./index.js",
+	"exports": {
+		".": "./index.js",
+		"./*": "./*.js"
+	},
+	"scripts": {
+		"build": "esrun scripts/build",
+		"check": "tsc --noEmit",
+		"check:dev": "tsc --noEmit --watch",
+		"test": "esrun test",
+		"deploy": "pnpm build && pnpm test && pnpm publish"
+	},
+	"dependencies": {
+		"@digitak/gravity-vue": "0.9.5",
+		"h3": "^0.7.6"
+	},
+	"peerDependencies": {
+		"@digitak/gravity": "0.9.5",
+		"nuxt": "^3.0.0-rc.1"
+	},
+	"devDependencies": {
+		"@digitak/gravity": "0.9.5",
+		"@types/node": "^17.0.30",
+		"nuxt": "^3.0.0-rc.1"
+	}
+}
