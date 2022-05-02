@@ -4,7 +4,7 @@ import { extractRawBody } from "./utilities/extractRawBody.js";
 import { resolveApiRequest } from "./handler/resolveApiRequest.js";
 import { apiMatchesUrl } from "./utilities/apiMatchesUrl.js";
 import { normalizeHandlerOptions } from "./handler/normalizeHandlerOptions.js";
-import type { ServicesRecord } from "./handler/ServicesRecord.js";
+import type { ServicesRecord } from "./services/ServicesRecord.js";
 import type { GetContext } from "./services/GetContext.js";
 
 export const defineHandler = <Services extends ServicesRecord<any>>(

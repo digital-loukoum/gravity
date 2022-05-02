@@ -1,7 +1,7 @@
 import type { Authorize } from "./Authorize.js";
 import type { OnRequestReceive } from "./OnRequestReceive.js";
 import type { OnResponseSend } from "./OnResponseSend.js";
-import type { ServicesRecord } from "./ServicesRecord.js";
+import type { ServicesRecord } from "../services/ServicesRecord.js";
 
 export type DefineHandlerOptions<
 	Context,

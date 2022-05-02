@@ -3,7 +3,7 @@ import type { Handle } from "@sveltejs/kit";
 import type { GetContext } from "@digitak/gravity/services/GetContext";
 import { normalizeHandlerOptions } from "@digitak/gravity/handler/normalizeHandlerOptions";
 import { resolveApiRequest } from "@digitak/gravity/handler/resolveApiRequest";
-import { ServicesRecord } from "@digitak/gravity/handler/ServicesRecord";
+import type { ServicesRecord } from "@digitak/gravity";
 import { apiMatchesUrl } from "@digitak/gravity/utilities/apiMatchesUrl";
 import { parseHeaders } from "@digitak/gravity/utilities/parseHeaders";
 

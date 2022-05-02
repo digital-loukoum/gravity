@@ -1,5 +1,5 @@
 import type { DefineHandlerOptions } from "@digitak/gravity/handler/DefineHandlerOptions";
-import type { ServicesRecord } from "@digitak/gravity/handler/ServicesRecord";
+import type { ServicesRecord } from "@digitak/gravity";
 import type { GetContext } from "@digitak/gravity/services/GetContext";
 import type { IncomingMessage, ServerResponse } from "http";
 import { defineEventHandler } from "h3";

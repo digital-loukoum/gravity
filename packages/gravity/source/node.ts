@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from "http";
 import type { DefineHandlerOptions } from "./handler/DefineHandlerOptions.js";
-import type { ServicesRecord } from "./handler/ServicesRecord.js";
+import type { ServicesRecord } from "./services/ServicesRecord.js";
 import { defineHandler as defineHandlerMiddleware } from "./middleware.js";
 import type { GetContext } from "./services/GetContext.js";
 

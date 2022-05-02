@@ -1,5 +1,5 @@
-import type { BaseService } from "./BaseService.js";
+import type { ServiceInterface } from "./ServiceInterface.js";
 
 export type BaseServiceConstructor<Context = any> = new (
 	context: Context,
-) => BaseService<Context>;
+) => ServiceInterface<Context>;

@@ -6,12 +6,12 @@ import type {
 	LoadOutput,
 	ResponseBody,
 } from "@sveltejs/kit";
-import type { BaseServiceConstructor } from "@digitak/gravity";
 import type { Api } from "@digitak/gravity/api/Api";
 import type { MaybePromise } from "@digitak/gravity/types/MaybePromise";
+import type { ServicesRecord } from "@digitak/gravity";
 
 export type HandlerParameters<
-	Services extends Record<string, BaseServiceConstructor>,
+	Services extends ServicesRecord<any>,
 	Params extends Record<string, string>,
 > = Parameters<RequestHandler<Params>>[0] & {
 	api: Api<Services>;
@@ -22,9 +22,9 @@ export type HandlerReturnType<Output extends ResponseBody = ResponseBody> =
 
 type DefineApiParameters = Parameters<typeof defineSvelteApi>;
 
-type DefineApiReturnType<
-	Services extends Record<string, BaseServiceConstructor>,
-> = ReturnType<typeof defineSvelteApi> & {
+type DefineApiReturnType<Services extends ServicesRecord<any>> = ReturnType<
+	typeof defineSvelteApi
+> & {
 	handler: <
 		Params extends Record<string, string> = Record<string, string>,
 		Output extends ResponseBody = ResponseBody,
@@ -49,9 +49,9 @@ type DefineApiReturnType<
 	) => MaybePromise<LoadOutput<OutputProps>>;
 };
 
-export function defineApi<
-	Services extends Record<string, BaseServiceConstructor>,
->(...parameters: DefineApiParameters): DefineApiReturnType<Services> {
+export function defineApi<Services extends ServicesRecord<any>>(
+	...parameters: DefineApiParameters
+): DefineApiReturnType<Services> {
 	const __coreAPi = defineSvelteApi<Services>(...parameters);
 	const { api, callApi, resolveApiCall } = __coreAPi;
 	return {

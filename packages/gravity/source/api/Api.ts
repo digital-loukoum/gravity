@@ -1,5 +1,5 @@
-import type { BaseService } from "../index.js";
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
+import type { ServicesRecord } from "../services/ServicesRecord.js";
+import type { ServiceInterface } from "../services/ServiceInterface.js";
 import type { Promisify } from "../types/Promisify.js";
 import type { ApiResponse } from "./ApiResponse.js";
 
@@ -38,13 +38,13 @@ type Callable<Type> = Type extends (
 	? { [Key in keyof Type]: Callable<Type[Key]> }
 	: () => Promise<ApiResponse<Type>>;
 
-type ExposedProperties<Service extends BaseService> = {
+type ExposedProperties<Service extends ServiceInterface<any>> = {
 	[Key in Exclude<
 		keyof Service,
 		"context" | `${"$" | "_"}${string}`
 	>]: Callable<Service[Key]>;
 };
 
-export type Api<Services extends Record<string, BaseServiceConstructor>> = {
+export type Api<Services extends ServicesRecord<any>> = {
 	[Key in keyof Services]: ExposedProperties<InstanceType<Services[Key]>>;
 };

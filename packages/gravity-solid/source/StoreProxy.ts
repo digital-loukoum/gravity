@@ -1,4 +1,5 @@
-import type { BaseService, BaseServiceConstructor } from "@digitak/gravity";
+import type { ServiceInterface } from "@digitak/gravity";
+import type { ServicesRecord } from "@digitak/gravity";
 import { Store } from "./Store.js";
 
 /**
@@ -35,15 +36,13 @@ type Callable<Type> = Type extends (
 	? { [Key in keyof Type]: Callable<Type[Key]> }
 	: () => Store<Type>;
 
-type ExposedProperties<Service extends BaseService> = {
+type ExposedProperties<Service extends ServiceInterface<any>> = {
 	[Key in Exclude<
 		keyof Service,
 		"context" | `${"$" | "_"}${string}`
 	>]: Callable<Service[Key]>;
 };
 
-export type StoreProxy<
-	Services extends Record<string, BaseServiceConstructor>,
-> = {
+export type StoreProxy<Services extends ServicesRecord<any>> = {
 	[Key in keyof Services]: ExposedProperties<InstanceType<Services[Key]>>;
 };

@@ -6,7 +6,7 @@ import type { ApiResponse } from "./ApiResponse.js";
 import { bunker, debunker } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
-import type { ServicesRecord } from "../handler/ServicesRecord.js";
+import type { ServicesRecord } from "../services/ServicesRecord.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;

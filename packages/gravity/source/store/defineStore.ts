@@ -8,7 +8,7 @@ import type { ApiResponse } from "../index.js";
 import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
 import { compareArrays } from "../utilities/compareArrays.js";
-import type { ServicesRecord } from "../handler/ServicesRecord.js";
+import type { ServicesRecord } from "../services/ServicesRecord.js";
 
 export type DefineStoreInterface<Store> = {
 	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;

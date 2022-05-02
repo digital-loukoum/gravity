@@ -2,6 +2,8 @@ export { ServerError } from "./errors/ServerError.js";
 
 export { BaseService } from "./services/BaseService.js";
 export type { BaseServiceConstructor } from "./services/BaseServiceConstructor.js";
+export type { ServiceInterface } from "./services/ServiceInterface.js";
+export type { ServicesRecord } from "./services/ServicesRecord.js";
 
 export { defineMetadata } from "./metadata/defineMetadata.js";
 export { defineTag } from "./metadata/defineTag.js";

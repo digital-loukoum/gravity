@@ -1,4 +1,3 @@
-import type { BaseServiceConstructor } from "@digitak/gravity/services/BaseServiceConstructor";
 import { defineStore } from "@digitak/gravity/store/defineStore";
 import type { DefineStoreOptions } from "@digitak/gravity/store/defineStore";
 import type { Store } from "./Store.js";
@@ -7,10 +6,11 @@ import { StoreProxy } from "./StoreProxy.js";
 import { createStore } from "./createStore.js";
 import { storeCache } from "./storeCache.js";
 import { useStore } from "zustand";
+import type { ServicesRecord } from "@digitak/gravity";
 
-export function defineApi<
-	Services extends Record<string, BaseServiceConstructor>,
->(options: DefineStoreOptions = {}) {
+export function defineApi<Services extends ServicesRecord<any>>(
+	options: DefineStoreOptions = {},
+) {
 	return defineStore<Store<unknown>>(options, {
 		storeCache,
 		createStore,

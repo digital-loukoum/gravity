@@ -1,12 +1,15 @@
 import { getServiceInstance } from "./getServiceInstance.js";
+import type { ServiceInterface } from "./ServiceInterface.js";
 
-export abstract class BaseService<Context = any> {
+export abstract class BaseService<Context = any>
+	implements ServiceInterface<Context>
+{
 	constructor(public readonly context: Context) {}
 
 	/**
 	 * Use this method to call another service from a service.
 	 */
-	protected useService<Service extends BaseService<Context>>(
+	protected useService<Service extends { context: Context }>(
 		serviceConstructor: new (context: Context) => Service,
 	): Service {
 		return getServiceInstance(this.context, serviceConstructor);
