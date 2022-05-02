@@ -2,6 +2,7 @@ node_modules/
 library/
 **/package/*
 !**/package/package.json
+!**/package/README.md
 .env
 .DS_STORE
 .turbo
