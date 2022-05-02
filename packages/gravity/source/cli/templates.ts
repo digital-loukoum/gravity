@@ -67,7 +67,7 @@ export const templates = {
     "gravity.toml": "servicesFile = \"src/services/index.ts\"\nschemaFile = \"src/schema.json\"\n",
     "src": {
       "api.ts": "import type { services } from \"./services\";\nimport { defineApi } from \"@digitak/gravity-svelte-kit\";\n\nexport const { api, useApi } = defineApi<typeof services>({\n\tapiPath: \"/api\",\n\t// ...additional options go there\n});\n",
-      "hooks.ts": "import { defineHandler } from \"@digitak/gravity-svelte-kit/server\";\nimport { services } from \"./services/index.js\";\nimport type { Context } from \"./services/Context.js\";\nimport schema from \"./schema.json\";\n\nexport const { handle } = defineHandler<Context>({\n\tapiPath: \"/api\",\n\tservices,\n\tschema,\n});\n",
+      "hooks.ts": "import { defineHandler } from \"@digitak/gravity-svelte-kit/server\";\nimport { services } from \"./services/index.js\";\nimport schema from \"./schema.json\";\n\nexport const { handle } = defineHandler({\n\tapiPath: \"/api\",\n\tservices,\n\tschema,\n});\n",
       "schema.json": "{}\n",
       "services": {
         "Context.ts": "export type Context = undefined;\n",
