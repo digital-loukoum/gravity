@@ -1,11 +1,11 @@
 {
-  // https://v3.nuxtjs.org/concepts/typescript
-  "extends": "../.nuxt/tsconfig.json",
-  "compilerOptions": {
+	// https://v3.nuxtjs.org/concepts/typescript
+	"extends": "./.nuxt/tsconfig.json",
+	"compilerOptions": {
 		"paths": {
 			"@digitak/gravity-nuxt": ["../source"],
 			"@digitak/gravity-nuxt/*": ["../source/*"],
-      "@test/*": ["../../../core/test/server/*"]
+			"@test/*": ["../../../core/test/server/*"]
 		}
-  }
+	}
 }

@@ -4,7 +4,7 @@ import print from "@digitak/print";
 import type { GravityCliOptions } from "../GravityCliOptions.js";
 import { generateSchema } from "./generateSchema.js";
 import { resolveCliOptions } from "../utilities/resolveCliOptions.js";
-import { execSync } from "child_process";
+import { exec, execSync, spawn } from "child_process";
 
 export type GravityDevelopOptions = Pick<
 	GravityCliOptions,
@@ -30,8 +30,10 @@ export function develop(options?: GravityCliOptions) {
 
 	if (use) {
 		// we use another command to run the dev server
-		execSync(use, { stdio: "inherit" });
-		// const child = exec(use);
+		const [command, ...args] = use.split(" ");
+		spawn(command, args, {
+			stdio: "inherit",
+		});
 		// child.on("data", (data) => console.log(data.toString()));
 		// child.on("error", (error) => console.error(error.toString()));
 		// child.on("message", (message) => console.log(message.toString()));
