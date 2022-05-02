@@ -6,9 +6,8 @@
 		"resolveJsonModule": true,
 		"experimentalDecorators": true,
 		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
 		"paths": {
-			"$lib": ["src/lib"],
-			"$lib/*": ["src/lib/*"],
 			"@digitak/gravity-svelte": ["../source"],
 			"@digitak/gravity-svelte/*": ["../source/*"]
 		}
