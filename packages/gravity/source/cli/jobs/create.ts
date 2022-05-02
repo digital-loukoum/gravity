@@ -28,7 +28,7 @@ export async function create(
 			`\n${chalk.yellow.bold("→")} ${chalk.italic(stageName + "...")}`,
 		);
 	const done = (message: string) =>
-		console.log(`${chalk.green.bold("✔️")} ${chalk.bold(message)}`);
+		console.log(`${chalk.green.bold("→")} ${chalk.bold(message)}`);
 
 	/**
 	 * 1. Ensure destination directory exists
@@ -121,21 +121,18 @@ export async function create(
 	/**
 	 * 5. Install packages
 	 */
-	stage(`Installing Gravity packages (this can take some time)`);
+	stage("Installing packages (it can take some time)");
 	const installCommand = {
 		npm: "install",
 		yarn: "add",
 		pnpm: "add",
 	};
-	const packagesToInstall = [
-		"@digitak/gravity",
-		...new Set(
-			[...frameworks].map((framework) => {
-				if (framework == "svelte-kit") framework = "svelte";
-				return `@digitak/gravity-${framework}`;
-			}),
-		),
-	];
+	const packagesToInstall = ["@digitak/gravity", ...frameworks];
+
+	packagesToInstall.forEach((packageName) =>
+		stage(`Installing ${chalk.underline(packageName)}`),
+	);
+
 	execSync(
 		`${packageManager} ${
 			installCommand[packageManager]
