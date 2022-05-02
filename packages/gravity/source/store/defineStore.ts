@@ -4,7 +4,7 @@ import { getCacheKey } from "../api/getCacheKey.js";
 import { isBrowser } from "../utilities/isBrowser.js";
 import type { StoreData } from "./StoreData.js";
 import type { FetchOptions } from "./FetchOptions.js";
-import type { ApiResponse, BaseServiceConstructor } from "../index.js";
+import type { ApiResponse } from "../index.js";
 import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
 import { compareArrays } from "../utilities/compareArrays.js";
@@ -48,7 +48,8 @@ export function defineStore<Store>(
 	}: FetchOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) {
-				return createStore(() => new Promise(() => {}));
+				const store = createStore(() => new Promise(() => {}));
+				return unwrapStore(store);
 			}
 			const body: null | Uint8Array = properties?.length
 				? bunker(properties)

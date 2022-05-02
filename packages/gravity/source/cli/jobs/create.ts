@@ -89,13 +89,13 @@ export async function create(
 
 		if (guessedFrameworks.size) {
 			if (guessedFrameworks.has("svelte-kit")) {
-				guessedFrameworks.add("svelte");
+				guessedFrameworks.delete("svelte");
 			}
 			if (guessedFrameworks.has("next")) {
-				guessedFrameworks.add("react");
+				guessedFrameworks.delete("react");
 			}
 			if (guessedFrameworks.has("nuxt")) {
-				guessedFrameworks.add("vue");
+				guessedFrameworks.delete("vue");
 			}
 
 			guessedFrameworks.forEach((framework) =>
@@ -187,7 +187,7 @@ export async function create(
 		const scripts = findPackageScripts();
 		scripts.dev =
 			scripts.dev && !scripts.dev.startsWith("gravity ")
-				? `gravity dev --use "${scripts.dev.replace(/"/g, '\\"')}"`
+				? `gravity dev --use '${scripts.dev.replace(/'/g, "\\'")}'`
 				: `gravity dev`;
 		scripts.build =
 			scripts.build && !scripts.build.startsWith("gravity ")
