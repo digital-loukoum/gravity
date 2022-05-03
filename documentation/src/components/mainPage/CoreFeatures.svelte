@@ -11,7 +11,7 @@
 		<span slot="link"> See examples </span>
 	</CoreFeature>
 
-	<CoreFeature color="tertiary" link="/docs/installation/install-gravity">
+	<CoreFeature color="tertiary" link="/docs/getting-started/installation">
 		<span slot="title"> Flexible </span>
 
 		Use Gravity with Svelte, React, Vue, Solid and deploy to a classic server or edge functions.

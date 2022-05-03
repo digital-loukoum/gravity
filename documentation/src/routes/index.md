@@ -9,7 +9,6 @@
 	};
 </script>
 
-
 <script lang="ts">
 	import MainSection from 'src/components/MainSection.svelte';
 	import FeatureFooter from 'src/components/FeatureFooter.svelte';
@@ -30,18 +29,19 @@
 And define some functions inside.
 
 ```ts
-import { Service } from "./Service.js"
+import { Service } from './Service.js';
 
 export class math extends Service {
 	add(a: number, b: number) {
-		return a + b
+		return a + b;
 	}
 
 	subtract(a: number, b: number) {
-		return a + b
+		return a + b;
 	}
 }
 ```
+
 !!!
 
 !!!step title="Export your service to your clients"|orientation="vertical"
@@ -49,12 +49,13 @@ export class math extends Service {
 All services in the `services` object will be exposed to your clients.
 
 ```ts
-import { math } from "./math.js"
+import { math } from './math.js';
 
 export const services = {
-	math,
-}
+	math
+};
 ```
+
 !!!
 
 !!!step title="Call your server functions from your client"|orientation="vertical"
@@ -64,17 +65,18 @@ Use the `api` proxy to access all your exported services **from your client**.
 ```ts
 /**
  * This is client-side code.
- */ 
-import { api } from "./api.js"
+ */
+import { api } from './api.js';
 
-const { data, error } = await api.math.add(4, 2)
+const { data, error } = await api.math.add(4, 2);
 
 if (error) {
-	console.log("Error:", error)
+	console.log('Error:', error);
 } else {
-	console.log(data) // should print '6'
+	console.log(data); // should print '6'
 }
 ```
+
 !!!
 
 !!!step title="Let Gravity handle the rest"|orientation="vertical"
@@ -84,15 +86,14 @@ Sit back and congrats yourself!
 You just defined a new server method and used it from your client.
 !!!
 
-<FeatureFooter link="/docs/installation/install-gravity" alignment='center' color="secondary" padding="4px 0 12px">
+<FeatureFooter link="/docs/getting-started/installation" alignment='center' color="secondary" padding="4px 0 12px">
 	Get started
 </FeatureFooter>
 
 :::
 
-
-
 :::section type="tip"
+
 ## End-to-end type safety
 
 :::steps
@@ -110,7 +111,7 @@ The resulting types are then generated into a [schema file](/docs/project-struct
 
 **Write your server code safely**. You will always get the expected types without having to use a validation library.
 
-<FeatureFooter link="/docs/presentation/typescript-usage" alignment='center' color="tertiary" padding="16px 0 12px">
+<FeatureFooter link="/docs/getting-started/typescript-usage" alignment='center' color="tertiary" padding="16px 0 12px">
 	Learn more
 </FeatureFooter>
 !!!
@@ -118,6 +119,7 @@ The resulting types are then generated into a [schema file](/docs/project-struct
 :::
 
 :::section type="note"
+
 ## First-class Prisma integration
 
 :::steps
@@ -131,25 +133,27 @@ import { PrismaService } from './PrismaService';
 
 export class user extends PrismaService(prisma.user) {}
 ```
+
 !!!
 
 !!!step title="Use your Prisma services from your client"|orientation="vertical"
 You can access `user` like any other service via the [api proxy](/docs/usage/use-a-service#api).
 
 ```ts
-import { api } from "./api.js"
+import { api } from './api.js';
 
 const onClick = async () => {
 	await api.user.update({
 		where: {
-			id: "my-unique-id",
+			id: 'my-unique-id'
 		},
 		data: {
-			firstName: "Foo",
-		},
-	})
-}
+			firstName: 'Foo'
+		}
+	});
+};
 ```
+
 !!!
 
 !!!step title="Define your access controls in a declarative way"|orientation="vertical"
@@ -160,13 +164,10 @@ Never let a user **read** or **update** data he has **no relation with**.
 ```ts
 import { PrismaService } from './PrismaService';
 
-export class user extends PrismaService(prisma.user, context => ({
+export class user extends PrismaService(prisma.user, (context) => ({
 	where: {
 		id: {
-			in: [
-				context.user.id,
-				...context.user.friendIds
-			]
+			in: [context.user.id, ...context.user.friendIds]
 		}
 	}
 })) {
@@ -180,8 +181,6 @@ export class user extends PrismaService(prisma.user, context => ({
 
 !!!
 
-
 :::
-
 
 <Signature {version} />

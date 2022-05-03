@@ -4,4 +4,4 @@
 
 👉 Read the [documentation](https://digitak-gravity.netlify.app/docs)
 
-👉 [Get started](https://digitak-gravity.netlify.app/docs/installation/install-gravity)
+👉 [Get started](https://digitak-gravity.netlify.app/docs/getting-started/installation)

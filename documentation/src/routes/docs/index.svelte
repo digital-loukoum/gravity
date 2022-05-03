@@ -5,7 +5,7 @@
 	export function load() {
 		return {
 			status: 307,
-			redirect: '/docs/presentation/what-is-gravity'
+			redirect: '/docs/getting-started/what-is-gravity'
 		};
 	}
 </script>
