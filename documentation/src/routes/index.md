@@ -37,7 +37,7 @@ export class math extends Service {
 	}
 
 	subtract(a: number, b: number) {
-		return a + b;
+		return a - b;
 	}
 }
 ```
