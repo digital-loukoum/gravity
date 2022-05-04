@@ -15,8 +15,8 @@
 	if (browser) {
 		if (slide) {
 			setInterval(() => {
-				slidingDotAngle.update((value) => (value + 0.002) % (2 * Math.PI));
-			}, 6);
+				slidingDotAngle.update((value) => (value + 0.01) % (2 * Math.PI));
+			}, 60);
 		}
 
 		if (walk) {
