@@ -3,7 +3,7 @@
 	--sidebar-width: 320px;
 	--background-color: white;
 	--secondary-background-color: rgba(29, 195, 241, 0.12);
-	--border-color: rgba(60, 60, 67, .12);
+	--border-color: rgba(60, 60, 67, 0.12);
 	--text-color: rgb(70, 70, 70);
 	--inline-code-text-color: rgb(0, 0, 0);
 	--secondary-text-color: #0053c7;
@@ -16,6 +16,7 @@
 :root.dark {
 	--text-color: rgb(210, 210, 210);
 	--inline-code-text-color: white;
+	--secondary-text-color: #90c6ff;
 }
 
 @font-face {
@@ -34,8 +35,8 @@
 }
 
 @font-face {
-	font-family: "Virgil";
-	src: url("/fonts/Virgil.woff2");
+	font-family: 'Virgil';
+	src: url('/fonts/Virgil.woff2');
 }
 
 * {
