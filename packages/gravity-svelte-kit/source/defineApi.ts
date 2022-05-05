@@ -3,12 +3,12 @@ import type { LoadInput, LoadOutput } from "@sveltejs/kit";
 import type { Api } from "@digitak/gravity/api/Api";
 import type { MaybePromise } from "@digitak/gravity/types/MaybePromise";
 import type { ServicesRecord } from "@digitak/gravity";
+import type { DefineStoreResult } from "@digitak/gravity/store/defineStore";
+import type { StoreProxy } from "@digitak/gravity-svelte/StoreProxy";
 
 type DefineApiParameters = Parameters<typeof defineSvelteApi>;
 
-type DefineApiReturnType<Services extends ServicesRecord<any>> = ReturnType<
-	typeof defineSvelteApi
-> & {
+type ApiLoader<Services extends ServicesRecord<any>> = {
 	loader: <
 		Params extends Record<string, string> = Record<string, string>,
 		InputProps extends Record<string, any> = Record<string, any>,
@@ -26,7 +26,7 @@ type DefineApiReturnType<Services extends ServicesRecord<any>> = ReturnType<
 
 export function defineApi<Services extends ServicesRecord<any>>(
 	...parameters: DefineApiParameters
-): DefineApiReturnType<Services> {
+): DefineStoreResult<Services, StoreProxy<Services>> & ApiLoader<Services> {
 	const coreAPi = defineSvelteApi<Services>(...parameters);
 	const { callApi } = coreAPi;
 	return {

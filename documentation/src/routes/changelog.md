@@ -1,3 +1,6 @@
+## 0.9.18
+- fix defineApi type for svelte-kit
+
 ## 0.9.17
 
 - add more advanced example
