@@ -1,7 +1,12 @@
-## 0.9.18
+## 0.9.20
+
+- add doc for `esModuleInterop` when working with prisma
+
+## 0.9.19
+
 - fix defineApi type for svelte-kit
 
-## 0.9.17
+## 0.9.18
 
 - add more advanced example
 - fix secondary text color for dark theme
