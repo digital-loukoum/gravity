@@ -1,3 +1,8 @@
+## 0.9.21
+
+- await for promises in api and store
+- fix some test imports
+
 ## 0.9.20
 
 - add doc for `esModuleInterop` when working with prisma

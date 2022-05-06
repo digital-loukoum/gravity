@@ -60,13 +60,13 @@ export const templates = {
   },
   "svelte": {
     "src": {
-      "api.ts": "import type { services } from \"/path/to/your/services\";\nimport { defineApi } from \"@digitak/gravity-svelte\";\n\nexport const { api, useApi } = defineApi<typeof services>({\n\t// additional options go there\n});\n"
+      "api.ts": "import type { services } from \"/path/to/your/services\";\nimport { defineApi } from \"@digitak/gravity-svelte\";\n\nexport const { api, store } = defineApi<typeof services>({\n\t// additional options go there\n});\n"
     }
   },
   "svelte-kit": {
     "gravity.toml": "servicesFile = \"src/services/index.ts\"\nschemaFile = \"src/schema.json\"\n",
     "src": {
-      "api.ts": "import type { services } from \"./services\";\nimport { defineApi } from \"@digitak/gravity-svelte-kit\";\n\nexport const { api, useApi } = defineApi<typeof services>({\n\tapiPath: \"/api\",\n\t// ...additional options go there\n});\n",
+      "api.ts": "import type { services } from \"./services\";\nimport { defineApi } from \"@digitak/gravity-svelte-kit\";\n\nexport const { api, store } = defineApi<typeof services>({\n\tapiPath: \"/api\",\n\t// ...additional options go there\n});\n",
       "hooks.ts": "import { defineHandler } from \"@digitak/gravity-svelte-kit/server\";\nimport { services } from \"./services/index.js\";\nimport schema from \"./schema.json\";\n\nexport const { handle } = defineHandler({\n\tapiPath: \"/api\",\n\tservices,\n\tschema,\n});\n",
       "schema.json": "{}\n",
       "services": {

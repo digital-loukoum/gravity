@@ -7,6 +7,10 @@ export class foo extends Service {
 		return "foo";
 	}
 
+	async asyncFoo() {
+		return "foo";
+	}
+
 	rawString = "rawString";
 	rawArray = [1, 2, 3];
 	rawDate = new Date();

@@ -1,6 +1,5 @@
 import type { ServicesRecord } from "../services/ServicesRecord.js";
 import type { ServiceInterface } from "../services/ServiceInterface.js";
-import type { Promisify } from "../types/Promisify.js";
 import type { ApiResponse } from "./ApiResponse.js";
 
 /**
@@ -19,7 +18,7 @@ import type { ApiResponse } from "./ApiResponse.js";
 type Callable<Type> = Type extends (
 	...args: infer Parameters
 ) => infer ReturnType
-	? (...args: Parameters) => Promisify<ApiResponse<ReturnType>>
+	? (...args: Parameters) => Promise<ApiResponse<ReturnType>>
 	: Type extends any[]
 	? Array<() => Promise<ApiResponse<Type[number]>>> &
 			(() => Promise<ApiResponse<Type>>)

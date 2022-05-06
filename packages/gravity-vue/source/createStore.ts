@@ -12,7 +12,7 @@ export const createStore = <Data>(
 	const store = reactive<StoreData<Data>>({
 		...createStoreData<Data>(),
 		refresh: async () => {
-			refreshStoreData(store);
+			refreshStoreData(store as StoreData<Data>);
 			const data = await fetcher();
 			console.log("data", data);
 			updateStoreData(store as StoreData<Data>, data);

@@ -1,6 +1,6 @@
 export type ApiResponse<Data = unknown> =
 	| {
-			data: Data;
+			data: Awaited<Data>;
 			error?: undefined;
 	  }
 	| {
