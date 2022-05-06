@@ -1,3 +1,7 @@
+## 0.9.22
+
+- use typezer@^0.9.21 that fix bug of optional parameters allowing undefined values
+
 ## 0.9.21
 
 - await for promises in api and store
