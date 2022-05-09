@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let version: string;
 	import GithubIcon from 'svelte-material-icons/Github.svelte';
+	import TwitterIcon from 'svelte-material-icons/Twitter.svelte';
 	import Link from './Link.svelte';
 </script>
 
@@ -34,6 +35,9 @@
 	<aside class="right">
 		<Link variant="underline" to="/docs">Documentation</Link>
 		<!-- <Link variant="underline" to="/changelog">Beta {version}</Link> -->
+		<Link variant="default" to="https://twitter.com/Gin_Quin">
+			<TwitterIcon size="24" />
+		</Link>
 		<Link variant="default" to="https://github.com/digital-loukoum/gravity">
 			<GithubIcon size="24" />
 			GitHub
