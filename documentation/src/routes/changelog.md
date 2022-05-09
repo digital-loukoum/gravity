@@ -1,3 +1,8 @@
+## 0.9.23
+
+- use typezer@^0.9.22 that improves error messages
+- add Twitter link to the homepage
+
 ## 0.9.22
 
 - use typezer@^0.9.21 that fix bug of optional parameters allowing undefined values

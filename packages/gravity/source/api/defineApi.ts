@@ -1,4 +1,3 @@
-import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 import type { Api } from "./Api.js";
 import type { OnRequestSend } from "./OnRequestSend.js";
 import type { OnResponseReceive } from "./OnResponseReceive.js";
