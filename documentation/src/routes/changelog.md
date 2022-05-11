@@ -1,3 +1,7 @@
+## 0.9.24
+
+- remove wild console logs
+
 ## 0.9.23
 
 - use typezer@^0.9.22 that improves error messages
