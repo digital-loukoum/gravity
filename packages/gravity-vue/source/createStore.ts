@@ -14,7 +14,6 @@ export const createStore = <Data>(
 		refresh: async () => {
 			refreshStoreData(store as StoreData<Data>);
 			const data = await fetcher();
-			console.log("data", data);
 			updateStoreData(store as StoreData<Data>, data);
 		},
 	});
