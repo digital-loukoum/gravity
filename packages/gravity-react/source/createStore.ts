@@ -12,10 +12,11 @@ export const createStore = <Data>(
 	const store = createZustandStore<StoreData<Data>>((set) => ({
 		...createStoreData<Data>(),
 		refresh: async () => {
-			set((state) => refreshStoreData(state));
+			set(() => refreshStoreData(<StoreData<Data>>{}));
 			const data = await fetcher();
-			set((state) => updateStoreData(state, data));
+			set(() => updateStoreData(<StoreData<Data>>{}, data));
 		},
 	}));
+	store.subscribe((value) => console.log("Store changed", value));
 	return store;
 };

@@ -1,3 +1,8 @@
+## 0.9.25
+
+- fix React stores. Zustand was not used correctly.
+- fix documentation for Solid stores. Unlike React, reactive stores with Solid need `createMemo`.
+
 ## 0.9.24
 
 - remove wild console logs

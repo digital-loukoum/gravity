@@ -64,6 +64,24 @@
         }
       ]
     },
+    "asyncFoo": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "Promise",
+            "item": {
+              "typeName": "String"
+            }
+          }
+        }
+      ],
+      "modifiers": [
+        "async"
+      ]
+    },
     "rawString": {
       "typeName": "String"
     },

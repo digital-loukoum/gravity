@@ -4,8 +4,6 @@ import { RequestCard } from "./components/RequestCard";
 
 function App() {
 	console.log("App is called");
-	// const [count, setCount] = useState(0);
-	// const [storeCount, setStoreCount] = getStore("zabu");
 	const [a, setA] = useState(2);
 	const [b, setB] = useState(3);
 
@@ -16,7 +14,6 @@ function App() {
 	const storeSum = store.math.add(a, b);
 
 	useMemo(() => {
-		// storeSum.refresh();
 		setIsApiLoading(true);
 		setApiData(undefined);
 		setApiError(undefined);
@@ -50,6 +47,7 @@ function App() {
 				refreshing={storeSum.isRefreshing}
 				data={storeSum.data}
 				error={storeSum.error}
+				refresh={storeSum.refresh}
 			/>
 		</>
 	);

@@ -4,8 +4,9 @@ export function RequestCard(props: {
 	refreshing: boolean;
 	data: unknown;
 	error: unknown;
+	refresh?: () => void;
 }) {
-	const { title, loading, refreshing, data, error } = props;
+	const { title, loading, refreshing, data, error, refresh } = props;
 
 	const cardStyle = {
 		display: "flex",
@@ -36,6 +37,14 @@ export function RequestCard(props: {
 		fontWeight: "bold",
 	} as const;
 
+	const buttonStyle = {
+		padding: "8px 16px",
+		background: "white",
+		border: "1px solid #ccc",
+		borderRadius: "4px",
+		cursor: "pointer",
+	} as const;
+
 	return (
 		<div style={cardStyle}>
 			<h2 style={titleStyle}>{title}</h2>
@@ -59,6 +68,12 @@ export function RequestCard(props: {
 				<span style={labelStyle}>error</span>
 				<span>{String(error)}</span>
 			</div>
+
+			{refresh && (
+				<button style={buttonStyle} onClick={refresh}>
+					Refresh
+				</button>
+			)}
 		</div>
 	);
 }
