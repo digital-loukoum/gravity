@@ -47,3 +47,36 @@ type ExposedProperties<Service extends ServiceInterface<any>> = {
 export type Api<Services extends ServicesRecord<any>> = {
 	[Key in keyof Services]: ExposedProperties<InstanceType<Services[Key]>>;
 };
+
+/**
+ * BEACON API
+ */
+type SendableBeacon<Type> = Type extends (...args: infer Parameters) => any
+	? (...args: Parameters) => boolean
+	: Type extends any[]
+	? Array<() => boolean> & (() => boolean)
+	: Type extends
+			| Set<any>
+			| Map<any, any>
+			| RegExp
+			| String
+			| Number
+			| BigInt
+			| Boolean
+			| Date
+			| ArrayBuffer
+	? () => boolean
+	: Type extends object
+	? { [Key in keyof Type]: SendableBeacon<Type[Key]> }
+	: () => boolean;
+
+type ExposedBeaconProperties<Service extends ServiceInterface<any>> = {
+	[Key in Exclude<
+		keyof Service,
+		"context" | `${"$" | "_"}${string}`
+	>]: SendableBeacon<Service[Key]>;
+};
+
+export type BeaconApi<Services extends ServicesRecord<any>> = {
+	[Key in keyof Services]: ExposedBeaconProperties<InstanceType<Services[Key]>>;
+};

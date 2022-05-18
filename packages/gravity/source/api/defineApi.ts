@@ -1,4 +1,4 @@
-import type { Api } from "./Api.js";
+import type { Api, BeaconApi } from "./Api.js";
 import type { OnRequestSend } from "./OnRequestSend.js";
 import type { OnResponseReceive } from "./OnResponseReceive.js";
 import type { ApiResponse } from "./ApiResponse.js";
@@ -19,6 +19,7 @@ export type CallApiOptions = {
 
 export type DefineApiResult<Services extends ServicesRecord<any>> = {
 	api: Api<Services>;
+	beacon: BeaconApi<Services>;
 	callApi: (options: CallApiOptions) => Api<Services>;
 	resolveApiCall: (
 		fetcher: typeof fetch,
@@ -85,5 +86,16 @@ export function defineApi<Services extends ServicesRecord<any>>({
 		fetcher: fetch,
 	});
 
-	return { api, callApi, resolveApiCall };
+	const beacon = apiProxy<BeaconApi<Services>>(
+		(service, target, properties) => {
+			const data = properties?.length ? bunker(properties) : null;
+			if (typeof navigator == "undefined")
+				throw new Error(`Global variable navigator is undefined`);
+			if (typeof navigator.sendBeacon == "undefined")
+				throw new Error(`navigator.sendBeacon is undefined`);
+			return navigator.sendBeacon(`${apiPath}${service}/${target}`, data);
+		},
+	);
+
+	return { api, beacon, callApi, resolveApiCall };
 }

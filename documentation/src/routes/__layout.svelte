@@ -59,10 +59,10 @@
 				title: 'Documentation',
 				slug: '/docs'
 			},
-			// {
-			// 	title: 'Changelog',
-			// 	slug: '/changelog'
-			// },
+			{
+				title: 'Changelog',
+				slug: '/changelog'
+			},
 			{
 				title: 'Github',
 				slug: 'https://github.com/digital-loukoum/gravity'

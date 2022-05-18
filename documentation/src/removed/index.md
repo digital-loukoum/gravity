@@ -118,4 +118,69 @@ The resulting types are then generated into a [schema file](/docs/project-struct
 
 :::
 
+:::section type="note"
+
+## First-class Prisma integration
+
+:::steps
+
+!!!step title="Create services that extend your Prisma models"|orientation="vertical"
+
+The `user` service will automatically extend all [Prisma methods](https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#findunique).
+
+```ts
+import { PrismaService } from './PrismaService';
+
+export class user extends PrismaService(prisma.user) {}
+```
+
+!!!
+
+!!!step title="Use your Prisma services from your client"|orientation="vertical"
+You can access `user` like any other service via the [api proxy](/docs/usage/use-a-service#api).
+
+```ts
+import { api } from './api.js';
+
+const onClick = async () => {
+	await api.user.update({
+		where: {
+			id: 'my-unique-id'
+		},
+		data: {
+			firstName: 'Foo'
+		}
+	});
+};
+```
+
+!!!
+
+!!!step title="Define your access controls in a declarative way"|orientation="vertical"
+**Describe** your access control rules at **service-level**.
+
+Never let a user **read** or **update** data he has **no relation with**.
+
+```ts
+import { PrismaService } from './PrismaService';
+
+export class user extends PrismaService(prisma.user, (context) => ({
+	where: {
+		id: {
+			in: [context.user.id, ...context.user.friendIds]
+		}
+	}
+})) {
+	// ...your other custom methods here
+}
+```
+
+<FeatureFooter link="/docs/prisma/presentation" alignment='center' color="primary" padding="12px 0 12px">
+	Learn more about Prisma
+</FeatureFooter>
+
+!!!
+
+:::
+
 <Signature {version} />

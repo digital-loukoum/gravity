@@ -1,3 +1,10 @@
+## 0.9.26
+
+- use Typezer@0.9.24 which fix optional parameters validation
+- add changelog to the documentation
+- add "for Typescript" in main page
+- remove Prisma integration from the doc for now. Prisma types can get so complicated (ex: create input for a model with a relation) that the schema becomes super-huge
+
 ## 0.9.25
 
 - fix React stores. Zustand was not used correctly.
@@ -34,5 +41,5 @@
 - add more advanced example
 - fix secondary text color for dark theme
 - make icon animation not so aggressive for CPU
-- fix subtraction example in the main page that was actually performing an addition 😅
-- create this changelog. Youhou! 🎉
+- fix subtraction example in the main page that was actually performing an addition
+- create this changelog 🎉

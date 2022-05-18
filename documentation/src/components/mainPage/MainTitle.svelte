@@ -10,7 +10,7 @@
 		<div class="title" in:fade={{ delay: 200, duration: 200 }}>
 			<Typewriter value="Gravity" initialDelay={400} />
 		</div>
-		<div class="subtitle" in:fade={{ delay: 1400 }}>The scalable RPC framework</div>
+		<div class="subtitle" in:fade={{ delay: 1400 }}>The scalable RPC framework for Typescript</div>
 	{/if}
 </main>
 

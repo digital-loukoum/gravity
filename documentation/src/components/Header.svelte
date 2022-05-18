@@ -34,7 +34,7 @@
 
 	<aside class="right">
 		<Link variant="underline" to="/docs">Documentation</Link>
-		<!-- <Link variant="underline" to="/changelog">Beta {version}</Link> -->
+		<Link variant="underline" to="/changelog">Changelog</Link>
 		<Link variant="default" to="https://twitter.com/Gin_Quin">
 			<TwitterIcon size="24" />
 		</Link>
@@ -79,7 +79,7 @@
 		.by-digital-loukoums
 			display: none
 
-	@media (max-width: 600px)
+	@media (max-width: 640px)
 		aside.right
 			display: none
 

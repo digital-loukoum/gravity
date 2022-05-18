@@ -72,16 +72,14 @@ article {
 	margin-bottom: 32px;
 }
 
-
 @media (max-width: 768px) {
 	.prose p {
 		font-size: 16px;
 	}
 }
 
-@media not all and (max-width: 600px) {
+@media not all and (max-width: 640px) {
 	#gravity-header ~ .-mr-2 {
 		display: none;
 	}
 }
-
