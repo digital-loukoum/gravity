@@ -1,3 +1,7 @@
+## 0.9.27
+
+- update to bunker@3.3.4 which supports typed arrays
+
 ## 0.9.26
 
 - use Typezer@0.9.24 which fix optional parameters validation
