@@ -1,3 +1,7 @@
+## 0.9.28
+
+- update to bunker@3.3.5 which fix a bug with typed arrays
+
 ## 0.9.27
 
 - update to bunker@3.3.4 which supports typed arrays
