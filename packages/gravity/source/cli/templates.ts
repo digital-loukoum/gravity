@@ -2,7 +2,7 @@ export const templates = {
   "gravity": {
     "gravity.toml": "servicesFile = \"src/services/index.ts\"\nschemaFile = \"src/schema.json\"\nentryFile = \"src/index.ts\"\noutputFile = \"build/index.js\"\n",
     "src": {
-      "index.ts": "import { createServer } from \"http\";\nimport { defineHandler } from \"@digitak/gravity/node\";\nimport { services } from \"./services/index.js\";\nimport schema from \"./schema.json\";\n\nconst PORT = 3000;\n\nconst gravityHandler = defineHandler({\n\tapiPath: \"/api\",\n\tservices,\n\tschema,\n});\n\nconst server = createServer(gravityHandler);\n\nserver.listen(PORT, () => {\n\tconsole.log(`✨ Gravity server listening to port ${PORT}`);\n});\n",
+      "index.ts": "import { createServer } from \"http\";\nimport { defineHandler } from \"@digitak/gravity/node\";\nimport { services } from \"./services/index.js\";\nimport schema from \"./schema.json\";\n\nconst PORT = 3000;\n\nconst { handler } = defineHandler({\n\tapiPath: \"/api\",\n\tservices,\n\tschema,\n});\n\nconst server = createServer(handler);\n\nserver.listen(PORT, () => {\n\tconsole.log(`✨ Gravity server listening to port ${PORT}`);\n});\n",
       "schema.json": "{}\n",
       "services": {
         "Context.ts": "export type Context = undefined;\n",
