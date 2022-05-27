@@ -6,8 +6,8 @@ import type { StoreData } from "./StoreData.js";
 import type { FetchOptions } from "./FetchOptions.js";
 import type { ApiResponse } from "../index.js";
 import { defineApi } from "../api.js";
-import { bunker } from "@digitak/bunker";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
+import { encodeProperties } from "../utilities/encodeProperties.js";
 
 export type DefineStoreInterface<Store> = {
 	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;
@@ -50,14 +50,11 @@ export function defineStore<Store>(
 				const store = createStore(() => new Promise(() => {}));
 				return unwrapStore(store);
 			}
-			const body: null | Uint8Array = properties?.length
-				? bunker(properties)
-				: null;
+			const body = encodeProperties(properties);
+			const key = getCacheKey(service, operation, body);
 
 			const fetcher = () =>
 				resolveApiCall(fetch, service, operation, properties, body);
-
-			const key = getCacheKey(service, operation, body);
 
 			let store: Store;
 			let cached = (cache === true || cache == "read") && storeCache.get(key);

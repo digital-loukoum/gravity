@@ -6,6 +6,7 @@ import { bunker, debunker } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
+import { encodeProperties } from "../utilities/encodeProperties.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -47,7 +48,7 @@ export function defineApi<Services extends ServicesRecord<any>>({
 		const headers = new Headers();
 		headers.append("Content-Type", "application/bunker");
 		if (body === undefined) {
-			body = properties?.length ? bunker(properties) : null;
+			body = encodeProperties(properties);
 		}
 
 		// define the base request object and pass it to the onRequestSend middleware
@@ -88,7 +89,7 @@ export function defineApi<Services extends ServicesRecord<any>>({
 
 	const beacon = apiProxy<BeaconApi<Services>>(
 		(service, target, properties) => {
-			const data = properties?.length ? bunker(properties) : null;
+			const data = encodeProperties(properties);
 			if (typeof navigator == "undefined")
 				throw new Error(`Global variable navigator is undefined`);
 			if (typeof navigator.sendBeacon == "undefined")
