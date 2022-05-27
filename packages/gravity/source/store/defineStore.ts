@@ -7,12 +7,11 @@ import type { FetchOptions } from "./FetchOptions.js";
 import type { ApiResponse } from "../index.js";
 import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
-import { compareArrays } from "../utilities/compareArrays.js";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
 
 export type DefineStoreInterface<Store> = {
 	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;
-	storeCache: Map<string, Map<Uint8Array | null, Store>>;
+	storeCache: Map<string, Store>;
 	getStoreData: (store: Store) => StoreData<unknown>;
 	unwrapStore?: (store: Store) => any;
 	refreshOnStoreRequest?: boolean;
@@ -58,29 +57,16 @@ export function defineStore<Store>(
 			const fetcher = () =>
 				resolveApiCall(fetch, service, operation, properties, body);
 
-			const key = getCacheKey(service, operation);
+			const key = getCacheKey(service, operation, body);
 
 			let store: Store;
-			let cached: false | undefined | Store = false;
-			let cacheMap = storeCache.get(key);
-
-			if (cacheMap && (cache === true || cache == "read")) {
-				for (const [serializedParameters, cachedStore] of cacheMap) {
-					if (compareArrays(serializedParameters, body)) {
-						cached = cachedStore;
-						break;
-					}
-				}
-			}
+			let cached = (cache === true || cache == "read") && storeCache.get(key);
 
 			if (cached) store = cached;
 			else {
 				store = createStore(fetcher);
 				if (cache === true || cache == "write") {
-					if (!cacheMap) {
-						storeCache.set(key, (cacheMap = new Map()));
-					}
-					cacheMap.set(body, store);
+					storeCache.set(key, store);
 				}
 			}
 
