@@ -5,13 +5,13 @@ import schema from "./schema.json";
 
 const PORT = 3000;
 
-const gravityHandler = defineHandler({
+const { handler } = defineHandler({
 	apiPath: "/api",
 	services,
 	schema,
 });
 
-const server = createServer(gravityHandler);
+const server = createServer(handler);
 
 server.listen(PORT, () => {
 	console.log(`✨ Gravity server listening to port ${PORT}`);

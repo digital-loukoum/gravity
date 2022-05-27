@@ -1,3 +1,9 @@
+## 0.9.30
+
+- fix handler usage in documentation (Gravity as middleware) and in templates
+
+Thanks to @omar-dulaimi for the fix 🎉
+
 ## 0.9.29
 
 - update to @digitak/esrun@3.2.5 which fix watching
