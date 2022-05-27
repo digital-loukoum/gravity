@@ -1,3 +1,8 @@
+## 0.9.29
+
+- update to @digitak/esrun@3.2.5 which fix watching
+- update to typezer@0.9.26 that brings automatic `tsconfig.json` detection and enable to use path aliases (returned `any` on a type issued from a path alias)
+
 ## 0.9.28
 
 - update to bunker@3.3.5 which fix a bug with typed arrays

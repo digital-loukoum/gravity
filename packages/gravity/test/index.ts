@@ -7,6 +7,9 @@ let server: ChildProcessWithoutNullStreams | null = spawn(`npm`, [
 	"test:server",
 ]);
 
+const sleep = (value: number) =>
+	new Promise((resolve) => setTimeout(resolve, value));
+
 const stopServer = () => {
 	server?.kill();
 	server = null;

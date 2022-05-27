@@ -40,7 +40,7 @@ importers:
   packages/gravity:
     specifiers:
       '@digitak/bunker': ^3.3.5
-      '@digitak/esrun': ^3.2.2
+      '@digitak/esrun': ^3.2.5
       '@digitak/print': ^1.1.4
       '@ltd/j-toml': ^1.30.0
       '@types/fs-extra': ^9.0.13
@@ -52,11 +52,11 @@ importers:
       fs-extra: ^10.0.1
       node-fetch: ^3.2.3
       sade: ^1.8.1
-      typescript: ^4.7.0-dev.20220408
-      typezer: ^0.9.24
+      typescript: ^4.7.2
+      typezer: ^0.9.26
     dependencies:
       '@digitak/bunker': 3.3.5
-      '@digitak/esrun': 3.2.2
+      '@digitak/esrun': 3.2.5
       '@digitak/print': 1.1.4
       '@ltd/j-toml': 1.30.0
       chalk: 5.0.1
@@ -65,12 +65,12 @@ importers:
       fs-extra: 10.1.0
       node-fetch: 3.2.4
       sade: 1.8.1
-      typezer: 0.9.24
+      typezer: 0.9.26
     devDependencies:
       '@types/fs-extra': 9.0.13
       '@types/node': 16.11.32
       fartest: 2.1.8
-      typescript: 4.7.0-dev.20220501
+      typescript: 4.7.2
 
   packages/gravity-next:
     specifiers:
@@ -699,10 +699,20 @@ packages:
       anymatch: 3.1.2
       chokidar: 3.5.3
       esbuild: 0.12.29
+    dev: true
+
+  /@digitak/esrun/3.2.5:
+    resolution: {integrity: sha512-yVLHbM3kMH9htNbNl/X36j0zmwLsVkrZE+l0ImFeygbNo6yXmr26Ty5GqeAvIkkGMnr5eu3PDTyd4GbqIpmUPw==}
+    engines: {node: '>=14.0'}
+    hasBin: true
+    dependencies:
+      '@digitak/grubber': 3.1.1
+      chokidar: 3.5.3
+      esbuild: 0.12.29
+    dev: false
 
   /@digitak/grubber/3.1.1:
     resolution: {integrity: sha512-xHpmj3Erk5AA/nKpOJzap23TJSV0MFRTgtciG8XZg0GP0CUwms0g02SQQaKEPCe2mvKVlqfzad3xV4DiHlq2jA==}
-    dev: true
 
   /@digitak/print/1.1.4:
     resolution: {integrity: sha512-0RHK/VmKO/JXxvDjpUJo1IwYVf+ZSBx543sk8FVBegp9pUPkGnSnd9waQv5yBLuaRg+WneNiFBmnhOKdPV4pOQ==}
@@ -4357,7 +4367,6 @@ packages:
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-    dev: true
 
   /js-yaml/3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
@@ -4582,7 +4591,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: true
 
   /lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
@@ -5881,7 +5889,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /read-cache/1.0.0:
     resolution: {integrity: sha1-5mTvMRYRZsl1HNvo28+GtftY93Q=}
@@ -6966,9 +6973,15 @@ packages:
     resolution: {integrity: sha512-B7jOkO+Wxe8+MfKAtjAeA0iQQVAYnUXDkdoqw9CjRQX87ZcLZxUvlqkcWmBdJ5swzbFjFAqa4PJvN5zOTgSOUw==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: true
 
-  /typezer/0.9.24:
-    resolution: {integrity: sha512-N7EatppwdywmSlWIdONo0VMvNT62Unhu+obYqWrHEAQySTaEdQtHNcGMOFnv7Z2KUax5H2AlJMg69UuuciPXdQ==}
+  /typescript/4.7.2:
+    resolution: {integrity: sha512-Mamb1iX2FDUpcTRzltPxgWMKy3fhg0TN378ylbktPGPK/99KbDtMQ4W1hwgsbPAsG3a0xKa1vmw4VKZQbkvz5A==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+
+  /typezer/0.9.26:
+    resolution: {integrity: sha512-4pbGHsTLAeaUyG/xERpieC6ivLzt1acIzeQQ5cltGs4veLnizor1n/cjI96f9Abgu7L1ooj4RGRtzPL/G3hVUA==}
     dependencies:
       '@digitak/cute': 1.0.2
       '@digitak/print': 1.1.4
@@ -6976,7 +6989,7 @@ packages:
       chokidar: 3.5.3
       fast-glob: 3.2.11
       micromatch: 4.0.5
-      typescript: 4.7.0-dev.20220501
+      typescript: 4.7.2
     dev: false
 
   /ufo/0.7.11:
