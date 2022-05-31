@@ -2,7 +2,7 @@
 
 - fix handler usage in documentation (Gravity as middleware) and in templates
 
-Thanks to @omar-dulaimi for the fix 🎉
+Thanks to **@omar-dulaimi** for the fix 🎉
 
 ## 0.9.29
 
