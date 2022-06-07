@@ -52,6 +52,18 @@
     }
   },
   "foo": {
+    "void": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "Undefined"
+          }
+        }
+      ]
+    },
     "foo": {
       "typeName": "Function",
       "signatures": [

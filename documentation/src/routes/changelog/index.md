@@ -1,3 +1,7 @@
+## 0.9.32
+
+- fix crash on void functions when encoding / decoding with JSON
+
 ## 0.9.31
 
 - add persistence option to store data in a local IndexedDB database
