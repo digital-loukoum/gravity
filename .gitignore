@@ -1,7 +1,7 @@
 node_modules/
-library/
 **/package/*
 !**/package/README.md
 .env
 .DS_STORE
 .turbo
+/pnpm-lock.yaml
