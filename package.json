@@ -1,5 +1,6 @@
 {
 	"version": "0.9.30",
+	"packageManager": "pnpm@7.1.6",
 	"workspaces": [
 		"core",
 		"integrations/svelte",
