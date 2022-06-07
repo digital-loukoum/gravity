@@ -16,6 +16,8 @@ export type DefineStoreInterface<Store> = {
 	getStoreData: (store: Store) => StoreData<unknown>;
 	unwrapStore?: (store: Store) => any;
 	refreshOnStoreRequest?: boolean;
+	allowNoCache: boolean;
+	frameworkName: string;
 };
 
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
@@ -33,6 +35,8 @@ export function defineStore<Store>(
 	{
 		storeCache,
 		refreshOnStoreRequest,
+		frameworkName,
+		allowNoCache,
 		createStore,
 		getStoreData,
 		unwrapStore = (store) => store,
@@ -49,6 +53,12 @@ export function defineStore<Store>(
 		fetcher: customFetcher = options.fetcher,
 	}: FetchOptions = {}) =>
 		apiProxy((service, operation, properties) => {
+			if (cache !== true && !allowNoCache) {
+				cache = true;
+				console.warn(
+					`[Gravity] Enabling store cache with ${frameworkName} is mandatory as setting it to another value than 'true' would create infinite loops.\n[Gravity] Store cache has been switched on.`,
+				);
+			}
 			if (!isBrowser()) {
 				const store = createStore(async function* () {
 					// on non-browser, return a promise that never resolves
@@ -102,13 +112,10 @@ export function defineStore<Store>(
 				}
 			}
 
-			console.log("cached", cached);
-			console.log("network", network, network && !cached);
 			if ((network && !cached) || (refreshOnStoreRequest && network === true)) {
 				const { lastRefreshAt, refresh } = getStoreData(store);
 				const shouldRefresh =
 					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();
-				console.log("shouldRefresh", shouldRefresh);
 				if (shouldRefresh) refresh();
 			}
 

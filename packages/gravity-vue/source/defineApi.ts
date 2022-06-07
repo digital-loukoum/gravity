@@ -11,9 +11,11 @@ export function defineApi<Services extends ServicesRecord<any>>(
 	options: DefineStoreOptions = {},
 ) {
 	return defineStore<Store<unknown>>(options, {
+		frameworkName: "Vue",
 		storeCache,
 		createStore,
 		getStoreData: (store) => store,
-		// refreshOnStoreRequest: true,
+		refreshOnStoreRequest: false,
+		allowNoCache: false, // no cache would cause infinite refreshes
 	}) as DefineStoreResult<Services, StoreProxy<Services>>;
 }

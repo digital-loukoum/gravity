@@ -12,9 +12,11 @@ export function defineApi<Services extends ServicesRecord<any>>(
 	options: DefineStoreOptions = {},
 ) {
 	return defineStore<Store<unknown>>(options, {
+		frameworkName: "Svelte",
 		storeCache,
 		createStore,
 		getStoreData,
 		refreshOnStoreRequest: true,
+		allowNoCache: true,
 	}) as DefineStoreResult<Services, StoreProxy<Services>>;
 }

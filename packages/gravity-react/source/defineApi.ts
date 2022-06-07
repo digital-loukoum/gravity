@@ -12,8 +12,10 @@ export function defineApi<Services extends ServicesRecord<any>>(
 	options: DefineStoreOptions = {},
 ) {
 	return defineStore<Store<unknown>>(options, {
+		frameworkName: "React",
 		storeCache,
 		refreshOnStoreRequest: false, // would cause infinite refreshes with React
+		allowNoCache: false, // no cache would cause infinite refreshes with React
 		createStore,
 		getStoreData: (store) => store.getState(),
 		unwrapStore: (store) => useStore(store),
