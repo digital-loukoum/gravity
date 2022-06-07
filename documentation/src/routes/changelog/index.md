@@ -1,3 +1,8 @@
+## 0.9.31
+
+- add persistence option to store data in a local IndexedDB database
+- forbid to set `cache` option to `false` for the frameworks that are not compatible (React, Vue and Solid) and print a warning
+
 ## 0.9.30
 
 - fix handler usage in documentation (Gravity as middleware) and in templates
