@@ -8,7 +8,6 @@ export function updateStoreData<Data>(
 	store.data = data;
 	store.error = error;
 	store.isLoading = false;
-	store.isRefreshing = false;
 	store.lastRefreshAt = Date.now();
 	return store;
 }

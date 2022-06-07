@@ -1,24 +1,24 @@
-import type { ApiResponse } from "@digitak/gravity";
 import { createStoreData } from "@digitak/gravity/store/createStoreData";
 import { StoreData } from "@digitak/gravity/store/StoreData";
 import { updateStoreData } from "@digitak/gravity/store/updateStoreData";
 import { createStore as createSolidStore } from "solid-js/store";
 import type { Store } from "./Store.js";
+import type { DefineStoreInterface } from "@digitak/gravity/store/defineStore";
 
-export const createStore = <Data>(
-	fetcher: () => Promise<ApiResponse<Data>>,
-): Store<Data> => {
-	const store = createSolidStore<StoreData<Data>>({
-		...createStoreData<Data>(),
+export const createStore: DefineStoreInterface<
+	Store<unknown>
+>["createStore"] = (fetcher) => {
+	const store = createSolidStore<StoreData<unknown>>({
+		...createStoreData(),
 		refresh: async () => {
-			setStoreData({ isRefreshing: true } as StoreData<Data>);
-			const data = await fetcher();
-			setStoreData(
-				updateStoreData({ ...getStoreData() } as StoreData<Data>, data),
-			);
+			setStoreData({ isRefreshing: true });
+			for await (const data of fetcher()) {
+				setStoreData(updateStoreData({ ...getStoreData() }, data));
+			}
+			setStoreData({ isRefreshing: false });
 		},
 	});
 	const getStoreData = () => store[0];
-	const setStoreData = (data: StoreData<Data>) => store[1](data);
+	const setStoreData = (data: Partial<StoreData<unknown>>) => store[1](data);
 	return getStoreData();
 };

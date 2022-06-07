@@ -8,9 +8,10 @@ import type { ApiResponse } from "../index.js";
 import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
+import { gravityDB } from "../api/gravityDB.js";
 
 export type DefineStoreInterface<Store> = {
-	createStore: (fetcher: () => Promise<ApiResponse<unknown>>) => Store;
+	createStore: (fetcher: () => AsyncGenerator<ApiResponse<unknown>>) => Store;
 	storeCache: Map<string, Store>;
 	getStoreData: (store: Store) => StoreData<unknown>;
 	unwrapStore?: (store: Store) => any;
@@ -44,20 +45,51 @@ export function defineStore<Store>(
 		cache = options.cache ?? true,
 		network = options.network ?? true,
 		interval = options.interval,
+		persist = options.persist,
+		fetcher: customFetcher = options.fetcher,
 	}: FetchOptions = {}) =>
 		apiProxy((service, operation, properties) => {
 			if (!isBrowser()) {
-				const store = createStore(() => new Promise(() => {}));
+				const store = createStore(async function* () {
+					// on non-browser, return a promise that never resolves
+					return new Promise(() => {});
+				});
 				return unwrapStore(store);
 			}
+
 			const body: null | Uint8Array = properties?.length
 				? bunker(properties)
 				: null;
-
-			const fetcher = () =>
-				resolveApiCall(fetch, service, operation, properties, body);
-
 			const key = getCacheKey(service, operation, body);
+
+			const fetcher = async function* (): AsyncGenerator<ApiResponse<unknown>> {
+				if (persist) {
+					const data = await gravityDB.get(key);
+					if (!network) {
+						yield { data };
+						return;
+					}
+					if (data !== undefined) {
+						yield { data };
+						if (network == "if-needed") return;
+					}
+				}
+
+				const response = await resolveApiCall(
+					{ fetcher: customFetcher },
+					service,
+					operation,
+					properties,
+					body,
+				);
+
+				if (!response.error && persist) {
+					await gravityDB.set(key, response.data);
+				}
+
+				yield response;
+				return;
+			};
 
 			let store: Store;
 			let cached = (cache === true || cache == "read") && storeCache.get(key);
@@ -70,10 +102,13 @@ export function defineStore<Store>(
 				}
 			}
 
+			console.log("cached", cached);
+			console.log("network", network, network && !cached);
 			if ((network && !cached) || (refreshOnStoreRequest && network === true)) {
 				const { lastRefreshAt, refresh } = getStoreData(store);
 				const shouldRefresh =
 					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();
+				console.log("shouldRefresh", shouldRefresh);
 				if (shouldRefresh) refresh();
 			}
 

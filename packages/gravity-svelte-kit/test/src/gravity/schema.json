@@ -10,7 +10,23 @@
           "minimumParameters": 0,
           "parameters": [
             {
-              "typeName": "String"
+              "typeName": "Union",
+              "items": [
+                {
+                  "typeName": "Union",
+                  "items": [
+                    {
+                      "typeName": "Undefined"
+                    },
+                    {
+                      "typeName": "String"
+                    }
+                  ]
+                },
+                {
+                  "typeName": "Undefined"
+                }
+              ]
             }
           ],
           "returnType": {

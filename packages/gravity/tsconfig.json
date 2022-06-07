@@ -3,18 +3,18 @@
 		"moduleResolution": "NodeNext",
 		"target": "es2020",
 		"lib": ["es2020", "dom"],
-		"module": "ESNext",
+		"module": "NodeNext",
 		"strict": true,
 		"outDir": "package",
 		"declaration": true,
-		// "skipLibCheck": true,
+		"skipLibCheck": true,
 		"esModuleInterop": true,
 		"importsNotUsedAsValues": "error",
 		"preserveValueImports": true,
 		"isolatedModules": true,
 		"resolveJsonModule": true,
-		"experimentalDecorators": true,
+		"experimentalDecorators": true
 	},
 	"include": ["source/**/*.ts"],
-	"exclude": ["source/templates/**/*.ts"],
+	"exclude": ["source/templates/**/*.ts"]
 }

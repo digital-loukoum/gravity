@@ -5,11 +5,7 @@ import type { GravityResponse } from "./GravityResponse.js";
 import type { Type } from "typezer";
 import type { Authorize } from "./Authorize.js";
 import type { OnRequestReceive } from "./OnRequestReceive.js";
-import type {
-	IncomingHttpHeaders,
-	IncomingMessage,
-	ServerResponse,
-} from "http";
+import type { IncomingHttpHeaders } from "http";
 import { bunker } from "@digitak/bunker";
 import { gravityError, isGravityError } from "../errors/GravityError.js";
 import { decodeParameters } from "../utilities/decodeParameters.js";

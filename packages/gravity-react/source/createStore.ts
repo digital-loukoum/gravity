@@ -1,22 +1,22 @@
-import type { ApiResponse } from "@digitak/gravity";
 import { createStoreData } from "@digitak/gravity/store/createStoreData";
-import { refreshStoreData } from "@digitak/gravity/store/refreshStoreData";
 import { StoreData } from "@digitak/gravity/store/StoreData";
 import { updateStoreData } from "@digitak/gravity/store/updateStoreData";
 import { createStore as createZustandStore } from "zustand";
 import type { Store } from "./Store.js";
+import type { DefineStoreInterface } from "@digitak/gravity/store/defineStore";
 
-export const createStore = <Data>(
-	fetcher: () => Promise<ApiResponse<Data>>,
-): Store<Data> => {
-	const store = createZustandStore<StoreData<Data>>((set) => ({
-		...createStoreData<Data>(),
+export const createStore: DefineStoreInterface<
+	Store<unknown>
+>["createStore"] = (fetcher) => {
+	const store = createZustandStore<StoreData<unknown>>((set) => ({
+		...createStoreData(),
 		refresh: async () => {
-			set(() => refreshStoreData(<StoreData<Data>>{}));
-			const data = await fetcher();
-			set(() => updateStoreData(<StoreData<Data>>{}, data));
+			set(() => ({ isRefreshing: true }));
+			for await (const data of fetcher()) {
+				set(() => updateStoreData(<StoreData<unknown>>{}, data));
+			}
+			set(() => ({ isRefreshing: false }));
 		},
 	}));
-	store.subscribe((value) => console.log("Store changed", value));
 	return store;
 };

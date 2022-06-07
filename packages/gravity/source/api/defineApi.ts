@@ -6,6 +6,8 @@ import { bunker, debunker } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
+import { getCacheKey } from "./getCacheKey.js";
+import { gravityDB } from "./gravityDB.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -14,7 +16,7 @@ export type DefineApiOptions = {
 };
 
 export type CallApiOptions = {
-	fetcher: typeof fetch;
+	fetcher?: typeof fetch;
 };
 
 export type DefineApiResult<Services extends ServicesRecord<any>> = {
@@ -22,11 +24,12 @@ export type DefineApiResult<Services extends ServicesRecord<any>> = {
 	beacon: BeaconApi<Services>;
 	callApi: (options: CallApiOptions) => Api<Services>;
 	resolveApiCall: (
-		fetcher: typeof fetch,
+		options: CallApiOptions,
 		service: string,
 		target: string,
 		properties: string[],
 		body?: Uint8Array | null,
+		key?: string,
 	) => Promise<ApiResponse<unknown>>;
 };
 
@@ -38,7 +41,7 @@ export function defineApi<Services extends ServicesRecord<any>>({
 	apiPath = normalizePath(apiPath);
 
 	const resolveApiCall: DefineApiResult<Services>["resolveApiCall"] = async (
-		fetcher,
+		{ fetcher = fetch },
 		service,
 		target,
 		properties,
@@ -62,7 +65,7 @@ export function defineApi<Services extends ServicesRecord<any>>({
 		let response = await fetcher(`${apiPath}${service}/${target}`, request);
 
 		// we receive a JSON object unless "application/bunker" content type is specified
-		let data;
+		let data: any;
 
 		if (response.headers.get("Content-Type") == "application/bunker") {
 			data = debunker(new Uint8Array(await response.arrayBuffer()));
@@ -73,18 +76,18 @@ export function defineApi<Services extends ServicesRecord<any>>({
 		const result: ApiResponse = response.ok
 			? { data }
 			: { error: data as Error };
+
 		await onResponseReceive?.({ response, ...result });
+
 		return result;
 	};
 
-	const callApi = (options: CallApiOptions) =>
+	const callApi = (options: CallApiOptions = {}) =>
 		apiProxy<Api<Services>>((service, target, properties) =>
-			resolveApiCall(options.fetcher, service, target, properties),
+			resolveApiCall(options, service, target, properties),
 		);
 
-	const api = callApi({
-		fetcher: fetch,
-	});
+	const api = callApi();
 
 	const beacon = apiProxy<BeaconApi<Services>>(
 		(service, target, properties) => {

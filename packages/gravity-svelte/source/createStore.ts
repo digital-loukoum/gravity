@@ -1,20 +1,22 @@
-import type { ApiResponse } from "@digitak/gravity";
 import { createStoreData } from "@digitak/gravity/store/createStoreData";
-import { refreshStoreData } from "@digitak/gravity/store/refreshStoreData";
+import { DefineStoreInterface } from "@digitak/gravity/store/defineStore";
 import { StoreData } from "@digitak/gravity/store/StoreData";
 import { updateStoreData } from "@digitak/gravity/store/updateStoreData";
-import { get, writable } from "svelte/store";
+import { writable } from "svelte/store";
 import type { Store } from "./Store.js";
 
-export const createStore = <Data>(
-	fetcher: () => Promise<ApiResponse<Data>>,
-): Store<Data> => {
-	const store = writable<StoreData<Data>>({
+export const createStore: DefineStoreInterface<
+	Store<unknown>
+>["createStore"] = (fetcher) => {
+	const store = writable<StoreData<unknown>>({
 		...createStoreData(),
 		refresh: async () => {
-			store.update(refreshStoreData);
-			const data = await fetcher();
-			store.update((storeData) => updateStoreData(storeData, data));
+			store.update(($store) => (($store.isRefreshing = true), $store));
+			for await (const data of fetcher()) {
+				console.log("data", data);
+				store.update(($store) => updateStoreData($store, data));
+			}
+			store.update(($store) => (($store.isRefreshing = false), $store));
 		},
 	});
 

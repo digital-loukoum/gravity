@@ -3,4 +3,6 @@ import type { services } from "./services/index";
 
 export const { api, store } = defineApi<typeof services>({
 	apiPath: "http://localhost:3000/api",
+	cache: true,
+	persist: true,
 });
