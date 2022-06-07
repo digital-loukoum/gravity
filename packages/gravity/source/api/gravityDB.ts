@@ -1,17 +1,16 @@
-// @ts-ignore
-import { openDB } from "idb/build/index.js";
+import { get, set, createStore } from "idb-keyval/dist/index.js";
 
-let db: Awaited<ReturnType<typeof openGravityDB>>;
+let db: ReturnType<typeof createStore>;
 
-export const openGravityDB = () => openDB("GravityDB");
+export const openGravityDB = async () => createStore("gravityDB", "store");
 
 export const gravityDB = {
-	async get<T = unknown>(key: string): Promise<T> {
+	async get<T = unknown>(key: string): Promise<T | undefined> {
 		db ??= await openGravityDB();
-		return await db.get("persisted", key);
+		return await get<T>(key, db);
 	},
 	async set(key: string, value: any) {
 		db ??= await openGravityDB();
-		await db.put("persisted", value, key);
+		await set(key, value, db);
 	},
 };

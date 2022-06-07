@@ -36,7 +36,7 @@
 		"cli-select": "^1.1.2",
 		"esbuild": "^0.14.29",
 		"fs-extra": "^10.0.1",
-		"idb": "^7.0.1",
+		"idb-keyval": "^6.1.0",
 		"node-fetch": "^3.2.3",
 		"sade": "^1.8.1",
 		"typezer": "^0.9.26"
