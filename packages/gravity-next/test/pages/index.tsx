@@ -3,7 +3,7 @@ import { api, store } from "../server/api";
 import { RequestCard } from "../components/RequestCard";
 
 function Home() {
-	console.log("Home is called");
+	// console.log("Home is called");
 	const [a, setA] = useState(2);
 	const [b, setB] = useState(3);
 
