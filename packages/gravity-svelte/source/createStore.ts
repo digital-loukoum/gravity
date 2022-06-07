@@ -13,7 +13,6 @@ export const createStore: DefineStoreInterface<
 		refresh: async () => {
 			store.update(($store) => (($store.isRefreshing = true), $store));
 			for await (const data of fetcher()) {
-				console.log("data", data);
 				store.update(($store) => updateStoreData($store, data));
 			}
 			store.update(($store) => (($store.isRefreshing = false), $store));

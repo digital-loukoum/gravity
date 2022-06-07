@@ -1,3 +1,3 @@
-import { defineTag } from '@digitak/gravity-svelte';
+import { defineTag } from '@digitak/gravity';
 
 export const [Public, isPublic] = defineTag();

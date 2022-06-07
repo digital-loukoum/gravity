@@ -1,4 +1,4 @@
-import { defineHandler } from '@digitak/gravity-svelte/server';
+import { defineHandler } from '@digitak/gravity-svelte-kit/server';
 import { services } from './gravity/services';
 import schema from './gravity/schema.json';
 import { setCookies } from '@digitak/gravity/cookie';

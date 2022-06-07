@@ -8,8 +8,8 @@
 		"allowSyntheticDefaultImports": true,
 		"baseUrl": ".",
 		"paths": {
-			"@digitak/gravity-svelte": ["../source"],
-			"@digitak/gravity-svelte/*": ["../source/*"]
+			"@digitak/gravity-svelte-kit": ["../source"],
+			"@digitak/gravity-svelte-kit/*": ["../source/*"]
 		}
 	}
 }
