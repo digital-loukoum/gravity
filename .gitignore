@@ -4,4 +4,3 @@ node_modules/
 .env
 .DS_STORE
 .turbo
-/pnpm-lock.yaml
