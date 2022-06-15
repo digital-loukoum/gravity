@@ -1,9 +1,10 @@
 ## 0.9.32
 
-- fix crash on void functions when encoding / decoding with JSON
+- fix `gravity build` bug caused by the processing of esbuild options
 
 ## 0.9.31
 
+- fix crash on void functions when encoding / decoding with JSON
 - add persistence option to store data in a local IndexedDB database
 - forbid to set `cache` option to `false` for the frameworks that are not compatible (React, Vue and Solid) and print a warning
 
