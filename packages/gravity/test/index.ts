@@ -31,6 +31,7 @@ start("gravity/core", async ({ stage, same, test }) => {
 	{
 		same(await api.math.add(3, 4), { data: 7 }, `Fetch addition`);
 		same(await api.foo.bar(), { data: "bar" }, `Fetch string`);
+		same(await api.foo.void(), { data: undefined }, `Fetch undefined`);
 		same(await api.foo.rawString(), { data: "rawString" }, `Fetch raw string`);
 		same(await api.foo.rawArray(), { data: [1, 2, 3] }, `Fetch raw array`);
 		same(await api.foo.rawArray[0](), { data: 1 }, `Fetch raw array element`);

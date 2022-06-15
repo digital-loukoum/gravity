@@ -3,6 +3,10 @@ import { Admin } from "../guards/Admin";
 import { Private } from "../guards/Private";
 
 export class foo extends Service {
+	void() {
+		return undefined;
+	}
+
 	foo() {
 		return "foo";
 	}

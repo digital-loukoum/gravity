@@ -1,5 +1,5 @@
 import { defineApi as defineSvelteApi } from "@digitak/gravity-svelte/defineApi";
-import type { LoadInput, LoadOutput } from "@sveltejs/kit";
+import type { LoadEvent, LoadOutput } from "@sveltejs/kit";
 import type { Api } from "@digitak/gravity/api/Api";
 import type { MaybePromise } from "@digitak/gravity/types/MaybePromise";
 import type { ServicesRecord } from "@digitak/gravity";
@@ -15,12 +15,12 @@ type ApiLoader<Services extends ServicesRecord<any>> = {
 		OutputProps extends Record<string, any> = InputProps,
 	>(
 		loader: (
-			input: LoadInput<Params, InputProps> & {
+			input: LoadEvent<Params, InputProps> & {
 				api: Api<Services>;
 			},
 		) => MaybePromise<LoadOutput<OutputProps>>,
 	) => (
-		input: LoadInput<Params, InputProps>,
+		input: LoadEvent<Params, InputProps>,
 	) => MaybePromise<LoadOutput<OutputProps>>;
 };
 

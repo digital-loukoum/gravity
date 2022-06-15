@@ -47,7 +47,7 @@ export const defineHandler = <Services extends ServicesRecord<any>>(
 				for (const header in headers) {
 					response.setHeader(header, headers[header]);
 				}
-				response.write(body);
+				if (body !== undefined) response.write(body);
 				return response;
 			},
 		});
