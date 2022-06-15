@@ -2,3 +2,4 @@
 entryFile = "test/server/index.ts"
 servicesFile = "test/server/services/index.ts"
 schemaFile = "test/server/schema.json"
+outputFile = "test/dist/index.js"

@@ -24,6 +24,7 @@
 		"test:generate": "esrun source/cli/gravity generate schema",
 		"test:guard": "esrun test/guard",
 		"test:create": "esrun source/cli/gravity create",
+		"test:build": "esrun source/cli/gravity build",
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {

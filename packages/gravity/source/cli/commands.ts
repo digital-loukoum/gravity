@@ -4,7 +4,11 @@ import { develop } from "./jobs/develop.js";
 import { build } from "./jobs/build.js";
 import { generateSchema } from "./jobs/generateSchema.js";
 import { preview } from "./jobs/preview.js";
-import { options } from "./options.js";
+import {
+	esBuildOptionsProperties,
+	options,
+	useEsBuildOptions,
+} from "./options.js";
 import { version } from "../version.js";
 
 const useCommand = (program: Sade, command: string) => {
@@ -47,21 +51,25 @@ export const useDevelop = (program: Sade, command = "dev") => {
 };
 
 export const useBuild = (program: Sade, command = "build") => {
-	return useCommand(program, command)
-		.describe("Build gravity server for production")
+	return useEsBuildOptions(
+		useCommand(program, command).describe(
+			"Build gravity server for production",
+		),
+	)
 		.option(...options.entryFile)
 		.option(...options.outputFile)
 		.option(...options.servicesFile)
 		.option(...options.schemaFile)
 		.option(...options.use)
-		.option("--esbuild:*", "Custom esbuild options")
 		.action((options) => {
 			const esbuildOptions: any = {};
 
-			for (let option in options) {
-				if (!option.startsWith("esbuild:")) continue;
-				option = option.slice("esbuild:".length).trim();
-				esbuildOptions[option] = options[option];
+			for (let { option, key, getValue } of esBuildOptionsProperties) {
+				option = option.slice(2);
+				if (options[option] !== undefined) {
+					const value = options[option];
+					esbuildOptions[key] = getValue ? getValue(value) : value;
+				}
 			}
 
 			build({

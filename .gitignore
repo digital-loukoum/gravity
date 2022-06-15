@@ -5,3 +5,4 @@ library/
 .env
 .DS_STORE
 .turbo
+dist/
