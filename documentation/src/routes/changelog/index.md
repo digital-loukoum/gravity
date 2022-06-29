@@ -1,3 +1,10 @@
+## 0.9.33
+
+- `gravity build` now works the same as `gravity dev`: dependencies are not bundled by default. It is still possible to bundle the dependencies with the `--bundle-dependencies` option
+- add the option `--no-logs` to the `gravity build` command
+- update esbuild version (now 0.14.47)
+- add documentation for build strategies
+
 ## 0.9.32
 
 - fix `gravity build` bug caused by the processing of esbuild options

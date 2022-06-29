@@ -14,6 +14,7 @@ export const options = defineOptions({
 	watch: ["--watch", "Pass this option to watch schema changes"],
 	verbose: ["--no-logs", "Set to false to prevent console logs"],
 	use: ["--use", "Another command to use along the main gravity command"],
+	bundleDependencies: ["--bundle-dependencies", "Bundle dependencies in build output"],
 	servicesFile: [
 		"--services [file]",
 		"Path to the file that exports the services",

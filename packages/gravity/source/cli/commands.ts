@@ -16,6 +16,13 @@ const useCommand = (program: Sade, command: string) => {
 	return program;
 };
 
+const parseBoolean = (value: string | boolean | undefined, defaultValue = false): boolean => {
+	if (typeof value === "boolean") return value;
+	if (value === "true") return true;
+	if (value === "false") return false;
+	return defaultValue
+}
+
 export const useVersion = (program: Sade) => {
 	return program.version(version);
 };
@@ -60,7 +67,9 @@ export const useBuild = (program: Sade, command = "build") => {
 		.option(...options.outputFile)
 		.option(...options.servicesFile)
 		.option(...options.schemaFile)
+		.option(...options.bundleDependencies)
 		.option(...options.use)
+		.option(...options.verbose)
 		.action((options) => {
 			const esbuildOptions: any = {};
 
@@ -77,6 +86,8 @@ export const useBuild = (program: Sade, command = "build") => {
 				servicesFile: options["services"],
 				outputFile: options["output"],
 				schemaFile: options["schema"],
+				verbose: parseBoolean(options["logs"], true),
+				bundleDependencies: parseBoolean(options["bundle-dependencies"]),
 				use: options["use"] || "",
 				esbuildOptions,
 			});
@@ -97,7 +108,7 @@ export const useGenerateSchema = (
 			generateSchema({
 				servicesFile: options["services"],
 				watch: options["watch"],
-				verbose: !options["no-logs"],
+				verbose: parseBoolean(options["logs"], true),
 				schemaFile: options["schema"],
 			});
 		});

@@ -18,6 +18,7 @@ export function resolveCliOptions(
 		verbose: true,
 		esbuildOptions: {},
 		use: "",
+		bundleDependencies: false,
 	};
 
 	return merge(

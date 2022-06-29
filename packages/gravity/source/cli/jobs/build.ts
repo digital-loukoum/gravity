@@ -1,10 +1,13 @@
 import fs from "fs-extra";
 import print from "@digitak/print";
-import { build as esbuild } from "esbuild";
 import type { GravityCliOptions } from "../GravityCliOptions.js";
 import { generateSchema } from "./generateSchema.js";
 import { resolveCliOptions } from "../utilities/resolveCliOptions.js";
 import { execSync } from "child_process";
+import type { Plugin } from "esbuild"
+import { findPackageInfos } from "../utilities/findPackageInfos.js"
+import { Runner as Builder } from "@digitak/esrun"
+
 
 export type GravityBuildOptions = Pick<
 	GravityCliOptions,
@@ -13,8 +16,25 @@ export type GravityBuildOptions = Pick<
 	| "servicesFile"
 	| "outputFile"
 	| "esbuildOptions"
+	| "bundleDependencies"
 	| "use"
+	| "verbose"
 >;
+
+const makePackagesExternalPlugin: Plugin = {
+	name: "makePackagesExternal",
+	setup: build => {
+		const filter = /^[^.\/~$@]|^@[^\/]/ // Must not start with "/", ".", "~", "$" or "@/"
+		build.onResolve({ filter }, args => {
+			return {
+				path: args.path,
+				external: true,
+			}
+		})
+	},
+}
+
+
 
 export async function build(options: GravityBuildOptions = {}) {
 	const {
@@ -24,6 +44,7 @@ export async function build(options: GravityBuildOptions = {}) {
 		outputFile,
 		esbuildOptions,
 		use,
+		verbose,
 	} = resolveCliOptions(options);
 
 	if (!use) {
@@ -36,21 +57,40 @@ export async function build(options: GravityBuildOptions = {}) {
 	generateSchema({
 		servicesFile,
 		schemaFile,
+		verbose,
 	});
 
 	if (use) {
 		execSync(use, { stdio: "inherit" });
 	} else {
-		esbuild({
-			entryPoints: [entryFile],
+		const plugins: Plugin[] = []
+		const packageInfos = findPackageInfos()
+		const format = packageInfos?.type == "module" ? "esm" : "cjs"
+		
+		if (!options?.bundleDependencies) {
+			plugins.push(makePackagesExternalPlugin)
+		}
+
+		const builder = new Builder(entryFile, {
+			makeAllPackagesExternal: !(options?.bundleDependencies),
+		})
+
+		await builder.build({
 			outfile: outputFile,
 			target: "es2020",
 			minify: true,
 			bundle: true,
-			sourcemap: false,
-			format: "cjs",
+			format,
 			platform: "node",
+			plugins,
 			...esbuildOptions,
-		});
+		})
+
+		fs.ensureFileSync(outputFile)
+		fs.writeFileSync(outputFile, builder.outputCode)
+
+		if (verbose) {
+			print`[bold.green:✔️] [underline:Build done]`;
+		}
 	}
 }

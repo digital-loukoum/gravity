@@ -40,5 +40,23 @@ export type GravityCliOptions = {
 	/**
 	 * Optional options to pass to esbuild when building the server
 	 */
-	esbuildOptions?: BuildOptions;
+	esbuildOptions?: Pick<BuildOptions,
+		| "minify"
+		| "format"
+		| "sourcemap"
+		| "platform"
+		| "target"
+		| "jsx"
+		| "jsxFactory"
+		| "jsxFragment"
+		| "keepNames"
+		| "legalComments"
+		| "treeShaking"
+		| "tsconfig"
+	>;
+
+	/**
+	 * Also bundle third party libraries when building.
+	 */
+	bundleDependencies?: boolean;
 };
