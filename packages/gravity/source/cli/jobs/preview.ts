@@ -14,5 +14,7 @@ export async function preview(options: GravityPreviewOptions = {}) {
 		return;
 	}
 
-	execSync(`node ${outputFile}`);
+	execSync(`node ${outputFile}`, {
+		stdio: "inherit",
+	});
 }

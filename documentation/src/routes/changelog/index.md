@@ -1,3 +1,5 @@
+- `gravity preview` now displays logs.
+
 ## 0.9.35
 
 - apply new `esrun` dependency strategy to `gravity build`, which add support for typescript aliases starting with a letter when running `gravity build`.
