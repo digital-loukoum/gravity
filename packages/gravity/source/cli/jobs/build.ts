@@ -4,10 +4,8 @@ import type { GravityCliOptions } from "../GravityCliOptions.js";
 import { generateSchema } from "./generateSchema.js";
 import { resolveCliOptions } from "../utilities/resolveCliOptions.js";
 import { execSync } from "child_process";
-import type { Plugin } from "esbuild"
 import { findPackageInfos } from "../utilities/findPackageInfos.js"
 import { Runner as Builder } from "@digitak/esrun"
-
 
 export type GravityBuildOptions = Pick<
 	GravityCliOptions,
@@ -20,21 +18,6 @@ export type GravityBuildOptions = Pick<
 	| "use"
 	| "verbose"
 >;
-
-const makePackagesExternalPlugin: Plugin = {
-	name: "makePackagesExternal",
-	setup: build => {
-		const filter = /^[^.\/~$@]|^@[^\/]/ // Must not start with "/", ".", "~", "$" or "@/"
-		build.onResolve({ filter }, args => {
-			return {
-				path: args.path,
-				external: true,
-			}
-		})
-	},
-}
-
-
 
 export async function build(options: GravityBuildOptions = {}) {
 	const {
@@ -63,14 +46,9 @@ export async function build(options: GravityBuildOptions = {}) {
 	if (use) {
 		execSync(use, { stdio: "inherit" });
 	} else {
-		const plugins: Plugin[] = []
 		const packageInfos = findPackageInfos()
 		const format = packageInfos?.type == "module" ? "esm" : "cjs"
 		
-		if (!options?.bundleDependencies) {
-			plugins.push(makePackagesExternalPlugin)
-		}
-
 		const builder = new Builder(entryFile, {
 			makeAllPackagesExternal: !(options?.bundleDependencies),
 		})
@@ -82,7 +60,6 @@ export async function build(options: GravityBuildOptions = {}) {
 			bundle: true,
 			format,
 			platform: "node",
-			plugins,
 			...esbuildOptions,
 		})
 

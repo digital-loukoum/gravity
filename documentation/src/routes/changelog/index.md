@@ -1,6 +1,10 @@
+## 0.9.35
+
+- apply new `esrun` dependency strategy to `gravity build`, which add support for typescript aliases starting with a letter when running `gravity build`.
+
 ## 0.9.34
 
-- update `esrun` to version 3.2.8 that add support for typescript aliases starting with a letter.
+- update `esrun` to version 3.2.8 that add support for typescript aliases starting with a letter when running `gravity dev`.
 
 ## 0.9.33
 
