@@ -1,3 +1,5 @@
+## 0.9.36
+
 - `gravity preview` now displays logs.
 
 ## 0.9.35
