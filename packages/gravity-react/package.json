@@ -22,7 +22,7 @@
 		"react-dom": "^18.0.0"
 	},
 	"devDependencies": {
-		"@digitak/esrun": "^3.2.2",
+		"@digitak/esrun": "^3.2.8",
 		"@digitak/gravity": "link:../gravity/package",
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^16.11.29",
@@ -32,7 +32,7 @@
 		"fs-extra": "^10.1.0",
 		"react": "^18.0.0",
 		"react-dom": "^18.0.0",
-		"typescript": "^4.7.0-dev.20220426",
+		"typescript": "^4.7.4",
 		"vite": "^2.9.5"
 	},
 	"dependencies": {

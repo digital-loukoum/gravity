@@ -21,12 +21,12 @@
 	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../gravity/package",
-		"svelte": "^3",
-		"@sveltejs/kit": "^1.0.0-next.324"
+		"@sveltejs/kit": "^1.0.0-next.324",
+		"svelte": "^3"
 	},
 	"devDependencies": {
+		"@digitak/esrun": "^3.2.8",
 		"@digitak/gravity": "link:../gravity/package",
-		"@digitak/esrun": "^3.1.2",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@types/fs-extra": "^9.0.13",
@@ -43,6 +43,6 @@
 		"svelte-check": "^2.4.6",
 		"svelte-preprocess": "^4.10.4",
 		"tslib": "^2.3.1",
-		"typescript": "^4.7.0-dev.20220422"
+		"typescript": "^4.7.4"
 	}
 }

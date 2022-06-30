@@ -1,3 +1,7 @@
+## 0.9.34
+
+- update `esrun` to version 3.2.8 that add support for typescript aliases starting with a letter.
+
 ## 0.9.33
 
 - `gravity build` now works the same as `gravity dev`: dependencies are not bundled by default. It is still possible to bundle the dependencies with the `--bundle-dependencies` option
