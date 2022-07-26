@@ -3,7 +3,7 @@ import type { LoadEvent, LoadOutput } from "@sveltejs/kit";
 import type { Api } from "@digitak/gravity/api/Api";
 import type { MaybePromise } from "@digitak/gravity/types/MaybePromise";
 import type { ServicesRecord } from "@digitak/gravity";
-import type { DefineStoreResult } from "@digitak/gravity/store/defineStore";
+import type { DefineStoreResult } from "@digitak/gravity/store/defineApiWithStore";
 import type { StoreProxy } from "@digitak/gravity-svelte/StoreProxy";
 
 type DefineApiParameters = Parameters<typeof defineSvelteApi>;

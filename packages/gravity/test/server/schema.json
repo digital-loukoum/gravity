@@ -249,5 +249,95 @@
         }
       ]
     }
+  },
+  "user": {
+    "getJohn": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "Object",
+            "properties": {
+              "id": {
+                "typeName": "String"
+              },
+              "name": {
+                "typeName": "String"
+              },
+              "email": {
+                "typeName": "String"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "setJohn": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 1,
+          "parameters": [
+            {
+              "typeName": "Object",
+              "properties": {
+                "name": {
+                  "typeName": "Union",
+                  "items": [
+                    {
+                      "typeName": "Undefined"
+                    },
+                    {
+                      "typeName": "String"
+                    }
+                  ],
+                  "optional": true
+                },
+                "email": {
+                  "typeName": "Union",
+                  "items": [
+                    {
+                      "typeName": "Undefined"
+                    },
+                    {
+                      "typeName": "String"
+                    }
+                  ],
+                  "optional": true
+                }
+              }
+            }
+          ],
+          "returnType": {
+            "typeName": "Object",
+            "properties": {
+              "id": {
+                "typeName": "String"
+              },
+              "name": {
+                "typeName": "String"
+              },
+              "email": {
+                "typeName": "String"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "bar": {
+      "typeName": "Function",
+      "signatures": [
+        {
+          "minimumParameters": 0,
+          "parameters": [],
+          "returnType": {
+            "typeName": "String"
+          }
+        }
+      ]
+    }
   }
 }

@@ -3,7 +3,7 @@ import { StoreData } from "@digitak/gravity/store/StoreData";
 import { updateStoreData } from "@digitak/gravity/store/updateStoreData";
 import { createStore as createSolidStore } from "solid-js/store";
 import type { Store } from "./Store.js";
-import type { DefineStoreInterface } from "@digitak/gravity/store/defineStore";
+import type { DefineStoreInterface } from "@digitak/gravity/store/defineApiWithStore";
 
 export const createStore: DefineStoreInterface<
 	Store<unknown>
@@ -21,4 +21,10 @@ export const createStore: DefineStoreInterface<
 	const getStoreData = () => store[0];
 	const setStoreData = (data: Partial<StoreData<unknown>>) => store[1](data);
 	return getStoreData();
+};
+
+export const create = (init, $store) => {
+	const [store, setStore] = createSolidStore($store);
+	init(setStore);
+	return store;
 };

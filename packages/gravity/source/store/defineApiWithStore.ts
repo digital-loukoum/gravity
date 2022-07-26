@@ -9,15 +9,25 @@ import { defineApi } from "../api.js";
 import { bunker } from "@digitak/bunker";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
 import { gravityDB } from "../api/gravityDB.js";
+import { createStoreData } from "./createStoreData.js";
+import {
+	createStoreInitializer,
+	type StoreInitializer,
+} from "./createStoreInitializer.js";
+import { createIdentifiableUpdater } from "../identifiables/updateIdentifiables.js";
 
 export type DefineStoreInterface<Store> = {
-	createStore: (fetcher: () => AsyncGenerator<ApiResponse<unknown>>) => Store;
+	createStore: (
+		$store: StoreData<unknown>,
+		initializeStore?: StoreInitializer,
+	) => Store;
 	storeCache: Map<string, Store>;
 	getStoreData: (store: Store) => StoreData<unknown>;
 	unwrapStore?: (store: Store) => any;
 	refreshOnStoreRequest?: boolean;
 	allowNoCache: boolean;
 	frameworkName: string;
+	setIdentifiable?: (key: string, value: unknown) => void;
 };
 
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
@@ -30,7 +40,7 @@ export type DefineStoreResult<
 	useStore: (options?: FetchOptions) => StoreProxy;
 };
 
-export function defineStore<Store>(
+export function defineApiWithStore<Store>(
 	options: DefineStoreOptions,
 	{
 		storeCache,
@@ -40,6 +50,7 @@ export function defineStore<Store>(
 		createStore,
 		getStoreData,
 		unwrapStore = (store) => store,
+		setIdentifiable,
 	}: DefineStoreInterface<Store>,
 ) {
 	const api = defineApi(options);
@@ -50,29 +61,35 @@ export function defineStore<Store>(
 		network = options.network ?? true,
 		interval = options.interval,
 		persist = options.persist,
-		fetcher: customFetcher = options.fetcher,
-	}: FetchOptions = {}) =>
-		apiProxy((service, operation, properties) => {
+		fetcher = options.fetcher,
+		identify = options.identify,
+	}: FetchOptions = {}) => {
+		const updateIdentifiables = createIdentifiableUpdater({
+			identify,
+			setIdentifiable,
+		});
+
+		apiProxy((service, target, properties) => {
 			if (cache !== true && !allowNoCache) {
 				cache = true;
 				console.warn(
-					`[Gravity] Enabling store cache with ${frameworkName} is mandatory as setting it to another value than 'true' would create infinite loops.\n[Gravity] Store cache has been switched on.`,
+					`[Gravity] Enabling store cache with ${frameworkName} is mandatory as setting it to another value than 'true' might cause infinite render loops.\n[Gravity] Store cache has been switched on.`,
 				);
 			}
+
 			if (!isBrowser()) {
-				const store = createStore(async function* () {
-					// on non-browser, return a promise that never resolves
-					return new Promise(() => {});
-				});
+				const store = createStore(createStoreData());
 				return unwrapStore(store);
 			}
 
 			const body: null | Uint8Array = properties?.length
 				? bunker(properties)
 				: null;
-			const key = getCacheKey(service, operation, body);
+			const key = getCacheKey(service, target, body);
+			const cached = (cache === true || cache == "read") && storeCache.get(key);
+			let store: Store;
 
-			const fetcher = async function* (): AsyncGenerator<ApiResponse<unknown>> {
+			const fetch = async function* (): AsyncGenerator<ApiResponse<unknown>> {
 				if (persist) {
 					const data = await gravityDB.get(key);
 					if (!network) {
@@ -86,11 +103,14 @@ export function defineStore<Store>(
 				}
 
 				const response = await resolveApiCall(
-					{ fetcher: customFetcher },
-					service,
-					operation,
-					properties,
-					body,
+					{ fetcher },
+					{
+						service,
+						target,
+						properties,
+						body,
+						updateIdentifiables,
+					},
 				);
 
 				if (!response.error && persist) {
@@ -100,13 +120,11 @@ export function defineStore<Store>(
 				yield response;
 				return;
 			};
-
-			let store: Store;
-			let cached = (cache === true || cache == "read") && storeCache.get(key);
+			const initializeStore = createStoreInitializer(fetch);
 
 			if (cached) store = cached;
 			else {
-				store = createStore(fetcher);
+				store = createStore(createStoreData(), initializeStore);
 				if (cache === true || cache == "write") {
 					storeCache.set(key, store);
 				}
@@ -121,6 +139,7 @@ export function defineStore<Store>(
 
 			return unwrapStore(store);
 		});
+	};
 
 	const store = useStore();
 	return { ...api, store, useStore };

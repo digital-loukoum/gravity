@@ -1,4 +1,4 @@
-import { Writable } from "svelte/store";
+import { Readable } from "svelte/store";
 import type { StoreData } from "@digitak/gravity/store/StoreData";
 
-export type Store<Data> = Writable<StoreData<Data>>;
+export type Store<Data> = Readable<StoreData<Data>>;

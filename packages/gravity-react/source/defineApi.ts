@@ -1,7 +1,7 @@
-import { defineStore } from "@digitak/gravity/store/defineStore";
-import type { DefineStoreOptions } from "@digitak/gravity/store/defineStore";
+import { defineApiWithStore } from "@digitak/gravity/store/defineApiWithStore";
+import type { DefineStoreOptions } from "@digitak/gravity/store/defineApiWithStore";
 import type { Store } from "./Store.js";
-import type { DefineStoreResult } from "@digitak/gravity/store/defineStore";
+import type { DefineStoreResult } from "@digitak/gravity/store/defineApiWithStore";
 import { StoreProxy } from "./StoreProxy.js";
 import { createStore } from "./createStore.js";
 import { storeCache } from "./storeCache.js";
@@ -11,7 +11,7 @@ import type { ServicesRecord } from "@digitak/gravity";
 export function defineApi<Services extends ServicesRecord<any>>(
 	options: DefineStoreOptions = {},
 ) {
-	return defineStore<Store<unknown>>(options, {
+	return defineApiWithStore<Store<unknown>>(options, {
 		frameworkName: "React",
 		storeCache,
 		refreshOnStoreRequest: false, // would cause infinite refreshes with React

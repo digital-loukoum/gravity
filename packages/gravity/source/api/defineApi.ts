@@ -6,8 +6,7 @@ import { bunker, debunker } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
-import { getCacheKey } from "./getCacheKey.js";
-import { gravityDB } from "./gravityDB.js";
+import type { IdentifiableUpdater } from "../identifiables/updateIdentifiables.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -25,11 +24,13 @@ export type DefineApiResult<Services extends ServicesRecord<any>> = {
 	callApi: (options: CallApiOptions) => Api<Services>;
 	resolveApiCall: (
 		options: CallApiOptions,
-		service: string,
-		target: string,
-		properties: string[],
-		body?: Uint8Array | null,
-		key?: string,
+		moreOptions: {
+			service: string;
+			target: string;
+			properties: string[];
+			body?: Uint8Array | null;
+			updateIdentifiables?: IdentifiableUpdater;
+		},
 	) => Promise<ApiResponse<unknown>>;
 };
 
@@ -42,10 +43,7 @@ export function defineApi<Services extends ServicesRecord<any>>({
 
 	const resolveApiCall: DefineApiResult<Services>["resolveApiCall"] = async (
 		{ fetcher = fetch },
-		service,
-		target,
-		properties,
-		body,
+		{ service, target, properties, body, updateIdentifiables },
 	) => {
 		const headers = new Headers();
 		headers.append("Content-Type", "application/bunker");
@@ -79,12 +77,17 @@ export function defineApi<Services extends ServicesRecord<any>>({
 
 		await onResponseReceive?.({ response, ...result });
 
+		// we update identifiables
+		if (response.ok && updateIdentifiables) {
+			updateIdentifiables(data);
+		}
+
 		return result;
 	};
 
 	const callApi = (options: CallApiOptions = {}) =>
 		apiProxy<Api<Services>>((service, target, properties) =>
-			resolveApiCall(options, service, target, properties),
+			resolveApiCall(options, { service, target, properties }),
 		);
 
 	const api = callApi();
