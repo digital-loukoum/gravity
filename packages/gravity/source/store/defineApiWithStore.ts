@@ -89,20 +89,19 @@ export function defineApiWithStore<Store>(
 			const cached = (cache === true || cache == "read") && storeCache.get(key);
 			let store: Store;
 
-			const fetch = async function* (): AsyncGenerator<ApiResponse<unknown>> {
-				if (persist) {
-					const data = await gravityDB.get(key);
-					if (!network) {
-						yield { data };
-						return;
-					}
-					if (data !== undefined) {
-						yield { data };
-						if (network == "if-needed") return;
-					}
-				}
+			const fetch = async (onResponse: (response: ApiResponse) => void) => {
+				let apiResponseFulfilled = false;
 
-				const response = await resolveApiCall(
+				const persistedResponse =
+					persist &&
+					gravityDB.get(key).then((data) => {
+						// api response has priority over persisted response
+						// (in the almost impossible eventuality where api fetch is faster than local fetch)
+						if (apiResponseFulfilled) return;
+						onResponse({ data });
+					});
+
+				const apiResponse = resolveApiCall(
 					{ fetcher },
 					{
 						service,
@@ -111,15 +110,17 @@ export function defineApiWithStore<Store>(
 						body,
 						updateIdentifiables,
 					},
-				);
+				).then((response) => {
+					apiResponseFulfilled = true;
+					if (!response.error && persist) {
+						gravityDB.set(key, response.data);
+					}
+					onResponse(response);
+				});
 
-				if (!response.error && persist) {
-					await gravityDB.set(key, response.data);
-				}
-
-				yield response;
-				return;
+				await Promise.all([persistedResponse, apiResponse]);
 			};
+
 			const initializeStore = createStoreInitializer(fetch);
 
 			if (cached) store = cached;
