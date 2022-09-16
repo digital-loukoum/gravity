@@ -1,3 +1,7 @@
+## 0.9.38
+
+- remove SvelteKit's server-side rendering, that was not compatible with recent versions of SvelteKit
+
 ## 0.9.37
 
 - update `esrun` to version 3.2.11 with important fixes for windows and the watcher.
