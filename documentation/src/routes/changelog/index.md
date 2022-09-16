@@ -1,3 +1,8 @@
+## 0.9.37
+
+- update `esrun` to version 3.2.11 with important fixes for windows and the watcher.
+- in Node middleware, execute the user callback `onResponseSend` before the response is actually sent. This allows to set special headers before it is definitely sent.
+
 ## 0.9.36
 
 - `gravity preview` now displays logs.
