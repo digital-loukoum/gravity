@@ -29,6 +29,7 @@ export type ResolveApiRequestOptions<Context, Request, Response> = {
 	onRequestReceive: OnRequestReceive<Context, Request> | undefined;
 	onResponseSend: OnResponseSend<Context, Response> | undefined;
 	createResponse: (options: GravityResponse) => Response;
+	writeResponse?: (response: Response, body: Uint8Array | string) => void
 };
 
 export async function resolveApiRequest<Context, Request, Response>(
@@ -176,5 +177,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 	}
 
 	let response = options.createResponse({ status, headers, body });
-	return (await options.onResponseSend?.({ context, response })) ?? response;
+	response = (await options.onResponseSend?.({ context, response })) ?? response
+	options.writeResponse?.(response, body);
+	return response;
 }

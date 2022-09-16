@@ -42,14 +42,14 @@ export const defineHandler = <Services extends ServicesRecord<any>>(
 			authorize: options.authorize,
 			onRequestReceive: options.onRequestReceive,
 			onResponseSend: options.onResponseSend,
-			createResponse: ({ body, headers, status }) => {
+			createResponse: ({ headers, status }) => {
 				response.statusCode = status;
 				for (const header in headers) {
 					response.setHeader(header, headers[header]);
 				}
-				if (body !== undefined) response.write(body);
 				return response;
 			},
+			writeResponse: (response, body) => body && response.write(body)
 		});
 
 		return response.end();
