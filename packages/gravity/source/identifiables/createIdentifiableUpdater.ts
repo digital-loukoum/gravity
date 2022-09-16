@@ -1,4 +1,5 @@
-import type { Identify } from "../store/Identify.js";
+import { defaultIdentifier } from "./defaultIdentifier.js";
+import type { Identify } from "./Identify.js";
 
 export type IdentifiableUpdater = (responseData: unknown) => void;
 
@@ -26,8 +27,7 @@ export function createIdentifiableUpdater({
 		} else {
 			// the default identifier check if responseData has an "id" string property
 			if (identify === true) {
-				identify = (object: any) =>
-					typeof object?.id == "string" ? object.id : undefined;
+				identify = defaultIdentifier;
 			}
 
 			const key = identify(responseData);

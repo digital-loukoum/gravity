@@ -10,24 +10,22 @@ import { bunker } from "@digitak/bunker";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
 import { gravityDB } from "../api/gravityDB.js";
 import { createStoreData } from "./createStoreData.js";
-import {
-	createStoreInitializer,
-	type StoreInitializer,
-} from "./createStoreInitializer.js";
-import { createIdentifiableUpdater } from "../identifiables/updateIdentifiables.js";
+import { createStoreInitializer } from "./createStoreInitializer.js";
+import { createIdentifiableUpdater } from "../identifiables/createIdentifiableUpdater.js";
+import { createIdentifiableSubscriber } from "../identifiables/createIdentifiableSubscriber.js";
+import type { Subscriber } from "../types/Subscriber.js";
+import type { CreateStore } from "./CreateStore.js";
 
-export type DefineStoreInterface<Store> = {
-	createStore: (
-		$store: StoreData<unknown>,
-		initializeStore?: StoreInitializer,
-	) => Store;
+export type DefineStoreInterface<Store, IdentifierStore = unknown> = {
+	createStore: CreateStore<Store>;
 	storeCache: Map<string, Store>;
 	getStoreData: (store: Store) => StoreData<unknown>;
-	unwrapStore?: (store: Store) => any;
-	refreshOnStoreRequest?: boolean;
 	allowNoCache: boolean;
 	frameworkName: string;
-	setIdentifiable?: (key: string, value: unknown) => void;
+	unwrapStore?: (store: Store) => any;
+	refreshStoreOnRequest?: boolean;
+	setIdentifiable?: (key: string, value: unknown) => IdentifierStore;
+	subscribeStore?: Subscriber<IdentifierStore>;
 };
 
 export type DefineStoreOptions = DefineApiOptions & FetchOptions;
@@ -40,20 +38,26 @@ export type DefineStoreResult<
 	useStore: (options?: FetchOptions) => StoreProxy;
 };
 
-export function defineApiWithStore<Store>(
+export function defineApiWithStore<Store, IdentifierStore>(
 	options: DefineStoreOptions,
 	{
 		storeCache,
-		refreshOnStoreRequest,
+		refreshStoreOnRequest,
 		frameworkName,
 		allowNoCache,
 		createStore,
 		getStoreData,
 		unwrapStore = (store) => store,
 		setIdentifiable,
-	}: DefineStoreInterface<Store>,
-) {
-	const api = defineApi(options);
+		subscribeStore,
+	}: DefineStoreInterface<Store, IdentifierStore>,
+): unknown {
+	const api = defineApi(options, {
+		updateIdentifiables: createIdentifiableUpdater({
+			identify: options.identify,
+			setIdentifiable,
+		}),
+	});
 	const { resolveApiCall } = api;
 
 	const useStore = ({
@@ -68,8 +72,14 @@ export function defineApiWithStore<Store>(
 			identify,
 			setIdentifiable,
 		});
+		const subscribeIdentifiables =
+			createIdentifiableSubscriber<IdentifierStore>({
+				identify,
+				setIdentifiable,
+				subscribeStore,
+			});
 
-		apiProxy((service, target, properties) => {
+		return apiProxy((service, target, properties) => {
 			if (cache !== true && !allowNoCache) {
 				cache = true;
 				console.warn(
@@ -89,59 +99,67 @@ export function defineApiWithStore<Store>(
 			const cached = (cache === true || cache == "read") && storeCache.get(key);
 			let store: Store;
 
-			const fetch = async (onResponse: (response: ApiResponse) => void) => {
-				let apiResponseFulfilled = false;
+			if (cached) {
+				store = cached;
+				console.log("Cached", key);
+			} else {
+				console.log("Not cached", key);
+				const fetch = async (onResponse: (response: ApiResponse) => void) => {
+					let apiResponseFulfilled = false;
 
-				const persistedResponse =
-					persist &&
-					gravityDB.get(key).then((data) => {
-						// api response has priority over persisted response
-						// (in the almost impossible eventuality where api fetch is faster than local fetch)
-						if (apiResponseFulfilled) return;
-						onResponse({ data });
+					const persistedResponse =
+						persist &&
+						gravityDB.get(key).then((data) => {
+							// api response has priority over persisted response
+							// (in the almost impossible eventuality where api fetch is faster than local fetch)
+							if (apiResponseFulfilled) return;
+							onResponse({ data });
+						});
+
+					const apiResponse = resolveApiCall(
+						{ fetcher },
+						{
+							service,
+							target,
+							properties,
+							body,
+							updateIdentifiables,
+						},
+					).then((response) => {
+						apiResponseFulfilled = true;
+						if (!response.error && persist) {
+							gravityDB.set(key, response.data);
+						}
+						onResponse(response);
 					});
 
-				const apiResponse = resolveApiCall(
-					{ fetcher },
-					{
-						service,
-						target,
-						properties,
-						body,
-						updateIdentifiables,
-					},
-				).then((response) => {
-					apiResponseFulfilled = true;
-					if (!response.error && persist) {
-						gravityDB.set(key, response.data);
-					}
-					onResponse(response);
-				});
+					await Promise.all([persistedResponse, apiResponse]);
+				};
 
-				await Promise.all([persistedResponse, apiResponse]);
-			};
+				const initializeStore = createStoreInitializer(
+					fetch,
+					subscribeIdentifiables,
+				);
 
-			const initializeStore = createStoreInitializer(fetch);
-
-			if (cached) store = cached;
-			else {
 				store = createStore(createStoreData(), initializeStore);
 				if (cache === true || cache == "write") {
 					storeCache.set(key, store);
 				}
 			}
 
-			if ((network && !cached) || (refreshOnStoreRequest && network === true)) {
+			if ((network && !cached) || (refreshStoreOnRequest && network === true)) {
 				const { lastRefreshAt, refresh } = getStoreData(store);
 				const shouldRefresh =
 					!lastRefreshAt || !interval || lastRefreshAt + interval < Date.now();
 				if (shouldRefresh) refresh();
 			}
 
+			console.log("zabu");
 			return unwrapStore(store);
 		});
 	};
 
 	const store = useStore();
+
 	return { ...api, store, useStore };
 }

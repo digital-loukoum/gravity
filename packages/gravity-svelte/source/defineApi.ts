@@ -5,27 +5,33 @@ import type { StoreProxy } from "./StoreProxy.js";
 import type { ServicesRecord } from "@digitak/gravity";
 import { defineApiWithStore } from "@digitak/gravity/store/defineApiWithStore";
 import { createStore } from "./createStore.js";
-import { get as getStoreData, writable } from "svelte/store";
+import { get as getStoreData, Writable, writable } from "svelte/store";
 import { storeCache } from "./storeCache.js";
 import { identifiables } from "./identifiables.js";
 
 export function defineApi<Services extends ServicesRecord<any>>(
 	options: DefineStoreOptions = {},
 ) {
-	return defineApiWithStore<Store<unknown>>(options, {
+	return defineApiWithStore<Store<unknown>, Writable<unknown>>(options, {
 		frameworkName: "Svelte",
 		storeCache,
 		createStore,
 		getStoreData,
-		refreshOnStoreRequest: true,
+		refreshStoreOnRequest: true,
 		allowNoCache: true,
 		setIdentifiable: (key, value) => {
-			const store = identifiables.get(key);
+			let store = identifiables.get(key);
 			if (store) {
 				store.set(value);
 			} else {
-				identifiables.set(key, writable(store));
+				store = writable(value);
+				identifiables.set(key, store);
 			}
+			return store;
+		},
+		subscribeStore: (store, onChange) => {
+			store.subscribe(onChange);
+			return () => {};
 		},
 	}) as DefineStoreResult<Services, StoreProxy<Services>>;
 }

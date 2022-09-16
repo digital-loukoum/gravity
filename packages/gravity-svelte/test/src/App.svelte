@@ -6,6 +6,9 @@
 	let a = "1";
 	let b = "2";
 
+	console.log("api.math", api.math);
+	console.log("store.math", store.math);
+
 	$: sumApi = api.math.add(+a, +b);
 	$: storeSum = store.math.add(+a, +b);
 

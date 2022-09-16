@@ -6,12 +6,17 @@ import { bunker, debunker } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
-import type { IdentifiableUpdater } from "../identifiables/updateIdentifiables.js";
+import type { IdentifiableUpdater } from "../identifiables/createIdentifiableUpdater.js";
 
 export type DefineApiOptions = {
 	apiPath?: string;
 	onRequestSend?: OnRequestSend;
 	onResponseReceive?: OnResponseReceive;
+	updateIdentifiables?: IdentifiableUpdater;
+};
+
+export type DefineApiAdditionalOptions = {
+	updateIdentifiables?: IdentifiableUpdater;
 };
 
 export type CallApiOptions = {
@@ -34,17 +39,20 @@ export type DefineApiResult<Services extends ServicesRecord<any>> = {
 	) => Promise<ApiResponse<unknown>>;
 };
 
-export function defineApi<Services extends ServicesRecord<any>>({
-	apiPath = "/api",
-	onRequestSend,
-	onResponseReceive,
-}: DefineApiOptions = {}): DefineApiResult<Services> {
+export function defineApi<Services extends ServicesRecord<any>>(
+	{ apiPath = "/api", onRequestSend, onResponseReceive }: DefineApiOptions = {},
+	{
+		updateIdentifiables: baseUpdateIdentifiables,
+	}: DefineApiAdditionalOptions = {},
+): DefineApiResult<Services> {
 	apiPath = normalizePath(apiPath);
 
 	const resolveApiCall: DefineApiResult<Services>["resolveApiCall"] = async (
 		{ fetcher = fetch },
 		{ service, target, properties, body, updateIdentifiables },
 	) => {
+		updateIdentifiables ??= baseUpdateIdentifiables;
+		console.log("API CALL", updateIdentifiables);
 		const headers = new Headers();
 		headers.append("Content-Type", "application/bunker");
 		if (body === undefined) {
