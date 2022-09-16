@@ -1,3 +1,7 @@
+## 0.9.39
+
+- fix BaseService constructor parameters
+
 ## 0.9.38
 
 - remove SvelteKit's server-side rendering, that was not compatible with recent versions of SvelteKit

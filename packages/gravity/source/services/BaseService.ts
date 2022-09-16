@@ -6,8 +6,6 @@ export abstract class BaseService<Context = any>
 {
 	constructor(
 		public readonly context: Context,
-		public readonly request: Request,
-		public readonly response: Response,
 	) {}
 
 	/**
