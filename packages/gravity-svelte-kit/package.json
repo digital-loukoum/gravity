@@ -25,7 +25,7 @@
 		"svelte": "^3"
 	},
 	"devDependencies": {
-		"@digitak/esrun": "^3.2.8",
+		"@digitak/esrun": "^3.2.11",
 		"@digitak/gravity": "link:../gravity/package",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",

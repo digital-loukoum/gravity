@@ -20,7 +20,7 @@
 		"@digitak/gravity": "link:../gravity/package"
 	},
 	"devDependencies": {
-		"@digitak/esrun": "^3.2.8",
+		"@digitak/esrun": "^3.2.11",
 		"@digitak/gravity": "link:../gravity/package",
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^16.11.29",

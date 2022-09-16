@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"@digitak/bunker": "^3.3.5",
-		"@digitak/esrun": "^3.2.8",
+		"@digitak/esrun": "^3.2.11",
 		"@digitak/print": "^1.1.4",
 		"@ltd/j-toml": "^1.30.0",
 		"byte-base64": "^1.1.0",
