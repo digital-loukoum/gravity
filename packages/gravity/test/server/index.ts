@@ -5,6 +5,7 @@ import { print } from "@digitak/print";
 import schema from "./schema.json";
 import { isPrivate } from "./guards/Private";
 import { ServerError } from "../../source";
+import { setCookies } from '../../source/cookie';
 
 const PORT = 4000;
 
@@ -12,8 +13,9 @@ const { handler } = defineHandler({
 	services,
 	schema,
 	allowedOrigins: ["http://localhost:3000"],
-	onRequestReceive({ request }) {
+	onRequestReceive({ request, cookies }) {
 		console.log("Received request", request.method, request.url);
+		console.log('Received cookies:', cookies);
 		return {
 			user: {
 				isAdmin: false,
@@ -26,6 +28,17 @@ const { handler } = defineHandler({
 		}
 	},
 	onResponseSend({ response }) {
+		setCookies(response, {
+			user: 'admin',
+			randomCookie: {
+				value: "I'm a random cookie",
+				maxAge: 1000 * 60 * 60 * 24 * 365,
+				path: '/',
+				httpOnly: true,
+				secure: true,
+				sameSite: true
+			}
+		});
 		return response;
 	},
 });

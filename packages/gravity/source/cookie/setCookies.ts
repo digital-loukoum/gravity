@@ -18,6 +18,7 @@ export function setCookies<ResponseType extends Response | ServerResponse>(
 	);
 
 	if ("setHeader" in response) {
+		if (!cookiesValue.length) return
 		response.setHeader("Set-Cookie", cookiesValue);
 	} else {
 		cookiesValue.forEach((cookie) =>
