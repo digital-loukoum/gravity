@@ -1,3 +1,7 @@
+## 0.9.40
+
+- indicate that `refresh` is a promise that returns nothing
+
 ## 0.9.39
 
 - fix BaseService constructor parameters
