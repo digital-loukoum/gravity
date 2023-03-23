@@ -15,6 +15,7 @@ import { getAllowedOrigin } from "../utilities/getAllowedOrigin.js";
 import { logger } from "../logs/logger.js";
 import { parseCookies } from "../cookie/parseCookies.js";
 import type { OnResponseSend } from "./OnResponseSend.js";
+import type { ApiResponse } from "../index.js";
 
 export type ResolveApiRequestOptions<Context, Request, Response> = {
 	request: Request;
@@ -46,6 +47,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 	let resolved: unknown;
 	let headers: IncomingHttpHeaders = {};
 	let body: string | Uint8Array = "";
+	let apiResponse: ApiResponse
 
 	// setting response headers
 	headers["content-type"] = `application/${encoding}`;
@@ -151,6 +153,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 		} else {
 			resolved = await target;
 		}
+		apiResponse = { data: resolved }
 	} catch (error) {
 		if (error instanceof Error) {
 			const log = isGravityError(error) ? logger.warning : logger.error;
@@ -158,6 +161,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 			status = (isGravityError(error) ? error.status : undefined) ?? 500;
 			const { name, message } = error;
 			resolved = { ...error, name, message };
+			apiResponse = { error }
 		} else {
 			const errorStatus = (error as any)?.status;
 			status = typeof errorStatus == "number" ? errorStatus : 500;
@@ -165,6 +169,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 				name: "UnknownError",
 				detail: error,
 			};
+			apiResponse = { error: Object.assign(new Error(), resolved) }
 		}
 	}
 
@@ -177,7 +182,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 	}
 
 	let response = options.createResponse({ status, headers, body });
-	response = (await options.onResponseSend?.({ context, response })) ?? response
+	response = (await options.onResponseSend?.({ context, response, ...apiResponse })) ?? response
 	options.writeResponse?.(response, body);
 	return response;
 }

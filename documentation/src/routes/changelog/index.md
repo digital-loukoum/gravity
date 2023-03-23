@@ -1,3 +1,7 @@
+## 0.9.41
+
+- `onResponseSend` get two new parameters: `data` or `error`. Useful to catch all errors that happen server-side.
+
 ## 0.9.40
 
 - indicate that `refresh` is a promise that returns nothing
