@@ -40,7 +40,7 @@
 		"idb-keyval": "^6.1.0",
 		"node-fetch": "^3.2.3",
 		"sade": "^1.8.1",
-		"typezer": "^0.9.29"
+		"typezer": "0.9.30"
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^9.0.13",
