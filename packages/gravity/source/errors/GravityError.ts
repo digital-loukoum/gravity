@@ -57,5 +57,9 @@ export type GravityErrorInput =
 			message: "Guards cannot be asynchronous";
 	  }
 	| {
+			message: "Return type should be a String, an ArrayBuffer or an UInt8Array";
+			returnType: string;
+	  }
+	| {
 			message: "Unexpected error";
 	  };

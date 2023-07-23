@@ -1,6 +1,12 @@
+## 0.9.46
+
+- add `@ContentType` decorator to handle custom content types.
+- update bunker version with a fix to handle large strings.
+
 ## 0.9.45
 
 - use typezer@0.9.30
+
 ## 0.9.44
 
 - `onResponseSend` get two new parameters: `data` or `error`. Useful to catch all errors that happen server-side.

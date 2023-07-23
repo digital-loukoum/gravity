@@ -16,6 +16,8 @@ import { logger } from "../logs/logger.js";
 import { parseCookies } from "../cookie/parseCookies.js";
 import type { OnResponseSend } from "./OnResponseSend.js";
 import type { ApiResponse } from "../index.js";
+import type { SetContentType } from "./SetContentType.js";
+import { getContentType } from "../metadata/ContentType.js";
 
 export type ResolveApiRequestOptions<Context, Request, Response> = {
 	request: Request;
@@ -28,29 +30,32 @@ export type ResolveApiRequestOptions<Context, Request, Response> = {
 	allowedOrigins: string[] | undefined;
 	authorize: Authorize<Context> | undefined;
 	onRequestReceive: OnRequestReceive<Context, Request> | undefined;
+	setContentType?: SetContentType<Context, Request> | undefined;
 	onResponseSend: OnResponseSend<Context, Response> | undefined;
 	createResponse: (options: GravityResponse) => Response;
-	writeResponse?: (response: Response, body: Uint8Array | string) => void
+	writeResponse?: (response: Response, body: Uint8Array | string) => void;
 };
 
 export async function resolveApiRequest<Context, Request, Response>(
 	options: ResolveApiRequestOptions<Context, Request, Response>,
 ): Promise<Response> {
-	const encoding =
-		options.headers["content-type"] == "application/bunker" ? "bunker" : "json";
+	let contentType =
+		options.headers["content-type"] == "application/bunker"
+			? "application/bunker"
+			: "application/json";
 	const allowedOrigin = getAllowedOrigin(
 		options.headers.origin,
 		options.allowedOrigins,
 	);
+	const { request } = options;
 
 	let status = 200;
 	let resolved: unknown;
 	let headers: IncomingHttpHeaders = {};
 	let body: string | Uint8Array = "";
-	let apiResponse: ApiResponse
+	let apiResponse: ApiResponse;
 
 	// setting response headers
-	headers["content-type"] = `application/${encoding}`;
 	headers["access-control-allow-headers"] = "*";
 	if (allowedOrigin != null) {
 		headers["access-control-allow-origin"] = allowedOrigin;
@@ -63,9 +68,10 @@ export async function resolveApiRequest<Context, Request, Response>(
 		return options.createResponse({ status, headers, body });
 	}
 
+	const cookies = parseCookies(options.headers.cookie ?? "");
 	const context = await options.onRequestReceive?.({
-		request: options.request,
-		cookies: parseCookies(options.headers.cookie ?? ""),
+		request,
+		cookies,
 	})!;
 
 	const [serviceName, ...path] = decodeUrl(options.url);
@@ -108,6 +114,23 @@ export async function resolveApiRequest<Context, Request, Response>(
 			service: serviceConstructor,
 			path,
 		});
+
+		// get the content type from the @ContentType() decorator
+		const customContentType = getContentType(serviceConstructor, path[0]);
+		if (customContentType) {
+			contentType = customContentType;
+		}
+
+		// get the content type from the setContentType function
+		if (options.setContentType) {
+			contentType = await options.setContentType({
+				context,
+				request,
+				cookies,
+				service: serviceConstructor,
+				path,
+			});
+		}
 
 		const service = new serviceConstructor(context);
 
@@ -153,7 +176,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 		} else {
 			resolved = await target;
 		}
-		apiResponse = { data: resolved }
+		apiResponse = { data: resolved };
 	} catch (error) {
 		if (error instanceof Error) {
 			const log = isGravityError(error) ? logger.warning : logger.error;
@@ -161,7 +184,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 			status = (isGravityError(error) ? error.status : undefined) ?? 500;
 			const { name, message } = error;
 			resolved = { ...error, name, message };
-			apiResponse = { error }
+			apiResponse = { error };
 		} else {
 			const errorStatus = (error as any)?.status;
 			status = typeof errorStatus == "number" ? errorStatus : 500;
@@ -169,20 +192,49 @@ export async function resolveApiRequest<Context, Request, Response>(
 				name: "UnknownError",
 				detail: error,
 			};
-			apiResponse = { error: Object.assign(new Error(), resolved) }
+			apiResponse = { error: Object.assign(new Error(), resolved) };
 		}
 	}
 
-	if (encoding == "bunker") {
-		body = bunker(resolved);
-		headers["content-length"] = String(body.length);
-	} else {
-		body = JSON.stringify(resolved);
-		headers["content-length"] = String(new TextEncoder().encode(body).length);
+	// depending on the content type, we return the right body
+	headers["content-type"] = contentType;
+	switch (contentType) {
+		case "application/bunker":
+			body = bunker(resolved);
+			headers["content-length"] = String(body.length);
+			break;
+		case "application/json":
+			body = JSON.stringify(resolved);
+			headers["content-length"] = String(new TextEncoder().encode(body).length);
+			break;
+		default:
+			// we have to trust the function to return the right body type
+			if (resolved instanceof ArrayBuffer) {
+				body = new Uint8Array(resolved);
+				headers["content-length"] = String(body.length);
+			} else if (resolved instanceof Uint8Array) {
+				body = resolved;
+				headers["content-length"] = String(body.length);
+			} else if (typeof resolved == "string") {
+				body = resolved;
+				headers["content-length"] = String(
+					new TextEncoder().encode(body).length,
+				);
+			} else {
+				throw gravityError({
+					message:
+						"Return type should be a String, an ArrayBuffer or an UInt8Array",
+					returnType: typeof resolved,
+					status: 500,
+				});
+			}
 	}
 
+	// we create and write the response object
 	let response = options.createResponse({ status, headers, body });
-	response = (await options.onResponseSend?.({ context, response, ...apiResponse })) ?? response
+	response =
+		(await options.onResponseSend?.({ context, response, ...apiResponse })) ??
+		response;
 	options.writeResponse?.(response, body);
 	return response;
 }

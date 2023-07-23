@@ -5,7 +5,7 @@ import { defineMetadata } from "./defineMetadata.js";
 export function defineTag(
 	name = "",
 ): [
-	(service: BaseService | BaseServiceConstructor, property?: string) => any,
+	(service: BaseService | BaseServiceConstructor, property?: string) => void,
 	(service: BaseServiceConstructor, property?: string) => boolean,
 ] {
 	const key = Symbol(name);

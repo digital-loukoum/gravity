@@ -28,7 +28,7 @@
 		"deploy": "pnpm build && pnpm test && pnpm publish"
 	},
 	"dependencies": {
-		"@digitak/bunker": "^3.3.5",
+		"@digitak/bunker": "^3.3.6",
 		"@digitak/esrun": "^3.2.11",
 		"@digitak/print": "^1.1.4",
 		"@ltd/j-toml": "^1.30.0",

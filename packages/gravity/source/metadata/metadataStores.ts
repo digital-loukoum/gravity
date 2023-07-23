@@ -1,9 +1,9 @@
 import type { BaseServiceConstructor } from "../services/BaseServiceConstructor.js";
 
-type Store = Record<string, unknown>;
+type MetadataStore = Record<string, unknown>;
 
-export const servicesStore = new Map<BaseServiceConstructor, Store>();
+export const servicesStore = new Map<BaseServiceConstructor, MetadataStore>();
 export const propertiesStore = new Map<
 	BaseServiceConstructor,
-	Map<string, Store>
+	Map<string, MetadataStore>
 >();

@@ -39,7 +39,7 @@ importers:
 
   packages/gravity:
     specifiers:
-      '@digitak/bunker': ^3.3.5
+      '@digitak/bunker': ^3.3.6
       '@digitak/esrun': ^3.2.11
       '@digitak/print': ^1.1.4
       '@ltd/j-toml': ^1.30.0
@@ -57,7 +57,7 @@ importers:
       typescript: ^4.7.4
       typezer: 0.9.30
     dependencies:
-      '@digitak/bunker': 3.3.5
+      '@digitak/bunker': 3.3.6
       '@digitak/esrun': 3.2.11
       '@digitak/print': 1.1.4
       '@ltd/j-toml': 1.30.0
@@ -687,8 +687,8 @@ packages:
       mime: 3.0.0
     dev: true
 
-  /@digitak/bunker/3.3.5:
-    resolution: {integrity: sha512-XLCMoSigSSnUwM153R80dS5deHPXEpJyteqpKRT3iKqjFXRHGxKdNDhv+cxFKN7UqEarKX+oPtxrMLbT8gVmWw==}
+  /@digitak/bunker/3.3.6:
+    resolution: {integrity: sha512-eK9W41792YCCKB6GV73HGGhN9okKJ5LC6iguq155uBA4X44yUbbz2GpleQAWie4F0nTVXKRr1fi+RLN5JIebGA==}
     dev: false
 
   /@digitak/cute/1.0.2:
