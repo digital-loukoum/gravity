@@ -179,9 +179,15 @@ export async function resolveApiRequest<Context, Request, Response>(
 		apiResponse = { data: resolved };
 	} catch (error) {
 		if (error instanceof Error) {
-			const log = isGravityError(error) ? logger.warning : logger.error;
-			log(error.name, error.message, error.stack);
-			status = (isGravityError(error) ? error.status : undefined) ?? 500;
+			if (isGravityError(error)) {
+				status = error.status ?? 500;
+				logger.warning(error.name, error.message, error.stack);
+				console.warn(error);
+			} else {
+				status = 500;
+				logger.error(error.name, error.message, error.stack);
+				console.error(error);
+			}
 			const { name, message } = error;
 			resolved = { ...error, name, message };
 			apiResponse = { error };

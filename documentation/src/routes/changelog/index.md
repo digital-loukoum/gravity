@@ -1,3 +1,7 @@
+## 0.9.47
+
+- display full errors server-side for easier debugging.
+
 ## 0.9.46
 
 - add `@ContentType` decorator to handle custom content types.
