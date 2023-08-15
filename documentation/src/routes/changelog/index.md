@@ -1,3 +1,7 @@
+## 0.9.48
+
+- fix `parseCookies` export.
+
 ## 0.9.47
 
 - display full errors server-side for easier debugging.

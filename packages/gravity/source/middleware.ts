@@ -49,7 +49,7 @@ export const defineHandler = <Services extends ServicesRecord<any>>(
 				}
 				return response;
 			},
-			writeResponse: (response, body) => body && response.write(body)
+			writeResponse: (response, body) => body && response.write(body),
 		});
 
 		return response.end();

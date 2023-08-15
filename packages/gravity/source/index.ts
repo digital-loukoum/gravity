@@ -4,6 +4,7 @@ export type { BaseServiceConstructor } from "./services/BaseServiceConstructor.j
 export type { ServiceInterface } from "./services/ServiceInterface.js";
 export type { ServicesRecord } from "./services/ServicesRecord.js";
 export { defineServices } from "./services/defineServices.js";
+export * from "./cookie.js";
 
 export { defineMetadata } from "./metadata/defineMetadata.js";
 export { defineTag } from "./metadata/defineTag.js";
