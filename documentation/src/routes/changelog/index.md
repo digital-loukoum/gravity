@@ -1,3 +1,8 @@
+## 0.9.49
+
+- handle offline with `persist` option.
+- don't try to fetch data when the browser knows it's offline.
+
 ## 0.9.48
 
 - fix `parseCookies` export.

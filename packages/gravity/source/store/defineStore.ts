@@ -85,6 +85,8 @@ export function defineStore<Store>(
 					}
 				}
 
+				if (window.navigator.onLine == false) return;
+
 				const response = await resolveApiCall(
 					{ fetcher: customFetcher },
 					service,
@@ -92,6 +94,8 @@ export function defineStore<Store>(
 					properties,
 					body,
 				);
+
+				if ((window.navigator.onLine as boolean) == false) return;
 
 				if (!response.error && persist) {
 					await gravityDB.set(key, response.data);
