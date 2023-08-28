@@ -169,6 +169,8 @@ export async function resolveApiRequest<Context, Request, Response>(
 				throw gravityError({
 					message: "Bad parameters",
 					errors,
+					serviceName,
+					target: path.join("/"),
 					status: 400,
 				});
 			}

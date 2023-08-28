@@ -46,11 +46,9 @@ export type GravityErrorInput =
 			target: string;
 	  }
 	| {
-			message: "Target should be a function";
-			target: string;
-	  }
-	| {
 			message: "Bad parameters";
+			serviceName: string;
+			target: string;
 			errors: string[];
 	  }
 	| {
