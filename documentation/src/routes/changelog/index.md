@@ -1,3 +1,7 @@
+## 0.9.50
+
+- add the name of the service and path to the "bad parameters" error, for easier debugging.
+
 ## 0.9.49
 
 - handle offline with `persist` option.
