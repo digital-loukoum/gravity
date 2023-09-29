@@ -69,12 +69,30 @@ export async function resolveApiRequest<Context, Request, Response>(
 	}
 
 	const cookies = parseCookies(options.headers.cookie ?? "");
+
+	const [serviceName, ...path] = decodeUrl(options.url);
+
+	const serviceConstructor = options.services[serviceName];
+	if (!serviceConstructor) {
+		throw gravityError({
+			message: "Service inexistant",
+			serviceName,
+			status: 404,
+		});
+	}
+	if (!options.schema[serviceName]) {
+		throw gravityError({
+			message: "Schema is not in sync with services",
+			status: 500,
+		});
+	}
+
 	const context = await options.onRequestReceive?.({
 		request,
 		cookies,
+		service: serviceConstructor,
+		path,
 	})!;
-
-	const [serviceName, ...path] = decodeUrl(options.url);
 
 	try {
 		if (!serviceName) {
@@ -90,21 +108,6 @@ export async function resolveApiRequest<Context, Request, Response>(
 				message: "Target missing",
 				serviceName,
 				status: 400,
-			});
-		}
-
-		const serviceConstructor = options.services[serviceName];
-		if (!serviceConstructor) {
-			throw gravityError({
-				message: "Service inexistant",
-				serviceName,
-				status: 404,
-			});
-		}
-		if (!options.schema[serviceName]) {
-			throw gravityError({
-				message: "Schema is not in sync with services",
-				status: 500,
 			});
 		}
 

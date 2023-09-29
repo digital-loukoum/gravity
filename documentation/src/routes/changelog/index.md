@@ -1,3 +1,8 @@
+## 0.9.52
+
+- upgrade to svelte 4
+- add service and path to `onRequestReceive`, that can be used to check if authentication is necessary and speed up response time when it is not
+
 ## 0.9.51
 
 - allow "*" origin.

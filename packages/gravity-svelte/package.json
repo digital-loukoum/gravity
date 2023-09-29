@@ -18,7 +18,7 @@
 	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../gravity/package",
-		"svelte": "^3"
+		"svelte": "^3 || ^4"
 	},
 	"devDependencies": {
 		"@digitak/esrun": "^3.2.11",
