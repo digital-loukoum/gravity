@@ -1,3 +1,7 @@
+## 0.9.53
+
+- metadata stores now use symbols as keys to prevent mixing up different tags
+
 ## 0.9.52
 
 - upgrade to svelte 4

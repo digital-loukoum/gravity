@@ -2,7 +2,10 @@ import { BaseService, type BaseServiceConstructor } from "../index.js";
 import { defineMetadata } from "./defineMetadata.js";
 
 const key = Symbol("ContentType");
-const { getMetadata: getContentTypeMetadata, setMetadata: setContentTypeMetadata } = defineMetadata<{ [key]: string }>();
+const {
+	getMetadata: getContentTypeMetadata,
+	setMetadata: setContentTypeMetadata,
+} = defineMetadata<string>();
 
 /**
  * Built-in decorator that marks the content type of a response.
@@ -17,7 +20,10 @@ const { getMetadata: getContentTypeMetadata, setMetadata: setContentTypeMetadata
  * ```
  */
 export function ContentType(contentType: string) {
-	return (serviceInstance: BaseService | BaseServiceConstructor, property?: string) => {
+	return (
+		serviceInstance: BaseService | BaseServiceConstructor,
+		property?: string,
+	) => {
 		const service = (
 			property ? serviceInstance.constructor : serviceInstance
 		) as BaseServiceConstructor;
@@ -27,13 +33,16 @@ export function ContentType(contentType: string) {
 		}
 
 		setContentTypeMetadata({ service, property, key, value: contentType });
-	}
+	};
 }
 
 /**
  * @returns the content type of the given service and path, if any.
  */
-export function getContentType(service: BaseServiceConstructor, property: string | undefined): string | undefined {
+export function getContentType(
+	service: BaseServiceConstructor,
+	property: string | undefined,
+): string | undefined {
 	return (
 		getContentTypeMetadata({ service, key }) ||
 		getContentTypeMetadata({ service, property, key })

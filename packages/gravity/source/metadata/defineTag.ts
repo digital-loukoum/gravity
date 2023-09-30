@@ -9,7 +9,7 @@ export function defineTag(
 	(service: BaseServiceConstructor, property?: string) => boolean,
 ] {
 	const key = Symbol(name);
-	const { getMetadata, setMetadata } = defineMetadata<{ [key]: true }>();
+	const { getMetadata, setMetadata } = defineMetadata<true>();
 
 	return [
 		(serviceInstance, property) => {
