@@ -46,6 +46,7 @@
 		"@types/fs-extra": "^9.0.13",
 		"@types/node": "^16.11.26",
 		"fartest": "^2.1.8",
-		"typescript": "^4.7.4"
+		"typescript": "^5",
+		"bun-types": "latest"
 	}
 }

@@ -1,3 +1,7 @@
+## 0.9.54
+
+- native support for Bun and Deno handlers
+
 ## 0.9.53
 
 - metadata stores now use symbols as keys to prevent mixing up different tags
