@@ -1,6 +1,6 @@
 <script lang="ts">
-	import RequestCard from 'src/components/RequestCard.svelte';
-	import { api, store } from '../gravity/api';
+	import RequestCard from "../components/RequestCard.svelte";
+	import { api, store } from "../gravity/api";
 
 	let a = 1;
 	let b = 2;
@@ -26,7 +26,13 @@
 		error={undefined}
 	/>
 {:then { data, error }}
-	<RequestCard title="Api sum" loading={false} refreshing={false} {data} {error} />
+	<RequestCard
+		title="Api sum"
+		loading={false}
+		refreshing={false}
+		{data}
+		{error}
+	/>
 {/await}
 
 <RequestCard

@@ -44,7 +44,7 @@
 	},
 	"devDependencies": {
 		"@types/fs-extra": "^9.0.13",
-		"@types/node": "^16.11.26",
+		"@types/node": "latest",
 		"fartest": "^2.1.8",
 		"typescript": "^5",
 		"bun-types": "latest"

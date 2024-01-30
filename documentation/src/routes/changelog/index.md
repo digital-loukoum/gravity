@@ -1,3 +1,7 @@
+## 0.9.55
+
+- update SvelteKit supported versions
+
 ## 0.9.54
 
 - native support for Bun and Deno handlers

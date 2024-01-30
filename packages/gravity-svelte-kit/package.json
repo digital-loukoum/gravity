@@ -21,7 +21,7 @@
 	},
 	"peerDependencies": {
 		"@digitak/gravity": "link:../gravity/package",
-		"@sveltejs/kit": "^1.0.0-next.324",
+		"@sveltejs/kit": "^1 || ^2",
 		"svelte": "^3 || ^4"
 	},
 	"devDependencies": {

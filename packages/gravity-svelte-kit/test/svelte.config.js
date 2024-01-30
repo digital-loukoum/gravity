@@ -1,34 +1,17 @@
 import adapter from '@sveltejs/adapter-auto';
-import { dirname } from 'path';
-import preprocess from 'svelte-preprocess';
-import { fileURLToPath } from 'url';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
+	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
 	// for more information about preprocessors
-	preprocess: preprocess(),
+	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter(),
-		vite: {
-			optimizeDeps: {
-				exclude: []
-			},
-			server: {
-				fs: {
-					allow: ['..']
-				}
-			},
-			resolve: {
-				alias: {
-					src: `${__dirname}/src`,
-					'@digitak/gravity-svelte-kit': `${__dirname}/../source`
-				}
-			}
-		}
+		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
+		// If your environment is not supported or you settled on a specific environment, switch out the adapter.
+		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
+		adapter: adapter()
 	}
 };
 

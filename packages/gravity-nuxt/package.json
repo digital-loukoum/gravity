@@ -26,7 +26,7 @@
 	},
 	"devDependencies": {
 		"@digitak/gravity": "link:../gravity/package",
-		"@types/node": "^17.0.30",
+		"@types/node": "latest",
 		"nuxt": "^3.0.0-rc.1"
 	}
 }
