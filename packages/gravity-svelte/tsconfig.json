@@ -2,8 +2,11 @@
 	"compilerOptions": {
 		"moduleResolution": "NodeNext",
 		"target": "es2020",
-		"lib": ["es2020", "dom"],
-		"module": "esnext",
+		"lib": [
+			"es2020",
+			"dom"
+		],
+		"module": "NodeNext",
 		"strict": true,
 		"outDir": "package",
 		"declaration": true,
@@ -12,5 +15,7 @@
 		"experimentalDecorators": true,
 		"baseUrl": "."
 	},
-	"include": ["./source/**/*.ts"]
+	"include": [
+		"./source/**/*.ts"
+	]
 }
