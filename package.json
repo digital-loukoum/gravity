@@ -1,5 +1,5 @@
 {
-	"version": "0.9.56",
+	"version": "0.9.57",
 	"workspaces": [
 		"core",
 		"integrations/svelte",
