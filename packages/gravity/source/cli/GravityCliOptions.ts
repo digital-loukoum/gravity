@@ -38,9 +38,16 @@ export type GravityCliOptions = {
 	use?: string;
 
 	/**
+	 * Whether to run Gravity in schemaless mode.
+	 * In schemaless mode, Gravity will not look for a schema file, will not generate one, and will not validate server function arguments.
+	 */
+	schemaless?: boolean;
+
+	/**
 	 * Optional options to pass to esbuild when building the server
 	 */
-	esbuildOptions?: Pick<BuildOptions,
+	esbuildOptions?: Pick<
+		BuildOptions,
 		| "minify"
 		| "format"
 		| "sourcemap"

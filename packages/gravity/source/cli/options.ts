@@ -14,7 +14,10 @@ export const options = defineOptions({
 	watch: ["--watch", "Pass this option to watch schema changes"],
 	verbose: ["--no-logs", "Set to false to prevent console logs"],
 	use: ["--use", "Another command to use along the main gravity command"],
-	bundleDependencies: ["--bundle-dependencies", "Bundle dependencies in build output"],
+	bundleDependencies: [
+		"--bundle-dependencies",
+		"Bundle dependencies in build output",
+	],
 	servicesFile: [
 		"--services [file]",
 		"Path to the file that exports the services",
@@ -22,6 +25,10 @@ export const options = defineOptions({
 	schemaFile: [
 		"--schema [file]",
 		"Path to schema.json file\nCan be a directory; in that case all parents node_modules/.gravity/schema.json will be searched until a match is found",
+	],
+	schemaless: [
+		"--schemaless",
+		"Run gravity in schemaless mode. In this mode, gravity will not generate a schema file and will not validate server functions input.",
 	],
 });
 

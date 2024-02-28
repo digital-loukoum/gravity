@@ -16,12 +16,15 @@ const useCommand = (program: Sade, command: string) => {
 	return program;
 };
 
-const parseBoolean = (value: string | boolean | undefined, defaultValue = false): boolean => {
+const parseBoolean = (
+	value: string | boolean | undefined,
+	defaultValue = false,
+): boolean => {
 	if (typeof value === "boolean") return value;
 	if (value === "true") return true;
 	if (value === "false") return false;
-	return defaultValue
-}
+	return defaultValue;
+};
 
 export const useVersion = (program: Sade) => {
 	return program.version(version);
@@ -47,12 +50,14 @@ export const useDevelop = (program: Sade, command = "dev") => {
 		.option(...options.servicesFile)
 		.option(...options.schemaFile)
 		.option(...options.use)
+		.option(...options.schemaless)
 		.action((options) => {
 			develop({
 				entryFile: options["entry"],
 				servicesFile: options["services"],
 				schemaFile: options["schema"],
 				use: options["use"] || "",
+				schemaless: options["schemaless"],
 			});
 		});
 };
@@ -67,6 +72,7 @@ export const useBuild = (program: Sade, command = "build") => {
 		.option(...options.outputFile)
 		.option(...options.servicesFile)
 		.option(...options.schemaFile)
+		.option(...options.schemaless)
 		.option(...options.bundleDependencies)
 		.option(...options.use)
 		.option(...options.verbose)
@@ -86,6 +92,7 @@ export const useBuild = (program: Sade, command = "build") => {
 				servicesFile: options["services"],
 				outputFile: options["output"],
 				schemaFile: options["schema"],
+				schemaless: options["schemaless"],
 				verbose: parseBoolean(options["logs"], true),
 				bundleDependencies: parseBoolean(options["bundle-dependencies"]),
 				use: options["use"] || "",

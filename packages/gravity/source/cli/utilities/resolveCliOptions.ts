@@ -19,6 +19,7 @@ export function resolveCliOptions(
 		esbuildOptions: {},
 		use: "",
 		bundleDependencies: false,
+		schemaless: false,
 	};
 
 	return merge(

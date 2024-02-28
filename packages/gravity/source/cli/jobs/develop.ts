@@ -4,7 +4,7 @@ import print from "@digitak/print";
 import type { GravityCliOptions } from "../GravityCliOptions.js";
 import { generateSchema } from "./generateSchema.js";
 import { resolveCliOptions } from "../utilities/resolveCliOptions.js";
-import { exec, execSync, spawn } from "child_process";
+import { spawn } from "child_process";
 
 export type GravityDevelopOptions = Pick<
 	GravityCliOptions,
@@ -12,7 +12,7 @@ export type GravityDevelopOptions = Pick<
 >;
 
 export function develop(options?: GravityCliOptions) {
-	const { entryFile, servicesFile, schemaFile, use } =
+	const { entryFile, servicesFile, schemaFile, use, schemaless } =
 		resolveCliOptions(options);
 
 	if (!use) {
@@ -22,11 +22,16 @@ export function develop(options?: GravityCliOptions) {
 		}
 	}
 
-	generateSchema({
-		servicesFile,
-		schemaFile,
-		watch: true,
-	});
+	if (schemaless) {
+		const env = globalThis.process.env ?? import.meta.env;
+		env.GRAVITY_SCHEMALESS = "true";
+	} else {
+		generateSchema({
+			servicesFile,
+			schemaFile,
+			watch: true,
+		});
+	}
 
 	if (use) {
 		// we use another command to run the dev server

@@ -24,7 +24,12 @@ export type ResolveApiRequestOptions<Context, Request, Response> = {
 	method: string | undefined;
 	url: string;
 	services: Record<string, BaseServiceConstructor>;
-	schema: Record<string, Record<string, Type>>;
+
+	/**
+	 * The schema used to validate the request arguments.
+	 * Set it to "schemaless" to disable the schema validation.
+	 */
+	schema: Record<string, Record<string, Type>> | "schemaless";
 	headers: IncomingHttpHeaders;
 	rawBody: Uint8Array | null | undefined;
 	allowedOrigins: string[] | undefined;
@@ -48,6 +53,13 @@ export async function resolveApiRequest<Context, Request, Response>(
 		options.allowedOrigins,
 	);
 	const { request } = options;
+	const GRAVITY_SCHEMALESS =
+		globalThis.process.env.GRAVITY_SCHEMALESS ??
+		import.meta.env.GRAVITY_SCHEMALESS;
+
+	if (GRAVITY_SCHEMALESS === "true" || GRAVITY_SCHEMALESS === "") {
+		options.schema = "schemaless";
+	}
 
 	let status = 200;
 	let resolved: unknown;
@@ -80,7 +92,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 			status: 404,
 		});
 	}
-	if (!options.schema[serviceName]) {
+	if (options.schema !== "schemaless" && !options.schema[serviceName]) {
 		throw gravityError({
 			message: "Schema is not in sync with services",
 			status: 500,
@@ -138,29 +150,9 @@ export async function resolveApiRequest<Context, Request, Response>(
 		const service = new serviceConstructor(context);
 
 		// we check the path exists in schema
-		const targetType = findTargetInSchema(options.schema[serviceName], path);
-		if (!targetType) {
-			throw gravityError({
-				message: "Target inexistant",
-				serviceName,
-				target: path.join("/"),
-				status: 404,
-			});
-		}
-		// then we retrieve the target
-		const target = resolvePath(serviceName, service, path);
-
-		if (typeof target == "function") {
-			const parameters = decodeParameters(options.headers, options.rawBody);
-			let errors: Array<string> | undefined;
-
-			try {
-				({ errors } = validateSignature(
-					options.schema[serviceName],
-					path,
-					parameters,
-				));
-			} catch (error) {
+		if (options.schema !== "schemaless") {
+			const targetType = findTargetInSchema(options.schema[serviceName], path);
+			if (!targetType) {
 				throw gravityError({
 					message: "Target inexistant",
 					serviceName,
@@ -168,15 +160,42 @@ export async function resolveApiRequest<Context, Request, Response>(
 					status: 404,
 				});
 			}
-			if (errors?.length) {
-				throw gravityError({
-					message: "Bad parameters",
-					errors,
-					serviceName,
-					target: path.join("/"),
-					status: 400,
-				});
+		}
+
+		// then we retrieve the target
+		const target = resolvePath(serviceName, service, path);
+
+		if (typeof target == "function") {
+			const parameters = decodeParameters(options.headers, options.rawBody);
+			let errors: Array<string> | undefined;
+
+			if (options.schema !== "schemaless") {
+				try {
+					errors = validateSignature(
+						options.schema[serviceName],
+						path,
+						parameters,
+					).errors;
+				} catch (error) {
+					throw gravityError({
+						message: "Target inexistant",
+						serviceName,
+						target: path.join("/"),
+						status: 404,
+					});
+				}
+
+				if (errors?.length) {
+					throw gravityError({
+						message: "Bad parameters",
+						errors,
+						serviceName,
+						target: path.join("/"),
+						status: 400,
+					});
+				}
 			}
+
 			resolved = await target.apply(service, parameters);
 		} else {
 			resolved = await target;

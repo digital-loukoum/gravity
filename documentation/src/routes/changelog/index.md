@@ -1,3 +1,7 @@
+## 0.9.56
+
+- add `schemaless` mode to run Gravity without schema generation / input validation
+
 ## 0.9.55
 
 - update SvelteKit supported versions
