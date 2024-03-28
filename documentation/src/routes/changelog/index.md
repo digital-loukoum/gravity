@@ -1,3 +1,7 @@
+## 0.9.57
+
+- fix an error with `schemaless` mode for some environments
+
 ## 0.9.56
 
 - add `schemaless` mode to run Gravity without schema generation / input validation

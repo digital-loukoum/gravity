@@ -54,8 +54,8 @@ export async function resolveApiRequest<Context, Request, Response>(
 	);
 	const { request } = options;
 	const GRAVITY_SCHEMALESS =
-		globalThis.process.env.GRAVITY_SCHEMALESS ??
-		import.meta.env.GRAVITY_SCHEMALESS;
+		globalThis.process?.env?.GRAVITY_SCHEMALESS ??
+		import.meta?.env?.GRAVITY_SCHEMALESS;
 
 	if (GRAVITY_SCHEMALESS === "true" || GRAVITY_SCHEMALESS === "") {
 		options.schema = "schemaless";

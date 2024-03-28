@@ -40,8 +40,8 @@ export async function build(options: GravityBuildOptions = {}) {
 	}
 
 	if (schemaless) {
-		const env = globalThis.process.env ?? import.meta.env;
-		env.GRAVITY_SCHEMALESS = "true";
+		const env = globalThis.process?.env ?? import.meta?.env;
+		if (env) env.GRAVITY_SCHEMALESS = "true";
 	} else {
 		generateSchema({
 			servicesFile,
