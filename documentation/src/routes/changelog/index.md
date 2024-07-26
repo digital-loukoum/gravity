@@ -1,3 +1,7 @@
+## 0.9.58
+
+- use pathname to macth api paths
+
 ## 0.9.57
 
 - fix an error with `schemaless` mode for some environments
