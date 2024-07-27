@@ -6,6 +6,7 @@ import { apiMatchesUrl } from "./utilities/apiMatchesUrl.js";
 import { normalizeHandlerOptions } from "./handler/normalizeHandlerOptions.js";
 import type { ServicesRecord } from "./services/ServicesRecord.js";
 import type { GetContext } from "./services/GetContext.js";
+import { getPathName } from "./utilities/getPathName.js";
 
 export const defineHandler = <Services extends ServicesRecord<any>>(
 	options: DefineHandlerOptions<
@@ -33,7 +34,7 @@ export const defineHandler = <Services extends ServicesRecord<any>>(
 		>({
 			request,
 			method: request.method,
-			url: url.slice(apiPath.length),
+			url: getPathName(url).slice(apiPath.length),
 			rawBody,
 			allowedOrigins: options.allowedOrigins,
 			services: options.services,

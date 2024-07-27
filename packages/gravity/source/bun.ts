@@ -5,6 +5,7 @@ import { normalizeHandlerOptions } from "./handler/normalizeHandlerOptions.js";
 import type { ServicesRecord } from "./services/ServicesRecord.js";
 import type { GetContext } from "./services/GetContext.js";
 import { parseHeaders } from "./utilities/parseHeaders.js";
+import { getPathName } from "./utilities/getPathName.js";
 
 export const defineHandler = <Services extends ServicesRecord<any>>(
 	options: DefineHandlerOptions<
@@ -24,7 +25,7 @@ export const defineHandler = <Services extends ServicesRecord<any>>(
 		return await resolveApiRequest<GetContext<Services>, Request, Response>({
 			request,
 			method: request.method,
-			url: url.slice(apiPath.length),
+			url: getPathName(url).slice(apiPath.length),
 			rawBody,
 			allowedOrigins: options.allowedOrigins,
 			services: options.services,

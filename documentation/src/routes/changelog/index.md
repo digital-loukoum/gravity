@@ -1,4 +1,8 @@
-## 0.9.59
+## 0.9.61
+
+- fix URL parsing for Bun and other base middlewares
+
+## 0.9.60
 
 - fix URL decoding following path name changes
 
