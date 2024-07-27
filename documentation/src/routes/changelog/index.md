@@ -1,3 +1,7 @@
+## 0.9.59
+
+- fix URL decoding following path name changes
+
 ## 0.9.58
 
 - use pathname to macth api paths
