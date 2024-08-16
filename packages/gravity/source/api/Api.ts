@@ -1,6 +1,7 @@
 import type { ServicesRecord } from "../services/ServicesRecord.js";
 import type { ServiceInterface } from "../services/ServiceInterface.js";
 import type { ApiResponse } from "./ApiResponse.js";
+import type { GravityStream } from "../types/GravityStream.js";
 
 /**
  * ⛔️ Because Typescript does not support type injection (ie passing a generic as a generic paremeter),
@@ -18,24 +19,28 @@ import type { ApiResponse } from "./ApiResponse.js";
 type Callable<Type> = Type extends (
 	...args: infer Parameters
 ) => infer ReturnType
-	? (...args: Parameters) => Promise<ApiResponse<ReturnType>>
+	? ReturnType extends
+			| GravityStream<infer Result>
+			| Promise<GravityStream<infer Result>>
+		? (...args: Parameters) => Promise<ApiResponse<AsyncIterable<Result>>>
+		: (...args: Parameters) => Promise<ApiResponse<ReturnType>>
 	: Type extends any[]
-	? Array<() => Promise<ApiResponse<Type[number]>>> &
-			(() => Promise<ApiResponse<Type>>)
-	: Type extends
-			| Set<any>
-			| Map<any, any>
-			| RegExp
-			| String
-			| Number
-			| BigInt
-			| Boolean
-			| Date
-			| ArrayBuffer
-	? () => Promise<ApiResponse<Type>>
-	: Type extends object
-	? { [Key in keyof Type]: Callable<Type[Key]> }
-	: () => Promise<ApiResponse<Type>>;
+		? Array<() => Promise<ApiResponse<Type[number]>>> &
+				(() => Promise<ApiResponse<Type>>)
+		: Type extends
+					| Set<any>
+					| Map<any, any>
+					| RegExp
+					| String
+					| Number
+					| BigInt
+					| Boolean
+					| Date
+					| ArrayBuffer
+			? () => Promise<ApiResponse<Type>>
+			: Type extends object
+				? { [Key in keyof Type]: Callable<Type[Key]> }
+				: () => Promise<ApiResponse<Type>>;
 
 type ExposedProperties<Service extends ServiceInterface<any>> = {
 	[Key in Exclude<
@@ -54,21 +59,21 @@ export type Api<Services extends ServicesRecord<any>> = {
 type SendableBeacon<Type> = Type extends (...args: infer Parameters) => any
 	? (...args: Parameters) => boolean
 	: Type extends any[]
-	? Array<() => boolean> & (() => boolean)
-	: Type extends
-			| Set<any>
-			| Map<any, any>
-			| RegExp
-			| String
-			| Number
-			| BigInt
-			| Boolean
-			| Date
-			| ArrayBuffer
-	? () => boolean
-	: Type extends object
-	? { [Key in keyof Type]: SendableBeacon<Type[Key]> }
-	: () => boolean;
+		? Array<() => boolean> & (() => boolean)
+		: Type extends
+					| Set<any>
+					| Map<any, any>
+					| RegExp
+					| String
+					| Number
+					| BigInt
+					| Boolean
+					| Date
+					| ArrayBuffer
+			? () => boolean
+			: Type extends object
+				? { [Key in keyof Type]: SendableBeacon<Type[Key]> }
+				: () => boolean;
 
 type ExposedBeaconProperties<Service extends ServiceInterface<any>> = {
 	[Key in Exclude<

@@ -11,5 +11,6 @@ export { defineTag } from "./metadata/defineTag.js";
 export { defineGuard } from "./metadata/defineGuard.js";
 export { guard } from "./metadata/guard.js";
 export { ContentType } from "./metadata/ContentType.js";
+export { GravityStream } from "./types/GravityStream.js";
 
 export type { ApiResponse } from "./api/ApiResponse.js";

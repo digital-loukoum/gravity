@@ -1,4 +1,4 @@
-import type { ServiceInterface } from "@digitak/gravity";
+import type { GravityStream, ServiceInterface } from "@digitak/gravity";
 import type { ServicesRecord } from "@digitak/gravity";
 import { Store } from "./Store.js";
 
@@ -18,23 +18,27 @@ import { Store } from "./Store.js";
 type Callable<Type> = Type extends (
 	...args: infer Parameters
 ) => infer ReturnType
-	? (...args: Parameters) => Store<ReturnType>
+	? ReturnType extends
+			| GravityStream<infer Result>
+			| Promise<GravityStream<infer Result>>
+		? (...args: Parameters) => Store<AsyncIterable<Result>>
+		: (...args: Parameters) => Store<ReturnType>
 	: Type extends any[]
-	? Array<() => Store<Type[number]>> & (() => Store<Type>)
-	: Type extends
-			| Set<any>
-			| Map<any, any>
-			| RegExp
-			| String
-			| Number
-			| BigInt
-			| Boolean
-			| Date
-			| ArrayBuffer
-	? () => Store<Type>
-	: Type extends object
-	? { [Key in keyof Type]: Callable<Type[Key]> }
-	: () => Store<Type>;
+		? Array<() => Store<Type[number]>> & (() => Store<Type>)
+		: Type extends
+					| Set<any>
+					| Map<any, any>
+					| RegExp
+					| String
+					| Number
+					| BigInt
+					| Boolean
+					| Date
+					| ArrayBuffer
+			? () => Store<Type>
+			: Type extends object
+				? { [Key in keyof Type]: Callable<Type[Key]> }
+				: () => Store<Type>;
 
 type ExposedProperties<Service extends ServiceInterface<any>> = {
 	[Key in Exclude<

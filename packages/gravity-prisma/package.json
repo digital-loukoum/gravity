@@ -34,7 +34,7 @@
 		"dotenv": "^14.2.0",
 		"fs-extra": "^10.0.0",
 		"prisma": "^3.8.1",
-		"typescript": "^4.7.4"
+		"typescript": "latest"
 	},
 	"prisma": {
 		"schema": "test/prisma/schema.prisma"

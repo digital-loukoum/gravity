@@ -2,12 +2,14 @@ import type { Api, BeaconApi } from "./Api.js";
 import type { OnRequestSend } from "./OnRequestSend.js";
 import type { OnResponseReceive } from "./OnResponseReceive.js";
 import type { ApiResponse } from "./ApiResponse.js";
-import { bunker, debunker } from "@digitak/bunker";
+import { bunker, debunker, debunkerMany } from "@digitak/bunker";
 import { apiProxy } from "./apiProxy.js";
 import { normalizePath } from "../utilities/normalizePath.js";
 import type { ServicesRecord } from "../services/ServicesRecord.js";
 import { getCacheKey } from "./getCacheKey.js";
 import { gravityDB } from "./gravityDB.js";
+
+type A = AsyncGenerator;
 
 export type DefineApiOptions = {
 	apiPath?: string;
@@ -67,10 +69,27 @@ export function defineApi<Services extends ServicesRecord<any>>({
 		// we receive a JSON object unless "application/bunker" content type is specified
 		let data: any;
 
-		if (response.headers.get("Content-Type") == "application/bunker") {
+		const contentType = response.headers.get("Content-Type");
+
+		if (contentType == "application/bunker") {
 			data = debunker(new Uint8Array(await response.arrayBuffer()));
-		} else {
+		} else if (contentType == "application/json") {
 			data = (await response.json()) as unknown;
+		} else if (contentType == "application/octet-stream") {
+			const reader = response.body?.getReader();
+			if (!reader) throw new Error("Streaming is not supported");
+			data = (async function* () {
+				do {
+					const { done, value } = await reader.read();
+					if (done) return;
+					const results = debunkerMany(value);
+					for (const result of results) {
+						yield result;
+					}
+				} while (true);
+			})();
+		} else {
+			data = await response.json();
 		}
 
 		const result: ApiResponse = response.ok

@@ -1,3 +1,7 @@
+## 0.9.62
+
+- add streaming support by allowing to return a `GravityStream` value
+
 ## 0.9.61
 
 - fix URL parsing for Bun and other base middlewares

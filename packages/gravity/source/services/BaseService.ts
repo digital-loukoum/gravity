@@ -4,9 +4,7 @@ import type { ServiceInterface } from "./ServiceInterface.js";
 export abstract class BaseService<Context = any>
 	implements ServiceInterface<Context>
 {
-	constructor(
-		public readonly context: Context,
-	) {}
+	constructor(public readonly context: Context) {}
 
 	/**
 	 * Use this method to call another service from a service.

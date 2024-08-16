@@ -64,7 +64,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 	let status = 200;
 	let resolved: unknown;
 	let headers: IncomingHttpHeaders = {};
-	let body: string | Uint8Array = "";
+	let body: any = "";
 	let apiResponse: ApiResponse;
 
 	// setting response headers
@@ -226,8 +226,18 @@ export async function resolveApiRequest<Context, Request, Response>(
 		}
 	}
 
+	if (resolved instanceof ReadableStream) {
+		if (
+			contentType == "application/json" ||
+			contentType == "application/bunker"
+		) {
+			contentType = "application/octet-stream";
+		}
+	}
+
 	// depending on the content type, we return the right body
 	headers["content-type"] = contentType;
+
 	switch (contentType) {
 		case "application/bunker":
 			body = bunker(resolved);
@@ -237,27 +247,13 @@ export async function resolveApiRequest<Context, Request, Response>(
 			body = JSON.stringify(resolved);
 			headers["content-length"] = String(new TextEncoder().encode(body).length);
 			break;
+		case "application/octet-stream":
+			// streaming ReadableStream response
+			body = resolved;
+			break;
 		default:
-			// we have to trust the function to return the right body type
-			if (resolved instanceof ArrayBuffer) {
-				body = new Uint8Array(resolved);
-				headers["content-length"] = String(body.length);
-			} else if (resolved instanceof Uint8Array) {
-				body = resolved;
-				headers["content-length"] = String(body.length);
-			} else if (typeof resolved == "string") {
-				body = resolved;
-				headers["content-length"] = String(
-					new TextEncoder().encode(body).length,
-				);
-			} else {
-				throw gravityError({
-					message:
-						"Return type should be a String, an ArrayBuffer or an UInt8Array",
-					returnType: typeof resolved,
-					status: 500,
-				});
-			}
+			body = resolved;
+		// we have to trust the user to return the right body type
 	}
 
 	// we create and write the response object
@@ -265,6 +261,13 @@ export async function resolveApiRequest<Context, Request, Response>(
 	response =
 		(await options.onResponseSend?.({ context, response, ...apiResponse })) ??
 		response;
-	options.writeResponse?.(response, body);
+
+	if (
+		contentType == "application/bunker" ||
+		contentType == "application/json"
+	) {
+		options.writeResponse?.(response, body);
+	}
+
 	return response;
 }
