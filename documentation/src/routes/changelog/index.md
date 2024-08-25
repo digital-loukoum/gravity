@@ -1,3 +1,7 @@
+## 0.9.63
+
+- make `schema` optional
+
 ## 0.9.62
 
 - add streaming support by allowing to return a `GravityStream` value

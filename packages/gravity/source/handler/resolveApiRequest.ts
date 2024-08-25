@@ -29,7 +29,7 @@ export type ResolveApiRequestOptions<Context, Request, Response> = {
 	 * The schema used to validate the request arguments.
 	 * Set it to "schemaless" to disable the schema validation.
 	 */
-	schema: Record<string, Record<string, Type>> | "schemaless";
+	schema?: Record<string, Record<string, Type>>;
 	headers: IncomingHttpHeaders;
 	rawBody: Uint8Array | null | undefined;
 	allowedOrigins: string[] | undefined;
@@ -58,7 +58,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 		import.meta?.env?.GRAVITY_SCHEMALESS;
 
 	if (GRAVITY_SCHEMALESS === "true" || GRAVITY_SCHEMALESS === "") {
-		options.schema = "schemaless";
+		options.schema = undefined;
 	}
 
 	let status = 200;
@@ -92,7 +92,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 			status: 404,
 		});
 	}
-	if (options.schema !== "schemaless" && !options.schema[serviceName]) {
+	if (options.schema && !options.schema[serviceName]) {
 		throw gravityError({
 			message: "Schema is not in sync with services",
 			status: 500,
@@ -150,7 +150,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 		const service = new serviceConstructor(context);
 
 		// we check the path exists in schema
-		if (options.schema !== "schemaless") {
+		if (options.schema) {
 			const targetType = findTargetInSchema(options.schema[serviceName], path);
 			if (!targetType) {
 				throw gravityError({
@@ -169,7 +169,7 @@ export async function resolveApiRequest<Context, Request, Response>(
 			const parameters = decodeParameters(options.headers, options.rawBody);
 			let errors: Array<string> | undefined;
 
-			if (options.schema !== "schemaless") {
+			if (options.schema) {
 				try {
 					errors = validateSignature(
 						options.schema[serviceName],

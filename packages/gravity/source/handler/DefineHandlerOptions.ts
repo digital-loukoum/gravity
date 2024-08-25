@@ -10,7 +10,7 @@ export type DefineHandlerOptions<
 	Response,
 > = {
 	services: Services;
-	schema: Record<string, any>;
+	schema?: Record<string, any>;
 	apiPath?: string;
 	verbose?: boolean;
 	onResponseSend?: OnResponseSend<Context, Response>;
@@ -20,4 +20,4 @@ export type DefineHandlerOptions<
 	? { onRequestReceive?: OnRequestReceive<Context, Request> }
 	: {
 			onRequestReceive: OnRequestReceive<Context, Request>;
-	  });
+		});
