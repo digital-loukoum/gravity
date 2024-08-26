@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       
@@ -40,6 +40,7 @@ jobs:
   publish:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
+    depends-on: build
     steps:
       - uses: qoomon/actions--setup-git@v1
         with:
