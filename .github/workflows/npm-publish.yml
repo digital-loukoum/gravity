@@ -41,6 +41,10 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
+      - uses: qoomon/actions--setup-git@v1
+        with:
+          user: bot
+      
       # setup git config (for auto-version bumping)
       - name: Setup git config
         run: |
