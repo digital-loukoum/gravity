@@ -12,7 +12,8 @@ on:
 jobs:
   build:
     if: github.event_name == 'pull_request'
-    # runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
+    container: alpine:latest
     steps:
       - uses: actions/checkout@v4
       
@@ -42,10 +43,6 @@ jobs:
     runs-on: ubuntu-latest
     depends-on: build
     steps:
-      - uses: qoomon/actions--setup-git@v1
-        with:
-          user: bot
-      
       # setup git config (for auto-version bumping)
       - name: Setup git config
         run: |
